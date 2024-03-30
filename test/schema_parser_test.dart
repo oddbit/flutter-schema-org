@@ -75,10 +75,10 @@ void main() {
 
       final classes = getClasses(json);
 
-      final classA = classes.firstWhere((c) => c.className == 'ClassA');
-      final classB = classes.firstWhere((c) => c.className == 'ClassB');
-      final classC = classes.firstWhere((c) => c.className == 'ClassC');
-      final classD = classes.firstWhere((c) => c.className == 'ClassD');
+      final classA = classes.firstWhere((c) => c.name == 'ClassA');
+      final classB = classes.firstWhere((c) => c.name == 'ClassB');
+      final classC = classes.firstWhere((c) => c.name == 'ClassC');
+      final classD = classes.firstWhere((c) => c.name == 'ClassD');
       expect(classes.length, 4);
       expect(classD.grandParents, ['ClassA', 'ClassB']);
       expect(classD.parents, ['ClassC']);
@@ -201,7 +201,7 @@ void main() {
         },
       );
 
-      expect(schemaClass.className, 'Event');
+      expect(schemaClass.name, 'Event');
       expect(schemaClass.description,
           'An event happening at a certain time and location, such as a concert, lecture, or festival. Ticketing information may be added via the [[offers]] property. Repeated events may be structured as separate Event objects.');
       expect(schemaClass.parents.length, 1);

@@ -3,7 +3,7 @@ import 'dart:io';
 
 void main(List<String> arguments) {
   if (arguments.isEmpty) {
-    print('Please provide a file name as a command-line argument.');
+    stdout.writeln('Please provide a file name as a command-line argument.');
     exit(1);
   }
 
@@ -14,9 +14,18 @@ void main(List<String> arguments) {
   final graph = (json['@graph'] as List).cast<Map<String, dynamic>>();
 
   final classes = getClasses(graph);
+  final enums = getEnums(graph);
+  stdout.writeln('${classes.length} classes');
+  stdout.writeln('${enums.length} enums');
 
   final StringBuffer sb = StringBuffer();
   _writeFileTop(sb);
+
+  for (final schemaEnum in enums) {
+    _writeEnumToFile(schemaEnum, sb);
+  }
+
+  // Write code for all classes
   for (final klass in classes) {
     _writeSchemaClassToFile(klass, classes, sb);
   }
@@ -46,6 +55,36 @@ void _writeFileTop(StringBuffer sb) {
   sb.writeln();
 }
 
+void _writeEnumToFile(SchemaEnum schemaEnum, StringBuffer sb) {
+  String enumCodeName = _toSchemaTypeName(schemaEnum.name);
+  if (schemaEnum.values.isEmpty) {
+    stderr.writeln('Enum ${schemaEnum.name} has no values');
+    return;
+  }
+
+  sb.writeln('/// ${_splitIntoLines(schemaEnum.description).join('\n/// ')}');
+  sb.writeln('enum $enumCodeName {');
+
+  // Iterate over values for enum members
+  final lastValue = schemaEnum.values.last;
+  for (final value in schemaEnum.values) {
+    String valueName = value.name[0].toLowerCase() + value.name.substring(1);
+    sb.writeln('  /// ${_splitIntoLines(value.description).join('\n  /// ')}');
+    sb.write('  $valueName("https://schema.org/${schemaEnum.name}")');
+    sb.writeln(value == lastValue ? ';' : ',');
+    sb.writeln();
+  }
+  sb.writeln('  /// Constructor for [$enumCodeName]');
+  sb.writeln('  const $enumCodeName(this.value);');
+  sb.writeln();
+  sb.writeln('  /// Enum value as a string');
+  sb.writeln('  final String value;');
+  sb.writeln();
+  sb.writeln('  /// Serialize [$enumCodeName] to JSON-LD');
+  sb.writeln('  String toJson() => value;');
+  sb.writeln('}');
+}
+
 /// Generate code for [SchemaClass] and write it to the StringBuffer [sb].
 /// The list of [classes] is used to determine the parent classes of the class.
 void _writeSchemaClassToFile(
@@ -53,7 +92,7 @@ void _writeSchemaClassToFile(
   List<SchemaClass> classes,
   StringBuffer sb,
 ) {
-  final thisClassName = _toSchemaClassName(schemaClass.className);
+  final thisClassName = _toSchemaTypeName(schemaClass.name);
   sb.writeln();
   // Write class comment
   sb.writeln('/// ${_splitIntoLines(schemaClass.description).join('\n/// ')}');
@@ -66,8 +105,13 @@ void _writeSchemaClassToFile(
   // Get all properties including the parent properties
   final properties = List<SchemaProperty>.from(schemaClass.properties);
   for (var parent in [...schemaClass.parents, ...schemaClass.grandParents]) {
-    final parentClass = classes.firstWhere((c) => c.className == parent);
-    properties.addAll(parentClass.properties);
+    try {
+      final parentClass = classes.firstWhere((c) => c.name == parent);
+      properties.addAll(parentClass.properties);
+    } catch (e) {
+      stderr.writeln(
+          'Parent class $parent not found for class ${schemaClass.name}');
+    }
   }
 
   for (var property in properties) {
@@ -78,7 +122,7 @@ void _writeSchemaClassToFile(
     }
 
     // Write property declaration
-    final declaredTypeName = _toSchemaClassName(property.declaredType);
+    final declaredTypeName = _toSchemaTypeName(property.declaredType);
     sb.writeln('  $declaredTypeName? ${property.name};');
     sb.writeln();
   }
@@ -86,7 +130,7 @@ void _writeSchemaClassToFile(
   // ------------------------------
   // Write constructor
   sb.writeln();
-  sb.write('  /// Create a new instance of [${schemaClass.className}]\n');
+  sb.write('  /// Create a new instance of [${schemaClass.name}]\n');
   sb.write('  $thisClassName({');
   for (var property in schemaClass.properties) {
     sb.write('this.${property.name}, ');
@@ -99,7 +143,7 @@ void _writeSchemaClassToFile(
   sb.writeln('  /// Serialize [$thisClassName] to JSON-LD');
   sb.write('  Map<String, dynamic> toJson() => {');
   sb.write('\'@context\': \'https://schema.org\', ');
-  sb.write('\'@type\': \'${schemaClass.className}\', ');
+  sb.write('\'@type\': \'${schemaClass.name}\', ');
   for (var property in schemaClass.properties) {
     sb.write(
         '\'${property.name}\': convertToJson(${property.name}, [${property.types.join(', ')}]), ');
@@ -142,26 +186,22 @@ List<String> _splitIntoLines(String text) {
 /// populated with their properties and grand parent relationships.
 List<SchemaClass> getClasses(List<Map<String, dynamic>> graph) {
   final properties = _getProperties(graph);
-  final enums = getEnums(graph);
-  final enumNames = enums.map((e) => e.name).toSet();
   final Map<String, SchemaClass> classes = {};
 
   for (final node in graph) {
     if (node['@type'] == 'rdfs:Class' &&
         !_exludedClasses.contains(node['@id'])) {
       final parents = _parseRelationship(node['rdfs:subClassOf']).toSet();
-      if (!parents.contains('Enumeration') &&
-          parents.intersection(enumNames).isEmpty) {
+      if (!parents.contains('Enumeration')) {
         final klass = SchemaClass.fromJson(node);
-        classes[klass.className] = klass;
+        classes[klass.name] = klass;
       }
     }
   }
 
+  // Populate classes with properties and grand parents
   for (final c in classes.values) {
-    c.properties
-        .addAll(properties.where((p) => p.inClasses.contains(c.className)));
-    c.properties.addAll(enums.where((e) => e.inClasses.contains(c.className)));
+    c.properties.addAll(properties.where((p) => p.inClasses.contains(c.name)));
     c.properties.sort((a, b) => a.name.compareTo(b.name));
 
     final List<String> grandParents = [];
@@ -172,8 +212,7 @@ List<SchemaClass> getClasses(List<Map<String, dynamic>> graph) {
     c.grandParents.addAll(grandParents.toSet().toList()..sort());
   }
 
-  return classes.values.toList()
-    ..sort((a, b) => a.className.compareTo(b.className));
+  return classes.values.toList()..sort((a, b) => a.name.compareTo(b.name));
 }
 
 /// Get all the parents of a class with [className]
@@ -268,7 +307,7 @@ String _getTypeDeclaration(String name) {
 /// Converts a schema.org schema name to a easily recognizable class name
 /// This makes it easier to reference the class in code to know that it
 /// refers to Schema.org classes.
-String _toSchemaClassName(String typeName) {
+String _toSchemaTypeName(String typeName) {
   switch (typeName) {
     case 'String':
     case 'int':
@@ -328,26 +367,22 @@ List<String> _parseRelationship(dynamic json) {
 class SchemaClass {
   /// Creates a new instance of [SchemaClass]
   SchemaClass({
-    required className,
+    required this.name,
     required this.description,
     required this.parents,
-  }) : className = '$className';
+  });
 
   /// Creates a new instance of [SchemaClass] from a JSON object
   factory SchemaClass.fromJson(Map<String, dynamic> json) {
-    final name = _getPossiblyTranslatedText(json['rdfs:label']);
-    final description = _getPossiblyTranslatedText(json['rdfs:comment']);
-    final parents = _parseRelationship(json['rdfs:subClassOf']);
-
     return SchemaClass(
-      className: name,
-      description: description,
-      parents: parents,
+      name: _getPossiblyTranslatedText(json['rdfs:label']),
+      description: _getPossiblyTranslatedText(json['rdfs:comment']),
+      parents: _parseRelationship(json['rdfs:subClassOf']),
     );
   }
 
   /// The name of the class as it will be defined in code
-  final String className;
+  final String name;
 
   /// The description of the class
   /// This will be used as a class comment on the class
@@ -404,7 +439,7 @@ class SchemaProperty {
   final List<String> types;
 
   /// The classes that this property belongs to
-  /// A list of [SchemaClass.className] that this property belongs to.
+  /// A list of [SchemaClass.name] that this property belongs to.
   final List<String> inClasses;
 
   /// The declared type of the property
@@ -416,13 +451,11 @@ class SchemaProperty {
 }
 
 /// Represents a schema.org enumeration
-class SchemaEnum extends SchemaProperty {
+class SchemaEnum {
   /// Creates a new instance of [SchemaEnum]
   SchemaEnum({
-    required super.name,
-    required super.description,
-    required super.types,
-    required super.inClasses,
+    required this.name,
+    required this.description,
   });
 
   /// Creates a new instance of [SchemaEnum] from a JSON object
@@ -430,10 +463,15 @@ class SchemaEnum extends SchemaProperty {
     return SchemaEnum(
       name: _getPossiblyTranslatedText(json['rdfs:label']),
       description: _getPossiblyTranslatedText(json['rdfs:comment']),
-      types: _parseRelationship(json['schema:rangeIncludes']),
-      inClasses: _parseRelationship(json['schema:domainIncludes']),
     );
   }
+
+  /// The name of the enum as it will be defined in code
+  final String name;
+
+  /// The description of the enum
+  /// This will be used as a enum comment on the class
+  final String description;
 
   /// The values of the enumeration
   final List<SchemaEnumValue> values = [];
