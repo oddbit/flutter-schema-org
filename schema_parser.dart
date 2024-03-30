@@ -2,7 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 void main(List<String> arguments) {
-  final inputFile = File('schemaorg-currenthttps.jsonld');
+  if (arguments.isEmpty) {
+    print('Please provide a file name as a command-line argument.');
+    exit(1);
+  }
+
+  final inputFile = File(arguments[0]);
   final contents = inputFile.readAsStringSync();
 
   final json = jsonDecode(contents);
