@@ -4,7 +4,7 @@ import '../../parser/schema_parser.dart';
 
 void main() {
   group('Schema Parser CLI', () {
-    test('should be able to get schema classes from JSON', () {
+    test('should be able to get schema types from JSON', () {
       final json = [
         {
           '@id': 'schema:TestEnumA',
@@ -169,7 +169,7 @@ void main() {
       final testEnumB = enums.firstWhere((e) => e.name == 'TestEnumB');
       expect(enums.length, 2, reason: 'Should have 2 enums');
       expect(testEnumA.name, 'TestEnumA');
-      expect(enums[0].values.length, 2);
+      expect(testEnumA.values.length, 2);
       expect(
         testEnumA.values.indexWhere((e) => e.name == 'TestEnumAValue1'),
         greaterThan(-1),
@@ -182,6 +182,53 @@ void main() {
         greaterThan(-1),
         reason: 'Should have TestEnumBValue1',
       );
+    });
+
+    test('should be able to make enums with inheritance structure', () {
+      final json = [
+        {
+          '@id': 'schema:AbstractEnum',
+          '@type': 'rdfs:Class',
+          'rdfs:comment': 'AbstractEnum comment',
+          'rdfs:label': 'AbstractEnum',
+          'rdfs:subClassOf': {'@id': 'schema:Enumeration'}
+        },
+        {
+          '@id': 'schema:ChildEnum',
+          '@type': 'rdfs:Class',
+          'rdfs:comment': 'ChildEnum comment',
+          'rdfs:label': 'ChildEnum',
+          'rdfs:subClassOf': {'@id': 'schema:AbstractEnum'}
+        },
+        {
+          '@id': 'schema:ChildEnumValue1',
+          '@type': 'schema:ChildEnum',
+          'rdfs:comment': 'ChildEnumValue1 comment',
+          'rdfs:label': 'ChildEnumValue1'
+        },
+        {
+          '@id': 'schema:ChildEnumValue2',
+          '@type': 'schema:ChildEnum',
+          'rdfs:comment': 'ChildEnumValue2 value comment',
+          'rdfs:label': 'ChildEnumValue2'
+        },
+      ];
+
+      final enums = getEnums(json);
+
+      final abstractEnum = enums.firstWhere((e) => e.name == 'AbstractEnum');
+      final childEnum = enums.firstWhere((e) => e.name == 'ChildEnum');
+      expect(enums.length, 2, reason: 'Should have 2 enums');
+      expect(abstractEnum.name, 'AbstractEnum');
+      expect(abstractEnum.implementsParent, false);
+      expect(abstractEnum.implementsValues, false);
+      expect(abstractEnum.isAbstract, true);
+
+      expect(childEnum.name, 'ChildEnum');
+      expect(childEnum.implementsParent, true);
+      expect(childEnum.implementsValues, true);
+      expect(childEnum.isAbstract, false);
+      expect(childEnum.values.length, 2);
     });
   });
 }

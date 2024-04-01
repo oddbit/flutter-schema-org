@@ -1,11 +1,13 @@
+import 'schema_class.dart';
 import 'utils.dart';
 
 /// Represents a schema.org enumeration
-class SchemaEnum {
+class SchemaEnum extends SchemaClass {
   /// Creates a new instance of [SchemaEnum]
   SchemaEnum({
-    required this.name,
-    required this.description,
+    required super.name,
+    required super.description,
+    required super.parents,
   });
 
   /// Creates a new instance of [SchemaEnum] from a JSON object
@@ -13,15 +15,15 @@ class SchemaEnum {
     return SchemaEnum(
       name: getPossiblyTranslatedText(json['rdfs:label']),
       description: getPossiblyTranslatedText(json['rdfs:comment']),
+      parents: parseRelationship(json['rdfs:subClassOf']),
     );
   }
 
-  /// The name of the enum as it will be defined in code
-  final String name;
-
-  /// The description of the enum
-  /// This will be used as a enum comment on the class
-  final String description;
+  bool get isAbstract => parents.first == 'Enumeration' && values.isEmpty;
+  bool get implementsValues => values.isNotEmpty;
+  bool get implementsParent =>
+      parents.first != 'Enumeration' && implementsValues;
+  bool get isEnumValue => parents.first != 'Enumeration' && values.isEmpty;
 
   /// The values of the enumeration
   final List<SchemaEnumValue> values = [];

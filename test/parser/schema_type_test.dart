@@ -1,12 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../parser/schema_class.dart';
+import '../../parser/schema_type.dart';
 
 void main() {
   group('Schema Parser CLI', () {
-    group('Schema Class', () {
+    group('Schema Type', () {
       test('should be able to make schema class from JSON', () {
-        final schemaClass = SchemaClass.fromJson(
+        final schemaClass = SchemaType.fromJson(
           {
             '@id': 'schema:Event',
             '@type': 'rdfs:Class',

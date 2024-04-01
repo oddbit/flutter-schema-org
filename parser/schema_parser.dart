@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'code_generator.dart';
 import 'schema_class.dart';
+import 'schema_type.dart';
 import 'schema_enum.dart';
 import 'schema_property.dart';
 import 'utils.dart';
@@ -28,16 +29,16 @@ void main(List<String> arguments) {
   for (final schemaEnum in enums) {
     final StringBuffer sb = StringBuffer();
     generateFileTop(sb);
-    generateEnumCode(schemaEnum, sb);
-    writeToFile(schemaEnum.name, sb);
+    generateEnumCode(sb, schemaEnum);
+    writeToFile(sb, schemaEnum.name);
   }
 
   // Write code for all classes
   for (final schemaClass in classes) {
     final StringBuffer sb = StringBuffer();
     generateFileTop(sb);
-    generateClassCode(schemaClass, classes, sb);
-    writeToFile(schemaClass.name, sb);
+    generateClassCode(sb, schemaClass, classes);
+    writeToFile(sb, schemaClass.name);
   }
 
   exit(0);
@@ -45,36 +46,85 @@ void main(List<String> arguments) {
 
 /// Parse all the classes from the [graph]
 /// Classes are defined as classes that are not a subclass of `Enumeration`
-/// This method will parse the whole [graph] and return a list of [SchemaClass]
+/// This method will parse the whole [graph] and return a list of [SchemaType]
 /// populated with their properties and grand parent relationships.
-List<SchemaClass> getClasses(List<Map<String, dynamic>> graph) {
+List<SchemaType> getClasses(List<Map<String, dynamic>> graph) {
   final properties = _getProperties(graph);
-  final Map<String, SchemaClass> classes = {};
+  final Map<String, SchemaType> types = {};
 
   for (final node in graph) {
     if (node['@type'] == 'rdfs:Class') {
-      final parents = parseRelationship(node['rdfs:subClassOf']).toSet();
-      if (!parents.contains('Enumeration')) {
-        final klass = SchemaClass.fromJson(node);
-        classes[klass.name] = klass;
-      }
+      final schemaType = SchemaType.fromJson(node);
+      types[schemaType.name] = schemaType;
     }
   }
 
-  // Populate classes with properties and grand parents
-  for (final c in classes.values) {
-    c.properties.addAll(properties.where((p) => p.inClasses.contains(c.name)));
-    c.properties.sort((a, b) => a.name.compareTo(b.name));
+  // Populate types with properties and grand parents
+  for (final t in types.values) {
+    t.properties.addAll(properties.where((p) => p.inClasses.contains(t.name)));
+    t.properties.sort((a, b) => a.name.compareTo(b.name));
 
     final List<String> grandParents = [];
-    for (final parent in c.parents) {
-      grandParents.addAll(_getParents(parent, classes));
+    for (final parent in t.parents) {
+      grandParents.addAll(_getParents(parent, types));
     }
 
-    c.grandParents.addAll(grandParents.toSet().toList()..sort());
+    t.grandParents.addAll(grandParents.toSet().toList()..sort());
   }
 
-  return classes.values.toList()..sort((a, b) => a.name.compareTo(b.name));
+  return types.values.toList()
+    ..removeWhere((e) => e.familyTree.contains('Enumeration'))
+    ..sort((a, b) => a.name.compareTo(b.name));
+}
+
+/// Parse all the enums from the [graph]
+/// Enums are defined as classes that are a subclass of `Enumeration`
+/// Enums are like classes with potential hierarchy of parents but the final
+/// inheritance class is its value.
+List<SchemaEnum> getEnums(List<Map<String, dynamic>> graph) {
+  Map<String, SchemaEnum> enums = {};
+
+  // Iterate to find all enum classes
+  for (var node in graph) {
+    if (node['@type'] == 'rdfs:Class') {
+      final schemaEnum = SchemaEnum.fromJson(node);
+      enums[schemaEnum.name] = schemaEnum;
+    }
+  }
+  // Populate enums with properties and grand parents
+  for (final e in enums.values) {
+    final List<String> grandParents = [];
+    for (final parent in e.parents) {
+      grandParents.addAll(_getParents(parent, enums));
+    }
+
+    e.grandParents.addAll(grandParents.toSet().toList()..sort());
+  }
+
+  // Iterate again to populate all enums with their values
+  for (var node in graph) {
+    final enumName = toTypeName(node['@type']);
+    if (enums.containsKey(enumName)) {
+      enums[enumName]?.values.add(SchemaEnumValue.fromJson(node));
+    }
+  }
+
+  return enums.values.toList()
+    ..removeWhere((e) => !e.familyTree.contains('Enumeration'))
+    ..sort((a, b) => a.name.compareTo(b.name))
+    ..forEach((e) => e.values.sort((a, b) => a.name.compareTo(b.name)));
+}
+
+/// Parse all the type properties from the [graph]
+List<SchemaProperty> _getProperties(List<Map<String, dynamic>> graph) {
+  final properties = <SchemaProperty>[];
+  for (final node in graph) {
+    if (node['@type'] == 'rdf:Property') {
+      properties.add(SchemaProperty.fromJson(node));
+    }
+  }
+
+  return properties..sort((a, b) => a.name.compareTo(b.name));
 }
 
 /// Get all the parents of a class with [className]
@@ -104,43 +154,4 @@ List<String> _getParents(
   parents.addAll(newParents);
 
   return parents;
-}
-
-/// Parse all the enums from the [graph]
-/// Enums are defined as classes that are a subclass of `Enumeration`
-List<SchemaEnum> getEnums(List<Map<String, dynamic>> graph) {
-  Map<String, SchemaEnum> enums = {};
-
-  // Iterate to find all enum classes
-  for (var node in graph) {
-    if (node['@type'] == 'rdfs:Class') {
-      if (parseRelationship(node['rdfs:subClassOf']).contains('Enumeration')) {
-        enums[node['@id']] = SchemaEnum.fromJson(node);
-      }
-    }
-  }
-
-  // Iterate again to populate all enums with their values
-  for (var node in graph) {
-    final enumClassName = node['@type'];
-    if (enums.containsKey(enumClassName)) {
-      enums[enumClassName]?.values.add(SchemaEnumValue.fromJson(node));
-    }
-  }
-
-  return enums.values.toList()
-    ..sort((a, b) => a.name.compareTo(b.name))
-    ..forEach((e) => e.values.sort((a, b) => a.name.compareTo(b.name)));
-}
-
-/// Parse all the properties from the [graph]
-List<SchemaProperty> _getProperties(List<Map<String, dynamic>> graph) {
-  final properties = <SchemaProperty>[];
-  for (final node in graph) {
-    if (node['@type'] == 'rdf:Property') {
-      properties.add(SchemaProperty.fromJson(node));
-    }
-  }
-
-  return properties..sort((a, b) => a.name.compareTo(b.name));
 }

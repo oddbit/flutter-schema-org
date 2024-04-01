@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'schema_class.dart';
+import 'schema_type.dart';
 import 'schema_enum.dart';
 import 'schema_property.dart';
 import 'utils.dart';
@@ -14,7 +14,7 @@ const List<String> _excludedImports = [
   'dynamic'
 ];
 
-void writeToFile(String schemaName, StringBuffer sb) {
+void writeToFile(StringBuffer sb, String schemaName) {
   final directory = Directory('../lib/schemas');
 
   if (!directory.existsSync()) {
@@ -34,7 +34,7 @@ void generateFileTop(StringBuffer sb) {
 }
 
 /// Generate code for [SchemaEnum] and write it to the StringBuffer [sb].
-void generateEnumCode(SchemaEnum schemaEnum, StringBuffer sb) {
+void generateEnumCode(StringBuffer sb, SchemaEnum schemaEnum) {
   String enumCodeName = _toCodeName(schemaEnum.name);
   if (schemaEnum.values.isEmpty) {
     stderr.writeln('Enum ${schemaEnum.name} has no values');
@@ -68,19 +68,18 @@ void generateEnumCode(SchemaEnum schemaEnum, StringBuffer sb) {
   sb.writeln('}');
 }
 
-/// Generate code for [SchemaClass] and write it to the StringBuffer [sb].
+/// Generate code for [SchemaType] and write it to the StringBuffer [sb].
 /// The list of [classes] is used to determine the parent classes of the class.
 void generateClassCode(
-  SchemaClass schemaClass,
-  List<SchemaClass> classes,
   StringBuffer sb,
+  SchemaType schemaClass,
+  List<SchemaType> classes,
 ) {
   final classCodeName = _toCodeName(schemaClass.name);
-  final familyTree = [...schemaClass.parents, ...schemaClass.grandParents];
 
   // Get all properties including the parent properties
   final properties = List<SchemaProperty>.from(schemaClass.properties);
-  for (final parent in familyTree) {
+  for (final parent in schemaClass.familyTree) {
     try {
       final parentClass = classes.firstWhere((c) => c.name == parent);
       for (final property in parentClass.properties) {
