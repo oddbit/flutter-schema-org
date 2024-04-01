@@ -25,16 +25,11 @@ void writeToFile(StringBuffer sb, String schemaName) {
   File('${directory.path}/$fileName').writeAsStringSync(sb.toString());
 }
 
-/// Write the top of the file
-/// This will include the library import and the converter import
-void generateFileTop(StringBuffer sb) {
+void generateEnumCode(StringBuffer sb, SchemaEnum schemaEnum) {
   sb.writeln('library schema_org;');
   sb.writeln();
   sb.writeln("import 'package:schema_org/utils.dart';");
-}
 
-/// Generate code for [SchemaEnum] and write it to the StringBuffer [sb].
-void generateEnumCode(StringBuffer sb, SchemaEnum schemaEnum) {
   String enumCodeName = _toCodeName(schemaEnum.name);
   if (schemaEnum.values.isEmpty) {
     stderr.writeln('Enum ${schemaEnum.name} has no values');
@@ -46,7 +41,11 @@ void generateEnumCode(StringBuffer sb, SchemaEnum schemaEnum) {
 
   _writeCodeComment(sb, schemaEnum.description);
   sb.writeln('/// See https://schema.org/${schemaEnum.name}');
-  sb.writeln('enum $enumCodeName {');
+  sb.write('enum $enumCodeName');
+  if (schemaEnum.implementsParent) {
+    sb.write(' implements ${_toCodeName(schemaEnum.parents.first)}');
+  }
+  sb.writeln(' {');
 
   // Iterate over values for enum members
   final lastValue = schemaEnum.values.last;
@@ -68,6 +67,22 @@ void generateEnumCode(StringBuffer sb, SchemaEnum schemaEnum) {
   sb.writeln('}');
 }
 
+/// Generate an abstract class to represent inheritance structure of an
+/// enum that doesn't define any values directly in schema.org
+void generateAbstractEnumCode(StringBuffer sb, SchemaEnum schemaEnum) {
+  sb.writeln('library schema_org;');
+  sb.writeln();
+
+  String enumCodeName = _toCodeName(schemaEnum.name);
+
+  // -----------------------------------------------------------
+  // Write code for the class
+
+  _writeCodeComment(sb, schemaEnum.description);
+  sb.writeln('/// See https://schema.org/${schemaEnum.name}');
+  sb.writeln('abstract class $enumCodeName {}');
+}
+
 /// Generate code for [SchemaType] and write it to the StringBuffer [sb].
 /// The list of [classes] is used to determine the parent classes of the class.
 void generateClassCode(
@@ -75,6 +90,10 @@ void generateClassCode(
   SchemaType schemaClass,
   List<SchemaType> classes,
 ) {
+  sb.writeln('library schema_org;');
+  sb.writeln();
+  sb.writeln("import 'package:schema_org/utils.dart';");
+
   final classCodeName = _toCodeName(schemaClass.name);
 
   // Get all properties including the parent properties

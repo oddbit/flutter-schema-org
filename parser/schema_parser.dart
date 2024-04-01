@@ -28,15 +28,17 @@ void main(List<String> arguments) {
   // Write code for all enums
   for (final schemaEnum in enums) {
     final StringBuffer sb = StringBuffer();
-    generateFileTop(sb);
-    generateEnumCode(sb, schemaEnum);
+    if (schemaEnum.isAbstract) {
+      generateAbstractEnumCode(sb, schemaEnum);
+    } else {
+      generateEnumCode(sb, schemaEnum);
+    }
     writeToFile(sb, schemaEnum.name);
   }
 
   // Write code for all classes
   for (final schemaClass in classes) {
     final StringBuffer sb = StringBuffer();
-    generateFileTop(sb);
     generateClassCode(sb, schemaClass, classes);
     writeToFile(sb, schemaClass.name);
   }
@@ -69,6 +71,15 @@ List<SchemaType> getClasses(List<Map<String, dynamic>> graph) {
       grandParents.addAll(_getParents(parent, types));
     }
 
+    /// There are complex relationships where a class both inherits from
+    /// enumeration and other classes. The best way to handle this for now
+    /// is to just represent the enumeration as an String option type
+    /// See https://github.com/oddbit/flutter-schema-org/issues/1
+    if (grandParents.contains('Enumeration') &&
+        grandParents.where((element) => element == 'Thing').length > 1) {
+      grandParents.removeWhere((element) => element == 'Enumeration');
+    }
+
     t.grandParents.addAll(grandParents.toSet().toList()..sort());
   }
 
@@ -99,7 +110,11 @@ List<SchemaEnum> getEnums(List<Map<String, dynamic>> graph) {
       grandParents.addAll(_getParents(parent, enums));
     }
 
-    e.grandParents.addAll(grandParents.toSet().toList()..sort());
+    /// Only add this schema class if it is only a direct child of Enumeration
+    /// See https://github.com/oddbit/flutter-schema-org/issues/1
+    if (grandParents.where((element) => element == 'Thing').length == 1) {
+      e.grandParents.addAll(grandParents.toSet().toList()..sort());
+    }
   }
 
   // Iterate again to populate all enums with their values
