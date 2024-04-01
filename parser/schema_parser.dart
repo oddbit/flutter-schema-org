@@ -74,6 +74,7 @@ List<SchemaType> getClasses(List<Map<String, dynamic>> graph) {
 
   return types.values.toList()
     ..removeWhere((e) => e.familyTree.contains('Enumeration'))
+    ..removeWhere((e) => isExcludedType(e.name))
     ..sort((a, b) => a.name.compareTo(b.name));
 }
 
@@ -102,7 +103,7 @@ List<SchemaEnum> getEnums(List<Map<String, dynamic>> graph) {
   }
 
   // Iterate again to populate all enums with their values
-  for (var node in graph) {
+  for (var node in graph.where((element) => element['@type'] is String)) {
     final enumName = toTypeName(node['@type']);
     if (enums.containsKey(enumName)) {
       enums[enumName]?.values.add(SchemaEnumValue.fromJson(node));

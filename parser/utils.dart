@@ -1,3 +1,7 @@
+/// This method will return `true` if the provided type is one of the built in
+/// data types in schema.org, which is translated to scalar types in dart.
+bool isExcludedType(String type) => toTypeName(type) != type;
+
 /// Converts a schema.org schema name to a easily recognizable class name
 /// This makes it easier to reference the class in code to know that it
 /// refers to Schema.org classes.
