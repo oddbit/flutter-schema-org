@@ -28,7 +28,7 @@ void main(List<String> arguments) {
   // Write code for all enums
   for (final schemaEnum in enums) {
     final StringBuffer sb = StringBuffer();
-    if (schemaEnum.isAbstract) {
+    if (schemaEnum.values.isEmpty) {
       generateAbstractEnumCode(sb, schemaEnum);
     } else {
       generateEnumCode(sb, schemaEnum);

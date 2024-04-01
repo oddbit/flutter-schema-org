@@ -28,7 +28,9 @@ void writeToFile(StringBuffer sb, String schemaName) {
 void generateEnumCode(StringBuffer sb, SchemaEnum schemaEnum) {
   sb.writeln('library schema_org;');
   sb.writeln();
-  sb.writeln("import 'package:schema_org/utils.dart';");
+  if (schemaEnum.implementsParent) {
+    _writeImportStatement(schemaEnum.parents.first, sb);
+  }
 
   String enumCodeName = _toCodeName(schemaEnum.name);
   if (schemaEnum.values.isEmpty) {
@@ -52,7 +54,7 @@ void generateEnumCode(StringBuffer sb, SchemaEnum schemaEnum) {
   for (final value in schemaEnum.values) {
     String valueName = value.name[0].toLowerCase() + value.name.substring(1);
     _writeCodeComment(sb, value.description, 1);
-    sb.write('  $valueName("https://schema.org/${schemaEnum.name}")');
+    sb.write('  $valueName(\'https://schema.org/${schemaEnum.name}\')');
     sb.writeln(value == lastValue ? ';' : ',');
     sb.writeln();
   }
