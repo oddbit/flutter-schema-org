@@ -1,6 +1,10 @@
-import 'package:schema_org/unsupported_type.dart';
+import 'package:schema_org/exceptions.dart';
 
-dynamic convertToJson(dynamic val, [List<Type> types = const []]) {
+/// Converts a dynamic value to JSON
+/// The [types] parameter is used to specify the expected types of the value.
+/// Its value will restric the expectations and ensure that correc types are
+/// passed into the function.
+dynamic convertToJsonLd(dynamic val, [List<Type> types = const []]) {
   // If the value is null, return null
   if (val == null) {
     return null;
