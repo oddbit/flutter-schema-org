@@ -1,6 +1,6 @@
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
-import '../../parser/utils.dart';
+import '../utils.dart';
 
 void main() {
   group('Schema Parser CLI', () {

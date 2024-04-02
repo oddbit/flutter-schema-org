@@ -12,3 +12,12 @@ the source code is generated with a relative path from there.
 ```bash
 dart schema_parser.dart ~/Downloads/schemaorg-currenthttps.jsonld
 ```
+
+The generated code will need some fixing due to poor formatting and sanity
+checking of the code generation. Run the following
+
+```
+cd ../lib/schemas
+dart format .
+dart fix --apply
+```

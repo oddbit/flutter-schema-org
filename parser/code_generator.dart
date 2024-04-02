@@ -30,6 +30,8 @@ void generateEnumCode(StringBuffer sb, SchemaEnum schemaEnum) {
   sb.writeln();
   if (schemaEnum.implementsParent) {
     _writeImportStatement(schemaEnum.parents.first, sb);
+  } else {
+    sb.writeln("import 'package:schema_org/schema_org.dart';");
   }
 
   String enumCodeName = _toCodeName(schemaEnum.name);
@@ -46,6 +48,8 @@ void generateEnumCode(StringBuffer sb, SchemaEnum schemaEnum) {
   sb.write('enum $enumCodeName');
   if (schemaEnum.implementsParent) {
     sb.write(' implements ${_toCodeName(schemaEnum.parents.first)}');
+  } else {
+    sb.write(' implements SchemaSerializable');
   }
   sb.writeln(' {');
 
@@ -65,6 +69,9 @@ void generateEnumCode(StringBuffer sb, SchemaEnum schemaEnum) {
   sb.writeln('  final String value;');
   sb.writeln();
   sb.writeln('  /// Serialize [$enumCodeName] to JSON-LD');
+  if (!schemaEnum.implementsParent) {
+    sb.writeln('  @override');
+  }
   sb.writeln('  String toJsonLd() => value;');
   sb.writeln('}');
 }
@@ -95,6 +102,7 @@ void generateClassCode(
   sb.writeln('library schema_org;');
   sb.writeln();
   sb.writeln("import 'package:schema_org/utils.dart';");
+  sb.writeln("import 'package:schema_org/schema_org.dart';");
 
   final classCodeName = _toCodeName(schemaClass.name);
 
@@ -130,7 +138,7 @@ void generateClassCode(
   _writeCodeComment(sb, schemaClass.description);
   sb.writeln('/// See https://schema.org/${schemaClass.name}');
   // Write class declaration
-  sb.writeln('class $classCodeName {');
+  sb.writeln('class $classCodeName implements SchemaSerializable {');
 
   // -----------------------------------------------------------
   // Write properties
@@ -168,17 +176,18 @@ void generateClassCode(
   // -----------------------------------------------------------
   // Write toJson method
   sb.writeln('  /// Serialize [$classCodeName] to JSON-LD');
-  sb.write('  Map<String, dynamic> toJsonLd() => {');
-  sb.write('\'@context\': \'https://schema.org\', ');
-  sb.write('\'@type\': \'${schemaClass.name}\', ');
+  sb.writeln('  @override');
+  sb.writeln('  Map<String, dynamic> toJsonLd() => removeEmpty({');
+  sb.writeln('    \'@context\': \'https://schema.org\', ');
+  sb.writeln('    \'@type\': \'${schemaClass.name}\', ');
   for (var property in properties) {
     final propertyTypes =
         property.schemaTypes.map((t) => _toCodeName(t)).toList().join(', ');
-    sb.write(
-      '\'${property.name}\': convertToJsonLd(${property.name}, [$propertyTypes]), ',
+    sb.writeln(
+      '    \'${property.name}\': convertToJsonLd(${property.name}, [$propertyTypes]), ',
     );
   }
-  sb.writeln('};');
+  sb.writeln('});');
 
   // End class declaration
   sb.writeln('}');
