@@ -20,14 +20,16 @@ Call the `SchemaOrg.writeJsonLd()` method and pass it a Schema.org class that
 represents your data.
 
 ```flutter
-SchemaOrg.writeJsonLd(SchemaOrganization(
-    name: 'Oddbit',
-    url: 'https://oddbit.id',
-    logo: 'https://avatars.githubusercontent.com/u/1946799?s=200&v=4',
-));
+SchemaOrg.writeJsonLd(
+    SchemaOrganization(
+        name: 'Oddbit',
+        url: 'https://oddbit.id',
+        logo: 'https://avatars.githubusercontent.com/u/1946799?s=200&v=4',
+    ),
+);
 ```
 
-![Oddbit Organization Screenshot](https://github.com/oddbit/flutter-schema-org/blob/main/images/oddbit_organization_html.png)
+![Oddbit Organization Screenshot](https://raw.githubusercontent.com/oddbit/flutter-schema-org/main/images/oddbit_organization_html.png)
 
 ## Getting involved
 
