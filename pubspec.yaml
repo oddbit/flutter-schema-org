@@ -1,5 +1,5 @@
 name: schema_org
-description: "JSON-LD library with Dart types for Schema.org vocabulary."
+description: "A JSON-LD library with Flutter/Dart types for Schema.org vocabulary."
 version: 1.0.1
 homepage: https://github.com/oddbit/flutter-schema-org
 
