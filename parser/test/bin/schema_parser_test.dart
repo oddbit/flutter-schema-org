@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
 
-import '../schema_parser.dart';
+import '../../bin/schema_parser.dart';
 
 void main() {
   group('Schema Parser CLI', () {

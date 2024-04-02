@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'code_generator.dart';
-import 'schema_class.dart';
-import 'schema_type.dart';
-import 'schema_enum.dart';
-import 'schema_property.dart';
-import 'utils.dart';
+import '../code_generator.dart';
+import '../lib/schema_class.dart';
+import '../lib/schema_type.dart';
+import '../lib/schema_enum.dart';
+import '../lib/schema_property.dart';
+import '../lib/utils.dart';
 
 void main(List<String> arguments) {
   if (arguments.isEmpty) {

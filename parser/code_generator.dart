@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'schema_type.dart';
-import 'schema_enum.dart';
-import 'schema_property.dart';
-import 'utils.dart';
+import 'lib/schema_type.dart';
+import 'lib/schema_enum.dart';
+import 'lib/schema_property.dart';
+import 'lib/utils.dart';
 
 /// Classes that should be excluded from schema generation and import statements
 const List<String> _excludedImports = [
