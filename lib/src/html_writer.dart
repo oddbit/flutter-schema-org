@@ -10,7 +10,8 @@ class SchemaOrg {
   static void writeJsonLd(SchemaSerializable schemaClass) {
     final script = html.ScriptElement();
     script.type = 'application/ld+json';
-    script.innerHtml = jsonEncode(schemaClass.toJsonLd());
+    const encoder = JsonEncoder.withIndent('  ');
+    script.innerHtml = encoder.convert(schemaClass.toJsonLd());
     html.document.body!.append(script);
   }
 }
