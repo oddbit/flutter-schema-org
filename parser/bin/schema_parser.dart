@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
-import '../code_generator.dart';
-import '../lib/schema_class.dart';
-import '../lib/schema_type.dart';
-import '../lib/schema_enum.dart';
-import '../lib/schema_property.dart';
-import '../lib/utils.dart';
+import 'package:schema_parser/code_generator.dart';
+import 'package:schema_parser/schema_class.dart';
+import 'package:schema_parser/schema_type.dart';
+import 'package:schema_parser/schema_enum.dart';
+import 'package:schema_parser/schema_property.dart';
+import 'package:schema_parser/utils.dart';
 
 void main(List<String> arguments) {
   if (arguments.isEmpty) {

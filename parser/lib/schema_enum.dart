@@ -1,4 +1,4 @@
-import 'schema_class.dart';
+import 'package:schema_parser/schema_class.dart';
 import 'utils.dart';
 
 /// Represents a schema.org enumeration

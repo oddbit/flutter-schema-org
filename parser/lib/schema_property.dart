@@ -1,4 +1,4 @@
-import 'utils.dart';
+import 'package:schema_parser/utils.dart';
 
 /// Represents a schema.org property
 class SchemaProperty {

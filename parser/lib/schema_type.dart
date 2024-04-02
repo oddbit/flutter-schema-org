@@ -1,6 +1,6 @@
-import 'schema_class.dart';
-import 'schema_property.dart';
-import 'utils.dart';
+import 'package:schema_parser/schema_class.dart';
+import 'package:schema_parser/schema_property.dart';
+import 'package:schema_parser/utils.dart';
 
 /// Represents a schema.org type
 class SchemaType extends SchemaClass {

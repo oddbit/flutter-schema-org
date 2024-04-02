@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
                     const SizedBox(width: 16),
                     Text(
                       'Oddbit',
-                      style: Theme.of(context).textTheme.headline5?.copyWith(
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
                             color: Colors.green,
                           ),
                     ),

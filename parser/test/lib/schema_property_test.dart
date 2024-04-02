@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_relative_lib_imports
+
 import 'package:test/test.dart';
 
 import '../../lib/schema_property.dart';
