@@ -1,5 +1,3 @@
-library schema_org;
-
 import 'package:schema_org/schemas/status_enumeration.dart';
 
 /// EventStatusType is an enumeration type whose instances represent

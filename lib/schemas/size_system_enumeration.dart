@@ -1,6 +1,4 @@
-library schema_org;
-
-import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/src/schema_serializable.dart';
 
 /// Enumerates common size systems for different categories of
 /// products, for example "EN-13402" or "UK" for wearables or

@@ -1,6 +1,4 @@
-library schema_org;
-
-import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/src/schema_serializable.dart';
 
 /// Codes for use with the [[mediaAuthenticityCategory]] property,
 /// indicating the authenticity of a media object (in the context of

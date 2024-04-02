@@ -1,6 +1,4 @@
-library schema_org;
-
-import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/src/schema_serializable.dart';
 
 /// Enumerates several types of return labels for product returns.
 /// See https://schema.org/ReturnLabelSourceEnumeration

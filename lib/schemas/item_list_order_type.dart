@@ -1,6 +1,4 @@
-library schema_org;
-
-import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/src/schema_serializable.dart';
 
 /// Enumerated for values for itemListOrder for indicating how an
 /// ordered ItemList is organized.

@@ -1,5 +1,3 @@
-library schema_org;
-
 import 'package:schema_org/schemas/energy_efficiency_enumeration.dart';
 
 /// Enumerates the EU energy efficiency classes A-G as well as A+,

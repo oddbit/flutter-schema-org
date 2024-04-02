@@ -1,5 +1,3 @@
-library schema_org;
-
 import 'package:schema_org/schemas/medical_enumeration.dart';
 
 /// Indicates whether this drug is available by prescription or

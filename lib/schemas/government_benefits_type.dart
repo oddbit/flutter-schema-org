@@ -1,6 +1,4 @@
-library schema_org;
-
-import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/src/schema_serializable.dart';
 
 /// GovernmentBenefitsType enumerates several kinds of government
 /// benefits to support the COVID-19 situation Note that this

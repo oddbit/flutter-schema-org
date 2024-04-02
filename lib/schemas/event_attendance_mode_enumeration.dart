@@ -1,6 +1,4 @@
-library schema_org;
-
-import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/src/schema_serializable.dart';
 
 /// An EventAttendanceModeEnumeration value is one of potentially
 /// several modes of organising an event, relating to whether it is

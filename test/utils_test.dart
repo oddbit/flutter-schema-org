@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:schema_org/exceptions.dart';
-import 'package:schema_org/utils.dart';
+import 'package:schema_org/src/exceptions.dart';
+import 'package:schema_org/src/utils.dart';
 
 class _TestClass {
   String name;

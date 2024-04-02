@@ -1,5 +1,3 @@
-library schema_org;
-
 import 'package:schema_org/schemas/nonprofit_type.dart';
 
 /// Non-profit organization type originating from the United

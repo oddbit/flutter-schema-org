@@ -1,6 +1,4 @@
-library schema_org;
-
-import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/src/schema_serializable.dart';
 
 /// Enumeration(s) for use with [[measurementMethod]].
 /// See https://schema.org/MeasurementMethodEnum

@@ -1,5 +1,3 @@
-library schema_org;
-
 import 'package:schema_org/schemas/measurement_type_enumeration.dart';
 
 /// Enumerates common types of measurement for wearables products.

@@ -1,6 +1,4 @@
-library schema_org;
-
-import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/src/schema_serializable.dart';
 
 /// soundtrack, live album, studio album, etc.
 /// See https://schema.org/MusicAlbumProductionType

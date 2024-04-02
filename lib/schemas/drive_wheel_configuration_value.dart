@@ -1,5 +1,3 @@
-library schema_org;
-
 import 'package:schema_org/schemas/qualitative_value.dart';
 
 /// A value indicating which roadwheels will receive torque.

@@ -1,6 +1,4 @@
-library schema_org;
-
-import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/src/schema_serializable.dart';
 
 /// HealthAspectEnumeration enumerates several aspects of health
 /// content online, each of which might be described using

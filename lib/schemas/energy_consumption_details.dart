@@ -1,7 +1,5 @@
-library schema_org;
-
-import 'package:schema_org/utils.dart';
-import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/src/utils.dart';
+import 'package:schema_org/src/schema_serializable.dart';
 import 'package:schema_org/schemas/eu_energy_efficiency_enumeration.dart';
 import 'package:schema_org/schemas/energy_efficiency_enumeration.dart';
 import 'package:schema_org/schemas/text_object.dart';

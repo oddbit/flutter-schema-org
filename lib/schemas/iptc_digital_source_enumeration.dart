@@ -1,5 +1,3 @@
-library schema_org;
-
 import 'package:schema_org/schemas/media_enumeration.dart';
 
 /// //cv.iptc.org/newscodes/digitalsourcetype/">detailed

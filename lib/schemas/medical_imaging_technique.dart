@@ -1,5 +1,3 @@
-library schema_org;
-
 import 'package:schema_org/schemas/medical_enumeration.dart';
 
 /// Any medical imaging modality typically used for diagnostic

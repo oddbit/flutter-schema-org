@@ -1,6 +1,4 @@
-library schema_org;
-
-import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/src/schema_serializable.dart';
 
 /// A diet restricted to certain foods or preparations for cultural,
 /// religious, health or lifestyle reasons.

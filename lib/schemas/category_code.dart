@@ -1,7 +1,5 @@
-library schema_org;
-
-import 'package:schema_org/utils.dart';
-import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/src/utils.dart';
+import 'package:schema_org/src/schema_serializable.dart';
 import 'package:schema_org/schemas/category_code_set.dart';
 import 'package:schema_org/schemas/defined_term_set.dart';
 import 'package:schema_org/schemas/text_object.dart';

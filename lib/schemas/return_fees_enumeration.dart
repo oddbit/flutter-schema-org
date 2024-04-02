@@ -1,6 +1,4 @@
-library schema_org;
-
-import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/src/schema_serializable.dart';
 
 /// Enumerates several kinds of policies for product return fees.
 /// See https://schema.org/ReturnFeesEnumeration

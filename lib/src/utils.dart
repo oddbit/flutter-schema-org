@@ -1,4 +1,4 @@
-import 'package:schema_org/exceptions.dart';
+import 'package:schema_org/src/exceptions.dart';
 
 /// Converts a dynamic value to JSON
 /// The [types] parameter is used to specify the expected types of the value.

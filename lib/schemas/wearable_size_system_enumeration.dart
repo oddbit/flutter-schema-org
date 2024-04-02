@@ -1,5 +1,3 @@
-library schema_org;
-
 /// Enumerates common size systems specific for wearable products.
 /// See https://schema.org/WearableSizeSystemEnumeration
 enum SchemaWearableSizeSystemEnumeration {

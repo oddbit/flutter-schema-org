@@ -1,6 +1,4 @@
-library schema_org;
-
-import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/src/schema_serializable.dart';
 
 /// An enumeration of several kinds of Map.
 /// See https://schema.org/MapCategoryType

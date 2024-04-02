@@ -1,5 +1,3 @@
-library schema_org;
-
 import 'package:schema_org/schemas/size_group_enumeration.dart';
 
 /// Enumerates common size groups (also known as "size types") for

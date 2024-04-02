@@ -1,6 +1,4 @@
-library schema_org;
-
-import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/src/schema_serializable.dart';
 
 /// //purl.org/goodrelations/v1) were used (for [[Monday]],
 /// [[Tuesday]], [[Wednesday]], [[Thursday]], [[Friday]],

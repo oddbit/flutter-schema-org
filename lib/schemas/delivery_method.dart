@@ -1,6 +1,4 @@
-library schema_org;
-
-import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/src/schema_serializable.dart';
 
 /// //purl.org/goodrelations/v1#UPS
 /// See https://schema.org/DeliveryMethod

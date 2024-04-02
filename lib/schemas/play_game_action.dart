@@ -1,7 +1,5 @@
-library schema_org;
-
-import 'package:schema_org/utils.dart';
-import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/src/utils.dart';
+import 'package:schema_org/src/schema_serializable.dart';
 import 'package:schema_org/schemas/game_availability_enumeration.dart';
 import 'package:schema_org/schemas/action_access_specification.dart';
 import 'package:schema_org/schemas/offer.dart';

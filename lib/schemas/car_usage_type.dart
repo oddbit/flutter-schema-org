@@ -1,6 +1,4 @@
-library schema_org;
-
-import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/src/schema_serializable.dart';
 
 /// A value indicating a special usage of a car, e.g commercial
 /// rental, driving school, or as a taxi.
