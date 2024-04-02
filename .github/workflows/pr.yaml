@@ -1,4 +1,4 @@
-name: Publish package to pub.dev
+name: Pull Request
 on:
   pull_request:
     branches:
@@ -22,7 +22,7 @@ jobs:
 
       - run: dart format --set-exit-if-changed .
 
-      - run: flutter analyze --verbose
+      - run: flutter analyze
 
       - name: Run tests
         run: flutter test --test-randomize-ordering-seed=$RANDOM
