@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/drug.dart';
 import 'package:schema_org/schemas/medical_enumeration.dart';
 import 'package:schema_org/schemas/medical_sign.dart';
@@ -23,7 +24,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// Any medical test, typically performed for diagnostic purposes.
 /// See https://schema.org/MedicalTest
-class SchemaMedicalTest {
+class SchemaMedicalTest implements SchemaSerializable {
   /// Drugs that affect the test's results.
   SchemaDrug? affectedBy;
 
@@ -156,7 +157,8 @@ class SchemaMedicalTest {
   });
 
   /// Serialize [SchemaMedicalTest] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalTest',
         'affectedBy': convertToJsonLd(affectedBy, [SchemaDrug]),
@@ -194,5 +196,5 @@ class SchemaMedicalTest {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

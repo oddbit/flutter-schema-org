@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/action.dart';
 /// candidature for an academic degree or professional
 /// qualification.
 /// See https://schema.org/Thesis
-class SchemaThesis {
+class SchemaThesis implements SchemaSerializable {
   /// Qualification, candidature, degree, application that Thesis
   /// supports.
   String? inSupportOf;
@@ -841,7 +842,8 @@ class SchemaThesis {
   });
 
   /// Serialize [SchemaThesis] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Thesis',
         'inSupportOf': convertToJsonLd(inSupportOf, [String]),
@@ -1013,5 +1015,5 @@ class SchemaThesis {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

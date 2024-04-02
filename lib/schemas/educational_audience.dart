@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -11,7 +12,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// An EducationalAudience.
 /// See https://schema.org/EducationalAudience
-class SchemaEducationalAudience {
+class SchemaEducationalAudience implements SchemaSerializable {
   /// An educationalRole of an EducationalAudience.
   String? educationalRole;
 
@@ -96,7 +97,8 @@ class SchemaEducationalAudience {
   });
 
   /// Serialize [SchemaEducationalAudience] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'EducationalAudience',
         'educationalRole': convertToJsonLd(educationalRole, [String]),
@@ -119,5 +121,5 @@ class SchemaEducationalAudience {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

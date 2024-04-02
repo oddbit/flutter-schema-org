@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
@@ -45,7 +46,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// An outlet store.
 /// See https://schema.org/OutletStore
-class SchemaOutletStore {
+class SchemaOutletStore implements SchemaSerializable {
   /// The larger organization that this local business is a branch of,
   /// if any Not to be confused with (anatomical) [[branch]].
   SchemaOrganization? branchOf;
@@ -680,7 +681,8 @@ class SchemaOutletStore {
   });
 
   /// Serialize [SchemaOutletStore] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'OutletStore',
         'branchOf': convertToJsonLd(branchOf, [SchemaOrganization]),
@@ -848,5 +850,5 @@ class SchemaOutletStore {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

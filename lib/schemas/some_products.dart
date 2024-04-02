@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
@@ -38,7 +39,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// A placeholder for multiple similar products of the same kind.
 /// See https://schema.org/SomeProducts
-class SchemaSomeProducts {
+class SchemaSomeProducts implements SchemaSerializable {
   /// The current approximate inventory level for the item or items.
   SchemaQuantitativeValue? inventoryLevel;
 
@@ -474,7 +475,8 @@ class SchemaSomeProducts {
   });
 
   /// Serialize [SchemaSomeProducts] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'SomeProducts',
         'inventoryLevel':
@@ -583,5 +585,5 @@ class SchemaSomeProducts {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

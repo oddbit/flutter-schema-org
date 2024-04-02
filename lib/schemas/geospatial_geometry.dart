@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -12,7 +13,7 @@ import 'package:schema_org/schemas/event.dart';
 /// (Eventually to be defined as) a supertype of GeoShape designed
 /// to accommodate definitions from Geo-Spatial best practices.
 /// See https://schema.org/GeospatialGeometry
-class SchemaGeospatialGeometry {
+class SchemaGeospatialGeometry implements SchemaSerializable {
   /// //en.wikipedia.org/wiki/DE-9IM).  Supported types:
   /// [GeospatialGeometry], [Place]
   dynamic geoContains;
@@ -137,7 +138,8 @@ class SchemaGeospatialGeometry {
   });
 
   /// Serialize [SchemaGeospatialGeometry] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'GeospatialGeometry',
         'geoContains': convertToJsonLd(
@@ -176,5 +178,5 @@ class SchemaGeospatialGeometry {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

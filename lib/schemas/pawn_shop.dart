@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A shop that will buy, or lend money against the security of,
 /// personal possessions.
 /// See https://schema.org/PawnShop
-class SchemaPawnShop {
+class SchemaPawnShop implements SchemaSerializable {
   /// The larger organization that this local business is a branch of,
   /// if any Not to be confused with (anatomical) [[branch]].
   SchemaOrganization? branchOf;
@@ -681,7 +682,8 @@ class SchemaPawnShop {
   });
 
   /// Serialize [SchemaPawnShop] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PawnShop',
         'branchOf': convertToJsonLd(branchOf, [SchemaOrganization]),
@@ -849,5 +851,5 @@ class SchemaPawnShop {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/diet.dart';
 import 'package:schema_org/schemas/distance.dart';
@@ -26,7 +27,7 @@ import 'package:schema_org/schemas/action.dart';
 /// The act of participating in exertive activity for the purposes
 /// of improving health and fitness.
 /// See https://schema.org/ExerciseAction
-class SchemaExerciseAction {
+class SchemaExerciseAction implements SchemaSerializable {
   /// A sub property of location The course where this action was
   /// taken.
   SchemaPlace? course;
@@ -249,7 +250,8 @@ class SchemaExerciseAction {
   });
 
   /// Serialize [SchemaExerciseAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ExerciseAction',
         'course': convertToJsonLd(course, [SchemaPlace]),
@@ -300,5 +302,5 @@ class SchemaExerciseAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

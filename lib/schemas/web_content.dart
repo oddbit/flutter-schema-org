@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -50,7 +51,7 @@ import 'package:schema_org/schemas/action.dart';
 /// [[WebPageElement]] will eventually be declared as subtypes of
 /// [[WebContent]].)
 /// See https://schema.org/WebContent
-class SchemaWebContent {
+class SchemaWebContent implements SchemaSerializable {
   /// The subject matter of the content.
   SchemaThing? about;
 
@@ -842,7 +843,8 @@ class SchemaWebContent {
   });
 
   /// Serialize [SchemaWebContent] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'WebContent',
         'about': convertToJsonLd(about, [SchemaThing]),
@@ -1013,5 +1015,5 @@ class SchemaWebContent {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

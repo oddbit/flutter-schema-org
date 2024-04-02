@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/delivery_method.dart';
 import 'package:schema_org/schemas/audience.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -22,7 +23,7 @@ import 'package:schema_org/schemas/event.dart';
 /// ownership has been transferred (e.g I can receive a package, but
 /// it does not mean the package is now mine).
 /// See https://schema.org/ReceiveAction
-class SchemaReceiveAction {
+class SchemaReceiveAction implements SchemaSerializable {
   /// A sub property of instrument The method of delivery.
   SchemaDeliveryMethod? deliveryMethod;
 
@@ -194,7 +195,8 @@ class SchemaReceiveAction {
   });
 
   /// Serialize [SchemaReceiveAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ReceiveAction',
         'deliveryMethod':
@@ -234,5 +236,5 @@ class SchemaReceiveAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

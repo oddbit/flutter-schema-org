@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -42,7 +43,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A sidebar section of the page.
 /// See https://schema.org/WPSideBar
-class SchemaWPSideBar {
+class SchemaWPSideBar implements SchemaSerializable {
   /// A CSS selector, e.g of a [[SpeakableSpecification]] or
   /// [[WebPageElement]] In the latter case, multiple matches within a
   /// page can constitute a single conceptual "Web page element".
@@ -846,7 +847,8 @@ class SchemaWPSideBar {
   });
 
   /// Serialize [SchemaWPSideBar] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'WPSideBar',
         'cssSelector': convertToJsonLd(cssSelector, [String]),
@@ -1019,5 +1021,5 @@ class SchemaWPSideBar {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

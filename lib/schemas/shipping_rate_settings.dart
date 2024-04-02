@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/delivery_charge_specification.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 import 'package:schema_org/schemas/defined_region.dart';
@@ -18,7 +19,7 @@ import 'package:schema_org/schemas/event.dart';
 /// distinguished and matched (i.e identified/referenced) by their
 /// different values for [[shippingLabel]].
 /// See https://schema.org/ShippingRateSettings
-class SchemaShippingRateSettings {
+class SchemaShippingRateSettings implements SchemaSerializable {
   /// Indicates when shipping to a particular [[shippingDestination]]
   /// is not available.
   bool? doesNotShip;
@@ -131,7 +132,8 @@ class SchemaShippingRateSettings {
   });
 
   /// Serialize [SchemaShippingRateSettings] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ShippingRateSettings',
         'doesNotShip': convertToJsonLd(doesNotShip, [bool]),
@@ -158,5 +160,5 @@ class SchemaShippingRateSettings {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/event.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -19,7 +20,7 @@ import 'package:schema_org/schemas/action.dart';
 /// Unlike UnRegisterAction, LeaveAction implies leaving a
 /// group/team of people rather than a service.
 /// See https://schema.org/LeaveAction
-class SchemaLeaveAction {
+class SchemaLeaveAction implements SchemaSerializable {
   /// Upcoming or past event associated with this place, organization,
   /// or action.
   SchemaEvent? event;
@@ -176,7 +177,8 @@ class SchemaLeaveAction {
   });
 
   /// Serialize [SchemaLeaveAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'LeaveAction',
         'event': convertToJsonLd(event, [SchemaEvent]),
@@ -211,5 +213,5 @@ class SchemaLeaveAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

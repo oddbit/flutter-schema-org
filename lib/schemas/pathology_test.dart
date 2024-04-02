@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/drug.dart';
 import 'package:schema_org/schemas/medical_enumeration.dart';
 import 'package:schema_org/schemas/medical_sign.dart';
@@ -24,7 +25,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A medical test performed by a laboratory that typically involves
 /// examination of a tissue sample by a pathologist.
 /// See https://schema.org/PathologyTest
-class SchemaPathologyTest {
+class SchemaPathologyTest implements SchemaSerializable {
   /// The type of tissue sample required for the test.
   String? tissueSample;
 
@@ -161,7 +162,8 @@ class SchemaPathologyTest {
   });
 
   /// Serialize [SchemaPathologyTest] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PathologyTest',
         'tissueSample': convertToJsonLd(tissueSample, [String]),
@@ -200,5 +202,5 @@ class SchemaPathologyTest {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/menu_item.dart';
 import 'package:schema_org/schemas/menu_section.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -45,7 +46,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A structured representation of food or drink items available
 /// from a FoodEstablishment.
 /// See https://schema.org/Menu
-class SchemaMenu {
+class SchemaMenu implements SchemaSerializable {
   /// A food or drink item contained in a menu or menu section.
   SchemaMenuItem? hasMenuItem;
 
@@ -846,7 +847,8 @@ class SchemaMenu {
   });
 
   /// Serialize [SchemaMenu] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Menu',
         'hasMenuItem': convertToJsonLd(hasMenuItem, [SchemaMenuItem]),
@@ -1019,5 +1021,5 @@ class SchemaMenu {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/qualitative_value.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -14,7 +15,7 @@ import 'package:schema_org/schemas/event.dart';
 /// multiple engines represented by multiple engine specification
 /// entities.
 /// See https://schema.org/EngineSpecification
-class SchemaEngineSpecification {
+class SchemaEngineSpecification implements SchemaSerializable {
   /// You can use [[minValue]] and [[maxValue]] to indicate ranges.
   SchemaQuantitativeValue? engineDisplacement;
 
@@ -110,7 +111,8 @@ class SchemaEngineSpecification {
   });
 
   /// Serialize [SchemaEngineSpecification] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'EngineSpecification',
         'engineDisplacement':
@@ -137,5 +139,5 @@ class SchemaEngineSpecification {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

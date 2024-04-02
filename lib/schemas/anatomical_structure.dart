@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/image_object.dart';
 import 'package:schema_org/schemas/anatomical_system.dart';
 import 'package:schema_org/schemas/medical_condition.dart';
@@ -24,7 +25,7 @@ import 'package:schema_org/schemas/event.dart';
 /// anatomical system Organs, tissues, and cells are all anatomical
 /// structures.
 /// See https://schema.org/AnatomicalStructure
-class SchemaAnatomicalStructure {
+class SchemaAnatomicalStructure implements SchemaSerializable {
   /// If applicable, a description of the pathophysiology associated
   /// with the anatomical system, including potential abnormal changes
   /// in the mechanical, physical, and biochemical functions of the
@@ -175,7 +176,8 @@ class SchemaAnatomicalStructure {
   });
 
   /// Serialize [SchemaAnatomicalStructure] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'AnatomicalStructure',
         'associatedPathophysiology':
@@ -219,5 +221,5 @@ class SchemaAnatomicalStructure {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

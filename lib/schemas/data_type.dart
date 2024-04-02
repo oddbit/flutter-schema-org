@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/class.dart';
 import 'package:schema_org/schemas/enumeration.dart';
 import 'package:schema_org/schemas/property.dart';
@@ -13,7 +14,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// The basic data types such as Integers, Strings, etc.
 /// See https://schema.org/DataType
-class SchemaDataType {
+class SchemaDataType implements SchemaSerializable {
   /// Relates a term (i.e a property, class or enumeration) to one
   /// that supersedes it.  Supported types: [Class], [Enumeration],
   /// [Property]
@@ -91,7 +92,8 @@ class SchemaDataType {
   });
 
   /// Serialize [SchemaDataType] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'DataType',
         'supersededBy': convertToJsonLd(
@@ -112,5 +114,5 @@ class SchemaDataType {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/media_object.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -45,7 +46,7 @@ import 'package:schema_org/schemas/action.dart';
 /// Authorship etc apply to the items rather than to the
 /// curation/grouping or reviewing party.
 /// See https://schema.org/MediaReviewItem
-class SchemaMediaReviewItem {
+class SchemaMediaReviewItem implements SchemaSerializable {
   /// In the context of a [[MediaReview]], indicates specific media
   /// item(s) that are grouped using a [[MediaReviewItem]].
   SchemaMediaObject? mediaItemAppearance;
@@ -842,7 +843,8 @@ class SchemaMediaReviewItem {
   });
 
   /// Serialize [SchemaMediaReviewItem] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MediaReviewItem',
         'mediaItemAppearance':
@@ -1015,5 +1017,5 @@ class SchemaMediaReviewItem {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

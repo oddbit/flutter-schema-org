@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/tourist_attraction.dart';
 import 'package:schema_org/schemas/audience.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -27,7 +28,7 @@ import 'package:schema_org/schemas/action.dart';
 /// tourism trip) as the place visited that is central to the
 /// decision to take the trip  (See examples below.)
 /// See https://schema.org/TouristDestination
-class SchemaTouristDestination {
+class SchemaTouristDestination implements SchemaSerializable {
   /// Attraction located at destination.
   SchemaTouristAttraction? includesAttraction;
 
@@ -347,7 +348,8 @@ class SchemaTouristDestination {
   });
 
   /// Serialize [SchemaTouristDestination] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'TouristDestination',
         'includesAttraction':
@@ -436,5 +438,5 @@ class SchemaTouristDestination {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

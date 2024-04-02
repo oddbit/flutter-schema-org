@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/delivery_method.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -29,7 +30,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// An event involving the delivery of an item.
 /// See https://schema.org/DeliveryEvent
-class SchemaDeliveryEvent {
+class SchemaDeliveryEvent implements SchemaSerializable {
   /// Password, PIN, or access code needed for delivery (e.g from a
   /// locker).
   String? accessCode;
@@ -364,7 +365,8 @@ class SchemaDeliveryEvent {
   });
 
   /// Serialize [SchemaDeliveryEvent] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'DeliveryEvent',
         'accessCode': convertToJsonLd(accessCode, [String]),
@@ -445,5 +447,5 @@ class SchemaDeliveryEvent {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

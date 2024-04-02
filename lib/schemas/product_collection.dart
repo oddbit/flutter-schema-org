@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/type_and_quantity_node.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
@@ -58,7 +59,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A set of products (either [[ProductGroup]]s or specific
 /// variants) that are listed together e.g in an [[Offer]].
 /// See https://schema.org/ProductCollection
-class SchemaProductCollection {
+class SchemaProductCollection implements SchemaSerializable {
   /// This links to a node or nodes indicating the exact quantity of
   /// the products included in an [[Offer]] or [[ProductCollection]].
   SchemaTypeAndQuantityNode? includesObject;
@@ -1129,7 +1130,8 @@ class SchemaProductCollection {
   });
 
   /// Serialize [SchemaProductCollection] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ProductCollection',
         'includesObject':
@@ -1370,5 +1372,5 @@ class SchemaProductCollection {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

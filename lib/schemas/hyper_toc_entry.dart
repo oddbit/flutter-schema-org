@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/media_object.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -52,7 +53,7 @@ import 'package:schema_org/schemas/action.dart';
 /// files, they can be referenced using [[associatedMedia]] on each
 /// [[HyperTocEntry]].
 /// See https://schema.org/HyperTocEntry
-class SchemaHyperTocEntry {
+class SchemaHyperTocEntry implements SchemaSerializable {
   /// A media object that encodes this CreativeWork This property is a
   /// synonym for encoding.
   SchemaMediaObject? associatedMedia;
@@ -856,7 +857,8 @@ class SchemaHyperTocEntry {
   });
 
   /// Serialize [SchemaHyperTocEntry] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'HyperTocEntry',
         'associatedMedia':
@@ -1030,5 +1032,5 @@ class SchemaHyperTocEntry {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

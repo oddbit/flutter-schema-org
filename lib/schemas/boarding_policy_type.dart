@@ -1,8 +1,10 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// A type of boarding policy used by an airline.
 /// See https://schema.org/BoardingPolicyType
-enum SchemaBoardingPolicyType {
+enum SchemaBoardingPolicyType implements SchemaSerializable {
   /// The airline boards by groups based on check-in time, priority,
   /// etc.
   groupBoardingPolicy('https://schema.org/BoardingPolicyType'),
@@ -17,5 +19,6 @@ enum SchemaBoardingPolicyType {
   final String value;
 
   /// Serialize [SchemaBoardingPolicyType] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

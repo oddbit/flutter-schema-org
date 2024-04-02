@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_entity.dart';
 import 'package:schema_org/schemas/medical_procedure_type.dart';
 import 'package:schema_org/schemas/event_status_type.dart';
@@ -29,7 +30,7 @@ import 'package:schema_org/schemas/event.dart';
 /// aimed at relieving the symptoms of an underlying health
 /// condition.
 /// See https://schema.org/PalliativeProcedure
-class SchemaPalliativeProcedure {
+class SchemaPalliativeProcedure implements SchemaSerializable {
   /// Location in the body of the anatomical structure.
   String? bodyLocation;
 
@@ -206,7 +207,8 @@ class SchemaPalliativeProcedure {
   });
 
   /// Serialize [SchemaPalliativeProcedure] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PalliativeProcedure',
         'bodyLocation': convertToJsonLd(bodyLocation, [String]),
@@ -256,5 +258,5 @@ class SchemaPalliativeProcedure {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

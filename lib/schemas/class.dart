@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/enumeration.dart';
 import 'package:schema_org/schemas/property.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -12,7 +13,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// Class.
 /// See https://schema.org/Class
-class SchemaClass {
+class SchemaClass implements SchemaSerializable {
   /// Relates a term (i.e a property, class or enumeration) to one
   /// that supersedes it.  Supported types: [Class], [Enumeration],
   /// [Property]
@@ -90,7 +91,8 @@ class SchemaClass {
   });
 
   /// Serialize [SchemaClass] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Class',
         'supersededBy': convertToJsonLd(
@@ -111,5 +113,5 @@ class SchemaClass {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

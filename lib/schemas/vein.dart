@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/vessel.dart';
 import 'package:schema_org/schemas/anatomical_structure.dart';
 import 'package:schema_org/schemas/anatomical_system.dart';
@@ -25,7 +26,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A type of blood vessel that specifically carries blood to the
 /// heart.
 /// See https://schema.org/Vein
-class SchemaVein {
+class SchemaVein implements SchemaSerializable {
   /// The vasculature that the vein drains into.
   SchemaVessel? drainsTo;
 
@@ -191,7 +192,8 @@ class SchemaVein {
   });
 
   /// Serialize [SchemaVein] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Vein',
         'drainsTo': convertToJsonLd(drainsTo, [SchemaVessel]),
@@ -239,5 +241,5 @@ class SchemaVein {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

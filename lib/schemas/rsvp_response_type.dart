@@ -1,9 +1,11 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// RsvpResponseType is an enumeration type whose instances
 /// represent responding to an RSVP request.
 /// See https://schema.org/RsvpResponseType
-enum SchemaRsvpResponseType {
+enum SchemaRsvpResponseType implements SchemaSerializable {
   /// The invitee may or may not attend.
   rsvpResponseMaybe('https://schema.org/RsvpResponseType'),
 
@@ -20,5 +22,6 @@ enum SchemaRsvpResponseType {
   final String value;
 
   /// Serialize [SchemaRsvpResponseType] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 import 'package:schema_org/schemas/alignment_object.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -50,7 +51,7 @@ import 'package:schema_org/schemas/action.dart';
 /// things (e.g a [[Trip]]) A [[LearningResource]] may be created as
 /// a result of an [[EducationEvent]], for example by recording one.
 /// See https://schema.org/LearningResource
-class SchemaLearningResource {
+class SchemaLearningResource implements SchemaSerializable {
   /// The item being described is intended to assess the competency or
   /// learning outcome defined by the referenced term.  Supported
   /// types: [DefinedTerm], [String]
@@ -850,7 +851,8 @@ class SchemaLearningResource {
   });
 
   /// Serialize [SchemaLearningResource] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'LearningResource',
         'assesses': convertToJsonLd(assesses, [SchemaDefinedTerm, String]),
@@ -1023,5 +1025,5 @@ class SchemaLearningResource {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

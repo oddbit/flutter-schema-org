@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/list_item.dart';
@@ -14,7 +15,7 @@ import 'package:schema_org/schemas/event.dart';
 /// An item used as either a tool or supply when performing the
 /// instructions for how to achieve a result.
 /// See https://schema.org/HowToItem
-class SchemaHowToItem {
+class SchemaHowToItem implements SchemaSerializable {
   /// The required quantity of the item(s).  Supported types:
   /// [QuantitativeValue], [String], [int]
   dynamic requiredQuantity;
@@ -109,7 +110,8 @@ class SchemaHowToItem {
   });
 
   /// Serialize [SchemaHowToItem] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'HowToItem',
         'requiredQuantity': convertToJsonLd(
@@ -134,5 +136,5 @@ class SchemaHowToItem {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

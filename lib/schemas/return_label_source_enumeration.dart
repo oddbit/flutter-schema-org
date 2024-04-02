@@ -1,8 +1,10 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// Enumerates several types of return labels for product returns.
 /// See https://schema.org/ReturnLabelSourceEnumeration
-enum SchemaReturnLabelSourceEnumeration {
+enum SchemaReturnLabelSourceEnumeration implements SchemaSerializable {
   /// Indicated that creating a return label is the responsibility of
   /// the customer.
   returnLabelCustomerResponsibility(
@@ -24,5 +26,6 @@ enum SchemaReturnLabelSourceEnumeration {
   final String value;
 
   /// Serialize [SchemaReturnLabelSourceEnumeration] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

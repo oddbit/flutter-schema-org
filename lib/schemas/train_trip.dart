@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/train_station.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/place.dart';
@@ -18,7 +19,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// A trip on a commercial train line.
 /// See https://schema.org/TrainTrip
-class SchemaTrainTrip {
+class SchemaTrainTrip implements SchemaSerializable {
   /// The platform where the train arrives.
   String? arrivalPlatform;
 
@@ -162,7 +163,8 @@ class SchemaTrainTrip {
   });
 
   /// Serialize [SchemaTrainTrip] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'TrainTrip',
         'arrivalPlatform': convertToJsonLd(arrivalPlatform, [String]),
@@ -197,5 +199,5 @@ class SchemaTrainTrip {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

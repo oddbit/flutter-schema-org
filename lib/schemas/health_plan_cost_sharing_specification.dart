@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/price_specification.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -12,7 +13,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A description of costs to the patient under a given network or
 /// formulary.
 /// See https://schema.org/HealthPlanCostSharingSpecification
-class SchemaHealthPlanCostSharingSpecification {
+class SchemaHealthPlanCostSharingSpecification implements SchemaSerializable {
   /// Is this a closed set?
   String? healthPlanCoinsuranceOption;
 
@@ -106,7 +107,8 @@ class SchemaHealthPlanCostSharingSpecification {
   });
 
   /// Serialize [SchemaHealthPlanCostSharingSpecification] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'HealthPlanCostSharingSpecification',
         'healthPlanCoinsuranceOption':
@@ -135,5 +137,5 @@ class SchemaHealthPlanCostSharingSpecification {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

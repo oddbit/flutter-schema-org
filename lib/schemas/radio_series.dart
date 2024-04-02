@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/creative_work_season.dart';
 import 'package:schema_org/schemas/episode.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 /// CreativeWorkSeries dedicated to radio broadcast and associated
 /// online delivery.
 /// See https://schema.org/RadioSeries
-class SchemaRadioSeries {
+class SchemaRadioSeries implements SchemaSerializable {
   /// An actor, e.g in TV, radio, movie, video games etc., or in an
   /// event Actors can be associated with individual items or with a
   /// series, episode, clip.
@@ -923,7 +924,8 @@ class SchemaRadioSeries {
   });
 
   /// Serialize [SchemaRadioSeries] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'RadioSeries',
         'actor': convertToJsonLd(actor, [SchemaPerson]),
@@ -1113,5 +1115,5 @@ class SchemaRadioSeries {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

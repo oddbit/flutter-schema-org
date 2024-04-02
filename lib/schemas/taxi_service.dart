@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
 import 'package:schema_org/schemas/geo_shape.dart';
@@ -32,7 +33,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A service for a vehicle for hire with a driver for local travel
 /// Fares are usually calculated based on distance traveled.
 /// See https://schema.org/TaxiService
-class SchemaTaxiService {
+class SchemaTaxiService implements SchemaSerializable {
   /// The overall rating, based on a collection of reviews or ratings,
   /// of the item.
   SchemaAggregateRating? aggregateRating;
@@ -241,7 +242,8 @@ class SchemaTaxiService {
   });
 
   /// Serialize [SchemaTaxiService] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'TaxiService',
         'aggregateRating':
@@ -302,5 +304,5 @@ class SchemaTaxiService {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

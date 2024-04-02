@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/language.dart';
 import 'package:schema_org/schemas/alignment_object.dart';
 import 'package:schema_org/schemas/educational_occupational_credential.dart';
@@ -51,7 +52,7 @@ import 'package:schema_org/schemas/action.dart';
 /// one or more educational events and/or creative works which aims
 /// to build knowledge, competence or ability of learners.
 /// See https://schema.org/Course
-class SchemaCourse {
+class SchemaCourse implements SchemaSerializable {
   /// //tools.ietf.org/html/bcp47) See also [[inLanguage]].  Supported
   /// types: [Language], [String]
   dynamic availableLanguage;
@@ -911,7 +912,8 @@ class SchemaCourse {
   });
 
   /// Serialize [SchemaCourse] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Course',
         'availableLanguage':
@@ -1104,5 +1106,5 @@ class SchemaCourse {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

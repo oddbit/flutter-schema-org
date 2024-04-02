@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/action_access_specification.dart';
 import 'package:schema_org/schemas/offer.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
@@ -20,7 +21,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// The act of applying an object to its intended purpose.
 /// See https://schema.org/UseAction
-class SchemaUseAction {
+class SchemaUseAction implements SchemaSerializable {
   /// A set of requirements that must be fulfilled in order to perform
   /// an Action If more than one value is specified, fulfilling one
   /// set of requirements will allow the Action to be performed.
@@ -184,7 +185,8 @@ class SchemaUseAction {
   });
 
   /// Serialize [SchemaUseAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'UseAction',
         'actionAccessibilityRequirement': convertToJsonLd(
@@ -222,5 +224,5 @@ class SchemaUseAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

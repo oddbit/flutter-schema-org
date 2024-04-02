@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/product.dart';
@@ -15,7 +16,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A structured value providing information about when a certain
 /// organization or person owned a certain product.
 /// See https://schema.org/OwnershipInfo
-class SchemaOwnershipInfo {
+class SchemaOwnershipInfo implements SchemaSerializable {
   /// The organization or person from which the product was acquired.
   /// Supported types: [Organization], [Person]
   dynamic acquiredFrom;
@@ -105,7 +106,8 @@ class SchemaOwnershipInfo {
   });
 
   /// Serialize [SchemaOwnershipInfo] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'OwnershipInfo',
         'acquiredFrom':
@@ -130,5 +132,5 @@ class SchemaOwnershipInfo {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

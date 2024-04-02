@@ -1,10 +1,12 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// GovernmentBenefitsType enumerates several kinds of government
 /// benefits to support the COVID-19 situation Note that this
 /// structure may not capture all benefits offered.
 /// See https://schema.org/GovernmentBenefitsType
-enum SchemaGovernmentBenefitsType {
+enum SchemaGovernmentBenefitsType implements SchemaSerializable {
   /// this is a benefit for basic income.
   basicIncome('https://schema.org/GovernmentBenefitsType'),
 
@@ -36,5 +38,6 @@ enum SchemaGovernmentBenefitsType {
   final String value;
 
   /// Serialize [SchemaGovernmentBenefitsType] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

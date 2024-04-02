@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
@@ -27,7 +28,7 @@ import 'package:schema_org/schemas/action.dart';
 /// including sub-aqueous terrain features such as submersed
 /// mountain ranges, volcanoes, and the great ocean basins.
 /// See https://schema.org/Landform
-class SchemaLandform {
+class SchemaLandform implements SchemaSerializable {
   /// //schema.org/gtin13, ...) will typically expect such data to be
   /// provided using those properties, rather than using the generic
   /// property/value mechanism.
@@ -337,7 +338,8 @@ class SchemaLandform {
   });
 
   /// Serialize [SchemaLandform] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Landform',
         'additionalProperty':
@@ -423,5 +425,5 @@ class SchemaLandform {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

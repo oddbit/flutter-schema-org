@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/event.dart';
 import 'package:schema_org/schemas/language.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -29,7 +30,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// An over the air or online broadcast event.
 /// See https://schema.org/BroadcastEvent
-class SchemaBroadcastEvent {
+class SchemaBroadcastEvent implements SchemaSerializable {
   /// The event being broadcast such as a sporting event or awards
   /// ceremony.
   SchemaEvent? broadcastOfEvent;
@@ -378,7 +379,8 @@ class SchemaBroadcastEvent {
   });
 
   /// Serialize [SchemaBroadcastEvent] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'BroadcastEvent',
         'broadcastOfEvent': convertToJsonLd(broadcastOfEvent, [SchemaEvent]),
@@ -463,5 +465,5 @@ class SchemaBroadcastEvent {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

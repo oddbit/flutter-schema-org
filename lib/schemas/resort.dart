@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/location_feature_specification.dart';
 import 'package:schema_org/schemas/audience.dart';
 import 'package:schema_org/schemas/language.dart';
@@ -50,7 +51,7 @@ import 'package:schema_org/schemas/action.dart';
 /// schema.org for marking up hotels and other forms of
 /// accommodations</a>.
 /// See https://schema.org/Resort
-class SchemaResort {
+class SchemaResort implements SchemaSerializable {
   /// An amenity feature (e.g a characteristic or service) of the
   /// Accommodation This generic property does not make a statement
   /// about whether the feature is included in an offer for the main
@@ -725,7 +726,8 @@ class SchemaResort {
   });
 
   /// Serialize [SchemaResort] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Resort',
         'amenityFeature': convertToJsonLd(
@@ -902,5 +904,5 @@ class SchemaResort {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

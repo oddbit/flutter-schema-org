@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/anatomical_structure.dart';
 import 'package:schema_org/schemas/image_object.dart';
 import 'package:schema_org/schemas/anatomical_system.dart';
@@ -24,7 +25,7 @@ import 'package:schema_org/schemas/event.dart';
 /// Rigid connective tissue that comprises up the skeletal structure
 /// of the human body.
 /// See https://schema.org/Bone
-class SchemaBone {
+class SchemaBone implements SchemaSerializable {
   /// If applicable, a description of the pathophysiology associated
   /// with the anatomical system, including potential abnormal changes
   /// in the mechanical, physical, and biochemical functions of the
@@ -175,7 +176,8 @@ class SchemaBone {
   });
 
   /// Serialize [SchemaBone] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Bone',
         'associatedPathophysiology':
@@ -219,5 +221,5 @@ class SchemaBone {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

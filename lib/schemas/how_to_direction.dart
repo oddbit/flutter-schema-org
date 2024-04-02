@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/media_object.dart';
 import 'package:schema_org/schemas/duration.dart';
 import 'package:schema_org/schemas/how_to_supply.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A direction indicating a single action to do in the instructions
 /// for how to achieve a result.
 /// See https://schema.org/HowToDirection
-class SchemaHowToDirection {
+class SchemaHowToDirection implements SchemaSerializable {
   /// A media object representing the circumstances after performing
   /// this direction.  Supported types: [MediaObject], [String]
   dynamic afterMedia;
@@ -890,7 +891,8 @@ class SchemaHowToDirection {
   });
 
   /// Serialize [SchemaHowToDirection] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'HowToDirection',
         'afterMedia': convertToJsonLd(afterMedia, [SchemaMediaObject, String]),
@@ -1074,5 +1076,5 @@ class SchemaHowToDirection {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

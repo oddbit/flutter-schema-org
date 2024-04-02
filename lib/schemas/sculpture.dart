@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -42,7 +43,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A piece of sculpture.
 /// See https://schema.org/Sculpture
-class SchemaSculpture {
+class SchemaSculpture implements SchemaSerializable {
   /// The subject matter of the content.
   SchemaThing? about;
 
@@ -834,7 +835,8 @@ class SchemaSculpture {
   });
 
   /// Serialize [SchemaSculpture] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Sculpture',
         'about': convertToJsonLd(about, [SchemaThing]),
@@ -1005,5 +1007,5 @@ class SchemaSculpture {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

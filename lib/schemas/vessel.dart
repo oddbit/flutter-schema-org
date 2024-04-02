@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/anatomical_structure.dart';
 import 'package:schema_org/schemas/image_object.dart';
 import 'package:schema_org/schemas/anatomical_system.dart';
@@ -25,7 +26,7 @@ import 'package:schema_org/schemas/event.dart';
 /// intricate network of hollow tubes that transport blood
 /// throughout the entire body.
 /// See https://schema.org/Vessel
-class SchemaVessel {
+class SchemaVessel implements SchemaSerializable {
   /// If applicable, a description of the pathophysiology associated
   /// with the anatomical system, including potential abnormal changes
   /// in the mechanical, physical, and biochemical functions of the
@@ -176,7 +177,8 @@ class SchemaVessel {
   });
 
   /// Serialize [SchemaVessel] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Vessel',
         'associatedPathophysiology':
@@ -220,5 +222,5 @@ class SchemaVessel {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

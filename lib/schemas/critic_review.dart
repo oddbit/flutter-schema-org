@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/review.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -53,7 +54,7 @@ import 'package:schema_org/schemas/action.dart';
 /// Metacritic already separate out the site's user reviews from
 /// selected critic reviews that originate from third-party sources.
 /// See https://schema.org/CriticReview
-class SchemaCriticReview {
+class SchemaCriticReview implements SchemaSerializable {
   /// An associated [[ClaimReview]], related by specific common
   /// content, topic or claim The expectation is that this property
   /// would be most typically used in cases where a single activity is
@@ -918,7 +919,8 @@ class SchemaCriticReview {
   });
 
   /// Serialize [SchemaCriticReview] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'CriticReview',
         'associatedClaimReview':
@@ -1102,5 +1104,5 @@ class SchemaCriticReview {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

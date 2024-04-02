@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/image_object.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/data_feed.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A software application.
 /// See https://schema.org/SoftwareApplication
-class SchemaSoftwareApplication {
+class SchemaSoftwareApplication implements SchemaSerializable {
   /// Type of software application, e.g 'Game, Multimedia'.  Supported
   /// types: [String], [String]
   String? applicationCategory;
@@ -950,7 +951,8 @@ class SchemaSoftwareApplication {
   });
 
   /// Serialize [SchemaSoftwareApplication] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
         'applicationCategory':
@@ -1153,5 +1155,5 @@ class SchemaSoftwareApplication {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

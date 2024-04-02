@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/episode.dart';
 import 'package:schema_org/schemas/creative_work_series.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 /// into separate seasons In that case, PodcastSeries should be
 /// used.
 /// See https://schema.org/PodcastSeason
-class SchemaPodcastSeason {
+class SchemaPodcastSeason implements SchemaSerializable {
   /// An actor, e.g in TV, radio, movie, video games etc., or in an
   /// event Actors can be associated with individual items or with a
   /// series, episode, clip.
@@ -891,7 +892,8 @@ class SchemaPodcastSeason {
   });
 
   /// Serialize [SchemaPodcastSeason] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PodcastSeason',
         'actor': convertToJsonLd(actor, [SchemaPerson]),
@@ -1075,5 +1077,5 @@ class SchemaPodcastSeason {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

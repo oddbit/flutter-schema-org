@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/program_membership.dart';
@@ -19,7 +20,7 @@ import 'package:schema_org/schemas/event.dart';
 /// confirmation emails or HTML pages with individual confirmations
 /// of reservations For offers of tickets, use [[Offer]].
 /// See https://schema.org/EventReservation
-class SchemaEventReservation {
+class SchemaEventReservation implements SchemaSerializable {
   /// 'bookingAgent' is an out-dated term indicating a 'broker' that
   /// serves as a booking agent.  Supported types: [Organization],
   /// [Person]
@@ -161,7 +162,8 @@ class SchemaEventReservation {
   });
 
   /// Serialize [SchemaEventReservation] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'EventReservation',
         'bookingAgent':
@@ -199,5 +201,5 @@ class SchemaEventReservation {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

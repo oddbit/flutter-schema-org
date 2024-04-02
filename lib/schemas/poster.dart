@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A large, usually printed placard, bill, or announcement, often
 /// illustrated, that is posted to advertise or publicize something.
 /// See https://schema.org/Poster
-class SchemaPoster {
+class SchemaPoster implements SchemaSerializable {
   /// The subject matter of the content.
   SchemaThing? about;
 
@@ -835,7 +836,8 @@ class SchemaPoster {
   });
 
   /// Serialize [SchemaPoster] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Poster',
         'about': convertToJsonLd(about, [SchemaThing]),
@@ -1006,5 +1008,5 @@ class SchemaPoster {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

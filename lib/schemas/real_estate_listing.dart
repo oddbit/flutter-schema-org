@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/duration.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/breadcrumb_list.dart';
@@ -50,7 +51,7 @@ import 'package:schema_org/schemas/action.dart';
 /// represents the overall listing, as manifested in some
 /// [[WebPage]].
 /// See https://schema.org/RealEstateListing
-class SchemaRealEstateListing {
+class SchemaRealEstateListing implements SchemaSerializable {
   /// Publication date of an online listing.  Supported types:
   /// [String], [String]
   String? datePosted;
@@ -914,7 +915,8 @@ class SchemaRealEstateListing {
   });
 
   /// Serialize [SchemaRealEstateListing] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'RealEstateListing',
         'datePosted': convertToJsonLd(datePosted, [String, String]),
@@ -1103,5 +1105,5 @@ class SchemaRealEstateListing {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

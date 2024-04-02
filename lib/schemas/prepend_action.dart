@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -18,7 +19,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// The act of inserting at the beginning if an ordered collection.
 /// See https://schema.org/PrependAction
-class SchemaPrependAction {
+class SchemaPrependAction implements SchemaSerializable {
   /// A sub property of location The final location of the object or
   /// the agent after the action.
   SchemaPlace? toLocation;
@@ -183,7 +184,8 @@ class SchemaPrependAction {
   });
 
   /// Serialize [SchemaPrependAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PrependAction',
         'toLocation': convertToJsonLd(toLocation, [SchemaPlace]),
@@ -220,5 +222,5 @@ class SchemaPrependAction {
         'url': convertToJsonLd(url, [String]),
         'collection': convertToJsonLd(collection, [SchemaThing]),
         'targetCollection': convertToJsonLd(targetCollection, [SchemaThing]),
-      };
+      });
 }

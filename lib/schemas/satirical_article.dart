@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/speakable_specification.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 /// necessarily also a [[NewsArticle]] [[ScholarlyArticle]]s are
 /// also sometimes satirized.
 /// See https://schema.org/SatiricalArticle
-class SchemaSatiricalArticle {
+class SchemaSatiricalArticle implements SchemaSerializable {
   /// The actual body of the article.
   String? articleBody;
 
@@ -891,7 +892,8 @@ class SchemaSatiricalArticle {
   });
 
   /// Serialize [SchemaSatiricalArticle] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'SatiricalArticle',
         'articleBody': convertToJsonLd(articleBody, [String]),
@@ -1071,5 +1073,5 @@ class SchemaSatiricalArticle {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

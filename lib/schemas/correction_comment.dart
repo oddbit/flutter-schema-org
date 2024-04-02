@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/comment.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -41,7 +42,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A [[comment]] that corrects [[CreativeWork]].
 /// See https://schema.org/CorrectionComment
-class SchemaCorrectionComment {
+class SchemaCorrectionComment implements SchemaSerializable {
   /// The number of downvotes this question, answer or comment has
   /// received from the community.
   int? downvoteCount;
@@ -856,7 +857,8 @@ class SchemaCorrectionComment {
   });
 
   /// Serialize [SchemaCorrectionComment] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'CorrectionComment',
         'downvoteCount': convertToJsonLd(downvoteCount, [int]),
@@ -1032,5 +1034,5 @@ class SchemaCorrectionComment {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

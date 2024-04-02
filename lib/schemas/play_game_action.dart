@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/game_availability_enumeration.dart';
 import 'package:schema_org/schemas/action_access_specification.dart';
 import 'package:schema_org/schemas/offer.dart';
@@ -21,7 +22,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// The act of playing a video game.
 /// See https://schema.org/PlayGameAction
-class SchemaPlayGameAction {
+class SchemaPlayGameAction implements SchemaSerializable {
   /// Indicates the availability type of the game content associated
   /// with this action, such as whether it is a full version or a
   /// demo.  Supported types: [GameAvailabilityEnumeration], [String]
@@ -191,7 +192,8 @@ class SchemaPlayGameAction {
   });
 
   /// Serialize [SchemaPlayGameAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PlayGameAction',
         'gameAvailabilityType': convertToJsonLd(
@@ -231,5 +233,5 @@ class SchemaPlayGameAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

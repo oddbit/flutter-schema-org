@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -18,7 +19,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// The antonym of CancelAction.
 /// See https://schema.org/CancelAction
-class SchemaCancelAction {
+class SchemaCancelAction implements SchemaSerializable {
   /// The time the object is scheduled to.  Supported types: [String],
   /// [String]
   String? scheduledTime;
@@ -175,7 +176,8 @@ class SchemaCancelAction {
   });
 
   /// Serialize [SchemaCancelAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'CancelAction',
         'scheduledTime': convertToJsonLd(scheduledTime, [String, String]),
@@ -210,5 +212,5 @@ class SchemaCancelAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/solve_math_action.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A math solver which is capable of solving a subset of
 /// mathematical problems.
 /// See https://schema.org/MathSolver
-class SchemaMathSolver {
+class SchemaMathSolver implements SchemaSerializable {
   /// A mathematical expression (e.g 'x^2-3x=0') that may be solved
   /// for a specific variable, simplified, or transformed This can
   /// take many formats, e.g LaTeX, Ascii-Math, or math as you would
@@ -844,7 +845,8 @@ class SchemaMathSolver {
   });
 
   /// Serialize [SchemaMathSolver] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MathSolver',
         'mathExpression':
@@ -1017,5 +1019,5 @@ class SchemaMathSolver {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

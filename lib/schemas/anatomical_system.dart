@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/anatomical_structure.dart';
 import 'package:schema_org/schemas/medical_condition.dart';
 import 'package:schema_org/schemas/medical_therapy.dart';
@@ -27,7 +28,7 @@ import 'package:schema_org/schemas/event.dart';
 /// immune, lymphatic, muscular, nervous, reproductive, respiratory,
 /// skeletal, urinary, vestibular, and other systems.
 /// See https://schema.org/AnatomicalSystem
-class SchemaAnatomicalSystem {
+class SchemaAnatomicalSystem implements SchemaSerializable {
   /// If applicable, a description of the pathophysiology associated
   /// with the anatomical system, including potential abnormal changes
   /// in the mechanical, physical, and biochemical functions of the
@@ -167,7 +168,8 @@ class SchemaAnatomicalSystem {
   });
 
   /// Serialize [SchemaAnatomicalSystem] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'AnatomicalSystem',
         'associatedPathophysiology':
@@ -208,5 +210,5 @@ class SchemaAnatomicalSystem {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

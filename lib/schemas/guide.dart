@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -48,7 +49,7 @@ import 'package:schema_org/schemas/action.dart';
 /// services A [[Guide]] may represent a Ranked List and recommend
 /// specific products or services with ranking.
 /// See https://schema.org/Guide
-class SchemaGuide {
+class SchemaGuide implements SchemaSerializable {
   /// This Review or Rating is relevant to this part or facet of the
   /// itemReviewed.
   String? reviewAspect;
@@ -845,7 +846,8 @@ class SchemaGuide {
   });
 
   /// Serialize [SchemaGuide] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Guide',
         'reviewAspect': convertToJsonLd(reviewAspect, [String]),
@@ -1017,5 +1019,5 @@ class SchemaGuide {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

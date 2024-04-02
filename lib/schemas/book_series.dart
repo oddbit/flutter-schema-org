@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A series of books Included books can be indicated with the
 /// hasPart property.
 /// See https://schema.org/BookSeries
-class SchemaBookSeries {
+class SchemaBookSeries implements SchemaSerializable {
   /// //en.wikipedia.org/wiki/ISO_8601)).  Supported types: [String],
   /// [String]
   String? endDate;
@@ -852,7 +853,8 @@ class SchemaBookSeries {
   });
 
   /// Serialize [SchemaBookSeries] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'BookSeries',
         'endDate': convertToJsonLd(endDate, [String, String]),
@@ -1026,5 +1028,5 @@ class SchemaBookSeries {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

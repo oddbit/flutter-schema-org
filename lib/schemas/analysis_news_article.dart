@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/speakable_specification.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -45,7 +46,7 @@ import 'package:schema_org/schemas/action.dart';
 /// factual reporting, incorporates the expertise of the
 /// author/producer, offering interpretations and conclusions.
 /// See https://schema.org/AnalysisNewsArticle
-class SchemaAnalysisNewsArticle {
+class SchemaAnalysisNewsArticle implements SchemaSerializable {
   /// 43AM Reporting from Washington", "Beijing/Moscow", "QUEZON CITY,
   /// Philippines".
   String? dateline;
@@ -916,7 +917,8 @@ class SchemaAnalysisNewsArticle {
   });
 
   /// Serialize [SchemaAnalysisNewsArticle] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'AnalysisNewsArticle',
         'dateline': convertToJsonLd(dateline, [String]),
@@ -1101,5 +1103,5 @@ class SchemaAnalysisNewsArticle {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

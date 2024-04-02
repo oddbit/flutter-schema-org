@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/action.dart';
 /// One of the sections into which a book is divided A chapter
 /// usually has a section number or a name.
 /// See https://schema.org/Chapter
-class SchemaChapter {
+class SchemaChapter implements SchemaSerializable {
   /// The page on which the work ends; for example "138" or "xvi".
   /// Supported types: [String], [int]
   dynamic pageEnd;
@@ -850,7 +851,8 @@ class SchemaChapter {
   });
 
   /// Serialize [SchemaChapter] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Chapter',
         'pageEnd': convertToJsonLd(pageEnd, [String, int]),
@@ -1024,5 +1026,5 @@ class SchemaChapter {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

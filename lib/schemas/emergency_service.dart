@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
@@ -45,7 +46,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// An emergency service, such as a fire station or ER.
 /// See https://schema.org/EmergencyService
-class SchemaEmergencyService {
+class SchemaEmergencyService implements SchemaSerializable {
   /// The larger organization that this local business is a branch of,
   /// if any Not to be confused with (anatomical) [[branch]].
   SchemaOrganization? branchOf;
@@ -680,7 +681,8 @@ class SchemaEmergencyService {
   });
 
   /// Serialize [SchemaEmergencyService] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'EmergencyService',
         'branchOf': convertToJsonLd(branchOf, [SchemaOrganization]),
@@ -848,5 +850,5 @@ class SchemaEmergencyService {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

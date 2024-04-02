@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
@@ -15,7 +16,7 @@ import 'package:schema_org/schemas/event.dart';
 /// "StarAliance"), traveler clubs (e.g "AAA"), purchase clubs
 /// ("Safeway Club"), etc.
 /// See https://schema.org/ProgramMembership
-class SchemaProgramMembership {
+class SchemaProgramMembership implements SchemaSerializable {
   /// The organization (airline, travelers' club, etc.) the membership
   /// is made with.
   SchemaOrganization? hostingOrganization;
@@ -118,7 +119,8 @@ class SchemaProgramMembership {
   });
 
   /// Serialize [SchemaProgramMembership] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ProgramMembership',
         'hostingOrganization':
@@ -145,5 +147,5 @@ class SchemaProgramMembership {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

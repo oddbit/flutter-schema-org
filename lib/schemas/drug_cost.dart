@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
 import 'package:schema_org/schemas/drug_cost_category.dart';
 import 'package:schema_org/schemas/qualitative_value.dart';
@@ -29,7 +30,7 @@ import 'package:schema_org/schemas/event.dart';
 /// some of the variables, costs should be used with caution by
 /// consumers of this schema's markup.
 /// See https://schema.org/DrugCost
-class SchemaDrugCost {
+class SchemaDrugCost implements SchemaSerializable {
   /// The location in which the status applies.
   SchemaAdministrativeArea? applicableLocation;
 
@@ -168,7 +169,8 @@ class SchemaDrugCost {
   });
 
   /// Serialize [SchemaDrugCost] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'DrugCost',
         'applicableLocation':
@@ -207,5 +209,5 @@ class SchemaDrugCost {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

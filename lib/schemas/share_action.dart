@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/language.dart';
 import 'package:schema_org/schemas/audience.dart';
@@ -22,7 +23,7 @@ import 'package:schema_org/schemas/event.dart';
 /// The act of distributing content to people for their amusement or
 /// edification.
 /// See https://schema.org/ShareAction
-class SchemaShareAction {
+class SchemaShareAction implements SchemaSerializable {
   /// The subject matter of the content.
   SchemaThing? about;
 
@@ -193,7 +194,8 @@ class SchemaShareAction {
   });
 
   /// Serialize [SchemaShareAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ShareAction',
         'about': convertToJsonLd(about, [SchemaThing]),
@@ -236,5 +238,5 @@ class SchemaShareAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

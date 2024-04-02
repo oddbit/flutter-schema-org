@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/data_feed_item.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/data_catalog.dart';
@@ -49,7 +50,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A single feed providing structured information about one or more
 /// entities or topics.
 /// See https://schema.org/DataFeed
-class SchemaDataFeed {
+class SchemaDataFeed implements SchemaSerializable {
   /// An item within a data feed Data feeds may have many elements.
   /// Supported types: [DataFeedItem], [String], [Thing]
   dynamic dataFeedElement;
@@ -908,7 +909,8 @@ class SchemaDataFeed {
   });
 
   /// Serialize [SchemaDataFeed] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'DataFeed',
         'dataFeedElement': convertToJsonLd(
@@ -1099,5 +1101,5 @@ class SchemaDataFeed {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

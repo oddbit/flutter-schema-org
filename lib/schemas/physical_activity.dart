@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/anatomical_structure.dart';
 import 'package:schema_org/schemas/anatomical_system.dart';
 import 'package:schema_org/schemas/superficial_anatomy.dart';
@@ -28,7 +29,7 @@ import 'package:schema_org/schemas/event.dart';
 /// of daily living and routine, structured exercise, and exercise
 /// prescribed as part of a medical treatment or recovery plan.
 /// See https://schema.org/PhysicalActivity
-class SchemaPhysicalActivity {
+class SchemaPhysicalActivity implements SchemaSerializable {
   /// The anatomy of the underlying organ system or structures
   /// associated with this entity.  Supported types:
   /// [AnatomicalStructure], [AnatomicalSystem], [SuperficialAnatomy]
@@ -163,7 +164,8 @@ class SchemaPhysicalActivity {
   });
 
   /// Serialize [SchemaPhysicalActivity] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PhysicalActivity',
         'associatedAnatomy': convertToJsonLd(associatedAnatomy, [
@@ -208,5 +210,5 @@ class SchemaPhysicalActivity {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

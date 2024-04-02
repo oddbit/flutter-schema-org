@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 import 'package:schema_org/schemas/alignment_object.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -45,7 +46,7 @@ import 'package:schema_org/schemas/action.dart';
 /// distinct [[timeRequired]] can be provided for that section of
 /// the [[Course]].
 /// See https://schema.org/Syllabus
-class SchemaSyllabus {
+class SchemaSyllabus implements SchemaSerializable {
   /// The item being described is intended to assess the competency or
   /// learning outcome defined by the referenced term.  Supported
   /// types: [DefinedTerm], [String]
@@ -845,7 +846,8 @@ class SchemaSyllabus {
   });
 
   /// Serialize [SchemaSyllabus] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Syllabus',
         'assesses': convertToJsonLd(assesses, [SchemaDefinedTerm, String]),
@@ -1018,5 +1020,5 @@ class SchemaSyllabus {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

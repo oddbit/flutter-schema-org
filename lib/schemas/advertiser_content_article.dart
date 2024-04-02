@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/speakable_specification.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/action.dart';
 /// //en.wikipedia.org/wiki/Advertorial), sponsored content, native
 /// advertising and other paid content.
 /// See https://schema.org/AdvertiserContentArticle
-class SchemaAdvertiserContentArticle {
+class SchemaAdvertiserContentArticle implements SchemaSerializable {
   /// The actual body of the article.
   String? articleBody;
 
@@ -889,7 +890,8 @@ class SchemaAdvertiserContentArticle {
   });
 
   /// Serialize [SchemaAdvertiserContentArticle] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'AdvertiserContentArticle',
         'articleBody': convertToJsonLd(articleBody, [String]),
@@ -1069,5 +1071,5 @@ class SchemaAdvertiserContentArticle {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

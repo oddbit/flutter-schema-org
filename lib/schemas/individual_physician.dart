@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_organization.dart';
 import 'package:schema_org/schemas/medical_procedure.dart';
 import 'package:schema_org/schemas/medical_test.dart';
@@ -56,7 +57,7 @@ import 'package:schema_org/schemas/action.dart';
 /// used to indicate [[MedicalOrganization]] hospitals, clinics,
 /// pharmacies etc where this physician practices.
 /// See https://schema.org/IndividualPhysician
-class SchemaIndividualPhysician {
+class SchemaIndividualPhysician implements SchemaSerializable {
   /// A [[MedicalOrganization]] where the [[IndividualPhysician]]
   /// practices.
   SchemaMedicalOrganization? practicesAt;
@@ -731,7 +732,8 @@ class SchemaIndividualPhysician {
   });
 
   /// Serialize [SchemaIndividualPhysician] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'IndividualPhysician',
         'practicesAt':
@@ -913,5 +915,5 @@ class SchemaIndividualPhysician {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

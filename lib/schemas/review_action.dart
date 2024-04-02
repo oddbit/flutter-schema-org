@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/review.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -21,7 +22,7 @@ import 'package:schema_org/schemas/event.dart';
 /// audience An agent reviews an object with participants resulting
 /// in a review.
 /// See https://schema.org/ReviewAction
-class SchemaReviewAction {
+class SchemaReviewAction implements SchemaSerializable {
   /// A sub property of result The review that resulted in the
   /// performing of the action.
   SchemaReview? resultReview;
@@ -178,7 +179,8 @@ class SchemaReviewAction {
   });
 
   /// Serialize [SchemaReviewAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ReviewAction',
         'resultReview': convertToJsonLd(resultReview, [SchemaReview]),
@@ -213,5 +215,5 @@ class SchemaReviewAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

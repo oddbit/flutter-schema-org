@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/breadcrumb_list.dart';
 import 'package:schema_org/schemas/web_page_element.dart';
 import 'package:schema_org/schemas/image_object.dart';
@@ -47,7 +48,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A page devoted to a single item, such as a particular product or
 /// hotel.
 /// See https://schema.org/ItemPage
-class SchemaItemPage {
+class SchemaItemPage implements SchemaSerializable {
   /// A set of links that can help a user understand and navigate a
   /// website hierarchy.  Supported types: [BreadcrumbList], [String]
   dynamic breadcrumb;
@@ -900,7 +901,8 @@ class SchemaItemPage {
   });
 
   /// Serialize [SchemaItemPage] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ItemPage',
         'breadcrumb':
@@ -1086,5 +1088,5 @@ class SchemaItemPage {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/business_function.dart';
 import 'package:schema_org/schemas/product.dart';
 import 'package:schema_org/schemas/service.dart';
@@ -14,7 +15,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A structured value indicating the quantity, unit of measurement,
 /// and business function of goods included in a bundle offer.
 /// See https://schema.org/TypeAndQuantityNode
-class SchemaTypeAndQuantityNode {
+class SchemaTypeAndQuantityNode implements SchemaSerializable {
   /// The quantity of the goods included in the offer.
   int? amountOfThisGood;
 
@@ -112,7 +113,8 @@ class SchemaTypeAndQuantityNode {
   });
 
   /// Serialize [SchemaTypeAndQuantityNode] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'TypeAndQuantityNode',
         'amountOfThisGood': convertToJsonLd(amountOfThisGood, [int]),
@@ -138,5 +140,5 @@ class SchemaTypeAndQuantityNode {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

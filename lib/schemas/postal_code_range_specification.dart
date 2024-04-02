@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/image_object.dart';
@@ -12,7 +13,7 @@ import 'package:schema_org/schemas/event.dart';
 /// valid codes between [[postalCodeBegin]] and [[postalCodeEnd]],
 /// inclusively.
 /// See https://schema.org/PostalCodeRangeSpecification
-class SchemaPostalCodeRangeSpecification {
+class SchemaPostalCodeRangeSpecification implements SchemaSerializable {
   /// First postal code in a range (included).
   String? postalCodeBegin;
 
@@ -93,7 +94,8 @@ class SchemaPostalCodeRangeSpecification {
   });
 
   /// Serialize [SchemaPostalCodeRangeSpecification] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PostalCodeRangeSpecification',
         'postalCodeBegin': convertToJsonLd(postalCodeBegin, [String]),
@@ -114,5 +116,5 @@ class SchemaPostalCodeRangeSpecification {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

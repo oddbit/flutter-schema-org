@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A collection or bound volume of maps, charts, plates or tables,
 /// physical or in media form illustrating any subject.
 /// See https://schema.org/Atlas
-class SchemaAtlas {
+class SchemaAtlas implements SchemaSerializable {
   /// The subject matter of the content.
   SchemaThing? about;
 
@@ -835,7 +836,8 @@ class SchemaAtlas {
   });
 
   /// Serialize [SchemaAtlas] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Atlas',
         'about': convertToJsonLd(about, [SchemaThing]),
@@ -1006,5 +1008,5 @@ class SchemaAtlas {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

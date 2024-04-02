@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/news_article.dart';
 import 'package:schema_org/schemas/duration.dart';
 import 'package:schema_org/schemas/creative_work.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A music video file.
 /// See https://schema.org/MusicVideoObject
-class SchemaMusicVideoObject {
+class SchemaMusicVideoObject implements SchemaSerializable {
   /// A NewsArticle associated with the Media Object.
   SchemaNewsArticle? associatedArticle;
 
@@ -944,7 +945,8 @@ class SchemaMusicVideoObject {
   });
 
   /// Serialize [SchemaMusicVideoObject] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MusicVideoObject',
         'associatedArticle':
@@ -1140,5 +1142,5 @@ class SchemaMusicVideoObject {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

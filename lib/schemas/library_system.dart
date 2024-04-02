@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/interaction_counter.dart';
@@ -40,7 +41,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A [[LibrarySystem]] is a collaborative system amongst several
 /// libraries.
 /// See https://schema.org/LibrarySystem
-class SchemaLibrarySystem {
+class SchemaLibrarySystem implements SchemaSerializable {
   /// For a [[NewsMediaOrganization]] or other news-related
   /// [[Organization]], a statement about public engagement activities
   /// (for news media, the newsroom’s), including involving the public
@@ -479,7 +480,8 @@ class SchemaLibrarySystem {
   });
 
   /// Serialize [SchemaLibrarySystem] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'LibrarySystem',
         'actionableFeedbackPolicy': convertToJsonLd(
@@ -592,5 +594,5 @@ class SchemaLibrarySystem {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

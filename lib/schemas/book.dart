@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/book_format_type.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A book.
 /// See https://schema.org/Book
-class SchemaBook {
+class SchemaBook implements SchemaSerializable {
   /// Indicates whether the book is an abridged edition.
   bool? abridged;
 
@@ -859,7 +860,8 @@ class SchemaBook {
   });
 
   /// Serialize [SchemaBook] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Book',
         'abridged': convertToJsonLd(abridged, [bool]),
@@ -1036,5 +1038,5 @@ class SchemaBook {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

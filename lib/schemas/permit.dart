@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/service.dart';
 import 'package:schema_org/schemas/audience.dart';
@@ -15,7 +16,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// A permit issued by an organization, e.g a parking pass.
 /// See https://schema.org/Permit
-class SchemaPermit {
+class SchemaPermit implements SchemaSerializable {
   /// The organization issuing the item, for example a [[Permit]],
   /// [[Ticket]], or [[Certification]].
   SchemaOrganization? issuedBy;
@@ -119,7 +120,8 @@ class SchemaPermit {
   });
 
   /// Serialize [SchemaPermit] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Permit',
         'issuedBy': convertToJsonLd(issuedBy, [SchemaOrganization]),
@@ -145,5 +147,5 @@ class SchemaPermit {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

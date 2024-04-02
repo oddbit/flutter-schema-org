@@ -1,21 +1,22 @@
 library schema_org;
 
-import 'package:schema_org/schemas/action.dart';
-import 'package:schema_org/schemas/creative_work.dart';
-import 'package:schema_org/schemas/demand.dart';
-import 'package:schema_org/schemas/event.dart';
-import 'package:schema_org/schemas/image_object.dart';
+import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/menu_section.dart';
 import 'package:schema_org/schemas/nutrition_information.dart';
+import 'package:schema_org/schemas/demand.dart';
 import 'package:schema_org/schemas/offer.dart';
-import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/restricted_diet.dart';
 import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/utils.dart';
+import 'package:schema_org/schemas/property_value.dart';
+import 'package:schema_org/schemas/image_object.dart';
+import 'package:schema_org/schemas/creative_work.dart';
+import 'package:schema_org/schemas/action.dart';
+import 'package:schema_org/schemas/event.dart';
 
 /// A food or drink item listed in a menu or menu section.
 /// See https://schema.org/MenuItem
-class SchemaMenuItem {
+class SchemaMenuItem implements SchemaSerializable {
   /// Additional menu item(s) such as a side dish of salad or side
   /// order of fries that can be added to this menu item Additionally
   /// it can be a menu section containing allowed add-on menu items
@@ -115,7 +116,8 @@ class SchemaMenuItem {
   });
 
   /// Serialize [SchemaMenuItem] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MenuItem',
         'menuAddOn':
@@ -140,5 +142,5 @@ class SchemaMenuItem {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

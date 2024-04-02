@@ -1,9 +1,11 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// A diet restricted to certain foods or preparations for cultural,
 /// religious, health or lifestyle reasons.
 /// See https://schema.org/RestrictedDiet
-enum SchemaRestrictedDiet {
+enum SchemaRestrictedDiet implements SchemaSerializable {
   /// A diet appropriate for people with diabetes.
   diabeticDiet('https://schema.org/RestrictedDiet'),
 
@@ -45,5 +47,6 @@ enum SchemaRestrictedDiet {
   final String value;
 
   /// Serialize [SchemaRestrictedDiet] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

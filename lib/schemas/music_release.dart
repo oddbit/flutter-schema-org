@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/duration.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A MusicRelease is a specific release of a music album.
 /// See https://schema.org/MusicRelease
-class SchemaMusicRelease {
+class SchemaMusicRelease implements SchemaSerializable {
   /// The catalog number for the release.
   String? catalogNumber;
 
@@ -878,7 +879,8 @@ class SchemaMusicRelease {
   });
 
   /// Serialize [SchemaMusicRelease] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MusicRelease',
         'catalogNumber': convertToJsonLd(catalogNumber, [String]),
@@ -1060,5 +1062,5 @@ class SchemaMusicRelease {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/image_object.dart';
 import 'package:schema_org/schemas/software_application.dart';
 import 'package:schema_org/schemas/creative_work.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// Web applications.
 /// See https://schema.org/WebApplication
-class SchemaWebApplication {
+class SchemaWebApplication implements SchemaSerializable {
   /// Specifies browser requirements in human-readable text For
   /// example, 'requires HTML5 support'.
   String? browserRequirements;
@@ -956,7 +957,8 @@ class SchemaWebApplication {
   });
 
   /// Serialize [SchemaWebApplication] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'WebApplication',
         'browserRequirements': convertToJsonLd(browserRequirements, [String]),
@@ -1160,5 +1162,5 @@ class SchemaWebApplication {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

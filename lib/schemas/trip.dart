@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/demand.dart';
@@ -16,7 +17,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// A trip or journey An itinerary of visits to one or more places.
 /// See https://schema.org/Trip
-class SchemaTrip {
+class SchemaTrip implements SchemaSerializable {
   /// The expected arrival time.  Supported types: [String], [String]
   String? arrivalTime;
 
@@ -136,7 +137,8 @@ class SchemaTrip {
   });
 
   /// Serialize [SchemaTrip] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Trip',
         'arrivalTime': convertToJsonLd(arrivalTime, [String, String]),
@@ -164,5 +166,5 @@ class SchemaTrip {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

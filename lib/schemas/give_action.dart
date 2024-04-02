@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/audience.dart';
 import 'package:schema_org/schemas/contact_point.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -22,7 +23,7 @@ import 'package:schema_org/schemas/event.dart';
 /// transferred (e.g I may send my laptop to you, but that doesn't
 /// mean I'm giving it to you).
 /// See https://schema.org/GiveAction
-class SchemaGiveAction {
+class SchemaGiveAction implements SchemaSerializable {
   /// A sub property of participant The participant who is at the
   /// receiving end of the action.  Supported types: [Audience],
   /// [ContactPoint], [Organization], [Person]
@@ -190,7 +191,8 @@ class SchemaGiveAction {
   });
 
   /// Serialize [SchemaGiveAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'GiveAction',
         'recipient': convertToJsonLd(recipient, [
@@ -232,5 +234,5 @@ class SchemaGiveAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

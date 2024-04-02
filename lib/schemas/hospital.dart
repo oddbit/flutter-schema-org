@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_procedure.dart';
 import 'package:schema_org/schemas/medical_test.dart';
 import 'package:schema_org/schemas/medical_therapy.dart';
@@ -51,7 +52,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A hospital.
 /// See https://schema.org/Hospital
-class SchemaHospital {
+class SchemaHospital implements SchemaSerializable {
   /// A medical service available from this provider.  Supported
   /// types: [MedicalProcedure], [MedicalTest], [MedicalTherapy]
   dynamic availableService;
@@ -710,7 +711,8 @@ class SchemaHospital {
   });
 
   /// Serialize [SchemaHospital] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Hospital',
         'availableService': convertToJsonLd(availableService,
@@ -887,5 +889,5 @@ class SchemaHospital {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

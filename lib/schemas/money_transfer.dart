@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 import 'package:schema_org/schemas/bank_or_credit_union.dart';
 import 'package:schema_org/schemas/place.dart';
@@ -21,7 +22,7 @@ import 'package:schema_org/schemas/event.dart';
 /// The act of transferring money from one place to another place
 /// This may occur electronically or physically.
 /// See https://schema.org/MoneyTransfer
-class SchemaMoneyTransfer {
+class SchemaMoneyTransfer implements SchemaSerializable {
   /// The amount of money.  Supported types: [MonetaryAmount], [int]
   dynamic amount;
 
@@ -194,7 +195,8 @@ class SchemaMoneyTransfer {
   });
 
   /// Serialize [SchemaMoneyTransfer] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MoneyTransfer',
         'amount': convertToJsonLd(amount, [SchemaMonetaryAmount, int]),
@@ -233,5 +235,5 @@ class SchemaMoneyTransfer {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

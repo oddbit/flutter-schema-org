@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/event.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/language.dart';
@@ -22,7 +23,7 @@ import 'package:schema_org/schemas/action.dart';
 /// The act of asking someone to attend an event Reciprocal of
 /// RsvpAction.
 /// See https://schema.org/InviteAction
-class SchemaInviteAction {
+class SchemaInviteAction implements SchemaSerializable {
   /// Upcoming or past event associated with this place, organization,
   /// or action.
   SchemaEvent? event;
@@ -198,7 +199,8 @@ class SchemaInviteAction {
   });
 
   /// Serialize [SchemaInviteAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'InviteAction',
         'event': convertToJsonLd(event, [SchemaEvent]),
@@ -242,5 +244,5 @@ class SchemaInviteAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

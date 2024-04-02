@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/category_code.dart';
 import 'package:schema_org/schemas/physical_activity_category.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -52,7 +53,7 @@ import 'package:schema_org/schemas/action.dart';
 /// different categories For example, in a [[Guide]] about which TVs
 /// to buy, the author may have several [[Recommendation]]s.
 /// See https://schema.org/Recommendation
-class SchemaRecommendation {
+class SchemaRecommendation implements SchemaSerializable {
   /// A category for the item Greater signs or slashes can be used to
   /// informally indicate a category hierarchy.  Supported types:
   /// [CategoryCode], [PhysicalActivityCategory], [String], [String],
@@ -924,7 +925,8 @@ class SchemaRecommendation {
   });
 
   /// Serialize [SchemaRecommendation] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Recommendation',
         'category': convertToJsonLd(category, [
@@ -1115,5 +1117,5 @@ class SchemaRecommendation {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

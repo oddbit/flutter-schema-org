@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/image_object.dart';
@@ -13,7 +14,7 @@ import 'package:schema_org/schemas/event.dart';
 /// particularly [[speakable]] Instances of this type are expected
 /// to be used primarily as values of the [[speakable]] property.
 /// See https://schema.org/SpeakableSpecification
-class SchemaSpeakableSpecification {
+class SchemaSpeakableSpecification implements SchemaSerializable {
   /// A CSS selector, e.g of a [[SpeakableSpecification]] or
   /// [[WebPageElement]] In the latter case, multiple matches within a
   /// page can constitute a single conceptual "Web page element".
@@ -97,7 +98,8 @@ class SchemaSpeakableSpecification {
   });
 
   /// Serialize [SchemaSpeakableSpecification] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'SpeakableSpecification',
         'cssSelector': convertToJsonLd(cssSelector, [String]),
@@ -118,5 +120,5 @@ class SchemaSpeakableSpecification {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

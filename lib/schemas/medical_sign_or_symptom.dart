@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_therapy.dart';
 import 'package:schema_org/schemas/anatomical_structure.dart';
 import 'package:schema_org/schemas/anatomical_system.dart';
@@ -32,7 +33,7 @@ import 'package:schema_org/schemas/event.dart';
 /// medicine a symptom is generally subjective while a sign is
 /// objective.
 /// See https://schema.org/MedicalSignOrSymptom
-class SchemaMedicalSignOrSymptom {
+class SchemaMedicalSignOrSymptom implements SchemaSerializable {
   /// A possible treatment to address this condition, sign or symptom.
   SchemaMedicalTherapy? possibleTreatment;
 
@@ -230,7 +231,8 @@ class SchemaMedicalSignOrSymptom {
   });
 
   /// Serialize [SchemaMedicalSignOrSymptom] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalSignOrSymptom',
         'possibleTreatment':
@@ -287,5 +289,5 @@ class SchemaMedicalSignOrSymptom {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

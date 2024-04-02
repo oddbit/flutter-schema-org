@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -13,7 +14,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// The average rating based on multiple ratings or reviews.
 /// See https://schema.org/AggregateRating
-class SchemaAggregateRating {
+class SchemaAggregateRating implements SchemaSerializable {
   /// The item that is being reviewed/rated.
   SchemaThing? itemReviewed;
 
@@ -137,7 +138,8 @@ class SchemaAggregateRating {
   });
 
   /// Serialize [SchemaAggregateRating] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'AggregateRating',
         'itemReviewed': convertToJsonLd(itemReviewed, [SchemaThing]),
@@ -165,5 +167,5 @@ class SchemaAggregateRating {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

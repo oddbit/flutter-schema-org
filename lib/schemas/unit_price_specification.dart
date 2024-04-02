@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/duration.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/price_component_type_enumeration.dart';
@@ -16,7 +17,7 @@ import 'package:schema_org/schemas/event.dart';
 /// The price asked for a given offer by the respective organization
 /// or person.
 /// See https://schema.org/UnitPriceSpecification
-class SchemaUnitPriceSpecification {
+class SchemaUnitPriceSpecification implements SchemaSerializable {
   /// Specifies for how long this price (or price component) will be
   /// billed Can be used, for example, to model the contractual
   /// duration of a subscription or payment plan Type can be either a
@@ -201,7 +202,8 @@ class SchemaUnitPriceSpecification {
   });
 
   /// Serialize [SchemaUnitPriceSpecification] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'UnitPriceSpecification',
         'billingDuration': convertToJsonLd(
@@ -243,5 +245,5 @@ class SchemaUnitPriceSpecification {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

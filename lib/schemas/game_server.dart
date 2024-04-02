@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/video_game.dart';
 import 'package:schema_org/schemas/game_server_status.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -12,7 +13,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// Server that provides game interaction in a multiplayer game.
 /// See https://schema.org/GameServer
-class SchemaGameServer {
+class SchemaGameServer implements SchemaSerializable {
   /// Video game which is played on this server.
   SchemaVideoGame? game;
 
@@ -96,7 +97,8 @@ class SchemaGameServer {
   });
 
   /// Serialize [SchemaGameServer] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'GameServer',
         'game': convertToJsonLd(game, [SchemaVideoGame]),
@@ -118,5 +120,5 @@ class SchemaGameServer {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

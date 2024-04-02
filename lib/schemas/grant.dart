@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/bio_chem_entity.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/event.dart';
@@ -28,7 +29,7 @@ import 'package:schema_org/schemas/action.dart';
 /// associated with a single grant  The amount of a [[Grant]] is
 /// represented using [[amount]] as a [[MonetaryAmount]].
 /// See https://schema.org/Grant
-class SchemaGrant {
+class SchemaGrant implements SchemaSerializable {
   /// Indicates something directly or indirectly funded or sponsored
   /// through a [[Grant]] See also [[ownershipFundingInfo]].
   /// Supported types: [BioChemEntity], [CreativeWork], [Event],
@@ -120,7 +121,8 @@ class SchemaGrant {
   });
 
   /// Serialize [SchemaGrant] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Grant',
         'fundedItem': convertToJsonLd(fundedItem, [
@@ -150,5 +152,5 @@ class SchemaGrant {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

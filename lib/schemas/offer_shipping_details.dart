@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/shipping_delivery_time.dart';
 import 'package:schema_org/schemas/distance.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
@@ -15,7 +16,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// $15 in 1-2 days.
 /// See https://schema.org/OfferShippingDetails
-class SchemaOfferShippingDetails {
+class SchemaOfferShippingDetails implements SchemaSerializable {
   /// The total delay between the receipt of the order and the goods
   /// reaching the final customer.
   SchemaShippingDeliveryTime? deliveryTime;
@@ -149,7 +150,8 @@ class SchemaOfferShippingDetails {
   });
 
   /// Serialize [SchemaOfferShippingDetails] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'OfferShippingDetails',
         'deliveryTime':
@@ -186,5 +188,5 @@ class SchemaOfferShippingDetails {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

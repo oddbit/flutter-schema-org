@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/property.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -19,7 +20,7 @@ import 'package:schema_org/schemas/event.dart';
 /// understood to indicate sets of possible values rather than
 /// single, exact and specific values.
 /// See https://schema.org/ConstraintNode
-class SchemaConstraintNode {
+class SchemaConstraintNode implements SchemaSerializable {
   /// Indicates a property used as a constraint For example, in the
   /// definition of a [[StatisticalVariable]] The value is a property,
   /// either from within Schema.org or from other compatible (e.g RDF)
@@ -108,7 +109,8 @@ class SchemaConstraintNode {
   });
 
   /// Serialize [SchemaConstraintNode] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ConstraintNode',
         'constraintProperty':
@@ -130,5 +132,5 @@ class SchemaConstraintNode {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

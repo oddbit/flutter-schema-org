@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/anatomical_structure.dart';
 import 'package:schema_org/schemas/muscle.dart';
 import 'package:schema_org/schemas/superficial_anatomy.dart';
@@ -27,7 +28,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A common pathway for the electrochemical nerve impulses that are
 /// transmitted along each of the axons.
 /// See https://schema.org/Nerve
-class SchemaNerve {
+class SchemaNerve implements SchemaSerializable {
   /// The branches that delineate from the nerve bundle Not to be
   /// confused with [[branchOf]].
   SchemaAnatomicalStructure? branch;
@@ -197,7 +198,8 @@ class SchemaNerve {
   });
 
   /// Serialize [SchemaNerve] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Nerve',
         'branch': convertToJsonLd(branch, [SchemaAnatomicalStructure]),
@@ -246,5 +248,5 @@ class SchemaNerve {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

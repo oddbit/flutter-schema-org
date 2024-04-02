@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/image_object.dart';
@@ -10,7 +11,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// A subclass of Role used to describe roles within organizations.
 /// See https://schema.org/OrganizationRole
-class SchemaOrganizationRole {
+class SchemaOrganizationRole implements SchemaSerializable {
   /// A number associated with a role in an organization, for example,
   /// the number on an athlete's jersey.
   int? numberedPosition;
@@ -112,7 +113,8 @@ class SchemaOrganizationRole {
   });
 
   /// Serialize [SchemaOrganizationRole] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'OrganizationRole',
         'numberedPosition': convertToJsonLd(numberedPosition, [int]),
@@ -136,5 +138,5 @@ class SchemaOrganizationRole {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

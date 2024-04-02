@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/image_object.dart';
@@ -11,7 +12,7 @@ import 'package:schema_org/schemas/event.dart';
 /// Indicates employment-related experience requirements, e.g
 /// [[monthsOfExperience]].
 /// See https://schema.org/OccupationalExperienceRequirements
-class SchemaOccupationalExperienceRequirements {
+class SchemaOccupationalExperienceRequirements implements SchemaSerializable {
   /// Indicates the minimal number of months of experience required
   /// for a position.
   int? monthsOfExperience;
@@ -88,7 +89,8 @@ class SchemaOccupationalExperienceRequirements {
   });
 
   /// Serialize [SchemaOccupationalExperienceRequirements] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'OccupationalExperienceRequirements',
         'monthsOfExperience': convertToJsonLd(monthsOfExperience, [int]),
@@ -108,5 +110,5 @@ class SchemaOccupationalExperienceRequirements {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_condition.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/gender_type.dart';
@@ -15,7 +16,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A set of characteristics describing parents, who can be
 /// interested in viewing some content.
 /// See https://schema.org/ParentAudience
-class SchemaParentAudience {
+class SchemaParentAudience implements SchemaSerializable {
   /// Maximal age of the child.
   int? childMaxAge;
 
@@ -147,7 +148,8 @@ class SchemaParentAudience {
   });
 
   /// Serialize [SchemaParentAudience] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ParentAudience',
         'childMaxAge': convertToJsonLd(childMaxAge, [int]),
@@ -184,5 +186,5 @@ class SchemaParentAudience {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

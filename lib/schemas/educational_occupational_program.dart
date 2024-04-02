@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/day_of_week.dart';
 import 'package:schema_org/schemas/educational_occupational_credential.dart';
 import 'package:schema_org/schemas/defined_term.dart';
@@ -30,7 +31,7 @@ import 'package:schema_org/schemas/event.dart';
 /// sometimes a higher educational opportunity (e.g., an advanced
 /// degree).
 /// See https://schema.org/EducationalOccupationalProgram
-class SchemaEducationalOccupationalProgram {
+class SchemaEducationalOccupationalProgram implements SchemaSerializable {
   /// The date at which the program stops collecting applications for
   /// the next enrollment cycle.
   String? applicationDeadline;
@@ -244,7 +245,8 @@ class SchemaEducationalOccupationalProgram {
   });
 
   /// Serialize [SchemaEducationalOccupationalProgram] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'EducationalOccupationalProgram',
         'applicationDeadline': convertToJsonLd(applicationDeadline, [String]),
@@ -305,5 +307,5 @@ class SchemaEducationalOccupationalProgram {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

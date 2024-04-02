@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/country.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -12,7 +13,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// The geographic coordinates of a place or event.
 /// See https://schema.org/GeoCoordinates
-class SchemaGeoCoordinates {
+class SchemaGeoCoordinates implements SchemaSerializable {
   /// Physical address of the item.  Supported types: [PostalAddress],
   /// [String]
   dynamic address;
@@ -115,7 +116,8 @@ class SchemaGeoCoordinates {
   });
 
   /// Serialize [SchemaGeoCoordinates] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'GeoCoordinates',
         'address': convertToJsonLd(address, [SchemaPostalAddress, String]),
@@ -141,5 +143,5 @@ class SchemaGeoCoordinates {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/offer.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -13,7 +14,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A subscription which allows a user to access media including
 /// audio, video, books, etc.
 /// See https://schema.org/MediaSubscription
-class SchemaMediaSubscription {
+class SchemaMediaSubscription implements SchemaSerializable {
   /// The Organization responsible for authenticating the user's
   /// subscription For example, many media apps require a
   /// cable/satellite provider to authenticate your subscription
@@ -98,7 +99,8 @@ class SchemaMediaSubscription {
   });
 
   /// Serialize [SchemaMediaSubscription] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MediaSubscription',
         'authenticator': convertToJsonLd(authenticator, [SchemaOrganization]),
@@ -120,5 +122,5 @@ class SchemaMediaSubscription {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

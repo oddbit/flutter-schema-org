@@ -1,8 +1,10 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// Enumerates several kinds of product return policies.
 /// See https://schema.org/MerchantReturnEnumeration
-enum SchemaMerchantReturnEnumeration {
+enum SchemaMerchantReturnEnumeration implements SchemaSerializable {
   /// Specifies that there is a finite window for product returns.
   merchantReturnFiniteReturnWindow(
       'https://schema.org/MerchantReturnEnumeration'),
@@ -23,5 +25,6 @@ enum SchemaMerchantReturnEnumeration {
   final String value;
 
   /// Serialize [SchemaMerchantReturnEnumeration] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/audience.dart';
 import 'package:schema_org/schemas/contact_point.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -16,7 +17,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A permission for a particular person or group to access a
 /// particular file.
 /// See https://schema.org/DigitalDocumentPermission
-class SchemaDigitalDocumentPermission {
+class SchemaDigitalDocumentPermission implements SchemaSerializable {
   /// The person, organization, contact point, or audience that has
   /// been granted this permission.  Supported types: [Audience],
   /// [ContactPoint], [Organization], [Person]
@@ -99,7 +100,8 @@ class SchemaDigitalDocumentPermission {
   });
 
   /// Serialize [SchemaDigitalDocumentPermission] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'DigitalDocumentPermission',
         'grantee': convertToJsonLd(grantee, [
@@ -126,5 +128,5 @@ class SchemaDigitalDocumentPermission {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

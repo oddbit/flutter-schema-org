@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -15,7 +16,7 @@ import 'package:schema_org/schemas/event.dart';
 /// as it helps consumers understand that the rating is broadly
 /// positive.
 /// See https://schema.org/EndorsementRating
-class SchemaEndorsementRating {
+class SchemaEndorsementRating implements SchemaSerializable {
   /// The author of this content or rating Please note that author is
   /// special in that HTML 5 provides a special mechanism for
   /// indicating authorship via the rel tag That is equivalent to this
@@ -127,7 +128,8 @@ class SchemaEndorsementRating {
   });
 
   /// Serialize [SchemaEndorsementRating] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'EndorsementRating',
         'author': convertToJsonLd(author, [SchemaOrganization, SchemaPerson]),
@@ -152,5 +154,5 @@ class SchemaEndorsementRating {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

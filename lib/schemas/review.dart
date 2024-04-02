@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/list_item.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A review of an item - for example, of a restaurant, movie, or
 /// store.
 /// See https://schema.org/Review
-class SchemaReview {
+class SchemaReview implements SchemaSerializable {
   /// An associated [[ClaimReview]], related by specific common
   /// content, topic or claim The expectation is that this property
   /// would be most typically used in cases where a single activity is
@@ -909,7 +910,8 @@ class SchemaReview {
   });
 
   /// Serialize [SchemaReview] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Review',
         'associatedClaimReview':
@@ -1093,5 +1095,5 @@ class SchemaReview {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -19,7 +20,7 @@ import 'package:schema_org/schemas/event.dart';
 /// SearchAction generally leads to a FindAction, but not
 /// necessarily.
 /// See https://schema.org/SearchAction
-class SchemaSearchAction {
+class SchemaSearchAction implements SchemaSerializable {
   /// A sub property of instrument The query used on this action.
   String? query;
 
@@ -175,7 +176,8 @@ class SchemaSearchAction {
   });
 
   /// Serialize [SchemaSearchAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'SearchAction',
         'query': convertToJsonLd(query, [String]),
@@ -210,5 +212,5 @@ class SchemaSearchAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

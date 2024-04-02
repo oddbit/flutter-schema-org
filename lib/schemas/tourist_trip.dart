@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/audience.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/place.dart';
@@ -19,7 +20,7 @@ import 'package:schema_org/schemas/event.dart';
 /// //www2.unwto.org/) defines tourism trip as the Trip taken by
 /// visitors  (See examples below.)
 /// See https://schema.org/TouristTrip
-class SchemaTouristTrip {
+class SchemaTouristTrip implements SchemaSerializable {
   /// Attraction suitable for type(s) of tourist E.g children,
   /// visitors from a particular country, etc   Supported types:
   /// [Audience], [String]
@@ -145,7 +146,8 @@ class SchemaTouristTrip {
   });
 
   /// Serialize [SchemaTouristTrip] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'TouristTrip',
         'touristType': convertToJsonLd(touristType, [SchemaAudience, String]),
@@ -174,5 +176,5 @@ class SchemaTouristTrip {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/action.dart';
 /// its topic via [[about]], properties shared with all
 /// CreativeWorks.
 /// See https://schema.org/Comment
-class SchemaComment {
+class SchemaComment implements SchemaSerializable {
   /// The number of downvotes this question, answer or comment has
   /// received from the community.
   int? downvoteCount;
@@ -859,7 +860,8 @@ class SchemaComment {
   });
 
   /// Serialize [SchemaComment] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Comment',
         'downvoteCount': convertToJsonLd(downvoteCount, [int]),
@@ -1035,5 +1037,5 @@ class SchemaComment {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

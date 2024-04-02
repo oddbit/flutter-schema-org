@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/interaction_counter.dart';
@@ -36,7 +37,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A person (alive, dead, undead, or fictional).
 /// See https://schema.org/Person
-class SchemaPerson {
+class SchemaPerson implements SchemaSerializable {
   /// An additional name for a Person, can be used for a middle name.
   String? additionalName;
 
@@ -431,7 +432,8 @@ class SchemaPerson {
   });
 
   /// Serialize [SchemaPerson] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Person',
         'additionalName': convertToJsonLd(additionalName, [String]),
@@ -529,5 +531,5 @@ class SchemaPerson {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

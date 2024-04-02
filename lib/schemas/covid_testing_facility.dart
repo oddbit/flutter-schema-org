@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_procedure.dart';
 import 'package:schema_org/schemas/medical_test.dart';
 import 'package:schema_org/schemas/medical_therapy.dart';
@@ -56,7 +57,7 @@ import 'package:schema_org/schemas/action.dart';
 /// opening hours Note that in an emergency, such information may
 /// not always be reliable.
 /// See https://schema.org/CovidTestingFacility
-class SchemaCovidTestingFacility {
+class SchemaCovidTestingFacility implements SchemaSerializable {
   /// A medical service available from this provider.  Supported
   /// types: [MedicalProcedure], [MedicalTest], [MedicalTherapy]
   dynamic availableService;
@@ -709,7 +710,8 @@ class SchemaCovidTestingFacility {
   });
 
   /// Serialize [SchemaCovidTestingFacility] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'CovidTestingFacility',
         'availableService': convertToJsonLd(availableService,
@@ -884,5 +886,5 @@ class SchemaCovidTestingFacility {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

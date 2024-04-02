@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_entity.dart';
 import 'package:schema_org/schemas/dose_schedule.dart';
 import 'package:schema_org/schemas/drug.dart';
@@ -27,7 +28,7 @@ import 'package:schema_org/schemas/event.dart';
 /// communication aimed at improving a mental health condition
 /// without use of drugs.
 /// See https://schema.org/PsychologicalTreatment
-class SchemaPsychologicalTreatment {
+class SchemaPsychologicalTreatment implements SchemaSerializable {
   /// A possible complication and/or side effect of this therapy If it
   /// is known that an adverse outcome is serious (resulting in death,
   /// disability, or permanent damage; requiring hospitalization; or
@@ -185,7 +186,8 @@ class SchemaPsychologicalTreatment {
   });
 
   /// Serialize [SchemaPsychologicalTreatment] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PsychologicalTreatment',
         'adverseOutcome':
@@ -229,5 +231,5 @@ class SchemaPsychologicalTreatment {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

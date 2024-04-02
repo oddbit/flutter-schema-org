@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/vessel.dart';
 import 'package:schema_org/schemas/anatomical_structure.dart';
 import 'package:schema_org/schemas/anatomical_system.dart';
@@ -25,7 +26,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A type of blood vessel that specifically carries lymph fluid
 /// unidirectionally toward the heart.
 /// See https://schema.org/LymphaticVessel
-class SchemaLymphaticVessel {
+class SchemaLymphaticVessel implements SchemaSerializable {
   /// The vasculature the lymphatic structure originates, or
   /// afferents, from.
   SchemaVessel? originatesFrom;
@@ -191,7 +192,8 @@ class SchemaLymphaticVessel {
   });
 
   /// Serialize [SchemaLymphaticVessel] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'LymphaticVessel',
         'originatesFrom': convertToJsonLd(originatesFrom, [SchemaVessel]),
@@ -239,5 +241,5 @@ class SchemaLymphaticVessel {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

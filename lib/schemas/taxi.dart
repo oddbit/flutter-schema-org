@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
 import 'package:schema_org/schemas/geo_shape.dart';
@@ -31,7 +32,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// A taxi.
 /// See https://schema.org/Taxi
-class SchemaTaxi {
+class SchemaTaxi implements SchemaSerializable {
   /// The overall rating, based on a collection of reviews or ratings,
   /// of the item.
   SchemaAggregateRating? aggregateRating;
@@ -240,7 +241,8 @@ class SchemaTaxi {
   });
 
   /// Serialize [SchemaTaxi] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Taxi',
         'aggregateRating':
@@ -301,5 +303,5 @@ class SchemaTaxi {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

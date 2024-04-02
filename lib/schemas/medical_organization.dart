@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_specialty.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
@@ -41,7 +42,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A medical organization (physical or not), such as hospital,
 /// institution or clinic.
 /// See https://schema.org/MedicalOrganization
-class SchemaMedicalOrganization {
+class SchemaMedicalOrganization implements SchemaSerializable {
   /// Name or unique ID of network (Networks are often reused across
   /// different insurance plans.)
   String? healthPlanNetworkId;
@@ -493,7 +494,8 @@ class SchemaMedicalOrganization {
   });
 
   /// Serialize [SchemaMedicalOrganization] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalOrganization',
         'healthPlanNetworkId': convertToJsonLd(healthPlanNetworkId, [String]),
@@ -611,5 +613,5 @@ class SchemaMedicalOrganization {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

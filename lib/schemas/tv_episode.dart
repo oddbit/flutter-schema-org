@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/country.dart';
 import 'package:schema_org/schemas/tv_series.dart';
 import 'package:schema_org/schemas/language.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A TV episode which can be part of a series or season.
 /// See https://schema.org/TVEpisode
-class SchemaTVEpisode {
+class SchemaTVEpisode implements SchemaSerializable {
   /// The country of origin of something, including products as well
   /// as creative works such as movie and TV content  In the case of
   /// TV and movie, this would be the country of the principle offices
@@ -917,7 +918,8 @@ class SchemaTVEpisode {
   });
 
   /// Serialize [SchemaTVEpisode] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'TVEpisode',
         'countryOfOrigin': convertToJsonLd(countryOfOrigin, [SchemaCountry]),
@@ -1106,5 +1108,5 @@ class SchemaTVEpisode {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

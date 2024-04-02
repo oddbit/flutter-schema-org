@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/day_of_week.dart';
 import 'package:schema_org/schemas/duration.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -20,7 +21,7 @@ import 'package:schema_org/schemas/event.dart';
 /// Schedules may also  have start and end dates to indicate when
 /// they are active, e.g to define a limited calendar of events.
 /// See https://schema.org/Schedule
-class SchemaSchedule {
+class SchemaSchedule implements SchemaSerializable {
   /// Defines the day(s) of the week on which a recurring [[Event]]
   /// takes place May be specified using either [[DayOfWeek]], or
   /// alternatively [[Text]] conforming to iCal's syntax for byDay
@@ -186,7 +187,8 @@ class SchemaSchedule {
   });
 
   /// Serialize [SchemaSchedule] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Schedule',
         'byDay': convertToJsonLd(byDay, [SchemaDayOfWeek, String]),
@@ -219,5 +221,5 @@ class SchemaSchedule {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/demand.dart';
 import 'package:schema_org/schemas/offer.dart';
 import 'package:schema_org/schemas/loan_or_credit.dart';
@@ -42,7 +43,7 @@ import 'package:schema_org/schemas/action.dart';
 /// //purl.org/goodrelations/v1#Sell if businessFunction is not
 /// explicitly defined.
 /// See https://schema.org/AggregateOffer
-class SchemaAggregateOffer {
+class SchemaAggregateOffer implements SchemaSerializable {
   /// \n\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030)
   /// to 'DIGIT NINE' (U+0039)) rather than superficially similar
   /// Unicode symbols.\n* Use '.' (Unicode 'FULL STOP' (U+002E))
@@ -457,7 +458,8 @@ class SchemaAggregateOffer {
   });
 
   /// Serialize [SchemaAggregateOffer] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'AggregateOffer',
         'highPrice': convertToJsonLd(highPrice, [String, int]),
@@ -573,5 +575,5 @@ class SchemaAggregateOffer {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

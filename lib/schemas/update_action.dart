@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -18,7 +19,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// The act of managing by changing/editing the state of the object.
 /// See https://schema.org/UpdateAction
-class SchemaUpdateAction {
+class SchemaUpdateAction implements SchemaSerializable {
   /// A sub property of object The collection target of the action.
   SchemaThing? collection;
 
@@ -178,7 +179,8 @@ class SchemaUpdateAction {
   });
 
   /// Serialize [SchemaUpdateAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'UpdateAction',
         'collection': convertToJsonLd(collection, [SchemaThing]),
@@ -214,5 +216,5 @@ class SchemaUpdateAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

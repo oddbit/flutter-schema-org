@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A set of defined terms, for example a set of categories or a
 /// classification scheme, a glossary, dictionary or enumeration.
 /// See https://schema.org/DefinedTermSet
-class SchemaDefinedTermSet {
+class SchemaDefinedTermSet implements SchemaSerializable {
   /// A Defined Term contained in this term set.
   SchemaDefinedTerm? hasDefinedTerm;
 
@@ -839,7 +840,8 @@ class SchemaDefinedTermSet {
   });
 
   /// Serialize [SchemaDefinedTermSet] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'DefinedTermSet',
         'hasDefinedTerm': convertToJsonLd(hasDefinedTerm, [SchemaDefinedTerm]),
@@ -1011,5 +1013,5 @@ class SchemaDefinedTermSet {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

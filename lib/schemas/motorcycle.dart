@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/qualitative_value.dart';
 import 'package:schema_org/schemas/drive_wheel_configuration_value.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A motorcycle or motorbike is a single-track, two-wheeled motor
 /// vehicle.
 /// See https://schema.org/Motorcycle
-class SchemaMotorcycle {
+class SchemaMotorcycle implements SchemaSerializable {
   /// There are unfortunately no standard unit codes for
   /// seconds/0..100 km/h or seconds/0..60 mph Simply use "SEC" for
   /// seconds and indicate the velocities in the [[name]] of the
@@ -675,7 +676,8 @@ class SchemaMotorcycle {
   });
 
   /// Serialize [SchemaMotorcycle] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Motorcycle',
         'accelerationTime':
@@ -842,5 +844,5 @@ class SchemaMotorcycle {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

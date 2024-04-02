@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/floor_plan.dart';
 import 'package:schema_org/schemas/location_feature_specification.dart';
 import 'package:schema_org/schemas/bed_details.dart';
@@ -31,7 +32,7 @@ import 'package:schema_org/schemas/action.dart';
 /// use of schema.org for marking up hotels and other forms of
 /// accommodations</a>.
 /// See https://schema.org/MeetingRoom
-class SchemaMeetingRoom {
+class SchemaMeetingRoom implements SchemaSerializable {
   /// //ddwiki.reso.org/display/DDW17/PropertyType+Field) fields for
   /// suggested values).
   String? accommodationCategory;
@@ -420,7 +421,8 @@ class SchemaMeetingRoom {
   });
 
   /// Serialize [SchemaMeetingRoom] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MeetingRoom',
         'accommodationCategory':
@@ -528,5 +530,5 @@ class SchemaMeetingRoom {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

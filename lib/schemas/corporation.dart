@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/interaction_counter.dart';
@@ -39,7 +40,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A business corporation.
 /// See https://schema.org/Corporation
-class SchemaCorporation {
+class SchemaCorporation implements SchemaSerializable {
   /// The exchange traded instrument associated with a Corporation
   /// object The tickerSymbol is expressed as an exchange and an
   /// instrument name separated by a space character For the exchange
@@ -487,7 +488,8 @@ class SchemaCorporation {
   });
 
   /// Serialize [SchemaCorporation] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Corporation',
         'tickerSymbol': convertToJsonLd(tickerSymbol, [String]),
@@ -601,5 +603,5 @@ class SchemaCorporation {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

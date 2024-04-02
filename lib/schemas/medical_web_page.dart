@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_audience.dart';
 import 'package:schema_org/schemas/medical_audience_type.dart';
 import 'package:schema_org/schemas/breadcrumb_list.dart';
@@ -48,7 +49,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A web page that provides medical information.
 /// See https://schema.org/MedicalWebPage
-class SchemaMedicalWebPage {
+class SchemaMedicalWebPage implements SchemaSerializable {
   /// An aspect of medical practice that is considered on the page,
   /// such as 'diagnosis', 'treatment', 'causes', 'prognosis',
   /// 'etiology', 'epidemiology', etc.
@@ -912,7 +913,8 @@ class SchemaMedicalWebPage {
   });
 
   /// Serialize [SchemaMedicalWebPage] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalWebPage',
         'aspect': convertToJsonLd(aspect, [String]),
@@ -1101,5 +1103,5 @@ class SchemaMedicalWebPage {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

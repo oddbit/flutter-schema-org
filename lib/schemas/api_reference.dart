@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/speakable_specification.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/action.dart';
 /// Reference documentation for application programming interfaces
 /// (APIs).
 /// See https://schema.org/APIReference
-class SchemaAPIReference {
+class SchemaAPIReference implements SchemaSerializable {
   /// Library file name, e.g., mscorlib.dll, system.web.dll.
   String? assembly;
 
@@ -917,7 +918,8 @@ class SchemaAPIReference {
   });
 
   /// Serialize [SchemaAPIReference] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'APIReference',
         'assembly': convertToJsonLd(assembly, [String]),
@@ -1105,5 +1107,5 @@ class SchemaAPIReference {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

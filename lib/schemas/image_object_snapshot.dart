@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/media_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -52,7 +53,7 @@ import 'package:schema_org/schemas/action.dart';
 /// dateCreated that aren't represented in their actual content, do
 /// not affect this notion of identity.
 /// See https://schema.org/ImageObjectSnapshot
-class SchemaImageObjectSnapshot {
+class SchemaImageObjectSnapshot implements SchemaSerializable {
   /// The caption for this object For downloadable machine formats
   /// (closed caption, subtitles etc.) use MediaObject and indicate
   /// the [[encodingFormat]].  Supported types: [MediaObject],
@@ -972,7 +973,8 @@ class SchemaImageObjectSnapshot {
   });
 
   /// Serialize [SchemaImageObjectSnapshot] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ImageObjectSnapshot',
         'caption': convertToJsonLd(caption, [SchemaMediaObject, String]),
@@ -1172,5 +1174,5 @@ class SchemaImageObjectSnapshot {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

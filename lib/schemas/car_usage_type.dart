@@ -1,9 +1,11 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// A value indicating a special usage of a car, e.g commercial
 /// rental, driving school, or as a taxi.
 /// See https://schema.org/CarUsageType
-enum SchemaCarUsageType {
+enum SchemaCarUsageType implements SchemaSerializable {
   /// Indicates the usage of the vehicle for driving school.
   drivingSchoolVehicleUsage('https://schema.org/CarUsageType'),
 
@@ -20,5 +22,6 @@ enum SchemaCarUsageType {
   final String value;
 
   /// Serialize [SchemaCarUsageType] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/broadcast_frequency_specification.dart';
 import 'package:schema_org/schemas/cable_or_satellite_service.dart';
 import 'package:schema_org/schemas/broadcast_service.dart';
@@ -13,7 +14,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// A radio channel that uses AM.
 /// See https://schema.org/AMRadioChannel
-class SchemaAMRadioChannel {
+class SchemaAMRadioChannel implements SchemaSerializable {
   /// The unique address by which the BroadcastService can be
   /// identified in a provider lineup In US, this is typically a
   /// number.
@@ -117,7 +118,8 @@ class SchemaAMRadioChannel {
   });
 
   /// Serialize [SchemaAMRadioChannel] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'AMRadioChannel',
         'broadcastChannelId': convertToJsonLd(broadcastChannelId, [String]),
@@ -145,5 +147,5 @@ class SchemaAMRadioChannel {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

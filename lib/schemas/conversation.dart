@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/action.dart';
 /// particular topic Individual messages can be linked to the
 /// conversation with isPartOf or hasPart properties.
 /// See https://schema.org/Conversation
-class SchemaConversation {
+class SchemaConversation implements SchemaSerializable {
   /// The subject matter of the content.
   SchemaThing? about;
 
@@ -836,7 +837,8 @@ class SchemaConversation {
   });
 
   /// Serialize [SchemaConversation] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Conversation',
         'about': convertToJsonLd(about, [SchemaThing]),
@@ -1007,5 +1009,5 @@ class SchemaConversation {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

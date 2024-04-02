@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/music_recording.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -42,7 +43,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A collection of music tracks in playlist form.
 /// See https://schema.org/MusicPlaylist
-class SchemaMusicPlaylist {
+class SchemaMusicPlaylist implements SchemaSerializable {
   /// The number of tracks in this album or playlist.
   int? numTracks;
 
@@ -848,7 +849,8 @@ class SchemaMusicPlaylist {
   });
 
   /// Serialize [SchemaMusicPlaylist] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MusicPlaylist',
         'numTracks': convertToJsonLd(numTracks, [int]),
@@ -1022,5 +1024,5 @@ class SchemaMusicPlaylist {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_contraindication.dart';
 import 'package:schema_org/schemas/medical_therapy.dart';
 import 'package:schema_org/schemas/medical_entity.dart';
@@ -29,7 +30,7 @@ import 'package:schema_org/schemas/event.dart';
 /// problems, using purposeful activity to help them overcome or
 /// learn to deal with their problems.
 /// See https://schema.org/OccupationalTherapy
-class SchemaOccupationalTherapy {
+class SchemaOccupationalTherapy implements SchemaSerializable {
   /// A contraindication for this therapy.  Supported types:
   /// [MedicalContraindication], [String]
   dynamic contraindication;
@@ -206,7 +207,8 @@ class SchemaOccupationalTherapy {
   });
 
   /// Serialize [SchemaOccupationalTherapy] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'OccupationalTherapy',
         'contraindication': convertToJsonLd(
@@ -256,5 +258,5 @@ class SchemaOccupationalTherapy {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

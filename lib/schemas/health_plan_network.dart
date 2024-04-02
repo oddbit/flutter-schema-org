@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/image_object.dart';
@@ -10,7 +11,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// A US-style health insurance plan network.
 /// See https://schema.org/HealthPlanNetwork
-class SchemaHealthPlanNetwork {
+class SchemaHealthPlanNetwork implements SchemaSerializable {
   /// The costs to the patient for services under this network or
   /// formulary.
   bool? healthPlanCostSharing;
@@ -96,7 +97,8 @@ class SchemaHealthPlanNetwork {
   });
 
   /// Serialize [SchemaHealthPlanNetwork] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'HealthPlanNetwork',
         'healthPlanCostSharing': convertToJsonLd(healthPlanCostSharing, [bool]),
@@ -119,5 +121,5 @@ class SchemaHealthPlanNetwork {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

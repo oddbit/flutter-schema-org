@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/warranty_promise.dart';
@@ -22,7 +23,7 @@ import 'package:schema_org/schemas/event.dart';
 /// services rendered An agent sells an object, product, or service
 /// to a buyer for a price Reciprocal of BuyAction.
 /// See https://schema.org/SellAction
-class SchemaSellAction {
+class SchemaSellAction implements SchemaSerializable {
   /// A sub property of participant The
   /// participant/person/organization that bought the object.
   /// Supported types: [Organization], [Person]
@@ -204,7 +205,8 @@ class SchemaSellAction {
   });
 
   /// Serialize [SchemaSellAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'SellAction',
         'buyer': convertToJsonLd(buyer, [SchemaOrganization, SchemaPerson]),
@@ -245,5 +247,5 @@ class SchemaSellAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

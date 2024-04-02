@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/data_feed_item.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -55,7 +56,7 @@ import 'package:schema_org/schemas/action.dart';
 /// since we can assume the feed has provided descriptions for all
 /// current items.
 /// See https://schema.org/CompleteDataFeed
-class SchemaCompleteDataFeed {
+class SchemaCompleteDataFeed implements SchemaSerializable {
   /// An item within a data feed Data feeds may have many elements.
   /// Supported types: [DataFeedItem], [String], [Thing]
   dynamic dataFeedElement;
@@ -914,7 +915,8 @@ class SchemaCompleteDataFeed {
   });
 
   /// Serialize [SchemaCompleteDataFeed] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'CompleteDataFeed',
         'dataFeedElement': convertToJsonLd(
@@ -1105,5 +1107,5 @@ class SchemaCompleteDataFeed {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

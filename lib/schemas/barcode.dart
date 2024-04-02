@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/media_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -47,7 +48,7 @@ import 'package:schema_org/schemas/action.dart';
 /// An image of a visual machine-readable code such as a barcode or
 /// QR code.
 /// See https://schema.org/Barcode
-class SchemaBarcode {
+class SchemaBarcode implements SchemaSerializable {
   /// The caption for this object For downloadable machine formats
   /// (closed caption, subtitles etc.) use MediaObject and indicate
   /// the [[encodingFormat]].  Supported types: [MediaObject],
@@ -967,7 +968,8 @@ class SchemaBarcode {
   });
 
   /// Serialize [SchemaBarcode] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Barcode',
         'caption': convertToJsonLd(caption, [SchemaMediaObject, String]),
@@ -1167,5 +1169,5 @@ class SchemaBarcode {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

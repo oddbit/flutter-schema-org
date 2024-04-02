@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/category_code_set.dart';
 import 'package:schema_org/schemas/defined_term_set.dart';
 import 'package:schema_org/schemas/grant.dart';
@@ -20,7 +21,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// A code for a medical entity.
 /// See https://schema.org/MedicalCode
-class SchemaMedicalCode {
+class SchemaMedicalCode implements SchemaSerializable {
   /// A short textual code that uniquely identifies the value.
   String? codeValue;
 
@@ -155,7 +156,8 @@ class SchemaMedicalCode {
   });
 
   /// Serialize [SchemaMedicalCode] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalCode',
         'codeValue': convertToJsonLd(codeValue, [String]),
@@ -193,5 +195,5 @@ class SchemaMedicalCode {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

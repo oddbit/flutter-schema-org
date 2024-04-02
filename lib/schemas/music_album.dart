@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/music_album_production_type.dart';
 import 'package:schema_org/schemas/music_release.dart';
 import 'package:schema_org/schemas/music_album_release_type.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A collection of music tracks.
 /// See https://schema.org/MusicAlbum
-class SchemaMusicAlbum {
+class SchemaMusicAlbum implements SchemaSerializable {
   /// soundtrack, live album, studio album, etc.
   SchemaMusicAlbumProductionType? albumProductionType;
 
@@ -869,7 +870,8 @@ class SchemaMusicAlbum {
   });
 
   /// Serialize [SchemaMusicAlbum] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MusicAlbum',
         'albumProductionType': convertToJsonLd(
@@ -1049,5 +1051,5 @@ class SchemaMusicAlbum {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -20,7 +21,7 @@ import 'package:schema_org/schemas/event.dart';
 /// (e.g an event, a task, etc) towards a time slot / spatial
 /// allocation.
 /// See https://schema.org/ScheduleAction
-class SchemaScheduleAction {
+class SchemaScheduleAction implements SchemaSerializable {
   /// The time the object is scheduled to.  Supported types: [String],
   /// [String]
   String? scheduledTime;
@@ -177,7 +178,8 @@ class SchemaScheduleAction {
   });
 
   /// Serialize [SchemaScheduleAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ScheduleAction',
         'scheduledTime': convertToJsonLd(scheduledTime, [String, String]),
@@ -212,5 +214,5 @@ class SchemaScheduleAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

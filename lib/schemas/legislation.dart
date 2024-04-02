@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
 import 'package:schema_org/schemas/legal_force_status.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A legal document such as an act, decree, bill, etc (enforceable
 /// or not) or a component of a legal act (like an article).
 /// See https://schema.org/Legislation
-class SchemaLegislation {
+class SchemaLegislation implements SchemaSerializable {
   /// Indicates a legal jurisdiction, e.g of some legislation, or
   /// where some government service is based.  Supported types:
   /// [AdministrativeArea], [String]
@@ -940,7 +941,8 @@ class SchemaLegislation {
   });
 
   /// Serialize [SchemaLegislation] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Legislation',
         'jurisdiction':
@@ -1136,5 +1138,5 @@ class SchemaLegislation {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
@@ -35,7 +36,7 @@ import 'package:schema_org/schemas/event.dart';
 /// firms, consumer finance companies, and investment companies
 /// which comprise the financial services industry.
 /// See https://schema.org/FinancialProduct
-class SchemaFinancialProduct {
+class SchemaFinancialProduct implements SchemaSerializable {
   /// The annual rate that is charged for borrowing (or made by
   /// investing), expressed as a single percentage number that
   /// represents the actual yearly cost of funds over the term of a
@@ -263,7 +264,8 @@ class SchemaFinancialProduct {
   });
 
   /// Serialize [SchemaFinancialProduct] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'FinancialProduct',
         'annualPercentageRate': convertToJsonLd(
@@ -330,5 +332,5 @@ class SchemaFinancialProduct {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

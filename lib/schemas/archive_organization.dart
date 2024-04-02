@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/archive_component.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/creative_work.dart';
@@ -48,7 +49,7 @@ import 'package:schema_org/schemas/action.dart';
 /// keeps and preserves archival material and typically makes it
 /// accessible to the public.
 /// See https://schema.org/ArchiveOrganization
-class SchemaArchiveOrganization {
+class SchemaArchiveOrganization implements SchemaSerializable {
   /// Collection, [fonds](https://en.wikipedia.org/wiki/Fonds), or
   /// item held, kept or maintained by an [[ArchiveOrganization]].
   SchemaArchiveComponent? archiveHeld;
@@ -688,7 +689,8 @@ class SchemaArchiveOrganization {
   });
 
   /// Serialize [SchemaArchiveOrganization] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ArchiveOrganization',
         'archiveHeld': convertToJsonLd(archiveHeld, [SchemaArchiveComponent]),
@@ -857,5 +859,5 @@ class SchemaArchiveOrganization {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

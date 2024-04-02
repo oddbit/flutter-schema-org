@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -11,7 +12,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// Researchers.
 /// See https://schema.org/Researcher
-class SchemaResearcher {
+class SchemaResearcher implements SchemaSerializable {
   /// The target group associated with a given audience (e.g veterans,
   /// car owners, musicians, etc.).
   String? audienceType;
@@ -92,7 +93,8 @@ class SchemaResearcher {
   });
 
   /// Serialize [SchemaResearcher] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Researcher',
         'audienceType': convertToJsonLd(audienceType, [String]),
@@ -114,5 +116,5 @@ class SchemaResearcher {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

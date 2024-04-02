@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/interaction_counter.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/action.dart';
 /// handled by other, dedicated, organizations - [[FundingAgency]]s
 /// such as ERC, REA, ...
 /// See https://schema.org/FundingScheme
-class SchemaFundingScheme {
+class SchemaFundingScheme implements SchemaSerializable {
   /// For a [[NewsMediaOrganization]] or other news-related
   /// [[Organization]], a statement about public engagement activities
   /// (for news media, the newsroom’s), including involving the public
@@ -483,7 +484,8 @@ class SchemaFundingScheme {
   });
 
   /// Serialize [SchemaFundingScheme] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'FundingScheme',
         'actionableFeedbackPolicy': convertToJsonLd(
@@ -596,5 +598,5 @@ class SchemaFundingScheme {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

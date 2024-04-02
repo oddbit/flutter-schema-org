@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/interaction_counter.dart';
@@ -42,7 +43,7 @@ import 'package:schema_org/schemas/action.dart';
 /// its worker members by collectively bargaining with management,
 /// organizing, and political lobbying.
 /// See https://schema.org/WorkersUnion
-class SchemaWorkersUnion {
+class SchemaWorkersUnion implements SchemaSerializable {
   /// For a [[NewsMediaOrganization]] or other news-related
   /// [[Organization]], a statement about public engagement activities
   /// (for news media, the newsroom’s), including involving the public
@@ -481,7 +482,8 @@ class SchemaWorkersUnion {
   });
 
   /// Serialize [SchemaWorkersUnion] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'WorkersUnion',
         'actionableFeedbackPolicy': convertToJsonLd(
@@ -594,5 +596,5 @@ class SchemaWorkersUnion {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

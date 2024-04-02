@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/country.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -16,7 +17,7 @@ import 'package:schema_org/schemas/event.dart';
 /// to separate latitude and longitude; whitespace should be used
 /// when writing a list of several such points.
 /// See https://schema.org/GeoShape
-class SchemaGeoShape {
+class SchemaGeoShape implements SchemaSerializable {
   /// Physical address of the item.  Supported types: [PostalAddress],
   /// [String]
   dynamic address;
@@ -135,7 +136,8 @@ class SchemaGeoShape {
   });
 
   /// Serialize [SchemaGeoShape] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'GeoShape',
         'address': convertToJsonLd(address, [SchemaPostalAddress, String]),
@@ -163,5 +165,5 @@ class SchemaGeoShape {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

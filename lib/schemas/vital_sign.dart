@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/physical_exam.dart';
 import 'package:schema_org/schemas/medical_test.dart';
 import 'package:schema_org/schemas/anatomical_structure.dart';
@@ -33,7 +34,7 @@ import 'package:schema_org/schemas/event.dart';
 /// Vital signs are measures of various physiological functions in
 /// order to assess the most basic body functions.
 /// See https://schema.org/VitalSign
-class SchemaVitalSign {
+class SchemaVitalSign implements SchemaSerializable {
   /// A physical examination that can identify this sign.
   SchemaPhysicalExam? identifyingExam;
 
@@ -239,7 +240,8 @@ class SchemaVitalSign {
   });
 
   /// Serialize [SchemaVitalSign] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'VitalSign',
         'identifyingExam':
@@ -300,5 +302,5 @@ class SchemaVitalSign {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

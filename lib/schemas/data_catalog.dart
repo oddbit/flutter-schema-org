@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/dataset.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 import 'package:schema_org/schemas/measurement_method_enum.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A collection of datasets.
 /// See https://schema.org/DataCatalog
-class SchemaDataCatalog {
+class SchemaDataCatalog implements SchemaSerializable {
   /// A dataset contained in this catalog.
   SchemaDataset? dataset;
 
@@ -860,7 +861,8 @@ class SchemaDataCatalog {
   });
 
   /// Serialize [SchemaDataCatalog] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'DataCatalog',
         'dataset': convertToJsonLd(dataset, [SchemaDataset]),
@@ -1036,5 +1038,5 @@ class SchemaDataCatalog {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,8 +1,10 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// Enumerated options related to a ContactPoint.
 /// See https://schema.org/ContactPointOption
-enum SchemaContactPointOption {
+enum SchemaContactPointOption implements SchemaSerializable {
   /// Uses devices to support users with hearing impairments.
   hearingImpairedSupported('https://schema.org/ContactPointOption'),
 
@@ -16,5 +18,6 @@ enum SchemaContactPointOption {
   final String value;
 
   /// Serialize [SchemaContactPointOption] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

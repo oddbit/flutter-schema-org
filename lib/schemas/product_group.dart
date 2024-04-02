@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/product.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -48,7 +49,7 @@ import 'package:schema_org/schemas/event.dart';
 /// not included in this mechanism; neither are the following
 /// specific properties [[variesBy]], [[hasVariant]], [[url]].
 /// See https://schema.org/ProductGroup
-class SchemaProductGroup {
+class SchemaProductGroup implements SchemaSerializable {
   /// Indicates a [[Product]] that is a member of this
   /// [[ProductGroup]] (or [[ProductModel]]).
   SchemaProduct? hasVariant;
@@ -497,7 +498,8 @@ class SchemaProductGroup {
   });
 
   /// Serialize [SchemaProductGroup] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ProductGroup',
         'hasVariant': convertToJsonLd(hasVariant, [SchemaProduct]),
@@ -607,5 +609,5 @@ class SchemaProductGroup {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

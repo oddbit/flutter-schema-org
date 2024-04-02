@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/interaction_counter.dart';
@@ -40,7 +41,7 @@ import 'package:schema_org/schemas/action.dart';
 /// Represents the collection of all sports organizations, including
 /// sports teams, governing bodies, and sports associations.
 /// See https://schema.org/SportsOrganization
-class SchemaSportsOrganization {
+class SchemaSportsOrganization implements SchemaSerializable {
   /// A type of sport (e.g Baseball).  Supported types: [String],
   /// [String]
   String? sport;
@@ -484,7 +485,8 @@ class SchemaSportsOrganization {
   });
 
   /// Serialize [SchemaSportsOrganization] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'SportsOrganization',
         'sport': convertToJsonLd(sport, [String, String]),
@@ -598,5 +600,5 @@ class SchemaSportsOrganization {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

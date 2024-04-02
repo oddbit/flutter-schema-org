@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/audience.dart';
 import 'package:schema_org/schemas/contact_point.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -20,7 +21,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// The act of granting permission to an object.
 /// See https://schema.org/AuthorizeAction
-class SchemaAuthorizeAction {
+class SchemaAuthorizeAction implements SchemaSerializable {
   /// A sub property of participant The participant who is at the
   /// receiving end of the action.  Supported types: [Audience],
   /// [ContactPoint], [Organization], [Person]
@@ -178,7 +179,8 @@ class SchemaAuthorizeAction {
   });
 
   /// Serialize [SchemaAuthorizeAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'AuthorizeAction',
         'recipient': convertToJsonLd(recipient, [
@@ -218,5 +220,5 @@ class SchemaAuthorizeAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

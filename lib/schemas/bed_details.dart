@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/bed_type.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -14,7 +15,7 @@ import 'package:schema_org/schemas/event.dart';
 /// single case of just one bed of a certain type, you can use bed
 /// directly with a text See also [[BedType]] (under development).
 /// See https://schema.org/BedDetails
-class SchemaBedDetails {
+class SchemaBedDetails implements SchemaSerializable {
   /// The quantity of the given bed type available in the HotelRoom,
   /// Suite, House, or Apartment.
   int? numberOfBeds;
@@ -97,7 +98,8 @@ class SchemaBedDetails {
   });
 
   /// Serialize [SchemaBedDetails] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'BedDetails',
         'numberOfBeds': convertToJsonLd(numberOfBeds, [int]),
@@ -118,5 +120,5 @@ class SchemaBedDetails {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

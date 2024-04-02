@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/list_item.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list_order_type.dart';
@@ -24,7 +25,7 @@ import 'package:schema_org/schemas/event.dart';
 /// they should be integers, e.g beginning with '1' for the first
 /// item in the list.
 /// See https://schema.org/BreadcrumbList
-class SchemaBreadcrumbList {
+class SchemaBreadcrumbList implements SchemaSerializable {
   /// The order of elements in your mark-up is not sufficient for
   /// indicating the order or elements Use ListItem with a 'position'
   /// property in such cases.  Supported types: [ListItem], [String],
@@ -115,7 +116,8 @@ class SchemaBreadcrumbList {
   });
 
   /// Serialize [SchemaBreadcrumbList] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         'itemListElement': convertToJsonLd(
@@ -139,5 +141,5 @@ class SchemaBreadcrumbList {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/floor_plan.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -25,7 +26,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// Apartment complex.
 /// See https://schema.org/ApartmentComplex
-class SchemaApartmentComplex {
+class SchemaApartmentComplex implements SchemaSerializable {
   /// Indicates the total (available plus unavailable) number of
   /// accommodation units in an [[ApartmentComplex]], or the number of
   /// accommodation units for a specific [[FloorPlan]] (within its
@@ -366,7 +367,8 @@ class SchemaApartmentComplex {
   });
 
   /// Serialize [SchemaApartmentComplex] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ApartmentComplex',
         'numberOfAccommodationUnits': convertToJsonLd(
@@ -461,5 +463,5 @@ class SchemaApartmentComplex {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

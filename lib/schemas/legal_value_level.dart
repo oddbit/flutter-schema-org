@@ -1,9 +1,11 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// A list of possible levels for the legal validity of a
 /// legislation.
 /// See https://schema.org/LegalValueLevel
-enum SchemaLegalValueLevel {
+enum SchemaLegalValueLevel implements SchemaSerializable {
   /// Indicates that the publisher gives some special status to the
   /// publication of the document ("The Queens Printer" version of a
   /// UK Act of Parliament, or the PDF version of a Directive
@@ -36,5 +38,6 @@ enum SchemaLegalValueLevel {
   final String value;
 
   /// Serialize [SchemaLegalValueLevel] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

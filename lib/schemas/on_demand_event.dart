@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/broadcast_service.dart';
@@ -30,7 +31,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A publication event, e.g catch-up TV or radio podcast, during
 /// which a program is available on-demand.
 /// See https://schema.org/OnDemandEvent
-class SchemaOnDemandEvent {
+class SchemaOnDemandEvent implements SchemaSerializable {
   /// A flag to signal that the item, event, or place is accessible
   /// for free.
   bool? free;
@@ -360,7 +361,8 @@ class SchemaOnDemandEvent {
   });
 
   /// Serialize [SchemaOnDemandEvent] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'OnDemandEvent',
         'free': convertToJsonLd(free, [bool]),
@@ -440,5 +442,5 @@ class SchemaOnDemandEvent {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

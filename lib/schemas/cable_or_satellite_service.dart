@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
 import 'package:schema_org/schemas/geo_shape.dart';
@@ -32,7 +33,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A service which provides access to media programming like TV or
 /// radio Access may be via cable or satellite.
 /// See https://schema.org/CableOrSatelliteService
-class SchemaCableOrSatelliteService {
+class SchemaCableOrSatelliteService implements SchemaSerializable {
   /// The overall rating, based on a collection of reviews or ratings,
   /// of the item.
   SchemaAggregateRating? aggregateRating;
@@ -241,7 +242,8 @@ class SchemaCableOrSatelliteService {
   });
 
   /// Serialize [SchemaCableOrSatelliteService] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'CableOrSatelliteService',
         'aggregateRating':
@@ -302,5 +304,5 @@ class SchemaCableOrSatelliteService {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

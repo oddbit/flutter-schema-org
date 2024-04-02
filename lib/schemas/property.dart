@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/class.dart';
 import 'package:schema_org/schemas/enumeration.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -12,7 +13,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// Property.
 /// See https://schema.org/Property
-class SchemaProperty {
+class SchemaProperty implements SchemaSerializable {
   /// Relates a property to a class that is (one of) the type(s) the
   /// property is expected to be used on.
   SchemaClass? domainIncludes;
@@ -109,7 +110,8 @@ class SchemaProperty {
   });
 
   /// Serialize [SchemaProperty] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Property',
         'domainIncludes': convertToJsonLd(domainIncludes, [SchemaClass]),
@@ -133,5 +135,5 @@ class SchemaProperty {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

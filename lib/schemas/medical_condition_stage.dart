@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_code.dart';
 import 'package:schema_org/schemas/grant.dart';
 import 'package:schema_org/schemas/medical_guideline.dart';
@@ -19,7 +20,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// A stage of a medical condition, such as 'Stage IIIa'.
 /// See https://schema.org/MedicalConditionStage
-class SchemaMedicalConditionStage {
+class SchemaMedicalConditionStage implements SchemaSerializable {
   /// The stage represented as a number, e.g 3.
   int? stageAsNumber;
 
@@ -139,7 +140,8 @@ class SchemaMedicalConditionStage {
   });
 
   /// Serialize [SchemaMedicalConditionStage] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalConditionStage',
         'stageAsNumber': convertToJsonLd(stageAsNumber, [int]),
@@ -172,5 +174,5 @@ class SchemaMedicalConditionStage {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

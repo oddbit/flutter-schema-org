@@ -1,9 +1,11 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// Indicates whether this game is multi-player, co-op or
 /// single-player.
 /// See https://schema.org/GamePlayMode
-enum SchemaGamePlayMode {
+enum SchemaGamePlayMode implements SchemaSerializable {
   /// CoOp Co-operative games, where you play on the same team with
   /// friends.
   coOp('https://schema.org/GamePlayMode'),
@@ -22,5 +24,6 @@ enum SchemaGamePlayMode {
   final String value;
 
   /// Serialize [SchemaGamePlayMode] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

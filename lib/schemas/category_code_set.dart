@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/category_code.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A set of Category Code values.
 /// See https://schema.org/CategoryCodeSet
-class SchemaCategoryCodeSet {
+class SchemaCategoryCodeSet implements SchemaSerializable {
   /// A Category code contained in this code set.
   SchemaCategoryCode? hasCategoryCode;
 
@@ -843,7 +844,8 @@ class SchemaCategoryCodeSet {
   });
 
   /// Serialize [SchemaCategoryCodeSet] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'CategoryCodeSet',
         'hasCategoryCode':
@@ -1017,5 +1019,5 @@ class SchemaCategoryCodeSet {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

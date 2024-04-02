@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
@@ -34,7 +35,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A type of Bank Account with a main purpose of depositing funds
 /// to gain interest or other benefits.
 /// See https://schema.org/DepositAccount
-class SchemaDepositAccount {
+class SchemaDepositAccount implements SchemaSerializable {
   /// A minimum amount that has to be paid in every month.
   SchemaMonetaryAmount? accountMinimumInflow;
 
@@ -282,7 +283,8 @@ class SchemaDepositAccount {
   });
 
   /// Serialize [SchemaDepositAccount] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'DepositAccount',
         'accountMinimumInflow':
@@ -355,5 +357,5 @@ class SchemaDepositAccount {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

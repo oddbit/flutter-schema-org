@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/schedule.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -31,7 +32,7 @@ import 'package:schema_org/schemas/action.dart';
 /// or through different media or modes of study or to a specific
 /// section of students.
 /// See https://schema.org/CourseInstance
-class SchemaCourseInstance {
+class SchemaCourseInstance implements SchemaSerializable {
   /// //ceds.ed.gov/element/001311#Asynchronous).  Supported types:
   /// [String], [String]
   String? courseMode;
@@ -369,7 +370,8 @@ class SchemaCourseInstance {
   });
 
   /// Serialize [SchemaCourseInstance] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'CourseInstance',
         'courseMode': convertToJsonLd(courseMode, [String, String]),
@@ -449,5 +451,5 @@ class SchemaCourseInstance {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

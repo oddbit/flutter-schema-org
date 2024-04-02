@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/software_application.dart';
 import 'package:schema_org/schemas/digital_platform_enumeration.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -12,7 +13,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// An entry point, within some Web-based protocol.
 /// See https://schema.org/EntryPoint
-class SchemaEntryPoint {
+class SchemaEntryPoint implements SchemaSerializable {
   /// An application that can complete the request.
   SchemaSoftwareApplication? actionApplication;
 
@@ -118,7 +119,8 @@ class SchemaEntryPoint {
   });
 
   /// Serialize [SchemaEntryPoint] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'EntryPoint',
         'actionApplication':
@@ -147,5 +149,5 @@ class SchemaEntryPoint {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

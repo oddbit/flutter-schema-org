@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/data_feed.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A podcast is an episodic series of digital audio or video files
 /// which a user can download and listen to.
 /// See https://schema.org/PodcastSeries
-class SchemaPodcastSeries {
+class SchemaPodcastSeries implements SchemaSerializable {
   /// An actor, e.g in TV, radio, movie, video games etc., or in an
   /// event Actors can be associated with individual items or with a
   /// series, episode, clip.
@@ -865,7 +866,8 @@ class SchemaPodcastSeries {
   });
 
   /// Serialize [SchemaPodcastSeries] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PodcastSeries',
         'actor': convertToJsonLd(actor, [SchemaPerson]),
@@ -1041,5 +1043,5 @@ class SchemaPodcastSeries {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

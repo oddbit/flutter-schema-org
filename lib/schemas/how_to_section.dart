@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -45,7 +46,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A sub-grouping of steps in the instructions for how to achieve a
 /// result (e.g steps for making a pie crust within a pie recipe).
 /// See https://schema.org/HowToSection
-class SchemaHowToSection {
+class SchemaHowToSection implements SchemaSerializable {
   /// A single step item (as HowToStep, text, document, video, etc.)
   /// or a HowToSection (originally misnamed 'steps'; 'step' is
   /// preferred).  Supported types: [CreativeWork], [ItemList],
@@ -876,7 +877,8 @@ class SchemaHowToSection {
   });
 
   /// Serialize [SchemaHowToSection] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'HowToSection',
         'steps': convertToJsonLd(
@@ -1057,5 +1059,5 @@ class SchemaHowToSection {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

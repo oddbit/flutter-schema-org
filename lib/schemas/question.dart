@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/answer.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/comment.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A specific question - e.g from a user seeking answers online, or
 /// collected in a Frequently Asked Questions (FAQ) document.
 /// See https://schema.org/Question
-class SchemaQuestion {
+class SchemaQuestion implements SchemaSerializable {
   /// The answer(s) that has been accepted as best, typically on a
   /// Question/Answer site Sites vary in their selection mechanisms,
   /// e.g drawing on community opinion and/or the view of the Question
@@ -880,7 +881,8 @@ class SchemaQuestion {
   });
 
   /// Serialize [SchemaQuestion] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Question',
         'acceptedAnswer':
@@ -1062,5 +1064,5 @@ class SchemaQuestion {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

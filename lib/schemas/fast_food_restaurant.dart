@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/menu.dart';
 import 'package:schema_org/schemas/rating.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -47,7 +48,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A fast-food restaurant.
 /// See https://schema.org/FastFoodRestaurant
-class SchemaFastFoodRestaurant {
+class SchemaFastFoodRestaurant implements SchemaSerializable {
   /// Indicates whether a FoodEstablishment accepts reservations
   /// Values can be Boolean, an URL at which reservations can be made
   /// or (for backwards compatibility) the strings ```Yes``` or
@@ -713,7 +714,8 @@ class SchemaFastFoodRestaurant {
   });
 
   /// Serialize [SchemaFastFoodRestaurant] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'FastFoodRestaurant',
         'acceptsReservations':
@@ -887,5 +889,5 @@ class SchemaFastFoodRestaurant {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

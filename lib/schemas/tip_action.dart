@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/audience.dart';
 import 'package:schema_org/schemas/contact_point.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -22,7 +23,7 @@ import 'package:schema_org/schemas/event.dart';
 /// The act of giving money voluntarily to a beneficiary in
 /// recognition of services rendered.
 /// See https://schema.org/TipAction
-class SchemaTipAction {
+class SchemaTipAction implements SchemaSerializable {
   /// A sub property of participant The participant who is at the
   /// receiving end of the action.  Supported types: [Audience],
   /// [ContactPoint], [Organization], [Person]
@@ -200,7 +201,8 @@ class SchemaTipAction {
   });
 
   /// Serialize [SchemaTipAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'TipAction',
         'recipient': convertToJsonLd(recipient, [
@@ -244,5 +246,5 @@ class SchemaTipAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

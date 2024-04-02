@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 import 'package:schema_org/schemas/duration.dart';
 import 'package:schema_org/schemas/creative_work.dart';
@@ -48,7 +49,7 @@ import 'package:schema_org/schemas/action.dart';
 /// Instructions that explain how to achieve a result by performing
 /// a sequence of steps.
 /// See https://schema.org/HowTo
-class SchemaHowTo {
+class SchemaHowTo implements SchemaSerializable {
   /// The estimated cost of the supply or supplies consumed when
   /// performing instructions.  Supported types: [MonetaryAmount],
   /// [String]
@@ -889,7 +890,8 @@ class SchemaHowTo {
   });
 
   /// Serialize [SchemaHowTo] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'HowTo',
         'estimatedCost':
@@ -1072,5 +1074,5 @@ class SchemaHowTo {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

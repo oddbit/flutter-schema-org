@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -59,7 +60,7 @@ import 'package:schema_org/schemas/action.dart';
 /// publishers should be free to apply properties of the series
 /// parts to the series as a whole wherever they seem appropriate.
 /// See https://schema.org/CreativeWorkSeries
-class SchemaCreativeWorkSeries {
+class SchemaCreativeWorkSeries implements SchemaSerializable {
   /// //en.wikipedia.org/wiki/ISO_8601)).  Supported types: [String],
   /// [String]
   String? endDate;
@@ -868,7 +869,8 @@ class SchemaCreativeWorkSeries {
   });
 
   /// Serialize [SchemaCreativeWorkSeries] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'CreativeWorkSeries',
         'endDate': convertToJsonLd(endDate, [String, String]),
@@ -1042,5 +1044,5 @@ class SchemaCreativeWorkSeries {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

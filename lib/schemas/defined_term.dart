@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/defined_term_set.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -16,7 +17,7 @@ import 'package:schema_org/schemas/event.dart';
 /// if the term has an alpha-numeric code allocated, use description
 /// to provide the definition of the term.
 /// See https://schema.org/DefinedTerm
-class SchemaDefinedTerm {
+class SchemaDefinedTerm implements SchemaSerializable {
   /// A [[DefinedTermSet]] that contains this term.  Supported types:
   /// [DefinedTermSet], [String]
   dynamic inDefinedTermSet;
@@ -98,7 +99,8 @@ class SchemaDefinedTerm {
   });
 
   /// Serialize [SchemaDefinedTerm] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'DefinedTerm',
         'inDefinedTermSet':
@@ -120,5 +122,5 @@ class SchemaDefinedTerm {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/drug_strength.dart';
 import 'package:schema_org/schemas/dose_schedule.dart';
 import 'package:schema_org/schemas/drug_class.dart';
@@ -55,7 +56,7 @@ import 'package:schema_org/schemas/event.dart';
 /// drug is used interchangeably with the term medicine although
 /// clinical knowledge makes a clear difference between them.
 /// See https://schema.org/Drug
-class SchemaDrug {
+class SchemaDrug implements SchemaSerializable {
   /// An active ingredient, typically chemical compounds and/or
   /// biologic substances.
   String? activeIngredient;
@@ -662,7 +663,8 @@ class SchemaDrug {
   });
 
   /// Serialize [SchemaDrug] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Drug',
         'activeIngredient': convertToJsonLd(activeIngredient, [String]),
@@ -815,5 +817,5 @@ class SchemaDrug {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

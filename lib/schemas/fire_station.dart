@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
@@ -45,7 +46,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A fire station With firemen.
 /// See https://schema.org/FireStation
-class SchemaFireStation {
+class SchemaFireStation implements SchemaSerializable {
   /// 00&quot;&gt;Tuesdays and Thursdays 4-8pm&lt;/time&gt;</code>.\n*
   /// If a business is open 7 days a week, then it can be specified as
   /// <code>&lt;time itemprop=&quot;openingHours&quot;
@@ -680,7 +681,8 @@ class SchemaFireStation {
   });
 
   /// Serialize [SchemaFireStation] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'FireStation',
         'openingHours': convertToJsonLd(openingHours, [String]),
@@ -848,5 +850,5 @@ class SchemaFireStation {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

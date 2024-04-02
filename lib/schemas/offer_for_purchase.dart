@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/loan_or_credit.dart';
 import 'package:schema_org/schemas/payment_method.dart';
 import 'package:schema_org/schemas/offer.dart';
@@ -42,7 +43,7 @@ import 'package:schema_org/schemas/action.dart';
 /// //en.wikipedia.org/wiki/GoodRelations) for  background on the
 /// underlying concepts.
 /// See https://schema.org/OfferForPurchase
-class SchemaOfferForPurchase {
+class SchemaOfferForPurchase implements SchemaSerializable {
   /// The payment method(s) accepted by seller for this offer.
   /// Supported types: [LoanOrCredit], [PaymentMethod]
   dynamic acceptedPaymentMethod;
@@ -423,7 +424,8 @@ class SchemaOfferForPurchase {
   });
 
   /// Serialize [SchemaOfferForPurchase] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'OfferForPurchase',
         'acceptedPaymentMethod': convertToJsonLd(
@@ -535,5 +537,5 @@ class SchemaOfferForPurchase {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

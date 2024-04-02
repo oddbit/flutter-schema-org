@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/reservation.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -19,7 +20,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A group of multiple reservations with common values for all
 /// sub-reservations.
 /// See https://schema.org/ReservationPackage
-class SchemaReservationPackage {
+class SchemaReservationPackage implements SchemaSerializable {
   /// The individual reservations included in the package Typically a
   /// repeated property.
   SchemaReservation? subReservation;
@@ -166,7 +167,8 @@ class SchemaReservationPackage {
   });
 
   /// Serialize [SchemaReservationPackage] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ReservationPackage',
         'subReservation': convertToJsonLd(subReservation, [SchemaReservation]),
@@ -205,5 +207,5 @@ class SchemaReservationPackage {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

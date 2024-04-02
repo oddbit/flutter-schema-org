@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/postal_address.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 /// role-playing games in which players assume the role of
 /// characters in a fictional setting.
 /// See https://schema.org/Game
-class SchemaGame {
+class SchemaGame implements SchemaSerializable {
   /// A piece of data that represents a particular aspect of a
   /// fictional character (skill, power, character points, advantage,
   /// disadvantage).
@@ -864,7 +865,8 @@ class SchemaGame {
   });
 
   /// Serialize [SchemaGame] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Game',
         'characterAttribute':
@@ -1043,5 +1045,5 @@ class SchemaGame {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/location_feature_specification.dart';
 import 'package:schema_org/schemas/audience.dart';
 import 'package:schema_org/schemas/language.dart';
@@ -49,7 +50,7 @@ import 'package:schema_org/schemas/action.dart';
 /// [document on the use of schema.org for marking up hotels and
 /// other forms of accommodations](/docs/hotels.html).
 /// See https://schema.org/Campground
-class SchemaCampground {
+class SchemaCampground implements SchemaSerializable {
   /// 00&quot;&gt;Tuesdays and Thursdays 4-8pm&lt;/time&gt;</code>.\n*
   /// If a business is open 7 days a week, then it can be specified as
   /// <code>&lt;time itemprop=&quot;openingHours&quot;
@@ -724,7 +725,8 @@ class SchemaCampground {
   });
 
   /// Serialize [SchemaCampground] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Campground',
         'openingHours': convertToJsonLd(openingHours, [String]),
@@ -901,5 +903,5 @@ class SchemaCampground {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

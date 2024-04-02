@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/comment.dart';
 import 'package:schema_org/schemas/rsvp_response_type.dart';
 import 'package:schema_org/schemas/event.dart';
@@ -24,7 +25,7 @@ import 'package:schema_org/schemas/action.dart';
 /// The act of notifying an event organizer as to whether you expect
 /// to attend the event.
 /// See https://schema.org/RsvpAction
-class SchemaRsvpAction {
+class SchemaRsvpAction implements SchemaSerializable {
   /// If responding yes, the number of guests who will attend in
   /// addition to the invitee.
   int? additionalNumberOfGuests;
@@ -213,7 +214,8 @@ class SchemaRsvpAction {
   });
 
   /// Serialize [SchemaRsvpAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'RsvpAction',
         'additionalNumberOfGuests':
@@ -261,5 +263,5 @@ class SchemaRsvpAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

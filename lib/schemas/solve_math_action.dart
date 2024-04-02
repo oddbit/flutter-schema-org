@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -20,7 +21,7 @@ import 'package:schema_org/schemas/event.dart';
 /// a page potentially capable of solving/simplifying that
 /// expression.
 /// See https://schema.org/SolveMathAction
-class SchemaSolveMathAction {
+class SchemaSolveMathAction implements SchemaSerializable {
   /// "Multiple choice", "Open ended", "Flashcard".
   String? eduQuestionType;
 
@@ -176,7 +177,8 @@ class SchemaSolveMathAction {
   });
 
   /// Serialize [SchemaSolveMathAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'SolveMathAction',
         'eduQuestionType': convertToJsonLd(eduQuestionType, [String]),
@@ -211,5 +213,5 @@ class SchemaSolveMathAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

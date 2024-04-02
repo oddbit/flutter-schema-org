@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/interaction_counter.dart';
@@ -40,7 +41,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A theater group or company, for example, the Royal Shakespeare
 /// Company or Druid Theatre.
 /// See https://schema.org/TheaterGroup
-class SchemaTheaterGroup {
+class SchemaTheaterGroup implements SchemaSerializable {
   /// For a [[NewsMediaOrganization]] or other news-related
   /// [[Organization]], a statement about public engagement activities
   /// (for news media, the newsroom’s), including involving the public
@@ -479,7 +480,8 @@ class SchemaTheaterGroup {
   });
 
   /// Serialize [SchemaTheaterGroup] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'TheaterGroup',
         'actionableFeedbackPolicy': convertToJsonLd(
@@ -592,5 +594,5 @@ class SchemaTheaterGroup {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

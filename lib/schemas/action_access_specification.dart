@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/category_code.dart';
 import 'package:schema_org/schemas/physical_activity_category.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -18,7 +19,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A set of requirements that must be fulfilled in order to perform
 /// an Action.
 /// See https://schema.org/ActionAccessSpecification
-class SchemaActionAccessSpecification {
+class SchemaActionAccessSpecification implements SchemaSerializable {
   /// The end of the availability of the product or service included
   /// in the offer.  Supported types: [String], [String], [String]
   String? availabilityEnds;
@@ -138,7 +139,8 @@ class SchemaActionAccessSpecification {
   });
 
   /// Serialize [SchemaActionAccessSpecification] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ActionAccessSpecification',
         'availabilityEnds':
@@ -176,5 +178,5 @@ class SchemaActionAccessSpecification {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

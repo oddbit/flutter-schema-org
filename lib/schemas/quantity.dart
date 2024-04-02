@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/image_object.dart';
@@ -12,7 +13,7 @@ import 'package:schema_org/schemas/event.dart';
 /// instances of say Mass are entities like '3 kg' or '4
 /// milligrams'.
 /// See https://schema.org/Quantity
-class SchemaQuantity {
+class SchemaQuantity implements SchemaSerializable {
   /// //schema.org/docs/styleguide.html">style guide</a>.  Supported
   /// types: [String], [String]
   String? additionalType;
@@ -84,7 +85,8 @@ class SchemaQuantity {
   });
 
   /// Serialize [SchemaQuantity] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Quantity',
         'additionalType': convertToJsonLd(additionalType, [String, String]),
@@ -103,5 +105,5 @@ class SchemaQuantity {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

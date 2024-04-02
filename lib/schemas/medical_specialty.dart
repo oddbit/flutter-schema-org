@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/image_object.dart';
@@ -13,7 +14,7 @@ import 'package:schema_org/schemas/event.dart';
 /// particular organ systems and their respective disease states, as
 /// well as allied health specialties Enumerated type.
 /// See https://schema.org/MedicalSpecialty
-class SchemaMedicalSpecialty {
+class SchemaMedicalSpecialty implements SchemaSerializable {
   /// //schema.org/docs/styleguide.html">style guide</a>.  Supported
   /// types: [String], [String]
   String? additionalType;
@@ -85,7 +86,8 @@ class SchemaMedicalSpecialty {
   });
 
   /// Serialize [SchemaMedicalSpecialty] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalSpecialty',
         'additionalType': convertToJsonLd(additionalType, [String, String]),
@@ -104,5 +106,5 @@ class SchemaMedicalSpecialty {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

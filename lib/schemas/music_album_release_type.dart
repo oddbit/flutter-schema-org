@@ -1,8 +1,10 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// single, EP or album.
 /// See https://schema.org/MusicAlbumReleaseType
-enum SchemaMusicAlbumReleaseType {
+enum SchemaMusicAlbumReleaseType implements SchemaSerializable {
   /// AlbumRelease.
   albumRelease('https://schema.org/MusicAlbumReleaseType'),
 
@@ -22,5 +24,6 @@ enum SchemaMusicAlbumReleaseType {
   final String value;
 
   /// Serialize [SchemaMusicAlbumReleaseType] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

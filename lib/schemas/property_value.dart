@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 import 'package:schema_org/schemas/measurement_method_enum.dart';
 import 'package:schema_org/schemas/structured_value.dart';
@@ -23,7 +24,7 @@ import 'package:schema_org/schemas/event.dart';
 /// trigger the same effect as using the original, specific
 /// property.
 /// See https://schema.org/PropertyValue
-class SchemaPropertyValue {
+class SchemaPropertyValue implements SchemaSerializable {
   /// The upper value of some characteristic or property.
   int? maxValue;
 
@@ -172,7 +173,8 @@ class SchemaPropertyValue {
   });
 
   /// Serialize [SchemaPropertyValue] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PropertyValue',
         'maxValue': convertToJsonLd(maxValue, [int]),
@@ -212,5 +214,5 @@ class SchemaPropertyValue {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

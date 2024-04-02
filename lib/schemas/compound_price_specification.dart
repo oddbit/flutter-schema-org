@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/unit_price_specification.dart';
 import 'package:schema_org/schemas/price_type_enumeration.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
@@ -18,7 +19,7 @@ import 'package:schema_org/schemas/event.dart';
 /// specification for indicating the dimension of a price component
 /// (e.g "electricity" or "final cleaning").
 /// See https://schema.org/CompoundPriceSpecification
-class SchemaCompoundPriceSpecification {
+class SchemaCompoundPriceSpecification implements SchemaSerializable {
   /// This property links to all [[UnitPriceSpecification]] nodes that
   /// apply in parallel for the [[CompoundPriceSpecification]] node.
   SchemaUnitPriceSpecification? priceComponent;
@@ -161,7 +162,8 @@ class SchemaCompoundPriceSpecification {
   });
 
   /// Serialize [SchemaCompoundPriceSpecification] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'CompoundPriceSpecification',
         'priceComponent':
@@ -195,5 +197,5 @@ class SchemaCompoundPriceSpecification {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/speakable_specification.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A posting to a discussion forum.
 /// See https://schema.org/DiscussionForumPosting
-class SchemaDiscussionForumPosting {
+class SchemaDiscussionForumPosting implements SchemaSerializable {
   /// A CreativeWork such as an image, video, or audio clip shared as
   /// part of this posting.
   SchemaCreativeWork? sharedContent;
@@ -893,7 +894,8 @@ class SchemaDiscussionForumPosting {
   });
 
   /// Serialize [SchemaDiscussionForumPosting] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'DiscussionForumPosting',
         'sharedContent': convertToJsonLd(sharedContent, [SchemaCreativeWork]),
@@ -1074,5 +1076,5 @@ class SchemaDiscussionForumPosting {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

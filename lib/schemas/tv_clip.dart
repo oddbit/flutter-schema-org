@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/tv_series.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/hyper_toc_entry.dart';
@@ -48,7 +49,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A short TV program or a segment/part of a TV program.
 /// See https://schema.org/TVClip
-class SchemaTVClip {
+class SchemaTVClip implements SchemaSerializable {
   /// The TV series to which this episode or season belongs.
   SchemaTVSeries? partOfTVSeries;
 
@@ -902,7 +903,8 @@ class SchemaTVClip {
   });
 
   /// Serialize [SchemaTVClip] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'TVClip',
         'partOfTVSeries': convertToJsonLd(partOfTVSeries, [SchemaTVSeries]),
@@ -1087,5 +1089,5 @@ class SchemaTVClip {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

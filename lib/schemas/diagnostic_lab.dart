@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_test.dart';
 import 'package:schema_org/schemas/medical_specialty.dart';
 import 'package:schema_org/schemas/creative_work.dart';
@@ -42,7 +43,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A medical laboratory that offers on-site or off-site diagnostic
 /// services.
 /// See https://schema.org/DiagnosticLab
-class SchemaDiagnosticLab {
+class SchemaDiagnosticLab implements SchemaSerializable {
   /// A diagnostic test or procedure offered by this lab.
   SchemaMedicalTest? availableTest;
 
@@ -498,7 +499,8 @@ class SchemaDiagnosticLab {
   });
 
   /// Serialize [SchemaDiagnosticLab] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'DiagnosticLab',
         'availableTest': convertToJsonLd(availableTest, [SchemaMedicalTest]),
@@ -617,5 +619,5 @@ class SchemaDiagnosticLab {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

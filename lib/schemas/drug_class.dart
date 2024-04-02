@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/drug.dart';
 import 'package:schema_org/schemas/medical_code.dart';
 import 'package:schema_org/schemas/grant.dart';
@@ -22,7 +23,7 @@ import 'package:schema_org/schemas/event.dart';
 /// general pharmacological class, common mechanisms of action,
 /// common physiological effects, etc.
 /// See https://schema.org/DrugClass
-class SchemaDrugClass {
+class SchemaDrugClass implements SchemaSerializable {
   /// Specifying a drug or medicine used in a medication procedure.
   SchemaDrug? drug;
 
@@ -138,7 +139,8 @@ class SchemaDrugClass {
   });
 
   /// Serialize [SchemaDrugClass] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'DrugClass',
         'drug': convertToJsonLd(drug, [SchemaDrug]),
@@ -170,5 +172,5 @@ class SchemaDrugClass {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

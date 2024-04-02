@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/country.dart';
 import 'package:schema_org/schemas/return_fees_enumeration.dart';
@@ -21,7 +22,7 @@ import 'package:schema_org/schemas/event.dart';
 /// policies associated with an [[Organization]], [[Product]], or
 /// [[Offer]].
 /// See https://schema.org/MerchantReturnPolicy
-class SchemaMerchantReturnPolicy {
+class SchemaMerchantReturnPolicy implements SchemaSerializable {
   /// //schema.org/gtin13, ...) will typically expect such data to be
   /// provided using those properties, rather than using the generic
   /// property/value mechanism.
@@ -207,7 +208,8 @@ class SchemaMerchantReturnPolicy {
   });
 
   /// Serialize [SchemaMerchantReturnPolicy] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MerchantReturnPolicy',
         'additionalProperty':
@@ -268,5 +270,5 @@ class SchemaMerchantReturnPolicy {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

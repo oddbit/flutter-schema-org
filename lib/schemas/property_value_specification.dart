@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -11,7 +12,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// A Property value specification.
 /// See https://schema.org/PropertyValueSpecification
-class SchemaPropertyValueSpecification {
+class SchemaPropertyValueSpecification implements SchemaSerializable {
   /// The default value of the input For properties that expect a
   /// literal, the default is a literal value, for properties that
   /// expect an object, it's an ID reference to one of the current
@@ -141,7 +142,8 @@ class SchemaPropertyValueSpecification {
   });
 
   /// Serialize [SchemaPropertyValueSpecification] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PropertyValueSpecification',
         'defaultValue': convertToJsonLd(defaultValue, [String, SchemaThing]),
@@ -171,5 +173,5 @@ class SchemaPropertyValueSpecification {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/list_item.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list_order_type.dart';
@@ -15,7 +16,7 @@ import 'package:schema_org/schemas/event.dart';
 /// About Weathermen, or Top 100 Party Songs Not to be confused with
 /// HTML lists, which are often used only for formatting.
 /// See https://schema.org/ItemList
-class SchemaItemList {
+class SchemaItemList implements SchemaSerializable {
   /// The order of elements in your mark-up is not sufficient for
   /// indicating the order or elements Use ListItem with a 'position'
   /// property in such cases.  Supported types: [ListItem], [String],
@@ -106,7 +107,8 @@ class SchemaItemList {
   });
 
   /// Serialize [SchemaItemList] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ItemList',
         'itemListElement': convertToJsonLd(
@@ -130,5 +132,5 @@ class SchemaItemList {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

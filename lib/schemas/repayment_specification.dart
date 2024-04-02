@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -11,7 +12,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// A structured value representing repayment.
 /// See https://schema.org/RepaymentSpecification
-class SchemaRepaymentSpecification {
+class SchemaRepaymentSpecification implements SchemaSerializable {
   /// a type of payment made in cash during the onset of the purchase
   /// of an expensive good/service The payment typically represents
   /// only a percentage of the full purchase price.  Supported types:
@@ -112,7 +113,8 @@ class SchemaRepaymentSpecification {
   });
 
   /// Serialize [SchemaRepaymentSpecification] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'RepaymentSpecification',
         'downPayment':
@@ -139,5 +141,5 @@ class SchemaRepaymentSpecification {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/review.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -45,7 +46,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A fact-checking review of claims made (or reported) in some
 /// creative work (referenced via itemReviewed).
 /// See https://schema.org/ClaimReview
-class SchemaClaimReview {
+class SchemaClaimReview implements SchemaSerializable {
   /// A short summary of the specific claims reviewed in a
   /// ClaimReview.
   String? claimReviewed;
@@ -915,7 +916,8 @@ class SchemaClaimReview {
   });
 
   /// Serialize [SchemaClaimReview] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ClaimReview',
         'claimReviewed': convertToJsonLd(claimReviewed, [String]),
@@ -1100,5 +1102,5 @@ class SchemaClaimReview {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

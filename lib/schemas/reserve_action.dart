@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -19,7 +20,7 @@ import 'package:schema_org/schemas/event.dart';
 /// Unlike ScheduleAction, ReserveAction reserves concrete objects
 /// (e.g a table, a hotel) towards a time slot / spatial allocation.
 /// See https://schema.org/ReserveAction
-class SchemaReserveAction {
+class SchemaReserveAction implements SchemaSerializable {
   /// The time the object is scheduled to.  Supported types: [String],
   /// [String]
   String? scheduledTime;
@@ -176,7 +177,8 @@ class SchemaReserveAction {
   });
 
   /// Serialize [SchemaReserveAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ReserveAction',
         'scheduledTime': convertToJsonLd(scheduledTime, [String, String]),
@@ -211,5 +213,5 @@ class SchemaReserveAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

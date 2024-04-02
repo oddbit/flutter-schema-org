@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -11,7 +12,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// An list item, e.g a step in a checklist or how-to description.
 /// See https://schema.org/ListItem
-class SchemaListItem {
+class SchemaListItem implements SchemaSerializable {
   /// An entity represented by an entry in a list or data feed (e.g an
   /// 'artist' in a list of 'artists').
   SchemaThing? item;
@@ -101,7 +102,8 @@ class SchemaListItem {
   });
 
   /// Serialize [SchemaListItem] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ListItem',
         'item': convertToJsonLd(item, [SchemaThing]),
@@ -124,5 +126,5 @@ class SchemaListItem {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

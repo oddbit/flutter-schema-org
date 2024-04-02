@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -13,7 +14,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A rating is an evaluation on a numeric scale, such as 1 to 5
 /// stars.
 /// See https://schema.org/Rating
-class SchemaRating {
+class SchemaRating implements SchemaSerializable {
   /// The author of this content or rating Please note that author is
   /// special in that HTML 5 provides a special mechanism for
   /// indicating authorship via the rel tag That is equivalent to this
@@ -125,7 +126,8 @@ class SchemaRating {
   });
 
   /// Serialize [SchemaRating] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Rating',
         'author': convertToJsonLd(author, [SchemaOrganization, SchemaPerson]),
@@ -150,5 +152,5 @@ class SchemaRating {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

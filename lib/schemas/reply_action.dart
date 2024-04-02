@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/comment.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/language.dart';
@@ -22,7 +23,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// Appears generally as an origin of a ReplyAction.
 /// See https://schema.org/ReplyAction
-class SchemaReplyAction {
+class SchemaReplyAction implements SchemaSerializable {
   /// A sub property of result The Comment created or sent as a result
   /// of this action.
   SchemaComment? resultComment;
@@ -198,7 +199,8 @@ class SchemaReplyAction {
   });
 
   /// Serialize [SchemaReplyAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ReplyAction',
         'resultComment': convertToJsonLd(resultComment, [SchemaComment]),
@@ -242,5 +244,5 @@ class SchemaReplyAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

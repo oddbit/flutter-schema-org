@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/list_item.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list_order_type.dart';
@@ -15,7 +16,7 @@ import 'package:schema_org/schemas/event.dart';
 /// and/or further OfferCatalogs that are offeredBy the same
 /// provider.
 /// See https://schema.org/OfferCatalog
-class SchemaOfferCatalog {
+class SchemaOfferCatalog implements SchemaSerializable {
   /// The order of elements in your mark-up is not sufficient for
   /// indicating the order or elements Use ListItem with a 'position'
   /// property in such cases.  Supported types: [ListItem], [String],
@@ -106,7 +107,8 @@ class SchemaOfferCatalog {
   });
 
   /// Serialize [SchemaOfferCatalog] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'OfferCatalog',
         'itemListElement': convertToJsonLd(
@@ -130,5 +132,5 @@ class SchemaOfferCatalog {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

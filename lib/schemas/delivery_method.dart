@@ -1,8 +1,10 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// //purl.org/goodrelations/v1#UPS
 /// See https://schema.org/DeliveryMethod
-enum SchemaDeliveryMethod {
+enum SchemaDeliveryMethod implements SchemaSerializable {
   /// A DeliveryMethod in which an item is made available via locker.
   lockerDelivery('https://schema.org/DeliveryMethod'),
 
@@ -20,5 +22,6 @@ enum SchemaDeliveryMethod {
   final String value;
 
   /// Serialize [SchemaDeliveryMethod] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

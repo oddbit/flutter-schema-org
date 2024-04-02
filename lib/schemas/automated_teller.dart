@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
@@ -45,7 +46,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// ATM/cash machine.
 /// See https://schema.org/AutomatedTeller
-class SchemaAutomatedTeller {
+class SchemaAutomatedTeller implements SchemaSerializable {
   /// Description of fees, commissions, and other terms applied either
   /// to a class of financial product, or by a financial service
   /// organization.  Supported types: [String], [String]
@@ -686,7 +687,8 @@ class SchemaAutomatedTeller {
   });
 
   /// Serialize [SchemaAutomatedTeller] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'AutomatedTeller',
         'feesAndCommissionsSpecification':
@@ -856,5 +858,5 @@ class SchemaAutomatedTeller {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

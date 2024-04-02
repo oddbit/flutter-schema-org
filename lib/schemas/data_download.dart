@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 import 'package:schema_org/schemas/measurement_method_enum.dart';
 import 'package:schema_org/schemas/news_article.dart';
@@ -47,7 +48,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// All or part of a [[Dataset]] in downloadable form.
 /// See https://schema.org/DataDownload
-class SchemaDataDownload {
+class SchemaDataDownload implements SchemaSerializable {
   /// A subproperty of [[measurementTechnique]] that can be used for
   /// specifying specific methods, in particular via
   /// [[MeasurementMethodEnum]].  Supported types: [DefinedTerm],
@@ -965,7 +966,8 @@ class SchemaDataDownload {
   });
 
   /// Serialize [SchemaDataDownload] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'DataDownload',
         'measurementMethod': convertToJsonLd(measurementMethod,
@@ -1165,5 +1167,5 @@ class SchemaDataDownload {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

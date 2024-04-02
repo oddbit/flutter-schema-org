@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
 import 'package:schema_org/schemas/audience.dart';
@@ -39,7 +40,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A single, identifiable product instance (e.g a laptop with a
 /// particular serial number).
 /// See https://schema.org/IndividualProduct
-class SchemaIndividualProduct {
+class SchemaIndividualProduct implements SchemaSerializable {
   /// The serial number or any alphanumeric identifier of a particular
   /// product When attached to an offer, it is a shortcut for the
   /// serial number of the product included in the offer.
@@ -477,7 +478,8 @@ class SchemaIndividualProduct {
   });
 
   /// Serialize [SchemaIndividualProduct] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'IndividualProduct',
         'serialNumber': convertToJsonLd(serialNumber, [String]),
@@ -585,5 +587,5 @@ class SchemaIndividualProduct {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

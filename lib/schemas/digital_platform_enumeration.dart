@@ -1,8 +1,10 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// //github.com/schemaorg/schemaorg/issues/3057).
 /// See https://schema.org/DigitalPlatformEnumeration
-enum SchemaDigitalPlatformEnumeration {
+enum SchemaDigitalPlatformEnumeration implements SchemaSerializable {
   /// Represents the broad notion of Android-based operating systems.
   androidPlatform('https://schema.org/DigitalPlatformEnumeration'),
 
@@ -29,5 +31,6 @@ enum SchemaDigitalPlatformEnumeration {
   final String value;
 
   /// Serialize [SchemaDigitalPlatformEnumeration] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

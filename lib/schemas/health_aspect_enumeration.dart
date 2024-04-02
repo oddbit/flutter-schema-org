@@ -1,10 +1,12 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// HealthAspectEnumeration enumerates several aspects of health
 /// content online, each of which might be described using
 /// [[hasHealthAspect]] and [[HealthTopicContent]].
 /// See https://schema.org/HealthAspectEnumeration
-enum SchemaHealthAspectEnumeration {
+enum SchemaHealthAspectEnumeration implements SchemaSerializable {
   /// Content about the allergy-related aspects of a health topic.
   allergiesHealthAspect('https://schema.org/HealthAspectEnumeration'),
 
@@ -122,5 +124,6 @@ enum SchemaHealthAspectEnumeration {
   final String value;
 
   /// Serialize [SchemaHealthAspectEnumeration] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

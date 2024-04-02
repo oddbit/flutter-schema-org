@@ -1,8 +1,10 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// The publication format of the book.
 /// See https://schema.org/BookFormatType
-enum SchemaBookFormatType {
+enum SchemaBookFormatType implements SchemaSerializable {
   /// Audiobook This is an enumerated value for use with the
   /// bookFormat property There is also a type 'Audiobook' in the bib
   /// extension which includes Audiobook specific properties.
@@ -28,5 +30,6 @@ enum SchemaBookFormatType {
   final String value;
 
   /// Serialize [SchemaBookFormatType] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

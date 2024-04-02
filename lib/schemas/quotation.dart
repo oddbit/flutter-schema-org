@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 /// to link to source/origin The [[recordedIn]] property can be used
 /// to reference a Quotation from an [[Event]].
 /// See https://schema.org/Quotation
-class SchemaQuotation {
+class SchemaQuotation implements SchemaSerializable {
   /// The (e.g fictional) character, Person or Organization to whom
   /// the quotation is attributed within the containing CreativeWork.
   /// Supported types: [Organization], [Person]
@@ -844,7 +845,8 @@ class SchemaQuotation {
   });
 
   /// Serialize [SchemaQuotation] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Quotation',
         'spokenByCharacter': convertToJsonLd(
@@ -1017,5 +1019,5 @@ class SchemaQuotation {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

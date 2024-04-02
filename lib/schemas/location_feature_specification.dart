@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/opening_hours_specification.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 import 'package:schema_org/schemas/measurement_method_enum.dart';
@@ -20,7 +21,7 @@ import 'package:schema_org/schemas/event.dart';
 /// representing a feature of an accommodation as a property-value
 /// pair of varying degrees of formality.
 /// See https://schema.org/LocationFeatureSpecification
-class SchemaLocationFeatureSpecification {
+class SchemaLocationFeatureSpecification implements SchemaSerializable {
   /// The hours during which this service or contact is available.
   SchemaOpeningHoursSpecification? hoursAvailable;
 
@@ -184,7 +185,8 @@ class SchemaLocationFeatureSpecification {
   });
 
   /// Serialize [SchemaLocationFeatureSpecification] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'LocationFeatureSpecification',
         'hoursAvailable':
@@ -228,5 +230,5 @@ class SchemaLocationFeatureSpecification {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

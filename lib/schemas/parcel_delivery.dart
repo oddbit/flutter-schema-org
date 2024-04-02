@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/delivery_event.dart';
@@ -18,7 +19,7 @@ import 'package:schema_org/schemas/event.dart';
 /// The delivery of a parcel either via the postal service or a
 /// commercial service.
 /// See https://schema.org/ParcelDelivery
-class SchemaParcelDelivery {
+class SchemaParcelDelivery implements SchemaSerializable {
   /// 'carrier' is an out-dated term indicating the 'provider' for
   /// parcel delivery and flights.
   SchemaOrganization? carrier;
@@ -145,7 +146,8 @@ class SchemaParcelDelivery {
   });
 
   /// Serialize [SchemaParcelDelivery] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ParcelDelivery',
         'carrier': convertToJsonLd(carrier, [SchemaOrganization]),
@@ -182,5 +184,5 @@ class SchemaParcelDelivery {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

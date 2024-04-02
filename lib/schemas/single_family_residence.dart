@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/floor_plan.dart';
 import 'package:schema_org/schemas/location_feature_specification.dart';
@@ -28,7 +29,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// Single-family home.
 /// See https://schema.org/SingleFamilyResidence
-class SchemaSingleFamilyResidence {
+class SchemaSingleFamilyResidence implements SchemaSerializable {
   /// ROM for room or C62 for no unit The type of room can be put in
   /// the unitText property of the QuantitativeValue.  Supported
   /// types: [QuantitativeValue], [int]
@@ -417,7 +418,8 @@ class SchemaSingleFamilyResidence {
   });
 
   /// Serialize [SchemaSingleFamilyResidence] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'SingleFamilyResidence',
         'numberOfRooms':
@@ -525,5 +527,5 @@ class SchemaSingleFamilyResidence {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

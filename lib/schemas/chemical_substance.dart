@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 import 'package:schema_org/schemas/medical_condition.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -16,7 +17,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// //www.ebi.ac.uk/chebi/searchId.do?chebiId=59999)).
 /// See https://schema.org/ChemicalSubstance
-class SchemaChemicalSubstance {
+class SchemaChemicalSubstance implements SchemaSerializable {
   /// The chemical composition describes the identity and relative
   /// ratio of the chemical elements that make up the substance.
   String? chemicalComposition;
@@ -170,7 +171,8 @@ class SchemaChemicalSubstance {
   });
 
   /// Serialize [SchemaChemicalSubstance] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ChemicalSubstance',
         'chemicalComposition': convertToJsonLd(chemicalComposition, [String]),
@@ -218,5 +220,5 @@ class SchemaChemicalSubstance {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

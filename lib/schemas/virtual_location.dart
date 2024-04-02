@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/image_object.dart';
@@ -14,7 +15,7 @@ import 'package:schema_org/schemas/event.dart';
 /// virtual locations should not be confused with physical locations
 /// in the real world.
 /// See https://schema.org/VirtualLocation
-class SchemaVirtualLocation {
+class SchemaVirtualLocation implements SchemaSerializable {
   /// //schema.org/docs/styleguide.html">style guide</a>.  Supported
   /// types: [String], [String]
   String? additionalType;
@@ -86,7 +87,8 @@ class SchemaVirtualLocation {
   });
 
   /// Serialize [SchemaVirtualLocation] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'VirtualLocation',
         'additionalType': convertToJsonLd(additionalType, [String, String]),
@@ -105,5 +107,5 @@ class SchemaVirtualLocation {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

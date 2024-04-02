@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/distance.dart';
 import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
@@ -20,7 +21,7 @@ import 'package:schema_org/schemas/event.dart';
 /// The act of traveling from a fromLocation to a destination by a
 /// specified mode of transport, optionally with participants.
 /// See https://schema.org/TravelAction
-class SchemaTravelAction {
+class SchemaTravelAction implements SchemaSerializable {
   /// The distance travelled, e.g exercising or travelling.
   SchemaDistance? distance;
 
@@ -186,7 +187,8 @@ class SchemaTravelAction {
   });
 
   /// Serialize [SchemaTravelAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'TravelAction',
         'distance': convertToJsonLd(distance, [SchemaDistance]),
@@ -223,5 +225,5 @@ class SchemaTravelAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

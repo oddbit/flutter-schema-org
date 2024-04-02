@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -18,7 +19,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// The act of being defeated in a competitive activity.
 /// See https://schema.org/LoseAction
-class SchemaLoseAction {
+class SchemaLoseAction implements SchemaSerializable {
   /// A sub property of participant The winner of the action.
   SchemaPerson? winner;
 
@@ -174,7 +175,8 @@ class SchemaLoseAction {
   });
 
   /// Serialize [SchemaLoseAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'LoseAction',
         'winner': convertToJsonLd(winner, [SchemaPerson]),
@@ -209,5 +211,5 @@ class SchemaLoseAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

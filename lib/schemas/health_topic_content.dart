@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/health_aspect_enumeration.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -51,7 +52,7 @@ import 'package:schema_org/schemas/action.dart';
 /// and [[mentions]] e.g building upon the existing
 /// [[MedicalCondition]] vocabulary.
 /// See https://schema.org/HealthTopicContent
-class SchemaHealthTopicContent {
+class SchemaHealthTopicContent implements SchemaSerializable {
   /// Indicates the aspect or aspects specifically addressed in some
   /// [[HealthTopicContent]] For example, that the content is an
   /// overview, or that it talks about treatment, self-care,
@@ -850,7 +851,8 @@ class SchemaHealthTopicContent {
   });
 
   /// Serialize [SchemaHealthTopicContent] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'HealthTopicContent',
         'hasHealthAspect':
@@ -1023,5 +1025,5 @@ class SchemaHealthTopicContent {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

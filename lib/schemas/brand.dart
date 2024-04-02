@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
 import 'package:schema_org/schemas/image_object.dart';
 import 'package:schema_org/schemas/review.dart';
@@ -13,7 +14,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A brand is a name used by an organization or business person for
 /// labeling a product, product group, or similar.
 /// See https://schema.org/Brand
-class SchemaBrand {
+class SchemaBrand implements SchemaSerializable {
   /// The overall rating, based on a collection of reviews or ratings,
   /// of the item.
   SchemaAggregateRating? aggregateRating;
@@ -102,7 +103,8 @@ class SchemaBrand {
   });
 
   /// Serialize [SchemaBrand] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Brand',
         'aggregateRating':
@@ -126,5 +128,5 @@ class SchemaBrand {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/legal_value_level.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
 import 'package:schema_org/schemas/legislation.dart';
@@ -53,7 +54,7 @@ import 'package:schema_org/schemas/action.dart';
 /// same Legislation can be published in multiple files For example,
 /// a digitally signed PDF, a plain PDF and an HTML version.
 /// See https://schema.org/LegislationObject
-class SchemaLegislationObject {
+class SchemaLegislationObject implements SchemaSerializable {
   /// The legal value of this legislation file The same legislation
   /// can be written in multiple files with different legal values
   /// Typically a digitally signed PDF have a "stronger" legal value
@@ -1060,7 +1061,8 @@ class SchemaLegislationObject {
   });
 
   /// Serialize [SchemaLegislationObject] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'LegislationObject',
         'legislationLegalValue':
@@ -1283,5 +1285,5 @@ class SchemaLegislationObject {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

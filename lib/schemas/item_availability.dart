@@ -1,8 +1,10 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// A list of possible product availability options.
 /// See https://schema.org/ItemAvailability
-enum SchemaItemAvailability {
+enum SchemaItemAvailability implements SchemaSerializable {
   /// Indicates that the item is available on back order.
   backOrder('https://schema.org/ItemAvailability'),
 
@@ -41,5 +43,6 @@ enum SchemaItemAvailability {
   final String value;
 
   /// Serialize [SchemaItemAvailability] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

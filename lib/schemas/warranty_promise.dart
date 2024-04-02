@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/warranty_scope.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -14,7 +15,7 @@ import 'package:schema_org/schemas/event.dart';
 /// services that will be provided to a customer free of charge in
 /// case of a defect or malfunction of a product.
 /// See https://schema.org/WarrantyPromise
-class SchemaWarrantyPromise {
+class SchemaWarrantyPromise implements SchemaSerializable {
   /// The duration of the warranty promise Common unitCode values are
   /// ANN for year, MON for months, or DAY for days.
   SchemaQuantitativeValue? durationOfWarranty;
@@ -95,7 +96,8 @@ class SchemaWarrantyPromise {
   });
 
   /// Serialize [SchemaWarrantyPromise] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'WarrantyPromise',
         'durationOfWarranty':
@@ -117,5 +119,5 @@ class SchemaWarrantyPromise {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

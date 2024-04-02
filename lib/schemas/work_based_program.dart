@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/category_code.dart';
 import 'package:schema_org/schemas/monetary_amount_distribution.dart';
 import 'package:schema_org/schemas/day_of_week.dart';
@@ -28,7 +29,7 @@ import 'package:schema_org/schemas/event.dart';
 /// as apprenticeships from school, college or other classroom based
 /// educational programs.
 /// See https://schema.org/WorkBasedProgram
-class SchemaWorkBasedProgram {
+class SchemaWorkBasedProgram implements SchemaSerializable {
   /// for historical reasons, any textual label and formal code
   /// provided as a literal may be assumed to be from O*NET-SOC.
   /// Supported types: [CategoryCode], [String]
@@ -242,7 +243,8 @@ class SchemaWorkBasedProgram {
   });
 
   /// Serialize [SchemaWorkBasedProgram] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'WorkBasedProgram',
         'occupationalCategory':
@@ -303,5 +305,5 @@ class SchemaWorkBasedProgram {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

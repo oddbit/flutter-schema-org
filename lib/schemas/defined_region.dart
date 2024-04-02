@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/country.dart';
 import 'package:schema_org/schemas/postal_code_range_specification.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -14,7 +15,7 @@ import 'package:schema_org/schemas/event.dart';
 /// 12345], [78945, 78945], } Region = state, canton, prefecture,
 /// autonomous community...
 /// See https://schema.org/DefinedRegion
-class SchemaDefinedRegion {
+class SchemaDefinedRegion implements SchemaSerializable {
   /// //en.wikipedia.org/wiki/ISO_3166-1).  Supported types:
   /// [Country], [String]
   dynamic addressCountry;
@@ -109,7 +110,8 @@ class SchemaDefinedRegion {
   });
 
   /// Serialize [SchemaDefinedRegion] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'DefinedRegion',
         'addressCountry':
@@ -135,5 +137,5 @@ class SchemaDefinedRegion {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

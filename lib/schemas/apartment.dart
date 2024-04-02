@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/floor_plan.dart';
 import 'package:schema_org/schemas/location_feature_specification.dart';
@@ -28,7 +29,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// //en.wikipedia.org/wiki/Apartment</a>).
 /// See https://schema.org/Apartment
-class SchemaApartment {
+class SchemaApartment implements SchemaSerializable {
   /// ROM for room or C62 for no unit The type of room can be put in
   /// the unitText property of the QuantitativeValue.  Supported
   /// types: [QuantitativeValue], [int]
@@ -417,7 +418,8 @@ class SchemaApartment {
   });
 
   /// Serialize [SchemaApartment] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Apartment',
         'numberOfRooms':
@@ -525,5 +527,5 @@ class SchemaApartment {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

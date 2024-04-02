@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
 import 'package:schema_org/schemas/medical_code.dart';
 import 'package:schema_org/schemas/grant.dart';
@@ -19,7 +20,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// The legal availability status of a medical drug.
 /// See https://schema.org/DrugLegalStatus
-class SchemaDrugLegalStatus {
+class SchemaDrugLegalStatus implements SchemaSerializable {
   /// The location in which the status applies.
   SchemaAdministrativeArea? applicableLocation;
 
@@ -135,7 +136,8 @@ class SchemaDrugLegalStatus {
   });
 
   /// Serialize [SchemaDrugLegalStatus] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'DrugLegalStatus',
         'applicableLocation':
@@ -168,5 +170,5 @@ class SchemaDrugLegalStatus {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

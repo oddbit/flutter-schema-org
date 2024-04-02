@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/music_album.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A musical group, such as a band, an orchestra, or a choir Can
 /// also be a solo musician.
 /// See https://schema.org/MusicGroup
-class SchemaMusicGroup {
+class SchemaMusicGroup implements SchemaSerializable {
   /// A music album.
   SchemaMusicAlbum? album;
 
@@ -510,7 +511,8 @@ class SchemaMusicGroup {
   });
 
   /// Serialize [SchemaMusicGroup] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MusicGroup',
         'album': convertToJsonLd(album, [SchemaMusicAlbum]),
@@ -629,5 +631,5 @@ class SchemaMusicGroup {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

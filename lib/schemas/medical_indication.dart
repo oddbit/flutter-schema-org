@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_code.dart';
 import 'package:schema_org/schemas/grant.dart';
 import 'package:schema_org/schemas/medical_guideline.dart';
@@ -20,7 +21,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A condition or factor that indicates use of a medical therapy,
 /// including signs, symptoms, risk factors, anatomical states, etc.
 /// See https://schema.org/MedicalIndication
-class SchemaMedicalIndication {
+class SchemaMedicalIndication implements SchemaSerializable {
   /// A medical code for the entity, taken from a controlled
   /// vocabulary or ontology such as ICD-9, DiseasesDB, MeSH,
   /// SNOMED-CT, RxNorm, etc.
@@ -132,7 +133,8 @@ class SchemaMedicalIndication {
   });
 
   /// Serialize [SchemaMedicalIndication] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalIndication',
         'code': convertToJsonLd(code, [SchemaMedicalCode]),
@@ -163,5 +165,5 @@ class SchemaMedicalIndication {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

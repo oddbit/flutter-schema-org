@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/interaction_counter.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/action.dart';
 /// online logistics and shipping provider, an online (virtual)
 /// doctor, etc.
 /// See https://schema.org/OnlineBusiness
-class SchemaOnlineBusiness {
+class SchemaOnlineBusiness implements SchemaSerializable {
   /// For a [[NewsMediaOrganization]] or other news-related
   /// [[Organization]], a statement about public engagement activities
   /// (for news media, the newsroom’s), including involving the public
@@ -482,7 +483,8 @@ class SchemaOnlineBusiness {
   });
 
   /// Serialize [SchemaOnlineBusiness] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'OnlineBusiness',
         'actionableFeedbackPolicy': convertToJsonLd(
@@ -595,5 +597,5 @@ class SchemaOnlineBusiness {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

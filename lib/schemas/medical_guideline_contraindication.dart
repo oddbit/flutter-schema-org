@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_evidence_level.dart';
 import 'package:schema_org/schemas/medical_entity.dart';
 import 'package:schema_org/schemas/medical_code.dart';
@@ -23,7 +24,7 @@ import 'package:schema_org/schemas/event.dart';
 /// harmful and where quality of the data supporting the
 /// contraindication is sound.
 /// See https://schema.org/MedicalGuidelineContraindication
-class SchemaMedicalGuidelineContraindication {
+class SchemaMedicalGuidelineContraindication implements SchemaSerializable {
   /// Strength of evidence of the data used to formulate the guideline
   /// (enumerated).
   SchemaMedicalEvidenceLevel? evidenceLevel;
@@ -154,7 +155,8 @@ class SchemaMedicalGuidelineContraindication {
   });
 
   /// Serialize [SchemaMedicalGuidelineContraindication] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalGuidelineContraindication',
         'evidenceLevel':
@@ -191,5 +193,5 @@ class SchemaMedicalGuidelineContraindication {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

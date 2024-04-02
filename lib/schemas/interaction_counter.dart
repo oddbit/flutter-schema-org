@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/software_application.dart';
 import 'package:schema_org/schemas/web_site.dart';
 import 'package:schema_org/schemas/action.dart';
@@ -17,7 +18,7 @@ import 'package:schema_org/schemas/event.dart';
 /// most cases, authors will use a subtype to specify the specific
 /// type of interaction.
 /// See https://schema.org/InteractionCounter
-class SchemaInteractionCounter {
+class SchemaInteractionCounter implements SchemaSerializable {
   /// The endTime of something For a reserved event or service (e.g
   /// FoodEstablishmentReservation), the time that it is expected to
   /// end For actions that span a period of time, when the action was
@@ -136,7 +137,8 @@ class SchemaInteractionCounter {
   });
 
   /// Serialize [SchemaInteractionCounter] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'InteractionCounter',
         'endTime': convertToJsonLd(endTime, [String, String]),
@@ -163,5 +165,5 @@ class SchemaInteractionCounter {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

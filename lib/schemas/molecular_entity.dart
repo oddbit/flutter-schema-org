@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/medical_condition.dart';
@@ -19,7 +20,7 @@ import 'package:schema_org/schemas/event.dart';
 /// ion, ion pair, radical, radical ion, complex, conformer etc.,
 /// identifiable as a separately distinguishable entity.
 /// See https://schema.org/MolecularEntity
-class SchemaMolecularEntity {
+class SchemaMolecularEntity implements SchemaSerializable {
   /// A role played by the BioChemEntity within a chemical context.
   SchemaDefinedTerm? chemicalRole;
 
@@ -214,7 +215,8 @@ class SchemaMolecularEntity {
   });
 
   /// Serialize [SchemaMolecularEntity] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MolecularEntity',
         'chemicalRole': convertToJsonLd(chemicalRole, [SchemaDefinedTerm]),
@@ -270,5 +272,5 @@ class SchemaMolecularEntity {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

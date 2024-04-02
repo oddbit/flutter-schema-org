@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/speakable_specification.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A blog post.
 /// See https://schema.org/BlogPosting
-class SchemaBlogPosting {
+class SchemaBlogPosting implements SchemaSerializable {
   /// A CreativeWork such as an image, video, or audio clip shared as
   /// part of this posting.
   SchemaCreativeWork? sharedContent;
@@ -893,7 +894,8 @@ class SchemaBlogPosting {
   });
 
   /// Serialize [SchemaBlogPosting] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'BlogPosting',
         'sharedContent': convertToJsonLd(sharedContent, [SchemaCreativeWork]),
@@ -1074,5 +1076,5 @@ class SchemaBlogPosting {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

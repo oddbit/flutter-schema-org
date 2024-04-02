@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A picture or diagram made with a pencil, pen, or crayon rather
 /// than paint.
 /// See https://schema.org/Drawing
-class SchemaDrawing {
+class SchemaDrawing implements SchemaSerializable {
   /// The subject matter of the content.
   SchemaThing? about;
 
@@ -835,7 +836,8 @@ class SchemaDrawing {
   });
 
   /// Serialize [SchemaDrawing] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Drawing',
         'about': convertToJsonLd(about, [SchemaThing]),
@@ -1006,5 +1008,5 @@ class SchemaDrawing {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

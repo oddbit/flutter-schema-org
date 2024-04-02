@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/speakable_specification.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -47,7 +48,7 @@ import 'package:schema_org/schemas/action.dart';
 /// critic's assessment of a service, product, performance, or
 /// artistic or literary work.
 /// See https://schema.org/ReviewNewsArticle
-class SchemaReviewNewsArticle {
+class SchemaReviewNewsArticle implements SchemaSerializable {
   /// 43AM Reporting from Washington", "Beijing/Moscow", "QUEZON CITY,
   /// Philippines".
   String? dateline;
@@ -991,7 +992,8 @@ class SchemaReviewNewsArticle {
   });
 
   /// Serialize [SchemaReviewNewsArticle] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ReviewNewsArticle',
         'dateline': convertToJsonLd(dateline, [String]),
@@ -1189,5 +1191,5 @@ class SchemaReviewNewsArticle {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -21,7 +22,7 @@ import 'package:schema_org/schemas/event.dart';
 /// confirmation emails or HTML pages with individual confirmations
 /// of reservations For offers of tickets, use [[Offer]].
 /// See https://schema.org/TaxiReservation
-class SchemaTaxiReservation {
+class SchemaTaxiReservation implements SchemaSerializable {
   /// Number of people the reservation should accommodate.  Supported
   /// types: [QuantitativeValue], [int]
   dynamic partySize;
@@ -178,7 +179,8 @@ class SchemaTaxiReservation {
   });
 
   /// Serialize [SchemaTaxiReservation] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'TaxiReservation',
         'partySize': convertToJsonLd(partySize, [SchemaQuantitativeValue, int]),
@@ -219,5 +221,5 @@ class SchemaTaxiReservation {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

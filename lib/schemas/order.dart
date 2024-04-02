@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/offer.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -23,7 +24,7 @@ import 'package:schema_org/schemas/event.dart';
 /// can contain multiple line items, each represented by an Offer
 /// that has been accepted by the customer.
 /// See https://schema.org/Order
-class SchemaOrder {
+class SchemaOrder implements SchemaSerializable {
   /// The offer(s) -- e.g., product, quantity and price combinations
   /// -- included in the order.
   SchemaOffer? acceptedOffer;
@@ -201,7 +202,8 @@ class SchemaOrder {
   });
 
   /// Serialize [SchemaOrder] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Order',
         'acceptedOffer': convertToJsonLd(acceptedOffer, [SchemaOffer]),
@@ -246,5 +248,5 @@ class SchemaOrder {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

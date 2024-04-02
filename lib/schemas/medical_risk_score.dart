@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_entity.dart';
 import 'package:schema_org/schemas/medical_risk_factor.dart';
 import 'package:schema_org/schemas/medical_code.dart';
@@ -23,7 +24,7 @@ import 'package:schema_org/schemas/event.dart';
 /// a score that is associated with prognosis, e.g CHAD score, TIMI
 /// risk score.
 /// See https://schema.org/MedicalRiskScore
-class SchemaMedicalRiskScore {
+class SchemaMedicalRiskScore implements SchemaSerializable {
   /// The algorithm or rules to follow to compute the score.
   String? algorithm;
 
@@ -149,7 +150,8 @@ class SchemaMedicalRiskScore {
   });
 
   /// Serialize [SchemaMedicalRiskScore] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalRiskScore',
         'algorithm': convertToJsonLd(algorithm, [String]),
@@ -185,5 +187,5 @@ class SchemaMedicalRiskScore {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,9 +1,11 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// Categories of physical activity, organized by physiologic
 /// classification.
 /// See https://schema.org/PhysicalActivityCategory
-enum SchemaPhysicalActivityCategory {
+enum SchemaPhysicalActivityCategory implements SchemaSerializable {
   /// Physical activity of relatively low intensity that depends
   /// primarily on the aerobic energy-generating process; during
   /// activity, the aerobic metabolism uses oxygen to adequately meet
@@ -43,5 +45,6 @@ enum SchemaPhysicalActivityCategory {
   final String value;
 
   /// Serialize [SchemaPhysicalActivityCategory] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

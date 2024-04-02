@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/product_group.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
@@ -38,7 +39,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A datasheet or vendor specification of a product (in the sense
 /// of a prototypical description).
 /// See https://schema.org/ProductModel
-class SchemaProductModel {
+class SchemaProductModel implements SchemaSerializable {
   /// Indicates the kind of product that this is a variant of In the
   /// case of [[ProductModel]], this is a pointer (from a
   /// ProductModel) to a base product from which this product is a
@@ -480,7 +481,8 @@ class SchemaProductModel {
   });
 
   /// Serialize [SchemaProductModel] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ProductModel',
         'isVariantOf': convertToJsonLd(
@@ -589,5 +591,5 @@ class SchemaProductModel {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

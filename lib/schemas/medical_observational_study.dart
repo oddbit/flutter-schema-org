@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_observational_study_design.dart';
 import 'package:schema_org/schemas/medical_condition.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -34,7 +35,7 @@ import 'package:schema_org/schemas/event.dart';
 /// where each subject is randomly assigned to a treatment group or
 /// a control group before the start of the treatment.
 /// See https://schema.org/MedicalObservationalStudy
-class SchemaMedicalObservationalStudy {
+class SchemaMedicalObservationalStudy implements SchemaSerializable {
   /// Specifics about the observational study design (enumerated).
   SchemaMedicalObservationalStudyDesign? studyDesign;
 
@@ -176,7 +177,8 @@ class SchemaMedicalObservationalStudy {
   });
 
   /// Serialize [SchemaMedicalObservationalStudy] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalObservationalStudy',
         'studyDesign': convertToJsonLd(
@@ -217,5 +219,5 @@ class SchemaMedicalObservationalStudy {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

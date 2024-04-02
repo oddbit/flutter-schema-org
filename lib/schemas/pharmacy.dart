@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_specialty.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/creative_work.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A pharmacy or drugstore.
 /// See https://schema.org/Pharmacy
-class SchemaPharmacy {
+class SchemaPharmacy implements SchemaSerializable {
   /// Name or unique ID of network (Networks are often reused across
   /// different insurance plans.)
   String? healthPlanNetworkId;
@@ -694,7 +695,8 @@ class SchemaPharmacy {
   });
 
   /// Serialize [SchemaPharmacy] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Pharmacy',
         'healthPlanNetworkId': convertToJsonLd(healthPlanNetworkId, [String]),
@@ -867,5 +869,5 @@ class SchemaPharmacy {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

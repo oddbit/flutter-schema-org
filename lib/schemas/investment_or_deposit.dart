@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
@@ -35,7 +36,7 @@ import 'package:schema_org/schemas/event.dart';
 /// to transfer funds to a financial service in return for potential
 /// beneficial financial return.
 /// See https://schema.org/InvestmentOrDeposit
-class SchemaInvestmentOrDeposit {
+class SchemaInvestmentOrDeposit implements SchemaSerializable {
   /// The amount of money.  Supported types: [MonetaryAmount], [int]
   dynamic amount;
 
@@ -267,7 +268,8 @@ class SchemaInvestmentOrDeposit {
   });
 
   /// Serialize [SchemaInvestmentOrDeposit] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'InvestmentOrDeposit',
         'amount': convertToJsonLd(amount, [SchemaMonetaryAmount, int]),
@@ -335,5 +337,5 @@ class SchemaInvestmentOrDeposit {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

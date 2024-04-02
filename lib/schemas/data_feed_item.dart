@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -11,7 +12,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// A single item within a larger data feed.
 /// See https://schema.org/DataFeedItem
-class SchemaDataFeedItem {
+class SchemaDataFeedItem implements SchemaSerializable {
   /// The date on which the CreativeWork was created or the item was
   /// added to a DataFeed.  Supported types: [String], [String]
   String? dateCreated;
@@ -104,7 +105,8 @@ class SchemaDataFeedItem {
   });
 
   /// Serialize [SchemaDataFeedItem] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'DataFeedItem',
         'dateCreated': convertToJsonLd(dateCreated, [String, String]),
@@ -127,5 +129,5 @@ class SchemaDataFeedItem {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

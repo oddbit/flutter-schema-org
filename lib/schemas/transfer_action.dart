@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -19,7 +20,7 @@ import 'package:schema_org/schemas/event.dart';
 /// The act of transferring/moving (abstract or concrete) animate or
 /// inanimate objects from one place to another.
 /// See https://schema.org/TransferAction
-class SchemaTransferAction {
+class SchemaTransferAction implements SchemaSerializable {
   /// A sub property of location The original location of the object
   /// or the agent before the action.
   SchemaPlace? fromLocation;
@@ -181,7 +182,8 @@ class SchemaTransferAction {
   });
 
   /// Serialize [SchemaTransferAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'TransferAction',
         'fromLocation': convertToJsonLd(fromLocation, [SchemaPlace]),
@@ -217,5 +219,5 @@ class SchemaTransferAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

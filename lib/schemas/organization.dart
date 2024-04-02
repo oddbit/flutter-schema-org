@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/interaction_counter.dart';
@@ -38,7 +39,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// An organization such as a school, NGO, corporation, club, etc.
 /// See https://schema.org/Organization
-class SchemaOrganization {
+class SchemaOrganization implements SchemaSerializable {
   /// For a [[NewsMediaOrganization]] or other news-related
   /// [[Organization]], a statement about public engagement activities
   /// (for news media, the newsroom’s), including involving the public
@@ -477,7 +478,8 @@ class SchemaOrganization {
   });
 
   /// Serialize [SchemaOrganization] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Organization',
         'actionableFeedbackPolicy': convertToJsonLd(
@@ -590,5 +592,5 @@ class SchemaOrganization {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

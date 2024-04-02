@@ -1,28 +1,29 @@
 library schema_org;
 
-import 'package:schema_org/schemas/action.dart';
-import 'package:schema_org/schemas/creative_work.dart';
-import 'package:schema_org/schemas/dose_schedule.dart';
-import 'package:schema_org/schemas/drug.dart';
-import 'package:schema_org/schemas/drug_legal_status.dart';
-import 'package:schema_org/schemas/event.dart';
-import 'package:schema_org/schemas/event_status_type.dart';
-import 'package:schema_org/schemas/grant.dart';
-import 'package:schema_org/schemas/image_object.dart';
-import 'package:schema_org/schemas/medical_code.dart';
+import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_contraindication.dart';
 import 'package:schema_org/schemas/medical_entity.dart';
-import 'package:schema_org/schemas/medical_enumeration.dart';
+import 'package:schema_org/schemas/dose_schedule.dart';
+import 'package:schema_org/schemas/drug.dart';
+import 'package:schema_org/schemas/medical_code.dart';
+import 'package:schema_org/schemas/grant.dart';
 import 'package:schema_org/schemas/medical_guideline.dart';
-import 'package:schema_org/schemas/medical_procedure_type.dart';
-import 'package:schema_org/schemas/medical_specialty.dart';
-import 'package:schema_org/schemas/medical_study.dart';
-import 'package:schema_org/schemas/medical_study_status.dart';
+import 'package:schema_org/schemas/drug_legal_status.dart';
+import 'package:schema_org/schemas/medical_enumeration.dart';
 import 'package:schema_org/schemas/medicine_system.dart';
 import 'package:schema_org/schemas/organization.dart';
-import 'package:schema_org/schemas/property_value.dart';
+import 'package:schema_org/schemas/medical_specialty.dart';
+import 'package:schema_org/schemas/medical_study.dart';
+import 'package:schema_org/schemas/medical_procedure_type.dart';
+import 'package:schema_org/schemas/event_status_type.dart';
+import 'package:schema_org/schemas/medical_study_status.dart';
 import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/utils.dart';
+import 'package:schema_org/schemas/property_value.dart';
+import 'package:schema_org/schemas/image_object.dart';
+import 'package:schema_org/schemas/creative_work.dart';
+import 'package:schema_org/schemas/action.dart';
+import 'package:schema_org/schemas/event.dart';
 
 /// Any medical intervention designed to prevent, treat, and cure
 /// human diseases and medical conditions, including both curative
@@ -32,7 +33,7 @@ import 'package:schema_org/utils.dart';
 /// example), or detoxification (e.g hemodialysis) aimed at
 /// improving or preventing a health condition.
 /// See https://schema.org/MedicalTherapy
-class SchemaMedicalTherapy {
+class SchemaMedicalTherapy implements SchemaSerializable {
   /// A contraindication for this therapy.  Supported types:
   /// [MedicalContraindication], [String]
   dynamic contraindication;
@@ -209,7 +210,8 @@ class SchemaMedicalTherapy {
   });
 
   /// Serialize [SchemaMedicalTherapy] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalTherapy',
         'contraindication': convertToJsonLd(
@@ -259,5 +261,5 @@ class SchemaMedicalTherapy {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

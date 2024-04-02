@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/sports_team.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -29,7 +30,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// Sports event.
 /// See https://schema.org/SportsEvent
-class SchemaSportsEvent {
+class SchemaSportsEvent implements SchemaSerializable {
   /// The away team in a sports event.  Supported types: [Person],
   /// [SportsTeam]
   dynamic awayTeam;
@@ -365,7 +366,8 @@ class SchemaSportsEvent {
   });
 
   /// Serialize [SchemaSportsEvent] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'SportsEvent',
         'awayTeam': convertToJsonLd(awayTeam, [SchemaPerson, SchemaSportsTeam]),
@@ -446,5 +448,5 @@ class SchemaSportsEvent {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/qualitative_value.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -21,7 +22,7 @@ import 'package:schema_org/schemas/event.dart';
 /// confirmation emails or HTML pages with individual confirmations
 /// of reservations.
 /// See https://schema.org/LodgingReservation
-class SchemaLodgingReservation {
+class SchemaLodgingReservation implements SchemaSerializable {
   /// The earliest someone may check into a lodging establishment.
   /// Supported types: [String], [String]
   String? checkinTime;
@@ -193,7 +194,8 @@ class SchemaLodgingReservation {
   });
 
   /// Serialize [SchemaLodgingReservation] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'LodgingReservation',
         'checkinTime': convertToJsonLd(checkinTime, [String, String]),
@@ -240,5 +242,5 @@ class SchemaLodgingReservation {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

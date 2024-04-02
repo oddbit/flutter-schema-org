@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_trial_design.dart';
 import 'package:schema_org/schemas/medical_condition.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -30,7 +31,7 @@ import 'package:schema_org/schemas/event.dart';
 /// controlled and subjects are allocated at random to the different
 /// treatment and/or control groups.
 /// See https://schema.org/MedicalTrial
-class SchemaMedicalTrial {
+class SchemaMedicalTrial implements SchemaSerializable {
   /// Specifics about the trial design (enumerated).
   SchemaMedicalTrialDesign? trialDesign;
 
@@ -172,7 +173,8 @@ class SchemaMedicalTrial {
   });
 
   /// Serialize [SchemaMedicalTrial] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalTrial',
         'trialDesign': convertToJsonLd(trialDesign, [SchemaMedicalTrialDesign]),
@@ -212,5 +214,5 @@ class SchemaMedicalTrial {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

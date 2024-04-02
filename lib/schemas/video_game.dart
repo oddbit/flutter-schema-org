@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -50,7 +51,7 @@ import 'package:schema_org/schemas/action.dart';
 /// interaction with a user interface to generate visual feedback on
 /// a video device.
 /// See https://schema.org/VideoGame
-class SchemaVideoGame {
+class SchemaVideoGame implements SchemaSerializable {
   /// An actor, e.g in TV, radio, movie, video games etc., or in an
   /// event Actors can be associated with individual items or with a
   /// series, episode, clip.
@@ -1043,7 +1044,8 @@ class SchemaVideoGame {
   });
 
   /// Serialize [SchemaVideoGame] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'VideoGame',
         'actor': convertToJsonLd(actor, [SchemaPerson]),
@@ -1267,5 +1269,5 @@ class SchemaVideoGame {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/action.dart';
 ///
 /// //blog.schema.org/2014/09/schemaorg-support-for-bibliographic_2.html).
 /// See https://schema.org/Periodical
-class SchemaPeriodical {
+class SchemaPeriodical implements SchemaSerializable {
   /// //en.wikipedia.org/wiki/ISO_8601)).  Supported types: [String],
   /// [String]
   String? endDate;
@@ -852,7 +853,8 @@ class SchemaPeriodical {
   });
 
   /// Serialize [SchemaPeriodical] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Periodical',
         'endDate': convertToJsonLd(endDate, [String, String]),
@@ -1026,5 +1028,5 @@ class SchemaPeriodical {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

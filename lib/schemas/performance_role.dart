@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/image_object.dart';
@@ -11,7 +12,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A PerformanceRole is a Role that some entity places with regard
 /// to a theatrical performance, e.g in a Movie, TVSeries etc.
 /// See https://schema.org/PerformanceRole
-class SchemaPerformanceRole {
+class SchemaPerformanceRole implements SchemaSerializable {
   /// The name of a character played in some acting or performing
   /// role, i.e in a PerformanceRole.
   String? characterName;
@@ -113,7 +114,8 @@ class SchemaPerformanceRole {
   });
 
   /// Serialize [SchemaPerformanceRole] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PerformanceRole',
         'characterName': convertToJsonLd(characterName, [String]),
@@ -137,5 +139,5 @@ class SchemaPerformanceRole {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

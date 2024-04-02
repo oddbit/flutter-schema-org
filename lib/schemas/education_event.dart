@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -28,7 +29,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// Education event.
 /// See https://schema.org/EducationEvent
-class SchemaEducationEvent {
+class SchemaEducationEvent implements SchemaSerializable {
   /// The item being described is intended to assess the competency or
   /// learning outcome defined by the referenced term.  Supported
   /// types: [DefinedTerm], [String]
@@ -364,7 +365,8 @@ class SchemaEducationEvent {
   });
 
   /// Serialize [SchemaEducationEvent] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'EducationEvent',
         'assesses': convertToJsonLd(assesses, [SchemaDefinedTerm, String]),
@@ -444,5 +446,5 @@ class SchemaEducationEvent {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

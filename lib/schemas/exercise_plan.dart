@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/duration.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/energy.dart';
@@ -57,7 +58,7 @@ import 'package:schema_org/schemas/action.dart';
 /// purpose, including defined exercise routines as well as activity
 /// prescribed by a clinician.
 /// See https://schema.org/ExercisePlan
-class SchemaExercisePlan {
+class SchemaExercisePlan implements SchemaSerializable {
   /// Length of time to engage in the activity.  Supported types:
   /// [Duration], [QuantitativeValue]
   dynamic activityDuration;
@@ -952,7 +953,8 @@ class SchemaExercisePlan {
   });
 
   /// Serialize [SchemaExercisePlan] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ExercisePlan',
         'activityDuration': convertToJsonLd(
@@ -1162,5 +1164,5 @@ class SchemaExercisePlan {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

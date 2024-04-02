@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -42,7 +43,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// a cover (ComicCoverArt) and an interior story.
 /// See https://schema.org/ComicStory
-class SchemaComicStory {
+class SchemaComicStory implements SchemaSerializable {
   /// The primary artist for a work  	in a medium other than pencils
   /// or digital line art--for example, if the  	primary artwork is
   /// done in watercolors or digital paints.
@@ -858,7 +859,8 @@ class SchemaComicStory {
   });
 
   /// Serialize [SchemaComicStory] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ComicStory',
         'artist': convertToJsonLd(artist, [SchemaPerson]),
@@ -1034,5 +1036,5 @@ class SchemaComicStory {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_condition.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/defined_term.dart';
@@ -15,7 +16,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// a protein; a gene; a chemical; a synthetic chemical.
 /// See https://schema.org/BioChemEntity
-class SchemaBioChemEntity {
+class SchemaBioChemEntity implements SchemaSerializable {
   /// Disease associated to this BioChemEntity Such disease can be a
   /// MedicalCondition or a URL If you want to add an evidence
   /// supporting the association, please use PropertyValue.  Supported
@@ -156,7 +157,8 @@ class SchemaBioChemEntity {
   });
 
   /// Serialize [SchemaBioChemEntity] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'BioChemEntity',
         'associatedDisease': convertToJsonLd(associatedDisease,
@@ -201,5 +203,5 @@ class SchemaBioChemEntity {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

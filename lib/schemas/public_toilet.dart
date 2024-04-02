@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
@@ -26,7 +27,7 @@ import 'package:schema_org/schemas/action.dart';
 /// use by the general public, or by customers or employees of
 /// certain businesses.
 /// See https://schema.org/PublicToilet
-class SchemaPublicToilet {
+class SchemaPublicToilet implements SchemaSerializable {
   /// 00&quot;&gt;Tuesdays and Thursdays 4-8pm&lt;/time&gt;</code>.\n*
   /// If a business is open 7 days a week, then it can be specified as
   /// <code>&lt;time itemprop=&quot;openingHours&quot;
@@ -344,7 +345,8 @@ class SchemaPublicToilet {
   });
 
   /// Serialize [SchemaPublicToilet] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PublicToilet',
         'openingHours': convertToJsonLd(openingHours, [String]),
@@ -431,5 +433,5 @@ class SchemaPublicToilet {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

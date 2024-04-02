@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/structured_value.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -16,7 +17,7 @@ import 'package:schema_org/schemas/event.dart';
 /// to use [[PriceSpecification]] Types to describe the price of an
 /// Offer, Invoice, etc.
 /// See https://schema.org/MonetaryAmount
-class SchemaMonetaryAmount {
+class SchemaMonetaryAmount implements SchemaSerializable {
   /// //en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS)
   /// and other currency types, e.g "Ithaca HOUR".
   String? currency;
@@ -125,7 +126,8 @@ class SchemaMonetaryAmount {
   });
 
   /// Serialize [SchemaMonetaryAmount] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MonetaryAmount',
         'currency': convertToJsonLd(currency, [String]),
@@ -151,5 +153,5 @@ class SchemaMonetaryAmount {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

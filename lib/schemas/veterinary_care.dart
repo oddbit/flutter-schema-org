@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_specialty.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
@@ -40,7 +41,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A vet's office.
 /// See https://schema.org/VeterinaryCare
-class SchemaVeterinaryCare {
+class SchemaVeterinaryCare implements SchemaSerializable {
   /// Name or unique ID of network (Networks are often reused across
   /// different insurance plans.)
   String? healthPlanNetworkId;
@@ -492,7 +493,8 @@ class SchemaVeterinaryCare {
   });
 
   /// Serialize [SchemaVeterinaryCare] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'VeterinaryCare',
         'healthPlanNetworkId': convertToJsonLd(healthPlanNetworkId, [String]),
@@ -610,5 +612,5 @@ class SchemaVeterinaryCare {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

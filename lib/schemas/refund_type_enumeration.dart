@@ -1,8 +1,10 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// Enumerates several kinds of product return refund types.
 /// See https://schema.org/RefundTypeEnumeration
-enum SchemaRefundTypeEnumeration {
+enum SchemaRefundTypeEnumeration implements SchemaSerializable {
   /// Specifies that a refund can be done as an exchange for the same
   /// product.
   exchangeRefund('https://schema.org/RefundTypeEnumeration'),
@@ -22,5 +24,6 @@ enum SchemaRefundTypeEnumeration {
   final String value;
 
   /// Serialize [SchemaRefundTypeEnumeration] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

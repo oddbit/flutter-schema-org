@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/educational_occupational_credential.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 import 'package:schema_org/schemas/monetary_amount_distribution.dart';
@@ -18,7 +19,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A profession, may involve prolonged training and/or a formal
 /// qualification.
 /// See https://schema.org/Occupation
-class SchemaOccupation {
+class SchemaOccupation implements SchemaSerializable {
   /// Educational background needed for the position or Occupation.
   /// Supported types: [EducationalOccupationalCredential], [String]
   dynamic educationRequirements;
@@ -138,7 +139,8 @@ class SchemaOccupation {
   });
 
   /// Serialize [SchemaOccupation] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Occupation',
         'educationRequirements': convertToJsonLd(educationRequirements,
@@ -171,5 +173,5 @@ class SchemaOccupation {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

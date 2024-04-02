@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_condition.dart';
 import 'package:schema_org/schemas/drug.dart';
 import 'package:schema_org/schemas/postal_address.dart';
@@ -40,7 +41,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A patient is any person recipient of health care services.
 /// See https://schema.org/Patient
-class SchemaPatient {
+class SchemaPatient implements SchemaSerializable {
   /// One or more alternative conditions considered in the
   /// differential diagnosis process as output of a diagnosis process.
   SchemaMedicalCondition? diagnosis;
@@ -496,7 +497,8 @@ class SchemaPatient {
   });
 
   /// Serialize [SchemaPatient] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Patient',
         'diagnosis': convertToJsonLd(diagnosis, [SchemaMedicalCondition]),
@@ -612,5 +614,5 @@ class SchemaPatient {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

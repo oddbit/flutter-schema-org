@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -16,7 +17,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A monetary grant.
 /// See https://schema.org/MonetaryGrant
-class SchemaMonetaryGrant {
+class SchemaMonetaryGrant implements SchemaSerializable {
   /// The amount of money.  Supported types: [MonetaryAmount], [int]
   dynamic amount;
 
@@ -112,7 +113,8 @@ class SchemaMonetaryGrant {
   });
 
   /// Serialize [SchemaMonetaryGrant] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MonetaryGrant',
         'amount': convertToJsonLd(amount, [SchemaMonetaryAmount, int]),
@@ -143,5 +145,5 @@ class SchemaMonetaryGrant {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -45,7 +46,7 @@ import 'package:schema_org/schemas/action.dart';
 /// specific subject matter (i.e business, culture, education) Often
 /// published daily.
 /// See https://schema.org/Newspaper
-class SchemaNewspaper {
+class SchemaNewspaper implements SchemaSerializable {
   /// The subject matter of the content.
   SchemaThing? about;
 
@@ -854,7 +855,8 @@ class SchemaNewspaper {
   });
 
   /// Serialize [SchemaNewspaper] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Newspaper',
         'about': convertToJsonLd(about, [SchemaThing]),
@@ -1028,5 +1030,5 @@ class SchemaNewspaper {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

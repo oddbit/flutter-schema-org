@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
@@ -34,7 +35,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A payment method using a credit, debit, store or other card to
 /// associate the payment with an account.
 /// See https://schema.org/PaymentCard
-class SchemaPaymentCard {
+class SchemaPaymentCard implements SchemaSerializable {
   /// A cardholder benefit that pays the cardholder a small percentage
   /// of their net expenditures.  Supported types: [bool], [int]
   dynamic cashBack;
@@ -283,7 +284,8 @@ class SchemaPaymentCard {
   });
 
   /// Serialize [SchemaPaymentCard] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PaymentCard',
         'cashBack': convertToJsonLd(cashBack, [bool, int]),
@@ -355,5 +357,5 @@ class SchemaPaymentCard {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

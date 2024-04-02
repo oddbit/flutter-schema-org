@@ -1,8 +1,10 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// Enumerates several kinds of policies for product return fees.
 /// See https://schema.org/ReturnFeesEnumeration
-enum SchemaReturnFeesEnumeration {
+enum SchemaReturnFeesEnumeration implements SchemaSerializable {
   /// Specifies that product returns are free of charge for the
   /// customer.
   freeReturn('https://schema.org/ReturnFeesEnumeration'),
@@ -30,5 +32,6 @@ enum SchemaReturnFeesEnumeration {
   final String value;
 
   /// Serialize [SchemaReturnFeesEnumeration] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

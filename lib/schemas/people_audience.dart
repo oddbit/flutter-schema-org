@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_condition.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/gender_type.dart';
@@ -15,7 +16,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A set of characteristics belonging to people, e.g who compose an
 /// item's target audience.
 /// See https://schema.org/PeopleAudience
-class SchemaPeopleAudience {
+class SchemaPeopleAudience implements SchemaSerializable {
   /// Specifying the health condition(s) of a patient, medical study,
   /// or other target audience.
   SchemaMedicalCondition? healthCondition;
@@ -139,7 +140,8 @@ class SchemaPeopleAudience {
   });
 
   /// Serialize [SchemaPeopleAudience] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PeopleAudience',
         'healthCondition':
@@ -174,5 +176,5 @@ class SchemaPeopleAudience {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

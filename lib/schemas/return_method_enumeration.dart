@@ -1,8 +1,10 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// Enumerates several types of product return methods.
 /// See https://schema.org/ReturnMethodEnumeration
-enum SchemaReturnMethodEnumeration {
+enum SchemaReturnMethodEnumeration implements SchemaSerializable {
   /// Specifies that the consumer can keep the product, even when
   /// receiving a refund or store credit.
   keepProduct('https://schema.org/ReturnMethodEnumeration'),
@@ -23,5 +25,6 @@ enum SchemaReturnMethodEnumeration {
   final String value;
 
   /// Serialize [SchemaReturnMethodEnumeration] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

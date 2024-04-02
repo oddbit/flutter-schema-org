@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -50,7 +51,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A strategy of regulating the intake of food to achieve or
 /// maintain a specific health-related goal.
 /// See https://schema.org/Diet
-class SchemaDiet {
+class SchemaDiet implements SchemaSerializable {
   /// Nutritional information specific to the dietary plan May include
   /// dietary recommendations on what foods to avoid, what foods to
   /// consume, and specific alterations/deviations from the USDA or
@@ -901,7 +902,8 @@ class SchemaDiet {
   });
 
   /// Serialize [SchemaDiet] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Diet',
         'dietFeatures': convertToJsonLd(dietFeatures, [String]),
@@ -1090,5 +1092,5 @@ class SchemaDiet {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

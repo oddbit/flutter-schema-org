@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -47,7 +48,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A creative work with a visual storytelling format intended to be
 /// viewed online, particularly on mobile devices.
 /// See https://schema.org/AmpStory
-class SchemaAmpStory {
+class SchemaAmpStory implements SchemaSerializable {
   /// The subject matter of the content.
   SchemaThing? about;
 
@@ -945,7 +946,8 @@ class SchemaAmpStory {
   });
 
   /// Serialize [SchemaAmpStory] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'AmpStory',
         'about': convertToJsonLd(about, [SchemaThing]),
@@ -1141,5 +1143,5 @@ class SchemaAmpStory {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

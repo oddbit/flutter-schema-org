@@ -1,9 +1,11 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// Enumerates different price types, for example list price,
 /// invoice price, and sale price.
 /// See https://schema.org/PriceTypeEnumeration
-enum SchemaPriceTypeEnumeration {
+enum SchemaPriceTypeEnumeration implements SchemaSerializable {
   /// Represents the invoice price of an offered product.
   invoicePrice('https://schema.org/PriceTypeEnumeration'),
 
@@ -34,5 +36,6 @@ enum SchemaPriceTypeEnumeration {
   final String value;
 
   /// Serialize [SchemaPriceTypeEnumeration] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

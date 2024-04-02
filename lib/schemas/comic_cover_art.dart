@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/distance.dart';
 
 /// The artwork on the cover of a comic.
 /// See https://schema.org/ComicCoverArt
-class SchemaComicCoverArt {
+class SchemaComicCoverArt implements SchemaSerializable {
   /// The primary artist for a work  	in a medium other than pencils
   /// or digital line art--for example, if the  	primary artwork is
   /// done in watercolors or digital paints.
@@ -903,7 +904,8 @@ class SchemaComicCoverArt {
   });
 
   /// Serialize [SchemaComicCoverArt] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ComicCoverArt',
         'artist': convertToJsonLd(artist, [SchemaPerson]),
@@ -1090,5 +1092,5 @@ class SchemaComicCoverArt {
         'surface': convertToJsonLd(surface, [String, String]),
         'width':
             convertToJsonLd(width, [SchemaDistance, SchemaQuantitativeValue]),
-      };
+      });
 }

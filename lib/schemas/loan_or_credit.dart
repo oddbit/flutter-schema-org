@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 import 'package:schema_org/schemas/duration.dart';
 import 'package:schema_org/schemas/repayment_specification.dart';
@@ -36,7 +37,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A financial product for the loaning of an amount of money, or
 /// line of credit, under agreed terms and charges.
 /// See https://schema.org/LoanOrCredit
-class SchemaLoanOrCredit {
+class SchemaLoanOrCredit implements SchemaSerializable {
   /// The amount of money.  Supported types: [MonetaryAmount], [int]
   dynamic amount;
 
@@ -311,7 +312,8 @@ class SchemaLoanOrCredit {
   });
 
   /// Serialize [SchemaLoanOrCredit] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'LoanOrCredit',
         'amount': convertToJsonLd(amount, [SchemaMonetaryAmount, int]),
@@ -389,5 +391,5 @@ class SchemaLoanOrCredit {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

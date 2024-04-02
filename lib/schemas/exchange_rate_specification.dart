@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/unit_price_specification.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -12,7 +13,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// A structured value representing exchange rate.
 /// See https://schema.org/ExchangeRateSpecification
-class SchemaExchangeRateSpecification {
+class SchemaExchangeRateSpecification implements SchemaSerializable {
   /// //en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS)
   /// and other currency types, e.g "Ithaca HOUR".
   String? currency;
@@ -99,7 +100,8 @@ class SchemaExchangeRateSpecification {
   });
 
   /// Serialize [SchemaExchangeRateSpecification] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ExchangeRateSpecification',
         'currency': convertToJsonLd(currency, [String]),
@@ -123,5 +125,5 @@ class SchemaExchangeRateSpecification {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

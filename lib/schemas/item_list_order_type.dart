@@ -1,9 +1,11 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// Enumerated for values for itemListOrder for indicating how an
 /// ordered ItemList is organized.
 /// See https://schema.org/ItemListOrderType
-enum SchemaItemListOrderType {
+enum SchemaItemListOrderType implements SchemaSerializable {
   /// An ItemList ordered with lower values listed first.
   itemListOrderAscending('https://schema.org/ItemListOrderType'),
 
@@ -20,5 +22,6 @@ enum SchemaItemListOrderType {
   final String value;
 
   /// Serialize [SchemaItemListOrderType] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

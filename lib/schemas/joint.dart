@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_entity.dart';
 import 'package:schema_org/schemas/anatomical_structure.dart';
 import 'package:schema_org/schemas/image_object.dart';
@@ -24,7 +25,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// The anatomical location at which two or more bones make contact.
 /// See https://schema.org/Joint
-class SchemaJoint {
+class SchemaJoint implements SchemaSerializable {
   /// The biomechanical properties of the bone.
   String? biomechnicalClass;
 
@@ -188,7 +189,8 @@ class SchemaJoint {
   });
 
   /// Serialize [SchemaJoint] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Joint',
         'biomechnicalClass': convertToJsonLd(biomechnicalClass, [String]),
@@ -236,5 +238,5 @@ class SchemaJoint {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

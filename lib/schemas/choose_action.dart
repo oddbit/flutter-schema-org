@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -19,7 +20,7 @@ import 'package:schema_org/schemas/event.dart';
 /// The act of expressing a preference from a set of options or a
 /// large or unbounded set of choices/options.
 /// See https://schema.org/ChooseAction
-class SchemaChooseAction {
+class SchemaChooseAction implements SchemaSerializable {
   /// A sub property of object The options subject to this action.
   /// Supported types: [String], [Thing]
   dynamic actionOption;
@@ -181,7 +182,8 @@ class SchemaChooseAction {
   });
 
   /// Serialize [SchemaChooseAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ChooseAction',
         'actionOption': convertToJsonLd(actionOption, [String, SchemaThing]),
@@ -217,5 +219,5 @@ class SchemaChooseAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

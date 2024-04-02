@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 import 'package:schema_org/schemas/duration.dart';
 import 'package:schema_org/schemas/repayment_specification.dart';
@@ -36,7 +37,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A loan in which property or real estate is used as collateral (A
 /// loan securitized against some real estate.)
 /// See https://schema.org/MortgageLoan
-class SchemaMortgageLoan {
+class SchemaMortgageLoan implements SchemaSerializable {
   /// Whether borrower is a resident of the jurisdiction where the
   /// property is located.
   bool? domiciledMortgage;
@@ -321,7 +322,8 @@ class SchemaMortgageLoan {
   });
 
   /// Serialize [SchemaMortgageLoan] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MortgageLoan',
         'domiciledMortgage': convertToJsonLd(domiciledMortgage, [bool]),
@@ -402,5 +404,5 @@ class SchemaMortgageLoan {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

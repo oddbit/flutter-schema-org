@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -19,7 +20,7 @@ import 'package:schema_org/schemas/event.dart';
 /// FindAction is generally lead by a SearchAction, but not
 /// necessarily.
 /// See https://schema.org/FindAction
-class SchemaFindAction {
+class SchemaFindAction implements SchemaSerializable {
   /// Indicates the current disposition of the Action.
   SchemaActionStatusType? actionStatus;
 
@@ -171,7 +172,8 @@ class SchemaFindAction {
   });
 
   /// Serialize [SchemaFindAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'FindAction',
         'actionStatus': convertToJsonLd(actionStatus, [SchemaActionStatusType]),
@@ -205,5 +207,5 @@ class SchemaFindAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/speakable_specification.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 /// clarifications, anecdotes, documentation, etc., on an issue, for
 /// reporting purposes.
 /// See https://schema.org/AskPublicNewsArticle
-class SchemaAskPublicNewsArticle {
+class SchemaAskPublicNewsArticle implements SchemaSerializable {
   /// 43AM Reporting from Washington", "Beijing/Moscow", "QUEZON CITY,
   /// Philippines".
   String? dateline;
@@ -917,7 +918,8 @@ class SchemaAskPublicNewsArticle {
   });
 
   /// Serialize [SchemaAskPublicNewsArticle] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'AskPublicNewsArticle',
         'dateline': convertToJsonLd(dateline, [String]),
@@ -1102,5 +1104,5 @@ class SchemaAskPublicNewsArticle {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

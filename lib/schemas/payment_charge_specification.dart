@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/delivery_method.dart';
 import 'package:schema_org/schemas/payment_method.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
@@ -15,7 +16,7 @@ import 'package:schema_org/schemas/event.dart';
 /// The costs of settling the payment using a particular payment
 /// method.
 /// See https://schema.org/PaymentChargeSpecification
-class SchemaPaymentChargeSpecification {
+class SchemaPaymentChargeSpecification implements SchemaSerializable {
   /// The delivery method(s) to which the delivery charge or payment
   /// charge specification applies.
   SchemaDeliveryMethod? appliesToDeliveryMethod;
@@ -151,7 +152,8 @@ class SchemaPaymentChargeSpecification {
   });
 
   /// Serialize [SchemaPaymentChargeSpecification] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PaymentChargeSpecification',
         'appliesToDeliveryMethod':
@@ -185,5 +187,5 @@ class SchemaPaymentChargeSpecification {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

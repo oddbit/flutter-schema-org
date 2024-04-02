@@ -1,32 +1,33 @@
 library schema_org;
 
-import 'package:schema_org/schemas/action.dart';
+import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/schemas/vessel.dart';
 import 'package:schema_org/schemas/anatomical_structure.dart';
-import 'package:schema_org/schemas/anatomical_system.dart';
-import 'package:schema_org/schemas/creative_work.dart';
-import 'package:schema_org/schemas/drug_legal_status.dart';
-import 'package:schema_org/schemas/event.dart';
-import 'package:schema_org/schemas/grant.dart';
+import 'package:schema_org/schemas/nerve.dart';
 import 'package:schema_org/schemas/image_object.dart';
-import 'package:schema_org/schemas/medical_code.dart';
+import 'package:schema_org/schemas/anatomical_system.dart';
 import 'package:schema_org/schemas/medical_condition.dart';
-import 'package:schema_org/schemas/medical_enumeration.dart';
+import 'package:schema_org/schemas/medical_therapy.dart';
+import 'package:schema_org/schemas/medical_code.dart';
+import 'package:schema_org/schemas/grant.dart';
 import 'package:schema_org/schemas/medical_guideline.dart';
+import 'package:schema_org/schemas/drug_legal_status.dart';
+import 'package:schema_org/schemas/medical_enumeration.dart';
+import 'package:schema_org/schemas/medicine_system.dart';
+import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/medical_specialty.dart';
 import 'package:schema_org/schemas/medical_study.dart';
-import 'package:schema_org/schemas/medical_therapy.dart';
-import 'package:schema_org/schemas/medicine_system.dart';
-import 'package:schema_org/schemas/nerve.dart';
-import 'package:schema_org/schemas/organization.dart';
-import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/schemas/vessel.dart';
-import 'package:schema_org/utils.dart';
+import 'package:schema_org/schemas/property_value.dart';
+import 'package:schema_org/schemas/creative_work.dart';
+import 'package:schema_org/schemas/action.dart';
+import 'package:schema_org/schemas/event.dart';
 
 /// A muscle is an anatomical structure consisting of a contractile
 /// form of tissue that animals use to effect movement.
 /// See https://schema.org/Muscle
-class SchemaMuscle {
+class SchemaMuscle implements SchemaSerializable {
   /// The muscle whose action counteracts the specified muscle.
   SchemaMuscle? antagonist;
 
@@ -198,7 +199,8 @@ class SchemaMuscle {
   });
 
   /// Serialize [SchemaMuscle] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Muscle',
         'antagonist': convertToJsonLd(antagonist, [SchemaMuscle]),
@@ -247,5 +249,5 @@ class SchemaMuscle {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

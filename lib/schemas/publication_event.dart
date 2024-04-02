@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/broadcast_service.dart';
@@ -32,7 +33,7 @@ import 'package:schema_org/schemas/action.dart';
 /// event, an on-demand event, a book/journal publication via a
 /// variety of delivery media.
 /// See https://schema.org/PublicationEvent
-class SchemaPublicationEvent {
+class SchemaPublicationEvent implements SchemaSerializable {
   /// A flag to signal that the item, event, or place is accessible
   /// for free.
   bool? free;
@@ -362,7 +363,8 @@ class SchemaPublicationEvent {
   });
 
   /// Serialize [SchemaPublicationEvent] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PublicationEvent',
         'free': convertToJsonLd(free, [bool]),
@@ -442,5 +444,5 @@ class SchemaPublicationEvent {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

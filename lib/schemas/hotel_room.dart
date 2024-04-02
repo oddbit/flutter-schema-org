@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/bed_details.dart';
 import 'package:schema_org/schemas/bed_type.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
@@ -31,7 +32,7 @@ import 'package:schema_org/schemas/action.dart';
 /// schema.org for marking up hotels and other forms of
 /// accommodations</a>.
 /// See https://schema.org/HotelRoom
-class SchemaHotelRoom {
+class SchemaHotelRoom implements SchemaSerializable {
   /// The type of bed or beds included in the accommodation For the
   /// single case of just one bed of a certain type, you use bed
   /// directly with a text  If you want to indicate the quantity of a
@@ -420,7 +421,8 @@ class SchemaHotelRoom {
   });
 
   /// Serialize [SchemaHotelRoom] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'HotelRoom',
         'bed': convertToJsonLd(bed, [SchemaBedDetails, SchemaBedType, String]),
@@ -528,5 +530,5 @@ class SchemaHotelRoom {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

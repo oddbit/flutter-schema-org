@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -15,7 +16,7 @@ import 'package:schema_org/schemas/event.dart';
 /// independent amounts of money such as a salary, credit card
 /// limits, etc.
 /// See https://schema.org/PriceSpecification
-class SchemaPriceSpecification {
+class SchemaPriceSpecification implements SchemaSerializable {
   /// The interval and unit of measurement of ordering quantities for
   /// which the offer or price specification is valid This allows e.g
   /// specifying that a certain freight charge is valid only for a
@@ -141,7 +142,8 @@ class SchemaPriceSpecification {
   });
 
   /// Serialize [SchemaPriceSpecification] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PriceSpecification',
         'eligibleQuantity':
@@ -171,5 +173,5 @@ class SchemaPriceSpecification {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -20,7 +21,7 @@ import 'package:schema_org/schemas/event.dart';
 /// confirmation emails or HTML pages with individual confirmations
 /// of reservations.
 /// See https://schema.org/RentalCarReservation
-class SchemaRentalCarReservation {
+class SchemaRentalCarReservation implements SchemaSerializable {
   /// Where a rental car can be dropped off.
   SchemaPlace? dropoffLocation;
 
@@ -180,7 +181,8 @@ class SchemaRentalCarReservation {
   });
 
   /// Serialize [SchemaRentalCarReservation] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'RentalCarReservation',
         'dropoffLocation': convertToJsonLd(dropoffLocation, [SchemaPlace]),
@@ -222,5 +224,5 @@ class SchemaRentalCarReservation {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

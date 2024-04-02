@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
@@ -45,7 +46,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A movie theater.
 /// See https://schema.org/MovieTheater
-class SchemaMovieTheater {
+class SchemaMovieTheater implements SchemaSerializable {
   /// The number of screens in the movie theater.
   int? screenCount;
 
@@ -684,7 +685,8 @@ class SchemaMovieTheater {
   });
 
   /// Serialize [SchemaMovieTheater] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MovieTheater',
         'screenCount': convertToJsonLd(screenCount, [int]),
@@ -853,5 +855,5 @@ class SchemaMovieTheater {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

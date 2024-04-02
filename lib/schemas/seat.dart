@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/qualitative_value.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -12,7 +13,7 @@ import 'package:schema_org/schemas/event.dart';
 /// Used to describe a seat, such as a reserved seat in an event
 /// reservation.
 /// See https://schema.org/Seat
-class SchemaSeat {
+class SchemaSeat implements SchemaSerializable {
   /// The location of the reserved seat (e.g., 27).
   String? seatNumber;
 
@@ -101,7 +102,8 @@ class SchemaSeat {
   });
 
   /// Serialize [SchemaSeat] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Seat',
         'seatNumber': convertToJsonLd(seatNumber, [String]),
@@ -125,5 +127,5 @@ class SchemaSeat {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

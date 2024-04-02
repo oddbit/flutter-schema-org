@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_contraindication.dart';
 import 'package:schema_org/schemas/medical_therapy.dart';
 import 'package:schema_org/schemas/medical_entity.dart';
@@ -28,7 +29,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A process of progressive physical care and rehabilitation aimed
 /// at improving a health condition.
 /// See https://schema.org/PhysicalTherapy
-class SchemaPhysicalTherapy {
+class SchemaPhysicalTherapy implements SchemaSerializable {
   /// A contraindication for this therapy.  Supported types:
   /// [MedicalContraindication], [String]
   dynamic contraindication;
@@ -205,7 +206,8 @@ class SchemaPhysicalTherapy {
   });
 
   /// Serialize [SchemaPhysicalTherapy] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PhysicalTherapy',
         'contraindication': convertToJsonLd(
@@ -255,5 +257,5 @@ class SchemaPhysicalTherapy {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

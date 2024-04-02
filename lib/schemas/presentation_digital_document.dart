@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/digital_document_permission.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A file containing slides or used for a presentation.
 /// See https://schema.org/PresentationDigitalDocument
-class SchemaPresentationDigitalDocument {
+class SchemaPresentationDigitalDocument implements SchemaSerializable {
   /// A permission related to the access to this document (e.g
   /// permission to read or write an electronic document) For a public
   /// document, specify a grantee with an Audience with audienceType
@@ -842,7 +843,8 @@ class SchemaPresentationDigitalDocument {
   });
 
   /// Serialize [SchemaPresentationDigitalDocument] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PresentationDigitalDocument',
         'hasDigitalDocumentPermission': convertToJsonLd(
@@ -1015,5 +1017,5 @@ class SchemaPresentationDigitalDocument {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

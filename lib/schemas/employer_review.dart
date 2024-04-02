@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/review.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 /// regarding its role as an employer, written by a current or
 /// former employee of that organization.
 /// See https://schema.org/EmployerReview
-class SchemaEmployerReview {
+class SchemaEmployerReview implements SchemaSerializable {
   /// An associated [[ClaimReview]], related by specific common
   /// content, topic or claim The expectation is that this property
   /// would be most typically used in cases where a single activity is
@@ -911,7 +912,8 @@ class SchemaEmployerReview {
   });
 
   /// Serialize [SchemaEmployerReview] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'EmployerReview',
         'associatedClaimReview':
@@ -1095,5 +1097,5 @@ class SchemaEmployerReview {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

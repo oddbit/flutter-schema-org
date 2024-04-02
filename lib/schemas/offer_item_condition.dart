@@ -1,8 +1,10 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// A list of possible conditions for the item.
 /// See https://schema.org/OfferItemCondition
-enum SchemaOfferItemCondition {
+enum SchemaOfferItemCondition implements SchemaSerializable {
   /// Indicates that the item is damaged.
   damagedCondition('https://schema.org/OfferItemCondition'),
 
@@ -22,5 +24,6 @@ enum SchemaOfferItemCondition {
   final String value;
 
   /// Serialize [SchemaOfferItemCondition] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

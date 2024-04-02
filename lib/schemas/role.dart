@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/image_object.dart';
@@ -10,7 +11,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// //blog.schema.org/2014/06/introducing-role.html).
 /// See https://schema.org/Role
-class SchemaRole {
+class SchemaRole implements SchemaSerializable {
   /// //en.wikipedia.org/wiki/ISO_8601)).  Supported types: [String],
   /// [String]
   String? endDate;
@@ -107,7 +108,8 @@ class SchemaRole {
   });
 
   /// Serialize [SchemaRole] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Role',
         'endDate': convertToJsonLd(endDate, [String, String]),
@@ -130,5 +132,5 @@ class SchemaRole {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

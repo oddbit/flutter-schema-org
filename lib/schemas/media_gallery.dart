@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -47,7 +48,7 @@ import 'package:schema_org/schemas/specialty.dart';
 /// Media gallery page A mixed-media page that can contain media
 /// such as images, videos, and other multimedia.
 /// See https://schema.org/MediaGallery
-class SchemaMediaGallery {
+class SchemaMediaGallery implements SchemaSerializable {
   /// The subject matter of the content.
   SchemaThing? about;
 
@@ -900,7 +901,8 @@ class SchemaMediaGallery {
   });
 
   /// Serialize [SchemaMediaGallery] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MediaGallery',
         'about': convertToJsonLd(about, [SchemaThing]),
@@ -1086,5 +1088,5 @@ class SchemaMediaGallery {
         'speakable':
             convertToJsonLd(speakable, [SchemaSpeakableSpecification, String]),
         'specialty': convertToJsonLd(specialty, [SchemaSpecialty]),
-      };
+      });
 }

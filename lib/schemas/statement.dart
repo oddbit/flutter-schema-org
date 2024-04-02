@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 /// Checking), consider using [[Claim]] instead Use the [[text]]
 /// property to capture the text of the statement.
 /// See https://schema.org/Statement
-class SchemaStatement {
+class SchemaStatement implements SchemaSerializable {
   /// The subject matter of the content.
   SchemaThing? about;
 
@@ -838,7 +839,8 @@ class SchemaStatement {
   });
 
   /// Serialize [SchemaStatement] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Statement',
         'about': convertToJsonLd(about, [SchemaThing]),
@@ -1009,5 +1011,5 @@ class SchemaStatement {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

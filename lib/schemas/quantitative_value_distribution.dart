@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/duration.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -11,7 +12,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// A statistical distribution of values.
 /// See https://schema.org/QuantitativeValueDistribution
-class SchemaQuantitativeValueDistribution {
+class SchemaQuantitativeValueDistribution implements SchemaSerializable {
   /// //en.wikipedia.org/wiki/ISO_8601).
   SchemaDuration? duration;
 
@@ -107,7 +108,8 @@ class SchemaQuantitativeValueDistribution {
   });
 
   /// Serialize [SchemaQuantitativeValueDistribution] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'QuantitativeValueDistribution',
         'duration': convertToJsonLd(duration, [SchemaDuration]),
@@ -132,5 +134,5 @@ class SchemaQuantitativeValueDistribution {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

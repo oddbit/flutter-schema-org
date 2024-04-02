@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/bus_station.dart';
 import 'package:schema_org/schemas/bus_stop.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -19,7 +20,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// A trip on a commercial bus line.
 /// See https://schema.org/BusTrip
-class SchemaBusTrip {
+class SchemaBusTrip implements SchemaSerializable {
   /// The stop or station from which the bus arrives.  Supported
   /// types: [BusStation], [BusStop]
   dynamic arrivalBusStop;
@@ -157,7 +158,8 @@ class SchemaBusTrip {
   });
 
   /// Serialize [SchemaBusTrip] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'BusTrip',
         'arrivalBusStop':
@@ -191,5 +193,5 @@ class SchemaBusTrip {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

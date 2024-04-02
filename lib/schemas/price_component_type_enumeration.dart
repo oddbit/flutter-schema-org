@@ -1,9 +1,11 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// Enumerates different price components that together make up the
 /// total price for an offered product.
 /// See https://schema.org/PriceComponentTypeEnumeration
-enum SchemaPriceComponentTypeEnumeration {
+enum SchemaPriceComponentTypeEnumeration implements SchemaSerializable {
   /// Represents the activation fee part of the total price for an
   /// offered product, for example a cellphone contract.
   activationFee('https://schema.org/PriceComponentTypeEnumeration'),
@@ -37,5 +39,6 @@ enum SchemaPriceComponentTypeEnumeration {
   final String value;
 
   /// Serialize [SchemaPriceComponentTypeEnumeration] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

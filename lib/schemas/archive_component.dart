@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/archive_organization.dart';
 import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/postal_address.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 /// carrying with it a set of properties required to describe
 /// archival items and collections.
 /// See https://schema.org/ArchiveComponent
-class SchemaArchiveComponent {
+class SchemaArchiveComponent implements SchemaSerializable {
   /// [[ArchiveOrganization]] that holds, keeps or maintains the
   /// [[ArchiveComponent]].
   SchemaArchiveOrganization? holdingArchive;
@@ -848,7 +849,8 @@ class SchemaArchiveComponent {
   });
 
   /// Serialize [SchemaArchiveComponent] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ArchiveComponent',
         'holdingArchive':
@@ -1023,5 +1025,5 @@ class SchemaArchiveComponent {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

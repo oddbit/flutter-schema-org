@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_contraindication.dart';
 import 'package:schema_org/schemas/medical_therapy.dart';
 import 'package:schema_org/schemas/medical_entity.dart';
@@ -28,7 +29,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A process of care using radiation aimed at improving a health
 /// condition.
 /// See https://schema.org/RadiationTherapy
-class SchemaRadiationTherapy {
+class SchemaRadiationTherapy implements SchemaSerializable {
   /// A contraindication for this therapy.  Supported types:
   /// [MedicalContraindication], [String]
   dynamic contraindication;
@@ -205,7 +206,8 @@ class SchemaRadiationTherapy {
   });
 
   /// Serialize [SchemaRadiationTherapy] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'RadiationTherapy',
         'contraindication': convertToJsonLd(
@@ -255,5 +257,5 @@ class SchemaRadiationTherapy {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

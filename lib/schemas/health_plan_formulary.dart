@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/image_object.dart';
@@ -11,7 +12,7 @@ import 'package:schema_org/schemas/event.dart';
 /// For a given health insurance plan, the specification for costs
 /// and coverage of prescription drugs.
 /// See https://schema.org/HealthPlanFormulary
-class SchemaHealthPlanFormulary {
+class SchemaHealthPlanFormulary implements SchemaSerializable {
   /// The costs to the patient for services under this network or
   /// formulary.
   bool? healthPlanCostSharing;
@@ -97,7 +98,8 @@ class SchemaHealthPlanFormulary {
   });
 
   /// Serialize [SchemaHealthPlanFormulary] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'HealthPlanFormulary',
         'healthPlanCostSharing': convertToJsonLd(healthPlanCostSharing, [bool]),
@@ -120,5 +122,5 @@ class SchemaHealthPlanFormulary {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

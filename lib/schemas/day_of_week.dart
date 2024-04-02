@@ -1,12 +1,14 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// //purl.org/goodrelations/v1) were used (for [[Monday]],
 /// [[Tuesday]], [[Wednesday]], [[Thursday]], [[Friday]],
 /// [[Saturday]], [[Sunday]] plus a special entry for
 /// [[PublicHolidays]]); these have now been integrated directly
 /// into schema.org.
 /// See https://schema.org/DayOfWeek
-enum SchemaDayOfWeek {
+enum SchemaDayOfWeek implements SchemaSerializable {
   /// The day of the week between Thursday and Saturday.
   friday('https://schema.org/DayOfWeek'),
 
@@ -44,5 +46,6 @@ enum SchemaDayOfWeek {
   final String value;
 
   /// Serialize [SchemaDayOfWeek] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

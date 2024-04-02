@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/duration.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/media_object.dart';
@@ -47,7 +48,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// An audiobook.
 /// See https://schema.org/Audiobook
-class SchemaAudiobook {
+class SchemaAudiobook implements SchemaSerializable {
   /// //en.wikipedia.org/wiki/ISO_8601).
   SchemaDuration? duration;
 
@@ -990,7 +991,8 @@ class SchemaAudiobook {
   });
 
   /// Serialize [SchemaAudiobook] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Audiobook',
         'duration': convertToJsonLd(duration, [SchemaDuration]),
@@ -1196,5 +1198,5 @@ class SchemaAudiobook {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

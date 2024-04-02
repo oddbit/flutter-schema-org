@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -55,7 +56,7 @@ import 'package:schema_org/schemas/action.dart';
 /// Schema.org does not define any types of relationship between
 /// claims This is a natural area for future exploration.
 /// See https://schema.org/Claim
-class SchemaClaim {
+class SchemaClaim implements SchemaSerializable {
   /// Indicates an occurrence of a [[Claim]] in some [[CreativeWork]].
   SchemaCreativeWork? appearance;
 
@@ -862,7 +863,8 @@ class SchemaClaim {
   });
 
   /// Serialize [SchemaClaim] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Claim',
         'appearance': convertToJsonLd(appearance, [SchemaCreativeWork]),
@@ -1038,5 +1040,5 @@ class SchemaClaim {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

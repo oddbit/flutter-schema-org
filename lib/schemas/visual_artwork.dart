@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/distance.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A work of art that is primarily visual in character.
 /// See https://schema.org/VisualArtwork
-class SchemaVisualArtwork {
+class SchemaVisualArtwork implements SchemaSerializable {
   /// The number of copies when multiple copies of a piece of artwork
   /// are produced - e.g for a limited edition of 20 prints,
   /// 'artEdition' refers to the total number of copies (in this
@@ -903,7 +904,8 @@ class SchemaVisualArtwork {
   });
 
   /// Serialize [SchemaVisualArtwork] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'VisualArtwork',
         'artEdition': convertToJsonLd(artEdition, [String, int]),
@@ -1090,5 +1092,5 @@ class SchemaVisualArtwork {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

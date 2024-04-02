@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 /// Accountancy business.\n\nAs a [[LocalBusiness]] it can be
 /// described as a [[provider]] of one or more [[Service]]\(s).
 /// See https://schema.org/AccountingService
-class SchemaAccountingService {
+class SchemaAccountingService implements SchemaSerializable {
   /// Description of fees, commissions, and other terms applied either
   /// to a class of financial product, or by a financial service
   /// organization.  Supported types: [String], [String]
@@ -687,7 +688,8 @@ class SchemaAccountingService {
   });
 
   /// Serialize [SchemaAccountingService] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'AccountingService',
         'feesAndCommissionsSpecification':
@@ -857,5 +859,5 @@ class SchemaAccountingService {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_condition.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -25,7 +26,7 @@ import 'package:schema_org/schemas/event.dart';
 /// use the code property of MedicalEntity to store study IDs, e.g
 /// clinicaltrials.gov ID.
 /// See https://schema.org/MedicalStudy
-class SchemaMedicalStudy {
+class SchemaMedicalStudy implements SchemaSerializable {
   /// Specifying the health condition(s) of a patient, medical study,
   /// or other target audience.
   SchemaMedicalCondition? healthCondition;
@@ -163,7 +164,8 @@ class SchemaMedicalStudy {
   });
 
   /// Serialize [SchemaMedicalStudy] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalStudy',
         'healthCondition':
@@ -202,5 +204,5 @@ class SchemaMedicalStudy {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

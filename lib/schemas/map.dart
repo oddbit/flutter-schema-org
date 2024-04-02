@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/map_category_type.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A map.
 /// See https://schema.org/Map
-class SchemaMap {
+class SchemaMap implements SchemaSerializable {
   /// Indicates the kind of Map, from the MapCategoryType Enumeration.
   SchemaMapCategoryType? mapType;
 
@@ -839,7 +840,8 @@ class SchemaMap {
   });
 
   /// Serialize [SchemaMap] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Map',
         'mapType': convertToJsonLd(mapType, [SchemaMapCategoryType]),
@@ -1011,5 +1013,5 @@ class SchemaMap {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

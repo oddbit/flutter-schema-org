@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/boarding_policy_type.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
@@ -40,7 +41,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// An organization that provides flights for passengers.
 /// See https://schema.org/Airline
-class SchemaAirline {
+class SchemaAirline implements SchemaSerializable {
   /// The type of boarding policy used by the airline (e.g zone-based
   /// or group-based).
   SchemaBoardingPolicyType? boardingPolicy;
@@ -488,7 +489,8 @@ class SchemaAirline {
   });
 
   /// Serialize [SchemaAirline] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Airline',
         'boardingPolicy':
@@ -604,5 +606,5 @@ class SchemaAirline {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

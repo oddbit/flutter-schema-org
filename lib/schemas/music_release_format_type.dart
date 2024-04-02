@@ -1,9 +1,11 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// Format of this release (the type of recording media used, i.e
 /// compact disc, digital media, LP, etc.).
 /// See https://schema.org/MusicReleaseFormatType
-enum SchemaMusicReleaseFormatType {
+enum SchemaMusicReleaseFormatType implements SchemaSerializable {
   /// CDFormat.
   cDFormat('https://schema.org/MusicReleaseFormatType'),
 
@@ -32,5 +34,6 @@ enum SchemaMusicReleaseFormatType {
   final String value;
 
   /// Serialize [SchemaMusicReleaseFormatType] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/blog_posting.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -45,7 +46,7 @@ import 'package:schema_org/schemas/action.dart';
 /// Note that the individual posts ([[BlogPosting]]s) in a [[Blog]]
 /// are often colloquially referred to by the same term.
 /// See https://schema.org/Blog
-class SchemaBlog {
+class SchemaBlog implements SchemaSerializable {
   /// A posting that is part of this blog.
   SchemaBlogPosting? blogPost;
 
@@ -855,7 +856,8 @@ class SchemaBlog {
   });
 
   /// Serialize [SchemaBlog] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Blog',
         'blogPost': convertToJsonLd(blogPost, [SchemaBlogPosting]),
@@ -1029,5 +1031,5 @@ class SchemaBlog {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -42,7 +43,7 @@ import 'package:schema_org/schemas/action.dart';
 /// The most generic kind of creative work, including books, movies,
 /// photographs, software programs, etc.
 /// See https://schema.org/CreativeWork
-class SchemaCreativeWork {
+class SchemaCreativeWork implements SchemaSerializable {
   /// The subject matter of the content.
   SchemaThing? about;
 
@@ -834,7 +835,8 @@ class SchemaCreativeWork {
   });
 
   /// Serialize [SchemaCreativeWork] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'CreativeWork',
         'about': convertToJsonLd(about, [SchemaThing]),
@@ -1005,5 +1007,5 @@ class SchemaCreativeWork {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

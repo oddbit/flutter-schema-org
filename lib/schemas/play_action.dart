@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/audience.dart';
 import 'package:schema_org/schemas/event.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
@@ -21,7 +22,7 @@ import 'package:schema_org/schemas/action.dart';
 /// refers to showing/displaying for an audience or at an event,
 /// rather than consuming visual content.
 /// See https://schema.org/PlayAction
-class SchemaPlayAction {
+class SchemaPlayAction implements SchemaSerializable {
   /// An intended audience, i.e a group for whom something was
   /// created.
   SchemaAudience? audience;
@@ -183,7 +184,8 @@ class SchemaPlayAction {
   });
 
   /// Serialize [SchemaPlayAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PlayAction',
         'audience': convertToJsonLd(audience, [SchemaAudience]),
@@ -219,5 +221,5 @@ class SchemaPlayAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

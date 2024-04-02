@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/contact_point.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A single message from a sender to one or more organizations or
 /// people.
 /// See https://schema.org/Message
-class SchemaMessage {
+class SchemaMessage implements SchemaSerializable {
   /// A sub property of recipient The recipient blind copied on a
   /// message.  Supported types: [ContactPoint], [Organization],
   /// [Person]
@@ -884,7 +885,8 @@ class SchemaMessage {
   });
 
   /// Serialize [SchemaMessage] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Message',
         'bccRecipient': convertToJsonLd(bccRecipient,
@@ -1078,5 +1080,5 @@ class SchemaMessage {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

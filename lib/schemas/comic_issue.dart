@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/action.dart';
 /// which the issue belongs; the issue number; and the variant
 /// 	description of the issue (if any).
 /// See https://schema.org/ComicIssue
-class SchemaComicIssue {
+class SchemaComicIssue implements SchemaSerializable {
   /// The primary artist for a work  	in a medium other than pencils
   /// or digital line art--for example, if the  	primary artwork is
   /// done in watercolors or digital paints.
@@ -886,7 +887,8 @@ class SchemaComicIssue {
   });
 
   /// Serialize [SchemaComicIssue] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ComicIssue',
         'artist': convertToJsonLd(artist, [SchemaPerson]),
@@ -1067,5 +1069,5 @@ class SchemaComicIssue {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

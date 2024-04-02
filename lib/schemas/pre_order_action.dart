@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/price_specification.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -20,7 +21,7 @@ import 'package:schema_org/schemas/event.dart';
 /// An agent orders a (not yet released) object/product/service to
 /// be delivered/sent.
 /// See https://schema.org/PreOrderAction
-class SchemaPreOrderAction {
+class SchemaPreOrderAction implements SchemaSerializable {
   /// //www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute)
   /// and Microdata syntax allow the use of a "content=" attribute for
   /// publishing simple machine-readable values alongside more
@@ -192,7 +193,8 @@ class SchemaPreOrderAction {
   });
 
   /// Serialize [SchemaPreOrderAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PreOrderAction',
         'price': convertToJsonLd(price, [String, int]),
@@ -230,5 +232,5 @@ class SchemaPreOrderAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

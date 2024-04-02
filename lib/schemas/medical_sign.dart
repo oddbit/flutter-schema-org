@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/physical_exam.dart';
 import 'package:schema_org/schemas/medical_test.dart';
 import 'package:schema_org/schemas/medical_therapy.dart';
@@ -34,7 +35,7 @@ import 'package:schema_org/schemas/event.dart';
 /// discoverable by objective diagnostic tests or physical
 /// examination.
 /// See https://schema.org/MedicalSign
-class SchemaMedicalSign {
+class SchemaMedicalSign implements SchemaSerializable {
   /// A physical examination that can identify this sign.
   SchemaPhysicalExam? identifyingExam;
 
@@ -240,7 +241,8 @@ class SchemaMedicalSign {
   });
 
   /// Serialize [SchemaMedicalSign] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalSign',
         'identifyingExam':
@@ -301,5 +303,5 @@ class SchemaMedicalSign {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
@@ -34,7 +35,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A product or service offered by a bank whereby one may deposit,
 /// withdraw or transfer money and in some cases be paid interest.
 /// See https://schema.org/BankAccount
-class SchemaBankAccount {
+class SchemaBankAccount implements SchemaSerializable {
   /// A minimum amount that has to be paid in every month.
   SchemaMonetaryAmount? accountMinimumInflow;
 
@@ -278,7 +279,8 @@ class SchemaBankAccount {
   });
 
   /// Serialize [SchemaBankAccount] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'BankAccount',
         'accountMinimumInflow':
@@ -350,5 +352,5 @@ class SchemaBankAccount {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

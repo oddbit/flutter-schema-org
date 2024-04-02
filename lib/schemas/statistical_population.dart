@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/class.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -30,7 +31,7 @@ import 'package:schema_org/schemas/event.dart';
 /// better to use [[StatisticalVariable]] instead of
 /// [[StatisticalPopulation]].
 /// See https://schema.org/StatisticalPopulation
-class SchemaStatisticalPopulation {
+class SchemaStatisticalPopulation implements SchemaSerializable {
   /// Indicates the populationType common to all members of a
   /// [[StatisticalPopulation]] or all cases within the scope of a
   /// [[StatisticalVariable]].
@@ -108,7 +109,8 @@ class SchemaStatisticalPopulation {
   });
 
   /// Serialize [SchemaStatisticalPopulation] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'StatisticalPopulation',
         'populationType': convertToJsonLd(populationType, [SchemaClass]),
@@ -128,5 +130,5 @@ class SchemaStatisticalPopulation {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

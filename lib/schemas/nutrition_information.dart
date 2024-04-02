@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/energy.dart';
 import 'package:schema_org/schemas/mass.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -12,7 +13,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// Nutritional information about the recipe.
 /// See https://schema.org/NutritionInformation
-class SchemaNutritionInformation {
+class SchemaNutritionInformation implements SchemaSerializable {
   /// The number of calories.
   SchemaEnergy? calories;
 
@@ -132,7 +133,8 @@ class SchemaNutritionInformation {
   });
 
   /// Serialize [SchemaNutritionInformation] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'NutritionInformation',
         'calories': convertToJsonLd(calories, [SchemaEnergy]),
@@ -166,5 +168,5 @@ class SchemaNutritionInformation {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

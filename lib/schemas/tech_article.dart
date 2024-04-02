@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/speakable_specification.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/action.dart';
 /// How-to (task) topics, step-by-step, procedural troubleshooting,
 /// specifications, etc.
 /// See https://schema.org/TechArticle
-class SchemaTechArticle {
+class SchemaTechArticle implements SchemaSerializable {
   /// Prerequisites needed to fulfill steps in article.
   String? dependencies;
 
@@ -897,7 +898,8 @@ class SchemaTechArticle {
   });
 
   /// Serialize [SchemaTechArticle] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'TechArticle',
         'dependencies': convertToJsonLd(dependencies, [String]),
@@ -1079,5 +1081,5 @@ class SchemaTechArticle {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

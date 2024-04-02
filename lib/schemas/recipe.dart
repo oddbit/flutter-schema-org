@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/duration.dart';
 import 'package:schema_org/schemas/nutrition_information.dart';
 import 'package:schema_org/schemas/creative_work.dart';
@@ -51,7 +52,7 @@ import 'package:schema_org/schemas/action.dart';
 /// common restrictions are enumerated via [[suitableForDiet]] The
 /// [[keywords]] property can also be used to add more detail.
 /// See https://schema.org/Recipe
-class SchemaRecipe {
+class SchemaRecipe implements SchemaSerializable {
   /// //en.wikipedia.org/wiki/ISO_8601).
   SchemaDuration? cookTime;
 
@@ -940,7 +941,8 @@ class SchemaRecipe {
   });
 
   /// Serialize [SchemaRecipe] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Recipe',
         'cookTime': convertToJsonLd(cookTime, [SchemaDuration]),
@@ -1136,5 +1138,5 @@ class SchemaRecipe {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

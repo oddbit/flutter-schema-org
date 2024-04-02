@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/opening_hours_specification.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -13,7 +14,7 @@ import 'package:schema_org/schemas/event.dart';
 /// ShippingDeliveryTime provides various pieces of information
 /// about delivery times for shipping.
 /// See https://schema.org/ShippingDeliveryTime
-class SchemaShippingDeliveryTime {
+class SchemaShippingDeliveryTime implements SchemaSerializable {
   /// Days of the week when the merchant typically operates, indicated
   /// via opening hours markup.
   SchemaOpeningHoursSpecification? businessDays;
@@ -106,7 +107,8 @@ class SchemaShippingDeliveryTime {
   });
 
   /// Serialize [SchemaShippingDeliveryTime] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ShippingDeliveryTime',
         'businessDays':
@@ -131,5 +133,5 @@ class SchemaShippingDeliveryTime {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

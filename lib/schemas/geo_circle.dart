@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/geo_coordinates.dart';
 import 'package:schema_org/schemas/distance.dart';
 import 'package:schema_org/schemas/postal_address.dart';
@@ -19,7 +20,7 @@ import 'package:schema_org/schemas/event.dart';
 /// via the 'geoMidpoint' property, or more approximately using
 /// 'address', 'postalCode'.
 /// See https://schema.org/GeoCircle
-class SchemaGeoCircle {
+class SchemaGeoCircle implements SchemaSerializable {
   /// Indicates the GeoCoordinates at the centre of a GeoShape, e.g
   /// GeoCircle.
   SchemaGeoCoordinates? geoMidpoint;
@@ -149,7 +150,8 @@ class SchemaGeoCircle {
   });
 
   /// Serialize [SchemaGeoCircle] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'GeoCircle',
         'geoMidpoint': convertToJsonLd(geoMidpoint, [SchemaGeoCoordinates]),
@@ -179,5 +181,5 @@ class SchemaGeoCircle {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

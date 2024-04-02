@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/qualitative_value.dart';
 import 'package:schema_org/schemas/drive_wheel_configuration_value.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A car is a wheeled, self-powered motor vehicle used for
 /// transportation.
 /// See https://schema.org/Car
-class SchemaCar {
+class SchemaCar implements SchemaSerializable {
   /// The ACRISS Car Classification Code is a code used by many car
   /// rental companies, for classifying vehicles ACRISS stands for
   /// Association of Car Rental Industry Systems and Standards.
@@ -686,7 +687,8 @@ class SchemaCar {
   });
 
   /// Serialize [SchemaCar] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Car',
         'acrissCode': convertToJsonLd(acrissCode, [String]),
@@ -855,5 +857,5 @@ class SchemaCar {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,8 +1,10 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// An enumeration of genders.
 /// See https://schema.org/GenderType
-enum SchemaGenderType {
+enum SchemaGenderType implements SchemaSerializable {
   /// The female gender.
   female('https://schema.org/GenderType'),
 
@@ -16,5 +18,6 @@ enum SchemaGenderType {
   final String value;
 
   /// Serialize [SchemaGenderType] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

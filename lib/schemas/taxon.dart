@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -12,7 +13,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A set of organisms asserted to represent a natural cohesive
 /// biological unit.
 /// See https://schema.org/Taxon
-class SchemaTaxon {
+class SchemaTaxon implements SchemaSerializable {
   /// Closest child taxa of the taxon in question.  Supported types:
   /// [String], [String], [Taxon]
   dynamic childTaxon;
@@ -105,7 +106,8 @@ class SchemaTaxon {
   });
 
   /// Serialize [SchemaTaxon] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Taxon',
         'childTaxon':
@@ -131,5 +133,5 @@ class SchemaTaxon {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

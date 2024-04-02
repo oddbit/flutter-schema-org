@@ -1,5 +1,7 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// Codes for use with the [[mediaAuthenticityCategory]] property,
 /// indicating the authenticity of a media object (in the context of
 /// how it was published or shared) In general these codes are not
@@ -9,7 +11,7 @@ library schema_org;
 /// the application of these codes is with regard to a piece of
 /// media shared or published in a particular context.
 /// See https://schema.org/MediaManipulationRatingEnumeration
-enum SchemaMediaManipulationRatingEnumeration {
+enum SchemaMediaManipulationRatingEnumeration implements SchemaSerializable {
   /// Unaltered audio presented in an inaccurate manner that
   /// misrepresents it For example, using incorrect dates or
   /// locations, or sharing brief clips from a longer recording to
@@ -51,5 +53,6 @@ enum SchemaMediaManipulationRatingEnumeration {
   final String value;
 
   /// Serialize [SchemaMediaManipulationRatingEnumeration] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

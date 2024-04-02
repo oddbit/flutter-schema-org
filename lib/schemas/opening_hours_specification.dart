@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/day_of_week.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -16,7 +17,7 @@ import 'package:schema_org/schemas/event.dart';
 /// than the value for the [[opens]] property then the hour range is
 /// assumed to span over the next day.
 /// See https://schema.org/OpeningHoursSpecification
-class SchemaOpeningHoursSpecification {
+class SchemaOpeningHoursSpecification implements SchemaSerializable {
   /// The closing hour of the place or service on the given day(s) of
   /// the week.
   String? closes;
@@ -113,7 +114,8 @@ class SchemaOpeningHoursSpecification {
   });
 
   /// Serialize [SchemaOpeningHoursSpecification] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'OpeningHoursSpecification',
         'closes': convertToJsonLd(closes, [String]),
@@ -137,5 +139,5 @@ class SchemaOpeningHoursSpecification {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

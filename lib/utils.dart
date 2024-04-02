@@ -31,3 +31,24 @@ dynamic convertToJsonLd(dynamic val, [List<Type> types = const []]) {
 
   throw UnsupportedTypeException(val.runtimeType);
 }
+
+/// Removes all empty values from a JSON-LD object
+/// A JSON-LD object is also considered empty if it only has its type and context
+/// properties.
+dynamic removeEmpty(Map<String, dynamic> json) {
+  final Map<String, dynamic> output = {};
+  json.forEach((key, value) {
+    if (value is Map<String, dynamic>) {
+      final cleanedValue = removeEmpty(value);
+      if (cleanedValue.keys
+          .toSet()
+          .difference({'@context', '@type'}).isNotEmpty) {
+        output[key] = cleanedValue;
+      }
+    } else if (value != null) {
+      output[key] = value;
+    }
+  });
+
+  return output;
+}

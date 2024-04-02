@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/creative_work.dart';
@@ -31,7 +32,7 @@ import 'package:schema_org/schemas/action.dart';
 /// [[Action]]-based vocabulary, alongside types such as
 /// [[Comment]].
 /// See https://schema.org/UserComments
-class SchemaUserComments {
+class SchemaUserComments implements SchemaSerializable {
   /// The text of the UserComment.
   String? commentText;
 
@@ -371,7 +372,8 @@ class SchemaUserComments {
   });
 
   /// Serialize [SchemaUserComments] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'UserComments',
         'commentText': convertToJsonLd(commentText, [String]),
@@ -452,5 +454,5 @@ class SchemaUserComments {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

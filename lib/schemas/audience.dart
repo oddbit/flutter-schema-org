@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -12,7 +13,7 @@ import 'package:schema_org/schemas/event.dart';
 /// Intended audience for an item, i.e the group for whom the item
 /// was created.
 /// See https://schema.org/Audience
-class SchemaAudience {
+class SchemaAudience implements SchemaSerializable {
   /// The target group associated with a given audience (e.g veterans,
   /// car owners, musicians, etc.).
   String? audienceType;
@@ -93,7 +94,8 @@ class SchemaAudience {
   });
 
   /// Serialize [SchemaAudience] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Audience',
         'audienceType': convertToJsonLd(audienceType, [String]),
@@ -115,5 +117,5 @@ class SchemaAudience {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/parcel_delivery.dart';
 import 'package:schema_org/schemas/order_status.dart';
 import 'package:schema_org/schemas/product.dart';
@@ -15,7 +16,7 @@ import 'package:schema_org/schemas/event.dart';
 /// An order item is a line of an order It includes the quantity and
 /// shipping details of a bought offer.
 /// See https://schema.org/OrderItem
-class SchemaOrderItem {
+class SchemaOrderItem implements SchemaSerializable {
   /// The delivery of the parcel related to this order or order item.
   SchemaParcelDelivery? orderDelivery;
 
@@ -109,7 +110,8 @@ class SchemaOrderItem {
   });
 
   /// Serialize [SchemaOrderItem] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'OrderItem',
         'orderDelivery': convertToJsonLd(orderDelivery, [SchemaParcelDelivery]),
@@ -135,5 +137,5 @@ class SchemaOrderItem {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

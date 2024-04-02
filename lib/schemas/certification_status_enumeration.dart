@@ -1,9 +1,11 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// Enumerates the different statuses of a Certification (Active and
 /// Inactive).
 /// See https://schema.org/CertificationStatusEnumeration
-enum SchemaCertificationStatusEnumeration {
+enum SchemaCertificationStatusEnumeration implements SchemaSerializable {
   /// Specifies that a certification is active.
   certificationActive('https://schema.org/CertificationStatusEnumeration'),
 
@@ -18,5 +20,6 @@ enum SchemaCertificationStatusEnumeration {
   final String value;
 
   /// Serialize [SchemaCertificationStatusEnumeration] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

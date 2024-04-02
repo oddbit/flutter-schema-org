@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/shipping_delivery_time.dart';
 import 'package:schema_org/schemas/defined_region.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -18,7 +19,7 @@ import 'package:schema_org/schemas/event.dart';
 /// identified/referenced) by their different values for
 /// [[transitTimeLabel]].
 /// See https://schema.org/DeliveryTimeSettings
-class SchemaDeliveryTimeSettings {
+class SchemaDeliveryTimeSettings implements SchemaSerializable {
   /// The total delay between the receipt of the order and the goods
   /// reaching the final customer.
   SchemaShippingDeliveryTime? deliveryTime;
@@ -118,7 +119,8 @@ class SchemaDeliveryTimeSettings {
   });
 
   /// Serialize [SchemaDeliveryTimeSettings] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'DeliveryTimeSettings',
         'deliveryTime':
@@ -143,5 +145,5 @@ class SchemaDeliveryTimeSettings {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

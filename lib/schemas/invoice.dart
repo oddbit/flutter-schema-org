@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/duration.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -21,7 +22,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// A statement of the money due for goods or services; a bill.
 /// See https://schema.org/Invoice
-class SchemaInvoice {
+class SchemaInvoice implements SchemaSerializable {
   /// The identifier for the account the payment will be applied to.
   String? accountId;
 
@@ -177,7 +178,8 @@ class SchemaInvoice {
   });
 
   /// Serialize [SchemaInvoice] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Invoice',
         'accountId': convertToJsonLd(accountId, [String]),
@@ -223,5 +225,5 @@ class SchemaInvoice {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

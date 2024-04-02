@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
@@ -35,7 +36,7 @@ import 'package:schema_org/schemas/event.dart';
 /// investors to create a pool of money that is then re-invested
 /// into stocks, bonds and other assets.
 /// See https://schema.org/InvestmentFund
-class SchemaInvestmentFund {
+class SchemaInvestmentFund implements SchemaSerializable {
   /// The amount of money.  Supported types: [MonetaryAmount], [int]
   dynamic amount;
 
@@ -267,7 +268,8 @@ class SchemaInvestmentFund {
   });
 
   /// Serialize [SchemaInvestmentFund] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'InvestmentFund',
         'amount': convertToJsonLd(amount, [SchemaMonetaryAmount, int]),
@@ -335,5 +337,5 @@ class SchemaInvestmentFund {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

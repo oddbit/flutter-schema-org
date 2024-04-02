@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_entity.dart';
 import 'package:schema_org/schemas/medical_code.dart';
 import 'package:schema_org/schemas/grant.dart';
@@ -22,7 +23,7 @@ import 'package:schema_org/schemas/event.dart';
 /// of developing or contracting a disease, medical condition, or
 /// complication.
 /// See https://schema.org/MedicalRiskFactor
-class SchemaMedicalRiskFactor {
+class SchemaMedicalRiskFactor implements SchemaSerializable {
   /// The condition, complication, etc influenced by this factor.
   SchemaMedicalEntity? increasesRiskOf;
 
@@ -138,7 +139,8 @@ class SchemaMedicalRiskFactor {
   });
 
   /// Serialize [SchemaMedicalRiskFactor] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalRiskFactor',
         'increasesRiskOf':
@@ -171,5 +173,5 @@ class SchemaMedicalRiskFactor {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

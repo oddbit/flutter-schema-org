@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/maximum_dose_schedule.dart';
 import 'package:schema_org/schemas/medical_code.dart';
 import 'package:schema_org/schemas/grant.dart';
@@ -21,7 +22,7 @@ import 'package:schema_org/schemas/event.dart';
 /// Any matter of defined composition that has discrete existence,
 /// whose origin may be biological, mineral or chemical.
 /// See https://schema.org/Substance
-class SchemaSubstance {
+class SchemaSubstance implements SchemaSerializable {
   /// An active ingredient, typically chemical compounds and/or
   /// biologic substances.
   String? activeIngredient;
@@ -143,7 +144,8 @@ class SchemaSubstance {
   });
 
   /// Serialize [SchemaSubstance] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Substance',
         'activeIngredient': convertToJsonLd(activeIngredient, [String]),
@@ -177,5 +179,5 @@ class SchemaSubstance {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,9 +1,11 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// For a [[VideoGame]], such as used with a [[PlayGameAction]], an
 /// enumeration of the kind of game availability offered.
 /// See https://schema.org/GameAvailabilityEnumeration
-enum SchemaGameAvailabilityEnumeration {
+enum SchemaGameAvailabilityEnumeration implements SchemaSerializable {
   /// Indicates demo game availability, i.e a somehow limited
   /// demonstration of the full game.
   demoGameAvailability('https://schema.org/GameAvailabilityEnumeration'),
@@ -18,5 +20,6 @@ enum SchemaGameAvailabilityEnumeration {
   final String value;
 
   /// Serialize [SchemaGameAvailabilityEnumeration] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/bio_chem_entity.dart';
 import 'package:schema_org/schemas/anatomical_structure.dart';
 import 'package:schema_org/schemas/anatomical_system.dart';
@@ -19,7 +20,7 @@ import 'package:schema_org/schemas/event.dart';
 /// box protein P2), SCARNA21 (small Cajal body-specific RNA 21), A-
 /// (agouti genotype).
 /// See https://schema.org/Gene
-class SchemaGene {
+class SchemaGene implements SchemaSerializable {
   /// Another gene which is a variation of this one.
   SchemaGene? alternativeOf;
 
@@ -181,7 +182,8 @@ class SchemaGene {
   });
 
   /// Serialize [SchemaGene] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Gene',
         'alternativeOf': convertToJsonLd(alternativeOf, [SchemaGene]),
@@ -237,5 +239,5 @@ class SchemaGene {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

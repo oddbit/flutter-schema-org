@@ -1,8 +1,10 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// soundtrack, live album, studio album, etc.
 /// See https://schema.org/MusicAlbumProductionType
-enum SchemaMusicAlbumProductionType {
+enum SchemaMusicAlbumProductionType implements SchemaSerializable {
   /// CompilationAlbum.
   compilationAlbum('https://schema.org/MusicAlbumProductionType'),
 
@@ -37,5 +39,6 @@ enum SchemaMusicAlbumProductionType {
   final String value;
 
   /// Serialize [SchemaMusicAlbumProductionType] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

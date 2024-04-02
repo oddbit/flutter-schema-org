@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -19,7 +20,7 @@ import 'package:schema_org/schemas/event.dart';
 /// The act of arriving at a place An agent arrives at a destination
 /// from a fromLocation, optionally with participants.
 /// See https://schema.org/ArriveAction
-class SchemaArriveAction {
+class SchemaArriveAction implements SchemaSerializable {
   /// A sub property of location The original location of the object
   /// or the agent before the action.
   SchemaPlace? fromLocation;
@@ -181,7 +182,8 @@ class SchemaArriveAction {
   });
 
   /// Serialize [SchemaArriveAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ArriveAction',
         'fromLocation': convertToJsonLd(fromLocation, [SchemaPlace]),
@@ -217,5 +219,5 @@ class SchemaArriveAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

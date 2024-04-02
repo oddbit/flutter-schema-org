@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/speakable_specification.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A scholarly article in the medical domain.
 /// See https://schema.org/MedicalScholarlyArticle
-class SchemaMedicalScholarlyArticle {
+class SchemaMedicalScholarlyArticle implements SchemaSerializable {
   /// //www.nlm.nih.gov/mesh/pubtypes.html).
   String? publicationType;
 
@@ -892,7 +893,8 @@ class SchemaMedicalScholarlyArticle {
   });
 
   /// Serialize [SchemaMedicalScholarlyArticle] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalScholarlyArticle',
         'publicationType': convertToJsonLd(publicationType, [String]),
@@ -1073,5 +1075,5 @@ class SchemaMedicalScholarlyArticle {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

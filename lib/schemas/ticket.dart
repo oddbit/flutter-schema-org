@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/seat.dart';
 import 'package:schema_org/schemas/price_specification.dart';
@@ -15,7 +16,7 @@ import 'package:schema_org/schemas/event.dart';
 /// Used to describe a ticket to an event, a flight, a bus ride,
 /// etc.
 /// See https://schema.org/Ticket
-class SchemaTicket {
+class SchemaTicket implements SchemaSerializable {
   /// The date the ticket was issued.  Supported types: [String],
   /// [String]
   String? dateIssued;
@@ -129,7 +130,8 @@ class SchemaTicket {
   });
 
   /// Serialize [SchemaTicket] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Ticket',
         'dateIssued': convertToJsonLd(dateIssued, [String, String]),
@@ -158,5 +160,5 @@ class SchemaTicket {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

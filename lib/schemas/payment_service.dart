@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
@@ -33,7 +34,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A Service to transfer funds from a person or organization to a
 /// beneficiary person or organization.
 /// See https://schema.org/PaymentService
-class SchemaPaymentService {
+class SchemaPaymentService implements SchemaSerializable {
   /// The annual rate that is charged for borrowing (or made by
   /// investing), expressed as a single percentage number that
   /// represents the actual yearly cost of funds over the term of a
@@ -261,7 +262,8 @@ class SchemaPaymentService {
   });
 
   /// Serialize [SchemaPaymentService] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'PaymentService',
         'annualPercentageRate': convertToJsonLd(
@@ -328,5 +330,5 @@ class SchemaPaymentService {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

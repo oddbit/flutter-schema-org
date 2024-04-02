@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_condition.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/bio_chem_entity.dart';
@@ -17,7 +18,7 @@ import 'package:schema_org/schemas/event.dart';
 /// Protein They can be imagined, synthetic, hypothetical or
 /// naturally occurring.
 /// See https://schema.org/Protein
-class SchemaProtein {
+class SchemaProtein implements SchemaSerializable {
   /// A symbolic representation of a BioChemEntity For example, a
   /// nucleotide sequence of a Gene or an amino acid sequence of a
   /// Protein.
@@ -164,7 +165,8 @@ class SchemaProtein {
   });
 
   /// Serialize [SchemaProtein] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Protein',
         'hasBioPolymerSequence':
@@ -211,5 +213,5 @@ class SchemaProtein {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

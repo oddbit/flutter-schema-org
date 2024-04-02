@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/loan_or_credit.dart';
 import 'package:schema_org/schemas/payment_method.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
@@ -35,7 +36,7 @@ import 'package:schema_org/schemas/action.dart';
 /// describing demand using this type, the very same properties used
 /// for Offer apply.
 /// See https://schema.org/Demand
-class SchemaDemand {
+class SchemaDemand implements SchemaSerializable {
   /// The payment method(s) accepted by seller for this offer.
   /// Supported types: [LoanOrCredit], [PaymentMethod]
   dynamic acceptedPaymentMethod;
@@ -306,7 +307,8 @@ class SchemaDemand {
   });
 
   /// Serialize [SchemaDemand] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Demand',
         'acceptedPaymentMethod': convertToJsonLd(
@@ -385,5 +387,5 @@ class SchemaDemand {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/hyper_toc_entry.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -21,7 +22,7 @@ import 'package:schema_org/schemas/event.dart';
 /// [[startOffset]] timestamp within a [[VideoObject]], typically
 /// represented with a URL template structure.
 /// See https://schema.org/SeekToAction
-class SchemaSeekToAction {
+class SchemaSeekToAction implements SchemaSerializable {
   /// The start time of the clip expressed as the number of seconds
   /// from the beginning of the work.  Supported types:
   /// [HyperTocEntry], [int]
@@ -179,7 +180,8 @@ class SchemaSeekToAction {
   });
 
   /// Serialize [SchemaSeekToAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'SeekToAction',
         'startOffset': convertToJsonLd(startOffset, [SchemaHyperTocEntry, int]),
@@ -214,5 +216,5 @@ class SchemaSeekToAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

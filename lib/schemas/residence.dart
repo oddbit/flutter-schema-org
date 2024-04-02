@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/floor_plan.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/postal_address.dart';
@@ -24,7 +25,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// The place where a person lives.
 /// See https://schema.org/Residence
-class SchemaResidence {
+class SchemaResidence implements SchemaSerializable {
   /// A floorplan of some [[Accommodation]].
   SchemaFloorPlan? accommodationFloorPlan;
 
@@ -338,7 +339,8 @@ class SchemaResidence {
   });
 
   /// Serialize [SchemaResidence] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Residence',
         'accommodationFloorPlan':
@@ -426,5 +428,5 @@ class SchemaResidence {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

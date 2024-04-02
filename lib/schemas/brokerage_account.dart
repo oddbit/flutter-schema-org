@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
@@ -34,7 +35,7 @@ import 'package:schema_org/schemas/event.dart';
 /// An account that allows an investor to deposit funds and place
 /// investment orders with a licensed broker or brokerage firm.
 /// See https://schema.org/BrokerageAccount
-class SchemaBrokerageAccount {
+class SchemaBrokerageAccount implements SchemaSerializable {
   /// The amount of money.  Supported types: [MonetaryAmount], [int]
   dynamic amount;
 
@@ -266,7 +267,8 @@ class SchemaBrokerageAccount {
   });
 
   /// Serialize [SchemaBrokerageAccount] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'BrokerageAccount',
         'amount': convertToJsonLd(amount, [SchemaMonetaryAmount, int]),
@@ -334,5 +336,5 @@ class SchemaBrokerageAccount {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

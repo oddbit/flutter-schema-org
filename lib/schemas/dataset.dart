@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/data_catalog.dart';
 import 'package:schema_org/schemas/data_download.dart';
 import 'package:schema_org/schemas/defined_term.dart';
@@ -48,7 +49,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A body of structured information describing some topic(s) of
 /// interest.
 /// See https://schema.org/Dataset
-class SchemaDataset {
+class SchemaDataset implements SchemaSerializable {
   /// A data catalog which contains this dataset.
   SchemaDataCatalog? catalog;
 
@@ -902,7 +903,8 @@ class SchemaDataset {
   });
 
   /// Serialize [SchemaDataset] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Dataset',
         'catalog': convertToJsonLd(catalog, [SchemaDataCatalog]),
@@ -1091,5 +1093,5 @@ class SchemaDataset {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

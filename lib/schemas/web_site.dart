@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/action.dart';
 /// typically served from a single web domain and accessible via
 /// URLs.
 /// See https://schema.org/WebSite
-class SchemaWebSite {
+class SchemaWebSite implements SchemaSerializable {
   /// The International Standard Serial Number (ISSN) that identifies
   /// this serial publication You can repeat this property to identify
   /// different formats of, or the linking ISSN (ISSN-L) for, this
@@ -843,7 +844,8 @@ class SchemaWebSite {
   });
 
   /// Serialize [SchemaWebSite] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'WebSite',
         'issn': convertToJsonLd(issn, [String]),
@@ -1015,5 +1017,5 @@ class SchemaWebSite {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

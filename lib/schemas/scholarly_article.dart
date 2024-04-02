@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/speakable_specification.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A scholarly article.
 /// See https://schema.org/ScholarlyArticle
-class SchemaScholarlyArticle {
+class SchemaScholarlyArticle implements SchemaSerializable {
   /// The actual body of the article.
   String? articleBody;
 
@@ -888,7 +889,8 @@ class SchemaScholarlyArticle {
   });
 
   /// Serialize [SchemaScholarlyArticle] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ScholarlyArticle',
         'articleBody': convertToJsonLd(articleBody, [String]),
@@ -1068,5 +1070,5 @@ class SchemaScholarlyArticle {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

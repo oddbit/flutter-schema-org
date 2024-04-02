@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/gender_type.dart';
 import 'package:schema_org/schemas/creative_work.dart';
@@ -40,7 +41,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// Sports team.
 /// See https://schema.org/SportsTeam
-class SchemaSportsTeam {
+class SchemaSportsTeam implements SchemaSerializable {
   /// A person that acts as performing member of a sports team; a
   /// player as opposed to a coach.
   SchemaPerson? athlete;
@@ -503,7 +504,8 @@ class SchemaSportsTeam {
   });
 
   /// Serialize [SchemaSportsTeam] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'SportsTeam',
         'athlete': convertToJsonLd(athlete, [SchemaPerson]),
@@ -620,5 +622,5 @@ class SchemaSportsTeam {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

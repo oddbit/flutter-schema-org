@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
@@ -31,7 +32,7 @@ import 'package:schema_org/schemas/action.dart';
 /// [[Action]]-based vocabulary, alongside types such as
 /// [[Comment]].
 /// See https://schema.org/UserPlays
-class SchemaUserPlays {
+class SchemaUserPlays implements SchemaSerializable {
   /// The subject matter of the content.
   SchemaThing? about;
 
@@ -347,7 +348,8 @@ class SchemaUserPlays {
   });
 
   /// Serialize [SchemaUserPlays] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'UserPlays',
         'about': convertToJsonLd(about, [SchemaThing]),
@@ -423,5 +425,5 @@ class SchemaUserPlays {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

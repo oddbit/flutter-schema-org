@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_entity.dart';
 import 'package:schema_org/schemas/medical_risk_factor.dart';
 import 'package:schema_org/schemas/medical_code.dart';
@@ -22,7 +23,7 @@ import 'package:schema_org/schemas/event.dart';
 /// use the url property of Thing to record any URLs for online
 /// calculators.
 /// See https://schema.org/MedicalRiskCalculator
-class SchemaMedicalRiskCalculator {
+class SchemaMedicalRiskCalculator implements SchemaSerializable {
   /// The condition, complication, or symptom whose risk is being
   /// estimated.
   SchemaMedicalEntity? estimatesRiskOf;
@@ -144,7 +145,8 @@ class SchemaMedicalRiskCalculator {
   });
 
   /// Serialize [SchemaMedicalRiskCalculator] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalRiskCalculator',
         'estimatesRiskOf':
@@ -179,5 +181,5 @@ class SchemaMedicalRiskCalculator {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

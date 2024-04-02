@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
 import 'package:schema_org/schemas/audience.dart';
@@ -38,7 +39,7 @@ import 'package:schema_org/schemas/event.dart';
 /// a pair of shoes; a concert ticket; the rental of a car; a
 /// haircut; or an episode of a TV show streamed online.
 /// See https://schema.org/Product
-class SchemaProduct {
+class SchemaProduct implements SchemaSerializable {
   /// //schema.org/gtin13, ...) will typically expect such data to be
   /// provided using those properties, rather than using the generic
   /// property/value mechanism.
@@ -470,7 +471,8 @@ class SchemaProduct {
   });
 
   /// Serialize [SchemaProduct] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Product',
         'additionalProperty':
@@ -577,5 +579,5 @@ class SchemaProduct {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

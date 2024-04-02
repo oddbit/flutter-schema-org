@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/image_object.dart';
@@ -14,7 +15,7 @@ import 'package:schema_org/schemas/event.dart';
 /// linked CDC materials for authoritative  definitions used as the
 /// source here.
 /// See https://schema.org/CDCPMDRecord
-class SchemaCDCPMDRecord {
+class SchemaCDCPMDRecord implements SchemaSerializable {
   /// collectiondate - Date for which patient counts are reported.
   /// Supported types: [String], [String]
   String? cvdCollectionDate;
@@ -175,7 +176,8 @@ class SchemaCDCPMDRecord {
   });
 
   /// Serialize [SchemaCDCPMDRecord] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'CDCPMDRecord',
         'cvdCollectionDate':
@@ -213,5 +215,5 @@ class SchemaCDCPMDRecord {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

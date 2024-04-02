@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/image_object.dart';
@@ -11,7 +12,7 @@ import 'package:schema_org/schemas/event.dart';
 /// Properties that take Mass as values are of the form
 /// '&lt;Number&gt; &lt;Mass unit of measure&gt;' E.g., '7 kg'.
 /// See https://schema.org/Mass
-class SchemaMass {
+class SchemaMass implements SchemaSerializable {
   /// //schema.org/docs/styleguide.html">style guide</a>.  Supported
   /// types: [String], [String]
   String? additionalType;
@@ -83,7 +84,8 @@ class SchemaMass {
   });
 
   /// Serialize [SchemaMass] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Mass',
         'additionalType': convertToJsonLd(additionalType, [String, String]),
@@ -102,5 +104,5 @@ class SchemaMass {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

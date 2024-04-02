@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/property.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 import 'package:schema_org/schemas/measurement_method_enum.dart';
@@ -26,7 +27,7 @@ import 'package:schema_org/schemas/event.dart';
 /// can also be used to clarify the specific nature and notation of
 /// an observed measurement.
 /// See https://schema.org/StatisticalVariable
-class SchemaStatisticalVariable {
+class SchemaStatisticalVariable implements SchemaSerializable {
   /// //www.gs1.org/voc/?show=properties).
   SchemaProperty? measuredProperty;
 
@@ -165,7 +166,8 @@ class SchemaStatisticalVariable {
   });
 
   /// Serialize [SchemaStatisticalVariable] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'StatisticalVariable',
         'measuredProperty': convertToJsonLd(measuredProperty, [SchemaProperty]),
@@ -198,5 +200,5 @@ class SchemaStatisticalVariable {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

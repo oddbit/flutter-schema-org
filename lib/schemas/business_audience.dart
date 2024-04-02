@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -13,7 +14,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A set of characteristics belonging to businesses, e.g who
 /// compose an item's target audience.
 /// See https://schema.org/BusinessAudience
-class SchemaBusinessAudience {
+class SchemaBusinessAudience implements SchemaSerializable {
   /// The number of employees in an organization, e.g business.
   SchemaQuantitativeValue? numberOfEmployees;
 
@@ -106,7 +107,8 @@ class SchemaBusinessAudience {
   });
 
   /// Serialize [SchemaBusinessAudience] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'BusinessAudience',
         'numberOfEmployees':
@@ -134,5 +136,5 @@ class SchemaBusinessAudience {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

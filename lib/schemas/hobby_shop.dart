@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A store that sells materials useful or necessary for various
 /// hobbies.
 /// See https://schema.org/HobbyShop
-class SchemaHobbyShop {
+class SchemaHobbyShop implements SchemaSerializable {
   /// The larger organization that this local business is a branch of,
   /// if any Not to be confused with (anatomical) [[branch]].
   SchemaOrganization? branchOf;
@@ -681,7 +682,8 @@ class SchemaHobbyShop {
   });
 
   /// Serialize [SchemaHobbyShop] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'HobbyShop',
         'branchOf': convertToJsonLd(branchOf, [SchemaOrganization]),
@@ -849,5 +851,5 @@ class SchemaHobbyShop {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

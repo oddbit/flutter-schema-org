@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/civic_structure.dart';
 import 'package:schema_org/schemas/local_business.dart';
 import 'package:schema_org/schemas/category_code.dart';
@@ -58,7 +59,7 @@ import 'package:schema_org/schemas/action.dart';
 /// providing media type information, e.g "application/rss+xml" or
 /// "application/atom+xml".
 /// See https://schema.org/SpecialAnnouncement
-class SchemaSpecialAnnouncement {
+class SchemaSpecialAnnouncement implements SchemaSerializable {
   /// Indicates a specific [[CivicStructure]] or [[LocalBusiness]]
   /// associated with the SpecialAnnouncement For example, a specific
   /// testing facility or business with special opening hours For a
@@ -929,7 +930,8 @@ class SchemaSpecialAnnouncement {
   });
 
   /// Serialize [SchemaSpecialAnnouncement] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'SpecialAnnouncement',
         'announcementLocation': convertToJsonLd(
@@ -1128,5 +1130,5 @@ class SchemaSpecialAnnouncement {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

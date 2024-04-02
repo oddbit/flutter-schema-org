@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_entity.dart';
 import 'package:schema_org/schemas/medical_procedure_type.dart';
 import 'package:schema_org/schemas/event_status_type.dart';
@@ -25,7 +26,7 @@ import 'package:schema_org/schemas/event.dart';
 /// preventive or palliative capacity that relies on invasive
 /// (surgical), non-invasive, or other techniques.
 /// See https://schema.org/MedicalProcedure
-class SchemaMedicalProcedure {
+class SchemaMedicalProcedure implements SchemaSerializable {
   /// Location in the body of the anatomical structure.
   String? bodyLocation;
 
@@ -166,7 +167,8 @@ class SchemaMedicalProcedure {
   });
 
   /// Serialize [SchemaMedicalProcedure] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalProcedure',
         'bodyLocation': convertToJsonLd(bodyLocation, [String]),
@@ -206,5 +208,5 @@ class SchemaMedicalProcedure {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,10 +1,12 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// An EventAttendanceModeEnumeration value is one of potentially
 /// several modes of organising an event, relating to whether it is
 /// online or offline.
 /// See https://schema.org/EventAttendanceModeEnumeration
-enum SchemaEventAttendanceModeEnumeration {
+enum SchemaEventAttendanceModeEnumeration implements SchemaSerializable {
   /// MixedEventAttendanceMode - an event that is conducted as a
   /// combination of both offline and online modes.
   mixedEventAttendanceMode('https://schema.org/EventAttendanceModeEnumeration'),
@@ -26,5 +28,6 @@ enum SchemaEventAttendanceModeEnumeration {
   final String value;
 
   /// Serialize [SchemaEventAttendanceModeEnumeration] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/infectious_agent_class.dart';
 import 'package:schema_org/schemas/anatomical_structure.dart';
 import 'package:schema_org/schemas/anatomical_system.dart';
@@ -37,7 +38,7 @@ import 'package:schema_org/schemas/event.dart';
 /// infectious disease, such pathogens are known to be able to cause
 /// this disease.
 /// See https://schema.org/InfectiousDisease
-class SchemaInfectiousDisease {
+class SchemaInfectiousDisease implements SchemaSerializable {
   /// The actual infectious agent, such as a specific bacterium.
   String? infectiousAgent;
 
@@ -249,7 +250,8 @@ class SchemaInfectiousDisease {
   });
 
   /// Serialize [SchemaInfectiousDisease] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'InfectiousDisease',
         'infectiousAgent': convertToJsonLd(infectiousAgent, [String]),
@@ -310,5 +312,5 @@ class SchemaInfectiousDisease {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

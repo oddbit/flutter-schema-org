@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/breadcrumb_list.dart';
 import 'package:schema_org/schemas/web_page_element.dart';
 import 'package:schema_org/schemas/image_object.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// Search results page.
 /// See https://schema.org/SearchResultsPage
-class SchemaSearchResultsPage {
+class SchemaSearchResultsPage implements SchemaSerializable {
   /// A set of links that can help a user understand and navigate a
   /// website hierarchy.  Supported types: [BreadcrumbList], [String]
   dynamic breadcrumb;
@@ -899,7 +900,8 @@ class SchemaSearchResultsPage {
   });
 
   /// Serialize [SchemaSearchResultsPage] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'SearchResultsPage',
         'breadcrumb':
@@ -1085,5 +1087,5 @@ class SchemaSearchResultsPage {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

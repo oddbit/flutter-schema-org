@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/blog_posting.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/speakable_specification.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 /// rolling textual coverage of an ongoing event through continuous
 /// updates.
 /// See https://schema.org/LiveBlogPosting
-class SchemaLiveBlogPosting {
+class SchemaLiveBlogPosting implements SchemaSerializable {
   /// The time when the live blog will stop covering the Event Note
   /// that coverage may continue after the Event concludes.
   String? coverageEndTime;
@@ -911,7 +912,8 @@ class SchemaLiveBlogPosting {
   });
 
   /// Serialize [SchemaLiveBlogPosting] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'LiveBlogPosting',
         'coverageEndTime': convertToJsonLd(coverageEndTime, [String]),
@@ -1095,5 +1097,5 @@ class SchemaLiveBlogPosting {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

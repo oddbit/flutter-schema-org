@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/language.dart';
 import 'package:schema_org/schemas/audience.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -31,7 +32,7 @@ import 'package:schema_org/schemas/action.dart';
 /// add tourist attraction properties to any other type (See
 /// examples below)
 /// See https://schema.org/TouristAttraction
-class SchemaTouristAttraction {
+class SchemaTouristAttraction implements SchemaSerializable {
   /// //tools.ietf.org/html/bcp47) See also [[inLanguage]].  Supported
   /// types: [Language], [String]
   dynamic availableLanguage;
@@ -352,7 +353,8 @@ class SchemaTouristAttraction {
   });
 
   /// Serialize [SchemaTouristAttraction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'TouristAttraction',
         'availableLanguage':
@@ -441,5 +443,5 @@ class SchemaTouristAttraction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

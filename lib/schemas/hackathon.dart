@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
@@ -28,7 +29,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// //en.wikipedia.org/wiki/Hackathon) event.
 /// See https://schema.org/Hackathon
-class SchemaHackathon {
+class SchemaHackathon implements SchemaSerializable {
   /// The subject matter of the content.
   SchemaThing? about;
 
@@ -344,7 +345,8 @@ class SchemaHackathon {
   });
 
   /// Serialize [SchemaHackathon] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Hackathon',
         'about': convertToJsonLd(about, [SchemaThing]),
@@ -420,5 +422,5 @@ class SchemaHackathon {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

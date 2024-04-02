@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/speakable_specification.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -44,7 +45,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A post to a social media platform, including blog posts, tweets,
 /// Facebook posts, etc.
 /// See https://schema.org/SocialMediaPosting
-class SchemaSocialMediaPosting {
+class SchemaSocialMediaPosting implements SchemaSerializable {
   /// A CreativeWork such as an image, video, or audio clip shared as
   /// part of this posting.
   SchemaCreativeWork? sharedContent;
@@ -894,7 +895,8 @@ class SchemaSocialMediaPosting {
   });
 
   /// Serialize [SchemaSocialMediaPosting] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'SocialMediaPosting',
         'sharedContent': convertToJsonLd(sharedContent, [SchemaCreativeWork]),
@@ -1075,5 +1077,5 @@ class SchemaSocialMediaPosting {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

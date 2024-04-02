@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/qualitative_value.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -13,7 +14,7 @@ import 'package:schema_org/schemas/event.dart';
 /// The frequency in MHz and the modulation used for a particular
 /// BroadcastService.
 /// See https://schema.org/BroadcastFrequencySpecification
-class SchemaBroadcastFrequencySpecification {
+class SchemaBroadcastFrequencySpecification implements SchemaSerializable {
   /// The frequency in MHz for a particular broadcast.  Supported
   /// types: [QuantitativeValue], [int]
   dynamic broadcastFrequencyValue;
@@ -99,7 +100,8 @@ class SchemaBroadcastFrequencySpecification {
   });
 
   /// Serialize [SchemaBroadcastFrequencySpecification] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'BroadcastFrequencySpecification',
         'broadcastFrequencyValue': convertToJsonLd(
@@ -123,5 +125,5 @@ class SchemaBroadcastFrequencySpecification {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

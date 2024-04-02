@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/question.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/language.dart';
@@ -22,7 +23,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// Appears generally as a response to AskAction.
 /// See https://schema.org/AskAction
-class SchemaAskAction {
+class SchemaAskAction implements SchemaSerializable {
   /// A sub property of object A question.
   SchemaQuestion? question;
 
@@ -197,7 +198,8 @@ class SchemaAskAction {
   });
 
   /// Serialize [SchemaAskAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'AskAction',
         'question': convertToJsonLd(question, [SchemaQuestion]),
@@ -241,5 +243,5 @@ class SchemaAskAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

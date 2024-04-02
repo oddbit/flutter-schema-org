@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/news_article.dart';
 import 'package:schema_org/schemas/duration.dart';
 import 'package:schema_org/schemas/creative_work.dart';
@@ -52,7 +53,7 @@ import 'package:schema_org/schemas/action.dart';
 /// artistic/animation, gaming, engineering and scientific content
 /// can all be represented using [[3DModel]].
 /// See https://schema.org/3DModel
-class Schema3DModel {
+class Schema3DModel implements SchemaSerializable {
   /// Whether the 3DModel allows resizing For example, room layout
   /// applications often do not allow 3DModel elements to be resized
   /// to reflect reality.
@@ -956,7 +957,8 @@ class Schema3DModel {
   });
 
   /// Serialize [Schema3DModel] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': '3DModel',
         'isResizable': convertToJsonLd(isResizable, [bool]),
@@ -1153,5 +1155,5 @@ class Schema3DModel {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

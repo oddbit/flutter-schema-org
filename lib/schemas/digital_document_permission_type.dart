@@ -1,9 +1,11 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// A type of permission which can be granted for accessing a
 /// digital document.
 /// See https://schema.org/DigitalDocumentPermissionType
-enum SchemaDigitalDocumentPermissionType {
+enum SchemaDigitalDocumentPermissionType implements SchemaSerializable {
   /// Permission to add comments to the document.
   commentPermission('https://schema.org/DigitalDocumentPermissionType'),
 
@@ -20,5 +22,6 @@ enum SchemaDigitalDocumentPermissionType {
   final String value;
 
   /// Serialize [SchemaDigitalDocumentPermissionType] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

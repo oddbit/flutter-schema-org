@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/breadcrumb_list.dart';
 import 'package:schema_org/schemas/web_page_element.dart';
 import 'package:schema_org/schemas/image_object.dart';
@@ -48,7 +49,7 @@ import 'package:schema_org/schemas/action.dart';
 /// Answer(s), e.g in a question answering site or documenting
 /// Frequently Asked Questions (FAQs).
 /// See https://schema.org/QAPage
-class SchemaQAPage {
+class SchemaQAPage implements SchemaSerializable {
   /// A set of links that can help a user understand and navigate a
   /// website hierarchy.  Supported types: [BreadcrumbList], [String]
   dynamic breadcrumb;
@@ -901,7 +902,8 @@ class SchemaQAPage {
   });
 
   /// Serialize [SchemaQAPage] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'QAPage',
         'breadcrumb':
@@ -1087,5 +1089,5 @@ class SchemaQAPage {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

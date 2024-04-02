@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/qualitative_value.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -20,7 +21,7 @@ import 'package:schema_org/schemas/event.dart';
 /// confirmation emails or HTML pages with individual confirmations
 /// of reservations For offers of tickets, use [[Offer]].
 /// See https://schema.org/FlightReservation
-class SchemaFlightReservation {
+class SchemaFlightReservation implements SchemaSerializable {
   /// The airline-specific indicator of boarding order / preference.
   String? boardingGroup;
 
@@ -180,7 +181,8 @@ class SchemaFlightReservation {
   });
 
   /// Serialize [SchemaFlightReservation] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'FlightReservation',
         'boardingGroup': convertToJsonLd(boardingGroup, [String]),
@@ -224,5 +226,5 @@ class SchemaFlightReservation {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

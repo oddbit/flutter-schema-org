@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/property.dart';
 import 'package:schema_org/schemas/statistical_variable.dart';
@@ -37,7 +38,7 @@ import 'package:schema_org/schemas/event.dart';
 /// [[observationDate]], [[value]], [[unitCode]], [[unitText]],
 /// [[measurementMethod]].
 /// See https://schema.org/Observation
-class SchemaObservation {
+class SchemaObservation implements SchemaSerializable {
   /// A [[marginOfError]] for an [[Observation]].
   SchemaQuantitativeValue? marginOfError;
 
@@ -221,7 +222,8 @@ class SchemaObservation {
   });
 
   /// Serialize [SchemaObservation] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Observation',
         'marginOfError':
@@ -279,5 +281,5 @@ class SchemaObservation {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

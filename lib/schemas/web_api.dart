@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
@@ -32,7 +33,7 @@ import 'package:schema_org/schemas/event.dart';
 /// An application programming interface accessible over
 /// Web/Internet technologies.
 /// See https://schema.org/WebAPI
-class SchemaWebAPI {
+class SchemaWebAPI implements SchemaSerializable {
   /// Further documentation describing the Web API in more detail.
   /// Supported types: [CreativeWork], [String]
   dynamic documentation;
@@ -246,7 +247,8 @@ class SchemaWebAPI {
   });
 
   /// Serialize [SchemaWebAPI] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'WebAPI',
         'documentation':
@@ -309,5 +311,5 @@ class SchemaWebAPI {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

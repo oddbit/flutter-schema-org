@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/vehicle.dart';
 import 'package:schema_org/schemas/airport.dart';
 import 'package:schema_org/schemas/boarding_policy_type.dart';
@@ -22,7 +23,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// An airline flight.
 /// See https://schema.org/Flight
-class SchemaFlight {
+class SchemaFlight implements SchemaSerializable {
   /// The kind of aircraft (e.g., "Boeing 747").  Supported types:
   /// [String], [Vehicle]
   dynamic aircraft;
@@ -212,7 +213,8 @@ class SchemaFlight {
   });
 
   /// Serialize [SchemaFlight] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Flight',
         'aircraft': convertToJsonLd(aircraft, [String, SchemaVehicle]),
@@ -258,5 +260,5 @@ class SchemaFlight {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

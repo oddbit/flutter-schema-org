@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/duration.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 /// awarded to a person or other entity that meets the requirements
 /// defined by the credentialer.
 /// See https://schema.org/EducationalOccupationalCredential
-class SchemaEducationalOccupationalCredential {
+class SchemaEducationalOccupationalCredential implements SchemaSerializable {
   /// Knowledge, skill, ability or personal attribute that must be
   /// demonstrated by a person or other entity in order to do
   /// something such as earn an Educational Occupational Credential or
@@ -867,7 +868,8 @@ class SchemaEducationalOccupationalCredential {
   });
 
   /// Serialize [SchemaEducationalOccupationalCredential] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'EducationalOccupationalCredential',
         'competencyRequired': convertToJsonLd(
@@ -1045,5 +1047,5 @@ class SchemaEducationalOccupationalCredential {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

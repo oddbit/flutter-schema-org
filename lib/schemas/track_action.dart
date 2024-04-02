@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/delivery_method.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -20,7 +21,7 @@ import 'package:schema_org/schemas/event.dart';
 /// Unlike SubscribeAction, TrackAction refers to the interest on
 /// the location of innanimate objects.
 /// See https://schema.org/TrackAction
-class SchemaTrackAction {
+class SchemaTrackAction implements SchemaSerializable {
   /// A sub property of instrument The method of delivery.
   SchemaDeliveryMethod? deliveryMethod;
 
@@ -176,7 +177,8 @@ class SchemaTrackAction {
   });
 
   /// Serialize [SchemaTrackAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'TrackAction',
         'deliveryMethod':
@@ -212,5 +214,5 @@ class SchemaTrackAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

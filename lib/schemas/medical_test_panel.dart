@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_test.dart';
 import 'package:schema_org/schemas/drug.dart';
 import 'package:schema_org/schemas/medical_enumeration.dart';
@@ -24,7 +25,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// Any collection of tests commonly ordered together.
 /// See https://schema.org/MedicalTestPanel
-class SchemaMedicalTestPanel {
+class SchemaMedicalTestPanel implements SchemaSerializable {
   /// A component test of the panel.
   SchemaMedicalTest? subTest;
 
@@ -161,7 +162,8 @@ class SchemaMedicalTestPanel {
   });
 
   /// Serialize [SchemaMedicalTestPanel] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalTestPanel',
         'subTest': convertToJsonLd(subTest, [SchemaMedicalTest]),
@@ -200,5 +202,5 @@ class SchemaMedicalTestPanel {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

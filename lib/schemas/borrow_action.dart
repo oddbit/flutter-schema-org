@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/place.dart';
@@ -18,7 +19,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// Reciprocal of BorrowAction.
 /// See https://schema.org/BorrowAction
-class SchemaBorrowAction {
+class SchemaBorrowAction implements SchemaSerializable {
   /// A sub property of participant The person that lends the object
   /// being borrowed.  Supported types: [Organization], [Person]
   dynamic lender;
@@ -185,7 +186,8 @@ class SchemaBorrowAction {
   });
 
   /// Serialize [SchemaBorrowAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'BorrowAction',
         'lender': convertToJsonLd(lender, [SchemaOrganization, SchemaPerson]),
@@ -222,5 +224,5 @@ class SchemaBorrowAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

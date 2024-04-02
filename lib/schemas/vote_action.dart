@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
@@ -19,7 +20,7 @@ import 'package:schema_org/schemas/event.dart';
 /// The act of expressing a preference from a
 /// fixed/finite/structured set of choices/options.
 /// See https://schema.org/VoteAction
-class SchemaVoteAction {
+class SchemaVoteAction implements SchemaSerializable {
   /// A sub property of object The candidate subject of this action.
   SchemaPerson? candidate;
 
@@ -185,7 +186,8 @@ class SchemaVoteAction {
   });
 
   /// Serialize [SchemaVoteAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'VoteAction',
         'candidate': convertToJsonLd(candidate, [SchemaPerson]),
@@ -222,5 +224,5 @@ class SchemaVoteAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/image_object.dart';
 import 'package:schema_org/schemas/software_application.dart';
 import 'package:schema_org/schemas/creative_work.dart';
@@ -45,7 +46,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A software application designed specifically to work well on a
 /// mobile device such as a telephone.
 /// See https://schema.org/MobileApplication
-class SchemaMobileApplication {
+class SchemaMobileApplication implements SchemaSerializable {
   /// Specifies specific carrier(s) requirements for the application
   /// (e.g an application may only work on a specific carrier
   /// network).
@@ -958,7 +959,8 @@ class SchemaMobileApplication {
   });
 
   /// Serialize [SchemaMobileApplication] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MobileApplication',
         'carrierRequirements': convertToJsonLd(carrierRequirements, [String]),
@@ -1162,5 +1164,5 @@ class SchemaMobileApplication {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

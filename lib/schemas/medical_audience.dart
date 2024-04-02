@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
 import 'package:schema_org/schemas/medical_condition.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
@@ -14,7 +15,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// Target audiences for medical web pages.
 /// See https://schema.org/MedicalAudience
-class SchemaMedicalAudience {
+class SchemaMedicalAudience implements SchemaSerializable {
   /// The target group associated with a given audience (e.g veterans,
   /// car owners, musicians, etc.).
   String? audienceType;
@@ -138,7 +139,8 @@ class SchemaMedicalAudience {
   });
 
   /// Serialize [SchemaMedicalAudience] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalAudience',
         'audienceType': convertToJsonLd(audienceType, [String]),
@@ -173,5 +175,5 @@ class SchemaMedicalAudience {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

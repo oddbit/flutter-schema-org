@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/specialty.dart';
 
 /// Video gallery page.
 /// See https://schema.org/VideoGallery
-class SchemaVideoGallery {
+class SchemaVideoGallery implements SchemaSerializable {
   /// The subject matter of the content.
   SchemaThing? about;
 
@@ -899,7 +900,8 @@ class SchemaVideoGallery {
   });
 
   /// Serialize [SchemaVideoGallery] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'VideoGallery',
         'about': convertToJsonLd(about, [SchemaThing]),
@@ -1085,5 +1087,5 @@ class SchemaVideoGallery {
         'speakable':
             convertToJsonLd(speakable, [SchemaSpeakableSpecification, String]),
         'specialty': convertToJsonLd(specialty, [SchemaSpecialty]),
-      };
+      });
 }

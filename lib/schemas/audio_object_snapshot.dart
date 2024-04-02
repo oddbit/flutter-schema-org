@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/media_object.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -52,7 +53,7 @@ import 'package:schema_org/schemas/action.dart';
 /// aren't represented in their actual content, do not affect this
 /// notion of identity.
 /// See https://schema.org/AudioObjectSnapshot
-class SchemaAudioObjectSnapshot {
+class SchemaAudioObjectSnapshot implements SchemaSerializable {
   /// The caption for this object For downloadable machine formats
   /// (closed caption, subtitles etc.) use MediaObject and indicate
   /// the [[encodingFormat]].  Supported types: [MediaObject],
@@ -967,7 +968,8 @@ class SchemaAudioObjectSnapshot {
   });
 
   /// Serialize [SchemaAudioObjectSnapshot] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'AudioObjectSnapshot',
         'caption': convertToJsonLd(caption, [SchemaMediaObject, String]),
@@ -1166,5 +1168,5 @@ class SchemaAudioObjectSnapshot {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

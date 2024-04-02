@@ -1,51 +1,52 @@
 library schema_org;
 
-import 'package:schema_org/schemas/action.dart';
+import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/schemas/music_group.dart';
+import 'package:schema_org/schemas/person.dart';
+import 'package:schema_org/schemas/duration.dart';
+import 'package:schema_org/schemas/music_album.dart';
+import 'package:schema_org/schemas/music_playlist.dart';
+import 'package:schema_org/schemas/music_composition.dart';
+import 'package:schema_org/schemas/thing.dart';
+import 'package:schema_org/schemas/item_list.dart';
+import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
-import 'package:schema_org/schemas/alignment_object.dart';
+import 'package:schema_org/schemas/web_page.dart';
+import 'package:schema_org/schemas/defined_term.dart';
+import 'package:schema_org/schemas/media_object.dart';
 import 'package:schema_org/schemas/audience.dart';
 import 'package:schema_org/schemas/audio_object.dart';
-import 'package:schema_org/schemas/claim.dart';
 import 'package:schema_org/schemas/clip.dart';
+import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/comment.dart';
+import 'package:schema_org/schemas/place.dart';
+import 'package:schema_org/schemas/rating.dart';
 import 'package:schema_org/schemas/correction_comment.dart';
 import 'package:schema_org/schemas/country.dart';
-import 'package:schema_org/schemas/creative_work.dart';
-import 'package:schema_org/schemas/defined_term.dart';
-import 'package:schema_org/schemas/demand.dart';
-import 'package:schema_org/schemas/duration.dart';
-import 'package:schema_org/schemas/event.dart';
-import 'package:schema_org/schemas/grant.dart';
-import 'package:schema_org/schemas/image_object.dart';
-import 'package:schema_org/schemas/interaction_counter.dart';
 import 'package:schema_org/schemas/iptc_digital_source_enumeration.dart';
-import 'package:schema_org/schemas/item_list.dart';
+import 'package:schema_org/schemas/alignment_object.dart';
+import 'package:schema_org/schemas/grant.dart';
 import 'package:schema_org/schemas/language.dart';
-import 'package:schema_org/schemas/media_object.dart';
-import 'package:schema_org/schemas/music_album.dart';
-import 'package:schema_org/schemas/music_composition.dart';
-import 'package:schema_org/schemas/music_group.dart';
-import 'package:schema_org/schemas/music_playlist.dart';
-import 'package:schema_org/schemas/offer.dart';
-import 'package:schema_org/schemas/organization.dart';
-import 'package:schema_org/schemas/person.dart';
-import 'package:schema_org/schemas/place.dart';
+import 'package:schema_org/schemas/interaction_counter.dart';
+import 'package:schema_org/schemas/claim.dart';
 import 'package:schema_org/schemas/product.dart';
-import 'package:schema_org/schemas/property_value.dart';
-import 'package:schema_org/schemas/publication_event.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
-import 'package:schema_org/schemas/rating.dart';
+import 'package:schema_org/schemas/demand.dart';
+import 'package:schema_org/schemas/offer.dart';
+import 'package:schema_org/schemas/publication_event.dart';
+import 'package:schema_org/schemas/event.dart';
 import 'package:schema_org/schemas/review.dart';
 import 'package:schema_org/schemas/size_specification.dart';
-import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/schemas/thing.dart';
+import 'package:schema_org/schemas/image_object.dart';
 import 'package:schema_org/schemas/video_object.dart';
-import 'package:schema_org/schemas/web_page.dart';
-import 'package:schema_org/utils.dart';
+import 'package:schema_org/schemas/text_object.dart';
+import 'package:schema_org/schemas/property_value.dart';
+import 'package:schema_org/schemas/action.dart';
 
 /// A music recording (track), usually a single song.
 /// See https://schema.org/MusicRecording
-class SchemaMusicRecording {
+class SchemaMusicRecording implements SchemaSerializable {
   /// The artist that performed this album or recording.  Supported
   /// types: [MusicGroup], [Person]
   dynamic byArtist;
@@ -862,7 +863,8 @@ class SchemaMusicRecording {
   });
 
   /// Serialize [SchemaMusicRecording] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MusicRecording',
         'byArtist': convertToJsonLd(byArtist, [SchemaMusicGroup, SchemaPerson]),
@@ -1039,5 +1041,5 @@ class SchemaMusicRecording {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

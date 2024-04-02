@@ -1,9 +1,11 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// Enumeration of considerations that make a product relevant or
 /// potentially restricted for adults only.
 /// See https://schema.org/AdultOrientedEnumeration
-enum SchemaAdultOrientedEnumeration {
+enum SchemaAdultOrientedEnumeration implements SchemaSerializable {
   /// Item contains alcohol or promotes alcohol consumption.
   alcoholConsideration('https://schema.org/AdultOrientedEnumeration'),
 
@@ -56,5 +58,6 @@ enum SchemaAdultOrientedEnumeration {
   final String value;
 
   /// Serialize [SchemaAdultOrientedEnumeration] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

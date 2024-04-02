@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/program_membership.dart';
@@ -20,7 +21,7 @@ import 'package:schema_org/schemas/event.dart';
 /// of reservations For offers of tickets, restaurant reservations,
 /// flights, or rental cars, use [[Offer]].
 /// See https://schema.org/Reservation
-class SchemaReservation {
+class SchemaReservation implements SchemaSerializable {
   /// 'bookingAgent' is an out-dated term indicating a 'broker' that
   /// serves as a booking agent.  Supported types: [Organization],
   /// [Person]
@@ -162,7 +163,8 @@ class SchemaReservation {
   });
 
   /// Serialize [SchemaReservation] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Reservation',
         'bookingAgent':
@@ -200,5 +202,5 @@ class SchemaReservation {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

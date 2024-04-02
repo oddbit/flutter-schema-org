@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/media_object.dart';
 import 'package:schema_org/schemas/news_article.dart';
 import 'package:schema_org/schemas/duration.dart';
@@ -45,7 +46,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// An audio file.
 /// See https://schema.org/AudioObject
-class SchemaAudioObject {
+class SchemaAudioObject implements SchemaSerializable {
   /// The caption for this object For downloadable machine formats
   /// (closed caption, subtitles etc.) use MediaObject and indicate
   /// the [[encodingFormat]].  Supported types: [MediaObject],
@@ -960,7 +961,8 @@ class SchemaAudioObject {
   });
 
   /// Serialize [SchemaAudioObject] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'AudioObject',
         'caption': convertToJsonLd(caption, [SchemaMediaObject, String]),
@@ -1159,5 +1161,5 @@ class SchemaAudioObject {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

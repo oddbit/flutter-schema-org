@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
 import 'package:schema_org/schemas/geo_shape.dart';
 import 'package:schema_org/schemas/place.dart';
@@ -18,7 +19,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A contact point&#x2014;for example, a Customer Complaints
 /// department.
 /// See https://schema.org/ContactPoint
-class SchemaContactPoint {
+class SchemaContactPoint implements SchemaSerializable {
   /// The geographic area where a service or offered item is provided.
   /// Supported types: [AdministrativeArea], [GeoShape], [Place],
   /// [String]
@@ -142,7 +143,8 @@ class SchemaContactPoint {
   });
 
   /// Serialize [SchemaContactPoint] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ContactPoint',
         'areaServed': convertToJsonLd(areaServed,
@@ -177,5 +179,5 @@ class SchemaContactPoint {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

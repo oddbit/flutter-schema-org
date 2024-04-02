@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_therapy.dart';
 import 'package:schema_org/schemas/anatomical_structure.dart';
 import 'package:schema_org/schemas/anatomical_system.dart';
@@ -33,7 +34,7 @@ import 'package:schema_org/schemas/event.dart';
 /// defined as subjective) like stomachache, lower-back pain, or
 /// fatigue.
 /// See https://schema.org/MedicalSymptom
-class SchemaMedicalSymptom {
+class SchemaMedicalSymptom implements SchemaSerializable {
   /// A possible treatment to address this condition, sign or symptom.
   SchemaMedicalTherapy? possibleTreatment;
 
@@ -231,7 +232,8 @@ class SchemaMedicalSymptom {
   });
 
   /// Serialize [SchemaMedicalSymptom] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'MedicalSymptom',
         'possibleTreatment':
@@ -288,5 +290,5 @@ class SchemaMedicalSymptom {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

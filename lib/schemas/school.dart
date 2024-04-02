@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
@@ -45,7 +46,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A school.
 /// See https://schema.org/School
-class SchemaSchool {
+class SchemaSchool implements SchemaSerializable {
   /// Alumni of an organization.
   SchemaPerson? alumni;
 
@@ -661,7 +662,8 @@ class SchemaSchool {
   });
 
   /// Serialize [SchemaSchool] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'School',
         'alumni': convertToJsonLd(alumni, [SchemaPerson]),
@@ -825,5 +827,5 @@ class SchemaSchool {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

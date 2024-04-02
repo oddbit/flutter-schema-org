@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -15,7 +16,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A supply consumed when performing the instructions for how to
 /// achieve a result.
 /// See https://schema.org/HowToSupply
-class SchemaHowToSupply {
+class SchemaHowToSupply implements SchemaSerializable {
   /// The estimated cost of the supply or supplies consumed when
   /// performing instructions.  Supported types: [MonetaryAmount],
   /// [String]
@@ -116,7 +117,8 @@ class SchemaHowToSupply {
   });
 
   /// Serialize [SchemaHowToSupply] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'HowToSupply',
         'estimatedCost':
@@ -143,5 +145,5 @@ class SchemaHowToSupply {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

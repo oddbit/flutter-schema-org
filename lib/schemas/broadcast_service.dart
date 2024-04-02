@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/broadcast_frequency_specification.dart';
@@ -35,7 +36,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A delivery service through which content is provided via
 /// broadcast over the air or online.
 /// See https://schema.org/BroadcastService
-class SchemaBroadcastService {
+class SchemaBroadcastService implements SchemaSerializable {
   /// The area within which users can expect to reach the broadcast
   /// service.
   SchemaPlace? area;
@@ -300,7 +301,8 @@ class SchemaBroadcastService {
   });
 
   /// Serialize [SchemaBroadcastService] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'BroadcastService',
         'area': convertToJsonLd(area, [SchemaPlace]),
@@ -376,5 +378,5 @@ class SchemaBroadcastService {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

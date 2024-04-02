@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/duration.dart';
 import 'package:schema_org/schemas/music_group.dart';
@@ -46,7 +47,7 @@ import 'package:schema_org/schemas/action.dart';
 /// A media episode (e.g TV, radio, video game) which can be part of
 /// a series or season.
 /// See https://schema.org/Episode
-class SchemaEpisode {
+class SchemaEpisode implements SchemaSerializable {
   /// An actor, e.g in TV, radio, movie, video games etc., or in an
   /// event Actors can be associated with individual items or with a
   /// series, episode, clip.
@@ -893,7 +894,8 @@ class SchemaEpisode {
   });
 
   /// Serialize [SchemaEpisode] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Episode',
         'actor': convertToJsonLd(actor, [SchemaPerson]),
@@ -1078,5 +1080,5 @@ class SchemaEpisode {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

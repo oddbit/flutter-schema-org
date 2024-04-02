@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/action_access_specification.dart';
 import 'package:schema_org/schemas/offer.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
@@ -20,7 +21,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// The act of consuming audio content.
 /// See https://schema.org/ListenAction
-class SchemaListenAction {
+class SchemaListenAction implements SchemaSerializable {
   /// A set of requirements that must be fulfilled in order to perform
   /// an Action If more than one value is specified, fulfilling one
   /// set of requirements will allow the Action to be performed.
@@ -184,7 +185,8 @@ class SchemaListenAction {
   });
 
   /// Serialize [SchemaListenAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ListenAction',
         'actionAccessibilityRequirement': convertToJsonLd(
@@ -222,5 +224,5 @@ class SchemaListenAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

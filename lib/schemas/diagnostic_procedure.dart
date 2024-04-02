@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/medical_entity.dart';
 import 'package:schema_org/schemas/medical_procedure_type.dart';
 import 'package:schema_org/schemas/event_status_type.dart';
@@ -24,7 +25,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A medical procedure intended primarily for diagnostic, as
 /// opposed to therapeutic, purposes.
 /// See https://schema.org/DiagnosticProcedure
-class SchemaDiagnosticProcedure {
+class SchemaDiagnosticProcedure implements SchemaSerializable {
   /// Location in the body of the anatomical structure.
   String? bodyLocation;
 
@@ -165,7 +166,8 @@ class SchemaDiagnosticProcedure {
   });
 
   /// Serialize [SchemaDiagnosticProcedure] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'DiagnosticProcedure',
         'bodyLocation': convertToJsonLd(bodyLocation, [String]),
@@ -205,5 +207,5 @@ class SchemaDiagnosticProcedure {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

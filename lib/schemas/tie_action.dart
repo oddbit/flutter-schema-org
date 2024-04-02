@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -18,7 +19,7 @@ import 'package:schema_org/schemas/event.dart';
 
 /// The act of reaching a draw in a competitive activity.
 /// See https://schema.org/TieAction
-class SchemaTieAction {
+class SchemaTieAction implements SchemaSerializable {
   /// Indicates the current disposition of the Action.
   SchemaActionStatusType? actionStatus;
 
@@ -170,7 +171,8 @@ class SchemaTieAction {
   });
 
   /// Serialize [SchemaTieAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'TieAction',
         'actionStatus': convertToJsonLd(actionStatus, [SchemaActionStatusType]),
@@ -204,5 +206,5 @@ class SchemaTieAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

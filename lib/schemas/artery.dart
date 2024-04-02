@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/anatomical_structure.dart';
 import 'package:schema_org/schemas/image_object.dart';
 import 'package:schema_org/schemas/anatomical_system.dart';
@@ -24,7 +25,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A type of blood vessel that specifically carries blood away from
 /// the heart.
 /// See https://schema.org/Artery
-class SchemaArtery {
+class SchemaArtery implements SchemaSerializable {
   /// The branches that comprise the arterial structure.
   SchemaAnatomicalStructure? arterialBranch;
 
@@ -183,7 +184,8 @@ class SchemaArtery {
   });
 
   /// Serialize [SchemaArtery] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Artery',
         'arterialBranch':
@@ -230,5 +232,5 @@ class SchemaArtery {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

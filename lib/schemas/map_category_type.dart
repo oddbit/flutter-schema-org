@@ -1,8 +1,10 @@
 library schema_org;
 
+import 'package:schema_org/schema_org.dart';
+
 /// An enumeration of several kinds of Map.
 /// See https://schema.org/MapCategoryType
-enum SchemaMapCategoryType {
+enum SchemaMapCategoryType implements SchemaSerializable {
   /// A parking map.
   parkingMap('https://schema.org/MapCategoryType'),
 
@@ -22,5 +24,6 @@ enum SchemaMapCategoryType {
   final String value;
 
   /// Serialize [SchemaMapCategoryType] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

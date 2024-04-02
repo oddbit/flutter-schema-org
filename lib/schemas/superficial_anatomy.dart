@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/anatomical_structure.dart';
 import 'package:schema_org/schemas/anatomical_system.dart';
 import 'package:schema_org/schemas/medical_condition.dart';
@@ -43,7 +44,7 @@ import 'package:schema_org/schemas/event.dart';
 /// visible edges of the scapula, implying the underlying
 /// dislocation of the joint (the related anatomical structure).
 /// See https://schema.org/SuperficialAnatomy
-class SchemaSuperficialAnatomy {
+class SchemaSuperficialAnatomy implements SchemaSerializable {
   /// If applicable, a description of the pathophysiology associated
   /// with the anatomical system, including potential abnormal changes
   /// in the mechanical, physical, and biochemical functions of the
@@ -182,7 +183,8 @@ class SchemaSuperficialAnatomy {
   });
 
   /// Serialize [SchemaSuperficialAnatomy] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'SuperficialAnatomy',
         'associatedPathophysiology':
@@ -222,5 +224,5 @@ class SchemaSuperficialAnatomy {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

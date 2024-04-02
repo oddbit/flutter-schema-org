@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/price_specification.dart';
 import 'package:schema_org/schemas/action_status_type.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -22,7 +23,7 @@ import 'package:schema_org/schemas/event.dart';
 /// service with a participant in exchange for a one time or
 /// periodic payment.
 /// See https://schema.org/TradeAction
-class SchemaTradeAction {
+class SchemaTradeAction implements SchemaSerializable {
   /// //www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute)
   /// and Microdata syntax allow the use of a "content=" attribute for
   /// publishing simple machine-readable values alongside more
@@ -194,7 +195,8 @@ class SchemaTradeAction {
   });
 
   /// Serialize [SchemaTradeAction] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'TradeAction',
         'price': convertToJsonLd(price, [String, int]),
@@ -232,5 +234,5 @@ class SchemaTradeAction {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

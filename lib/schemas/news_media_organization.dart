@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/article.dart';
 import 'package:schema_org/schemas/about_page.dart';
@@ -39,7 +40,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A News/Media organization such as a newspaper or TV station.
 /// See https://schema.org/NewsMediaOrganization
-class SchemaNewsMediaOrganization {
+class SchemaNewsMediaOrganization implements SchemaSerializable {
   /// For a [[NewsMediaOrganization]] or other news-related
   /// [[Organization]], a statement about public engagement activities
   /// (for news media, the newsroom’s), including involving the public
@@ -503,7 +504,8 @@ class SchemaNewsMediaOrganization {
   });
 
   /// Serialize [SchemaNewsMediaOrganization] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'NewsMediaOrganization',
         'actionableFeedbackPolicy': convertToJsonLd(
@@ -623,5 +625,5 @@ class SchemaNewsMediaOrganization {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

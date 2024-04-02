@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
 import 'package:schema_org/schemas/contact_point.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
@@ -24,7 +25,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A listing that describes a job opening in a certain
 /// organization.
 /// See https://schema.org/JobPosting
-class SchemaJobPosting {
+class SchemaJobPosting implements SchemaSerializable {
   /// This should not be used for citizenship or work visa
   /// requirements.
   SchemaAdministrativeArea? applicantLocationRequirements;
@@ -307,7 +308,8 @@ class SchemaJobPosting {
   });
 
   /// Serialize [SchemaJobPosting] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'JobPosting',
         'applicantLocationRequirements': convertToJsonLd(
@@ -379,5 +381,5 @@ class SchemaJobPosting {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

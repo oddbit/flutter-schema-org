@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/language.dart';
 import 'package:schema_org/schemas/movie.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -29,7 +30,7 @@ import 'package:schema_org/schemas/action.dart';
 
 /// A screening of a movie or other video.
 /// See https://schema.org/ScreeningEvent
-class SchemaScreeningEvent {
+class SchemaScreeningEvent implements SchemaSerializable {
   /// //tools.ietf.org/html/bcp47).  Supported types: [Language],
   /// [String]
   dynamic subtitleLanguage;
@@ -359,7 +360,8 @@ class SchemaScreeningEvent {
   });
 
   /// Serialize [SchemaScreeningEvent] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ScreeningEvent',
         'subtitleLanguage':
@@ -439,5 +441,5 @@ class SchemaScreeningEvent {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }

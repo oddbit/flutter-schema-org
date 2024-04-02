@@ -1,6 +1,7 @@
 library schema_org;
 
 import 'package:schema_org/utils.dart';
+import 'package:schema_org/schema_org.dart';
 import 'package:schema_org/schemas/language.dart';
 import 'package:schema_org/schemas/duration.dart';
 import 'package:schema_org/schemas/service.dart';
@@ -17,7 +18,7 @@ import 'package:schema_org/schemas/event.dart';
 /// A means for accessing a service, e.g a government office
 /// location, web site, or phone number.
 /// See https://schema.org/ServiceChannel
-class SchemaServiceChannel {
+class SchemaServiceChannel implements SchemaSerializable {
   /// //tools.ietf.org/html/bcp47) See also [[inLanguage]].  Supported
   /// types: [Language], [String]
   dynamic availableLanguage;
@@ -123,7 +124,8 @@ class SchemaServiceChannel {
   });
 
   /// Serialize [SchemaServiceChannel] to JSON-LD
-  Map<String, dynamic> toJsonLd() => {
+  @override
+  Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'ServiceChannel',
         'availableLanguage':
@@ -153,5 +155,5 @@ class SchemaServiceChannel {
         'subjectOf':
             convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
         'url': convertToJsonLd(url, [String]),
-      };
+      });
 }
