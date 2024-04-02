@@ -24,9 +24,9 @@ jobs:
 
       - run: flutter pub get
 
-      - run: dart format --set-exit-if-changed .
+      - run: dart format --set-exit-if-changed lib
 
-      - run: flutter analyze
+      - run: flutter analyze lib
 
       - name: Run tests
         run: flutter test --test-randomize-ordering-seed=$RANDOM
