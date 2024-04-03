@@ -139,10 +139,13 @@ void generateClassCode(
   for (var property in properties) {
     // Write property comment and clarify which types are supported if the type
     // has been defined as dynamic due to multiple type possibilities.
-    final propertyDescription = property.schemaTypes.length == 1
+    final supportedTypes = property.schemaTypes.map((t) => _toCodeName(t));
+    final propertyDescription = supportedTypes.length == 1
         ? property.description
-        : '${property.description}.\n\nSupported types: ${property.schemaTypes.map((p) => '[$p]').join(', ')}';
+        : '''${property.description}
 
+        Supported types: ${supportedTypes.map((t) => '[$t]').join(', ')}
+        ''';
     if (propertyDescription.isNotEmpty) {
       _writeCodeComment(sb, propertyDescription);
     }
