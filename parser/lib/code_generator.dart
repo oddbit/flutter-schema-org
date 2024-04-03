@@ -187,9 +187,10 @@ void generateClassCode(
   sb.writeln();
 }
 
-/// Split a text into lines of 65 characters
+/// Split a text into lines of max 80 characters
 /// This splits long texts into arrays that can be written as code comments.
 void _writeCodeComment(StringBuffer sb, String text, [int indent = 0]) {
+  const lineLength = 80;
   RegExp defaultClassReferenceRegExp = RegExp(r'\[\[(.*?)\]\]');
   String sanitized =
       text.replaceAllMapped(defaultClassReferenceRegExp, (match) {
@@ -204,8 +205,9 @@ void _writeCodeComment(StringBuffer sb, String text, [int indent = 0]) {
   StringBuffer line = StringBuffer('$indentSpaces/// ');
 
   for (var word in words) {
-    if (word == '\n' || (line.length + word.length + 1) > (68 + indent * 2)) {
-      // 68 to account for '/// ', plus indent spaces
+    if (word == '\n' ||
+        (line.length + word.length + 1) > (lineLength - 3 - indent * 2)) {
+      // lineLength - 3 to account for '/// ', plus indent spaces
       // Append line to sb and start a new line
       sb.writeln(line.toString());
       line.clear();
@@ -219,11 +221,9 @@ void _writeCodeComment(StringBuffer sb, String text, [int indent = 0]) {
       line.write(word);
     }
   }
-
-  // Sanitize and append the last line if not empty
-  final sanitizedLine = line.toString().trim();
-  if (sanitizedLine.isNotEmpty) {
-    sb.writeln(sanitizedLine);
+  // Write the last line if it's not empty
+  if (line.isNotEmpty) {
+    sb.writeln(line.toString());
   }
 }
 
