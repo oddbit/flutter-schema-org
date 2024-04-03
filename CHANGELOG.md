@@ -1,3 +1,8 @@
+## 1.0.3
+
+- Pretty printing JSON objects
+- Correcting class references in documentation
+
 ## 1.0.2
 
 - Fixing dart package analysis feedback
