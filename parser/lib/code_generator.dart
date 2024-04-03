@@ -194,7 +194,7 @@ void generateClassCode(
 /// This splits long texts into arrays that can be written as code comments.
 void _writeCodeComment(StringBuffer sb, String text, [int indent = 0]) {
   const lineLength = 80;
-  RegExp defaultClassReferenceRegExp = RegExp(r'\[\[(.*?)\]\]');
+  final defaultClassReferenceRegExp = RegExp(r'\[\[(.*?)\]\]');
   String sanitized =
       text.replaceAllMapped(defaultClassReferenceRegExp, (match) {
     String matchedString = match.group(1)!;
