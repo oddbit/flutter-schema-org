@@ -1,5 +1,5 @@
-import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/src/schema_serializable.dart';
+import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/delivery_method.dart';
 import 'package:schema_org/schemas/payment_method.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
@@ -11,29 +11,25 @@ import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/action.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// The costs of settling the payment using a particular payment
-/// method.
+/// The costs of settling the payment using a particular payment method.
 /// See https://schema.org/PaymentChargeSpecification
 class SchemaPaymentChargeSpecification implements SchemaSerializable {
-  /// The delivery method(s) to which the delivery charge or payment
-  /// charge specification applies.
+  /// The delivery method(s) to which the delivery charge or payment charge
+  /// specification applies.
   SchemaDeliveryMethod? appliesToDeliveryMethod;
 
-  /// The payment method(s) to which the payment charge specification
-  /// applies.
+  /// The payment method(s) to which the payment charge specification applies.
   SchemaPaymentMethod? appliesToPaymentMethod;
 
-  /// The interval and unit of measurement of ordering quantities for
-  /// which the offer or price specification is valid This allows e.g
-  /// specifying that a certain freight charge is valid only for a
-  /// certain quantity.
+  /// The interval and unit of measurement of ordering quantities for which the
+  /// offer or price specification is valid. This allows e.g. specifying that a
+  /// certain freight charge is valid only for a certain quantity.
   SchemaQuantitativeValue? eligibleQuantity;
 
-  /// The transaction volume, in a monetary unit, for which the offer
-  /// or price specification is valid, e.g for indicating a minimal
-  /// purchasing volume, to express free shipping above a certain
-  /// order volume, or to limit the acceptance of credit cards to
-  /// purchases to a certain minimal amount.
+  /// The transaction volume, in a monetary unit, for which the offer or price
+  /// specification is valid, e.g. for indicating a minimal purchasing volume,
+  /// to express free shipping above a certain order volume, or to limit the
+  /// acceptance of credit cards to purchases to a certain minimal amount.
   SchemaPriceSpecification? eligibleTransactionVolume;
 
   /// The highest price if the price is a range.
@@ -42,81 +38,91 @@ class SchemaPaymentChargeSpecification implements SchemaSerializable {
   /// The lowest price if the price is a range.
   int? minPrice;
 
-  /// //www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute)
-  /// and Microdata syntax allow the use of a "content=" attribute for
-  /// publishing simple machine-readable values alongside more
-  /// human-friendly formatting.\n* Use values from 0123456789
-  /// (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather
-  /// than superficially similar Unicode symbols    Supported types:
-  /// [String], [int]
+  /// //www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and
+  /// Microdata syntax allow the use of a "content=" attribute for publishing
+  /// simple machine-readable values alongside more human-friendly
+  /// formatting.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030)
+  /// to 'DIGIT NINE' (U+0039)) rather than superficially similar Unicode
+  /// symbols.
+  ///
+  /// Supported types: [String], [int]
   dynamic price;
 
-  /// //en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS)
-  /// and other currency types, e.g "Ithaca HOUR".
+  /// //en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other
+  /// currency types, e.g. "Ithaca HOUR".
   String? priceCurrency;
 
-  /// The date when the item becomes valid.  Supported types:
-  /// [String], [String]
+  /// The date when the item becomes valid.
+  ///
+  /// Supported types: [String], [String]
   String? validFrom;
 
-  /// The date after when the item is not valid For example the end of
-  /// an offer, salary period, or a period of opening hours.
+  /// The date after when the item is not valid. For example the end of an
+  /// offer, salary period, or a period of opening hours.
+  ///
   /// Supported types: [String], [String]
   String? validThrough;
 
-  /// Specifies whether the applicable value-added tax (VAT) is
-  /// included in the price specification or not.
+  /// Specifies whether the applicable value-added tax (VAT) is included in the
+  /// price specification or not.
   bool? valueAddedTaxIncluded;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.  Supported
-  /// types: [String], [String]
+  /// //schema.org/docs/styleguide.html">style guide</a>.
+  ///
+  /// Supported types: [String], [String]
   String? additionalType;
 
   /// An alias for the item.
   String? alternateName;
 
-  /// A description of the item.  Supported types: [String],
-  /// [TextObject]
+  /// A description of the item.
+  ///
+  /// Supported types: [String], [SchemaTextObject]
   dynamic description;
 
-  /// A sub property of description A short description of the item
-  /// used to disambiguate from other, similar items Information from
-  /// other properties (in particular, name) may be necessary for the
-  /// description to be useful for disambiguation.
+  /// A sub property of description. A short description of the item used to
+  /// disambiguate from other, similar items. Information from other properties
+  /// (in particular, name) may be necessary for the description to be useful
+  /// for disambiguation.
   String? disambiguatingDescription;
 
-  /// The identifier property represents any kind of identifier for
-  /// any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc
-  /// Schema.org provides dedicated properties for representing many
-  /// of these, either as textual strings or as URL (URI) links See
-  /// [background notes](/docs/datamodel.html#identifierBg) for more
-  /// details    Supported types: [PropertyValue], [String], [String]
+  /// The identifier property represents any kind of identifier for any kind of
+  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
+  /// dedicated properties for representing many of these, either as textual
+  /// strings or as URL (URI) links. See [background
+  /// notes](/docs/datamodel.html#identifierBg) for more details.
+  ///
+  /// Supported types: [SchemaPropertyValue], [String], [String]
   dynamic identifier;
 
-  /// An image of the item This can be a [[URL]] or a fully described
-  /// [[ImageObject]].  Supported types: [ImageObject], [String]
+  /// An image of the item. This can be a [SchemaURL] or a fully described
+  /// [SchemaImageObject].
+  ///
+  /// Supported types: [SchemaImageObject], [String]
   dynamic image;
 
-  /// Indicates a page (or other CreativeWork) for which this thing is
-  /// the main entity being described See [background
+  /// Indicates a page (or other CreativeWork) for which this thing is the main
+  /// entity being described. See [background
   /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  /// Supported types: [CreativeWork], [String]
+  ///
+  /// Supported types: [SchemaCreativeWork], [String]
   dynamic mainEntityOfPage;
 
   /// The name of the item.
   String? name;
 
-  /// Indicates a potential Action, which describes an idealized
-  /// action in which this thing would play an 'object' role.
+  /// Indicates a potential Action, which describes an idealized action in
+  /// which this thing would play an 'object' role.
   SchemaAction? potentialAction;
 
-  /// URL of a reference Web page that unambiguously indicates the
-  /// item's identity E.g the URL of the item's Wikipedia page,
-  /// Wikidata entry, or official website.
+  /// URL of a reference Web page that unambiguously indicates the item's
+  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
+  /// official website.
   String? sameAs;
 
-  /// A CreativeWork or Event about this Thing.  Supported types:
-  /// [CreativeWork], [Event]
+  /// A CreativeWork or Event about this Thing.
+  ///
+  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
   dynamic subjectOf;
 
   /// URL of the item.

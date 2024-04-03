@@ -27,8 +27,8 @@ enum SchemaItemAvailability implements SchemaSerializable {
   /// Indicates that the item is available for pre-order.
   preOrder('https://schema.org/ItemAvailability'),
 
-  /// Indicates that the item is available for ordering and delivery
-  /// before general availability.
+  /// Indicates that the item is available for ordering and delivery before
+  /// general availability.
   preSale('https://schema.org/ItemAvailability'),
 
   /// Indicates that the item has sold out.

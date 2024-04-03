@@ -1,5 +1,5 @@
-import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/src/schema_serializable.dart';
+import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/property.dart';
 import 'package:schema_org/schemas/statistical_variable.dart';
@@ -18,81 +18,89 @@ import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/action.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// Instances of the class [[Observation]] are used to specify
-/// observations about an entity at a particular time The principal
-/// properties of an [[Observation]] are [[observationAbout]],
-/// [[measuredProperty]], [[statType]], [[value] and
-/// [[observationDate]] and [[measuredProperty]] Some but not all
-/// Observations represent a [[QuantitativeValue]] Quantitative
-/// observations can be about a [[StatisticalVariable]], which is an
-/// abstract specification about which we can make observations that
-/// are grounded at a particular location and time    Observations
-/// can also encode a subset of simple RDF-like statements (its
-/// observationAbout, a StatisticalVariable, defining the
-/// measuredPoperty; its observationAbout property indicating the
-/// entity the statement is about, and [[value]] )  In the context
-/// of a quantitative knowledge graph, typical properties could
-/// include [[measuredProperty]], [[observationAbout]],
-/// [[observationDate]], [[value]], [[unitCode]], [[unitText]],
-/// [[measurementMethod]].
+/// Instances of the class [SchemaObservation] are used to specify
+/// observations about an entity at a particular time. The principal
+/// properties of an [SchemaObservation] are [SchemaobservationAbout],
+/// [SchemameasuredProperty], [SchemastatType], [Schemavalue] and
+/// [[observationDate] and [SchemameasuredProperty]. Some but not all
+/// Observations represent a [SchemaQuantitativeValue]. Quantitative
+/// observations can be about a [SchemaStatisticalVariable], which is an
+/// abstract specification about which we can make observations that are
+/// grounded at a particular location and time. Observations can also encode
+/// a subset of simple RDF-like statements (its observationAbout, a
+/// StatisticalVariable, defining the measuredPoperty; its observationAbout
+/// property indicating the entity the statement is about, and [Schemavalue]
+/// )
+///
+/// In the context of a quantitative knowledge graph, typical properties
+/// could include [SchemameasuredProperty], [SchemaobservationAbout],
+/// [SchemaobservationDate], [Schemavalue], [SchemaunitCode],
+/// [SchemaunitText], [SchemameasurementMethod].
 /// See https://schema.org/Observation
 class SchemaObservation implements SchemaSerializable {
-  /// A [[marginOfError]] for an [[Observation]].
+  /// A [SchemamarginOfError] for an [SchemaObservation].
   SchemaQuantitativeValue? marginOfError;
 
   /// //www.gs1.org/voc/?show=properties).
   SchemaProperty? measuredProperty;
 
-  /// Identifies the denominator variable when an observation
-  /// represents a ratio or percentage.
+  /// Identifies the denominator variable when an observation represents a
+  /// ratio or percentage.
   SchemaStatisticalVariable? measurementDenominator;
 
-  /// A subproperty of [[measurementTechnique]] that can be used for
+  /// A subproperty of [SchemameasurementTechnique] that can be used for
   /// specifying specific methods, in particular via
-  /// [[MeasurementMethodEnum]].  Supported types: [DefinedTerm],
-  /// [MeasurementMethodEnum], [String], [String]
+  /// [SchemaMeasurementMethodEnum].
+  ///
+  /// Supported types: [SchemaDefinedTerm], [SchemaMeasurementMethodEnum],
+  /// [String], [String]
   dynamic measurementMethod;
 
-  /// Provides additional qualification to an observation For example,
-  /// a GDP observation measures the Nominal value.
+  /// Provides additional qualification to an observation. For example, a GDP
+  /// observation measures the Nominal value.
   SchemaEnumeration? measurementQualifier;
 
   /// "mass spectrometry" or "nmr spectroscopy" or "colorimetry" or
-  /// "immunofluorescence" If the [[variableMeasured]] is "depression
-  /// rating", the [[measurementTechnique]] could be "Zung Scale" or
-  /// "HAM-D" or "Beck Depression Inventory"   If there are several
-  /// [[variableMeasured]] properties recorded for some given data
-  /// object, use a [[PropertyValue]] for each [[variableMeasured]]
-  /// and attach the corresponding [[measurementTechnique]] The value
-  /// can also be from an enumeration, organized as a
-  /// [[MeasurementMetholdEnumeration]].  Supported types:
-  /// [DefinedTerm], [MeasurementMethodEnum], [String], [String]
+  /// "immunofluorescence". If the [SchemavariableMeasured] is "depression
+  /// rating", the [SchemameasurementTechnique] could be "Zung Scale" or
+  /// "HAM-D" or "Beck Depression Inventory".
+  ///
+  /// If there are several [SchemavariableMeasured] properties recorded for
+  /// some given data object, use a [SchemaPropertyValue] for each
+  /// [SchemavariableMeasured] and attach the corresponding
+  /// [SchemameasurementTechnique]. The value can also be from an enumeration,
+  /// organized as a [SchemaMeasurementMetholdEnumeration].
+  ///
+  /// Supported types: [SchemaDefinedTerm], [SchemaMeasurementMethodEnum],
+  /// [String], [String]
   dynamic measurementTechnique;
 
-  /// The [[observationAbout]] property identifies an entity, often a
-  /// [[Place]], associated with an [[Observation]].  Supported types:
-  /// [Place], [Thing]
+  /// The [SchemaobservationAbout] property identifies an entity, often a
+  /// [SchemaPlace], associated with an [SchemaObservation].
+  ///
+  /// Supported types: [SchemaPlace], [SchemaThing]
   dynamic observationAbout;
 
-  /// The observationDate of an [[Observation]].
+  /// The observationDate of an [SchemaObservation].
   String? observationDate;
 
-  /// The length of time an Observation took place over The format
-  /// follows `P[0-9]*[Y|M|D|h|m|s]` For example, P1Y is Period 1
-  /// Year, P3M is Period 3 Months, P3h is Period 3 hours.
+  /// The length of time an Observation took place over. The format follows
+  /// `P[0-9]*[Y|M|D|h|m|s]`. For example, P1Y is Period 1 Year, P3M is Period
+  /// 3 Months, P3h is Period 3 hours.
   String? observationPeriod;
 
-  /// The variableMeasured property can indicate (repeated as
-  /// necessary) the variables that are measured in some dataset,
-  /// either described as text or as pairs of identifier and
-  /// description using PropertyValue, or more explicitly as a
-  /// [[StatisticalVariable]].  Supported types: [Property],
-  /// [PropertyValue], [StatisticalVariable], [String]
+  /// The variableMeasured property can indicate (repeated as necessary) the
+  /// variables that are measured in some dataset, either described as text or
+  /// as pairs of identifier and description using PropertyValue, or more
+  /// explicitly as a [SchemaStatisticalVariable].
+  ///
+  /// Supported types: [SchemaProperty], [SchemaPropertyValue],
+  /// [SchemaStatisticalVariable], [String]
   dynamic variableMeasured;
 
-  /// //schema.org/gtin13, ...) will typically expect such data to be
-  /// provided using those properties, rather than using the generic
-  /// property/value mechanism.
+  /// //schema.org/gtin13, ...) will typically expect such data to be provided
+  /// using those properties, rather than using the generic property/value
+  /// mechanism.
   SchemaPropertyValue? additionalProperty;
 
   /// The upper value of some characteristic or property.
@@ -102,85 +110,94 @@ class SchemaObservation implements SchemaSerializable {
   int? minValue;
 
   /// The unit of measurement given using the UN/CEFACT Common Code (3
-  /// characters) or a URL Other codes than the UN/CEFACT Common Code
-  /// may be used with a prefix followed by a colon.  Supported types:
-  /// [String], [String]
+  /// characters) or a URL. Other codes than the UN/CEFACT Common Code may be
+  /// used with a prefix followed by a colon.
+  ///
+  /// Supported types: [String], [String]
   String? unitCode;
 
-  /// A string or text indicating the unit of measurement Useful if
-  /// you cannot provide a standard unit code for <a
-  /// href='unitCode'>unitCode</a>.
+  /// A string or text indicating the unit of measurement. Useful if you cannot
+  /// provide a standard unit code for <a href='unitCode'>unitCode</a>.
   String? unitText;
 
-  /// The value of a [[QuantitativeValue]] (including [[Observation]])
-  /// or property value node.\n\n* For [[QuantitativeValue]] and
-  /// [[MonetaryAmount]], the recommended type for values is
-  /// 'Number'.\n* For [[PropertyValue]], it can be 'Text', 'Number',
-  /// 'Boolean', or 'StructuredValue'.\n* Use values from 0123456789
-  /// (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather
-  /// than superficially similar Unicode symbols.\n* Use '.' (Unicode
-  /// 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal
-  /// point Avoid using these symbols as a readability separator.
-  /// Supported types: [String], [StructuredValue], [bool], [int]
+  /// The value of a [SchemaQuantitativeValue] (including [SchemaObservation])
+  /// or property value node.\n\n* For [SchemaQuantitativeValue] and
+  /// [SchemaMonetaryAmount], the recommended type for values is 'Number'.\n*
+  /// For [SchemaPropertyValue], it can be 'Text', 'Number', 'Boolean', or
+  /// 'StructuredValue'.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO'
+  /// (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similar
+  /// Unicode symbols.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than
+  /// ',' to indicate a decimal point. Avoid using these symbols as a
+  /// readability separator.
+  ///
+  /// Supported types: [String], [SchemaStructuredValue], [bool], [int]
   dynamic value;
 
-  /// A secondary value that provides additional information on the
-  /// original value, e.g a reference temperature or a type of
-  /// measurement.  Supported types: [DefinedTerm], [Enumeration],
-  /// [MeasurementTypeEnumeration], [PropertyValue],
-  /// [QualitativeValue], [QuantitativeValue], [String],
-  /// [StructuredValue]
+  /// A secondary value that provides additional information on the original
+  /// value, e.g. a reference temperature or a type of measurement.
+  ///
+  /// Supported types: [SchemaDefinedTerm], [SchemaEnumeration],
+  /// [SchemaMeasurementTypeEnumeration], [SchemaPropertyValue],
+  /// [SchemaQualitativeValue], [SchemaQuantitativeValue], [String],
+  /// [SchemaStructuredValue]
   dynamic valueReference;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.  Supported
-  /// types: [String], [String]
+  /// //schema.org/docs/styleguide.html">style guide</a>.
+  ///
+  /// Supported types: [String], [String]
   String? additionalType;
 
   /// An alias for the item.
   String? alternateName;
 
-  /// A description of the item.  Supported types: [String],
-  /// [TextObject]
+  /// A description of the item.
+  ///
+  /// Supported types: [String], [SchemaTextObject]
   dynamic description;
 
-  /// A sub property of description A short description of the item
-  /// used to disambiguate from other, similar items Information from
-  /// other properties (in particular, name) may be necessary for the
-  /// description to be useful for disambiguation.
+  /// A sub property of description. A short description of the item used to
+  /// disambiguate from other, similar items. Information from other properties
+  /// (in particular, name) may be necessary for the description to be useful
+  /// for disambiguation.
   String? disambiguatingDescription;
 
-  /// The identifier property represents any kind of identifier for
-  /// any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc
-  /// Schema.org provides dedicated properties for representing many
-  /// of these, either as textual strings or as URL (URI) links See
-  /// [background notes](/docs/datamodel.html#identifierBg) for more
-  /// details    Supported types: [PropertyValue], [String], [String]
+  /// The identifier property represents any kind of identifier for any kind of
+  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
+  /// dedicated properties for representing many of these, either as textual
+  /// strings or as URL (URI) links. See [background
+  /// notes](/docs/datamodel.html#identifierBg) for more details.
+  ///
+  /// Supported types: [SchemaPropertyValue], [String], [String]
   dynamic identifier;
 
-  /// An image of the item This can be a [[URL]] or a fully described
-  /// [[ImageObject]].  Supported types: [ImageObject], [String]
+  /// An image of the item. This can be a [SchemaURL] or a fully described
+  /// [SchemaImageObject].
+  ///
+  /// Supported types: [SchemaImageObject], [String]
   dynamic image;
 
-  /// Indicates a page (or other CreativeWork) for which this thing is
-  /// the main entity being described See [background
+  /// Indicates a page (or other CreativeWork) for which this thing is the main
+  /// entity being described. See [background
   /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  /// Supported types: [CreativeWork], [String]
+  ///
+  /// Supported types: [SchemaCreativeWork], [String]
   dynamic mainEntityOfPage;
 
   /// The name of the item.
   String? name;
 
-  /// Indicates a potential Action, which describes an idealized
-  /// action in which this thing would play an 'object' role.
+  /// Indicates a potential Action, which describes an idealized action in
+  /// which this thing would play an 'object' role.
   SchemaAction? potentialAction;
 
-  /// URL of a reference Web page that unambiguously indicates the
-  /// item's identity E.g the URL of the item's Wikipedia page,
-  /// Wikidata entry, or official website.
+  /// URL of a reference Web page that unambiguously indicates the item's
+  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
+  /// official website.
   String? sameAs;
 
-  /// A CreativeWork or Event about this Thing.  Supported types:
-  /// [CreativeWork], [Event]
+  /// A CreativeWork or Event about this Thing.
+  ///
+  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
   dynamic subjectOf;
 
   /// URL of the item.

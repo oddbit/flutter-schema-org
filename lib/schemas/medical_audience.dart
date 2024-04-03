@@ -1,5 +1,5 @@
-import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/src/schema_serializable.dart';
+import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
 import 'package:schema_org/schemas/medical_condition.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
@@ -14,15 +14,15 @@ import 'package:schema_org/schemas/event.dart';
 /// Target audiences for medical web pages.
 /// See https://schema.org/MedicalAudience
 class SchemaMedicalAudience implements SchemaSerializable {
-  /// The target group associated with a given audience (e.g veterans,
-  /// car owners, musicians, etc.).
+  /// The target group associated with a given audience (e.g. veterans, car
+  /// owners, musicians, etc.).
   String? audienceType;
 
   /// The geographic area associated with the audience.
   SchemaAdministrativeArea? geographicArea;
 
-  /// Specifying the health condition(s) of a patient, medical study,
-  /// or other target audience.
+  /// Specifying the health condition(s) of a patient, medical study, or other
+  /// target audience.
   SchemaMedicalCondition? healthCondition;
 
   /// Audiences defined by a person's gender.
@@ -34,76 +34,83 @@ class SchemaMedicalAudience implements SchemaSerializable {
   /// Audiences defined by a person's minimum age.
   int? requiredMinAge;
 
-  /// The age or age range for the intended audience or person, for
-  /// example 3-12 months for infants, 1-5 years for toddlers.
+  /// The age or age range for the intended audience or person, for example
+  /// 3-12 months for infants, 1-5 years for toddlers.
   SchemaQuantitativeValue? suggestedAge;
 
-  /// The suggested gender of the intended person or audience, for
-  /// example "male", "female", or "unisex".  Supported types:
-  /// [GenderType], [String]
+  /// The suggested gender of the intended person or audience, for example
+  /// "male", "female", or "unisex".
+  ///
+  /// Supported types: [SchemaGenderType], [String]
   dynamic suggestedGender;
 
   /// Maximum recommended age in years for the audience or user.
   int? suggestedMaxAge;
 
-  /// A suggested range of body measurements for the intended audience
-  /// or person, for example inseam between 32 and 34 inches or height
-  /// between 170 and 190 cm Typically found on a size chart for
-  /// wearable products.
+  /// A suggested range of body measurements for the intended audience or
+  /// person, for example inseam between 32 and 34 inches or height between 170
+  /// and 190 cm. Typically found on a size chart for wearable products.
   SchemaQuantitativeValue? suggestedMeasurement;
 
   /// Minimum recommended age in years for the audience or user.
   int? suggestedMinAge;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.  Supported
-  /// types: [String], [String]
+  /// //schema.org/docs/styleguide.html">style guide</a>.
+  ///
+  /// Supported types: [String], [String]
   String? additionalType;
 
   /// An alias for the item.
   String? alternateName;
 
-  /// A description of the item.  Supported types: [String],
-  /// [TextObject]
+  /// A description of the item.
+  ///
+  /// Supported types: [String], [SchemaTextObject]
   dynamic description;
 
-  /// A sub property of description A short description of the item
-  /// used to disambiguate from other, similar items Information from
-  /// other properties (in particular, name) may be necessary for the
-  /// description to be useful for disambiguation.
+  /// A sub property of description. A short description of the item used to
+  /// disambiguate from other, similar items. Information from other properties
+  /// (in particular, name) may be necessary for the description to be useful
+  /// for disambiguation.
   String? disambiguatingDescription;
 
-  /// The identifier property represents any kind of identifier for
-  /// any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc
-  /// Schema.org provides dedicated properties for representing many
-  /// of these, either as textual strings or as URL (URI) links See
-  /// [background notes](/docs/datamodel.html#identifierBg) for more
-  /// details    Supported types: [PropertyValue], [String], [String]
+  /// The identifier property represents any kind of identifier for any kind of
+  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
+  /// dedicated properties for representing many of these, either as textual
+  /// strings or as URL (URI) links. See [background
+  /// notes](/docs/datamodel.html#identifierBg) for more details.
+  ///
+  /// Supported types: [SchemaPropertyValue], [String], [String]
   dynamic identifier;
 
-  /// An image of the item This can be a [[URL]] or a fully described
-  /// [[ImageObject]].  Supported types: [ImageObject], [String]
+  /// An image of the item. This can be a [SchemaURL] or a fully described
+  /// [SchemaImageObject].
+  ///
+  /// Supported types: [SchemaImageObject], [String]
   dynamic image;
 
-  /// Indicates a page (or other CreativeWork) for which this thing is
-  /// the main entity being described See [background
+  /// Indicates a page (or other CreativeWork) for which this thing is the main
+  /// entity being described. See [background
   /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  /// Supported types: [CreativeWork], [String]
+  ///
+  /// Supported types: [SchemaCreativeWork], [String]
   dynamic mainEntityOfPage;
 
   /// The name of the item.
   String? name;
 
-  /// Indicates a potential Action, which describes an idealized
-  /// action in which this thing would play an 'object' role.
+  /// Indicates a potential Action, which describes an idealized action in
+  /// which this thing would play an 'object' role.
   SchemaAction? potentialAction;
 
-  /// URL of a reference Web page that unambiguously indicates the
-  /// item's identity E.g the URL of the item's Wikipedia page,
-  /// Wikidata entry, or official website.
+  /// URL of a reference Web page that unambiguously indicates the item's
+  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
+  /// official website.
   String? sameAs;
 
-  /// A CreativeWork or Event about this Thing.  Supported types:
-  /// [CreativeWork], [Event]
+  /// A CreativeWork or Event about this Thing.
+  ///
+  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
   dynamic subjectOf;
 
   /// URL of the item.

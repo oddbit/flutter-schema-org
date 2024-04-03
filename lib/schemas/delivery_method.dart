@@ -6,7 +6,7 @@ enum SchemaDeliveryMethod implements SchemaSerializable {
   /// A DeliveryMethod in which an item is made available via locker.
   lockerDelivery('https://schema.org/DeliveryMethod'),
 
-  /// A DeliveryMethod in which an item is collected on site, e.g in a
+  /// A DeliveryMethod in which an item is collected on site, e.g. in a
   /// store or at a box office.
   onSitePickup('https://schema.org/DeliveryMethod'),
 

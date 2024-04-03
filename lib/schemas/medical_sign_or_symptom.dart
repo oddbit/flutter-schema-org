@@ -1,5 +1,5 @@
-import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/src/schema_serializable.dart';
+import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/medical_therapy.dart';
 import 'package:schema_org/schemas/anatomical_structure.dart';
 import 'package:schema_org/schemas/anatomical_system.dart';
@@ -27,162 +27,169 @@ import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/action.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// Any feature associated or not with a medical condition In
-/// medicine a symptom is generally subjective while a sign is
-/// objective.
+/// Any feature associated or not with a medical condition. In medicine a
+/// symptom is generally subjective while a sign is objective.
 /// See https://schema.org/MedicalSignOrSymptom
 class SchemaMedicalSignOrSymptom implements SchemaSerializable {
   /// A possible treatment to address this condition, sign or symptom.
   SchemaMedicalTherapy? possibleTreatment;
 
-  /// The anatomy of the underlying organ system or structures
-  /// associated with this entity.  Supported types:
-  /// [AnatomicalStructure], [AnatomicalSystem], [SuperficialAnatomy]
+  /// The anatomy of the underlying organ system or structures associated with
+  /// this entity.
+  ///
+  /// Supported types: [SchemaAnatomicalStructure], [SchemaAnatomicalSystem],
+  /// [SchemaSuperficialAnatomy]
   dynamic associatedAnatomy;
 
-  /// One of a set of differential diagnoses for the condition
-  /// Specifically, a closely-related or competing diagnosis typically
-  /// considered later in the cognitive process whereby this medical
-  /// condition is distinguished from others most likely responsible
-  /// for a similar collection of signs and symptoms to reach the most
-  /// parsimonious diagnosis or diagnoses in a patient.
+  /// One of a set of differential diagnoses for the condition. Specifically, a
+  /// closely-related or competing diagnosis typically considered later in the
+  /// cognitive process whereby this medical condition is distinguished from
+  /// others most likely responsible for a similar collection of signs and
+  /// symptoms to reach the most parsimonious diagnosis or diagnoses in a
+  /// patient.
   SchemaDDxElement? differentialDiagnosis;
 
   /// Specifying a drug or medicine used in a medication procedure.
   SchemaDrug? drug;
 
-  /// The characteristics of associated patients, such as age, gender,
-  /// race etc.
+  /// The characteristics of associated patients, such as age, gender, race
+  /// etc.
   String? epidemiology;
 
-  /// The likely outcome in either the short term or long term of the
-  /// medical condition.
+  /// The likely outcome in either the short term or long term of the medical
+  /// condition.
   String? expectedPrognosis;
 
-  /// The expected progression of the condition if it is not treated
-  /// and allowed to progress naturally.
+  /// The expected progression of the condition if it is not treated and
+  /// allowed to progress naturally.
   String? naturalProgression;
 
-  /// Changes in the normal mechanical, physical, and biochemical
-  /// functions that are associated with this activity or condition.
+  /// Changes in the normal mechanical, physical, and biochemical functions
+  /// that are associated with this activity or condition.
   String? pathophysiology;
 
-  /// A possible unexpected and unfavorable evolution of a medical
-  /// condition Complications may include worsening of the signs or
-  /// symptoms of the disease, extension of the condition to other
-  /// organ systems, etc.
+  /// A possible unexpected and unfavorable evolution of a medical condition.
+  /// Complications may include worsening of the signs or symptoms of the
+  /// disease, extension of the condition to other organ systems, etc.
   String? possibleComplication;
 
-  /// A preventative therapy used to prevent an initial occurrence of
-  /// the medical condition, such as vaccination.
+  /// A preventative therapy used to prevent an initial occurrence of the
+  /// medical condition, such as vaccination.
   SchemaMedicalTherapy? primaryPrevention;
 
-  /// A modifiable or non-modifiable factor that increases the risk of
-  /// a patient contracting this condition, e.g age, coexisting
-  /// condition.
+  /// A modifiable or non-modifiable factor that increases the risk of a
+  /// patient contracting this condition, e.g. age, coexisting condition.
   SchemaMedicalRiskFactor? riskFactor;
 
-  /// A preventative therapy used to prevent reoccurrence of the
-  /// medical condition after an initial episode of the condition.
+  /// A preventative therapy used to prevent reoccurrence of the medical
+  /// condition after an initial episode of the condition.
   SchemaMedicalTherapy? secondaryPrevention;
 
-  /// A sign or symptom of this condition Signs are objective or
-  /// physically observable manifestations of the medical condition
-  /// while symptoms are the subjective experience of the medical
-  /// condition.
+  /// A sign or symptom of this condition. Signs are objective or physically
+  /// observable manifestations of the medical condition while symptoms are the
+  /// subjective experience of the medical condition.
   SchemaMedicalSignOrSymptom? signOrSymptom;
 
   /// The stage of the condition, if applicable.
   SchemaMedicalConditionStage? stage;
 
-  /// The status of the study (enumerated).  Supported types:
-  /// [EventStatusType], [MedicalStudyStatus], [String]
+  /// The status of the study (enumerated).
+  ///
+  /// Supported types: [SchemaEventStatusType], [SchemaMedicalStudyStatus],
+  /// [String]
   dynamic status;
 
   /// A medical test typically performed given this condition.
   SchemaMedicalTest? typicalTest;
 
-  /// A medical code for the entity, taken from a controlled
-  /// vocabulary or ontology such as ICD-9, DiseasesDB, MeSH,
-  /// SNOMED-CT, RxNorm, etc.
+  /// A medical code for the entity, taken from a controlled vocabulary or
+  /// ontology such as ICD-9, DiseasesDB, MeSH, SNOMED-CT, RxNorm, etc.
   SchemaMedicalCode? code;
 
-  /// A [[Grant]] that directly or indirectly provide funding or
-  /// sponsorship for this item See also [[ownershipFundingInfo]].
+  /// A [SchemaGrant] that directly or indirectly provide funding or
+  /// sponsorship for this item. See also [SchemaownershipFundingInfo].
   SchemaGrant? funding;
 
   /// A medical guideline related to this entity.
   SchemaMedicalGuideline? guideline;
 
-  /// The drug or supplement's legal status, including any controlled
-  /// substance schedules that apply.  Supported types:
-  /// [DrugLegalStatus], [MedicalEnumeration], [String]
+  /// The drug or supplement's legal status, including any controlled substance
+  /// schedules that apply.
+  ///
+  /// Supported types: [SchemaDrugLegalStatus], [SchemaMedicalEnumeration],
+  /// [String]
   dynamic legalStatus;
 
-  /// The system of medicine that includes this MedicalEntity, for
-  /// example 'evidence-based', 'homeopathic', 'chiropractic', etc.
+  /// The system of medicine that includes this MedicalEntity, for example
+  /// 'evidence-based', 'homeopathic', 'chiropractic', etc.
   SchemaMedicineSystem? medicineSystem;
 
-  /// If applicable, the organization that officially recognizes this
-  /// entity as part of its endorsed system of medicine.
+  /// If applicable, the organization that officially recognizes this entity as
+  /// part of its endorsed system of medicine.
   SchemaOrganization? recognizingAuthority;
 
-  /// If applicable, a medical specialty in which this entity is
-  /// relevant.
+  /// If applicable, a medical specialty in which this entity is relevant.
   SchemaMedicalSpecialty? relevantSpecialty;
 
   /// A medical study or trial related to this entity.
   SchemaMedicalStudy? study;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.  Supported
-  /// types: [String], [String]
+  /// //schema.org/docs/styleguide.html">style guide</a>.
+  ///
+  /// Supported types: [String], [String]
   String? additionalType;
 
   /// An alias for the item.
   String? alternateName;
 
-  /// A description of the item.  Supported types: [String],
-  /// [TextObject]
+  /// A description of the item.
+  ///
+  /// Supported types: [String], [SchemaTextObject]
   dynamic description;
 
-  /// A sub property of description A short description of the item
-  /// used to disambiguate from other, similar items Information from
-  /// other properties (in particular, name) may be necessary for the
-  /// description to be useful for disambiguation.
+  /// A sub property of description. A short description of the item used to
+  /// disambiguate from other, similar items. Information from other properties
+  /// (in particular, name) may be necessary for the description to be useful
+  /// for disambiguation.
   String? disambiguatingDescription;
 
-  /// The identifier property represents any kind of identifier for
-  /// any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc
-  /// Schema.org provides dedicated properties for representing many
-  /// of these, either as textual strings or as URL (URI) links See
-  /// [background notes](/docs/datamodel.html#identifierBg) for more
-  /// details    Supported types: [PropertyValue], [String], [String]
+  /// The identifier property represents any kind of identifier for any kind of
+  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
+  /// dedicated properties for representing many of these, either as textual
+  /// strings or as URL (URI) links. See [background
+  /// notes](/docs/datamodel.html#identifierBg) for more details.
+  ///
+  /// Supported types: [SchemaPropertyValue], [String], [String]
   dynamic identifier;
 
-  /// An image of the item This can be a [[URL]] or a fully described
-  /// [[ImageObject]].  Supported types: [ImageObject], [String]
+  /// An image of the item. This can be a [SchemaURL] or a fully described
+  /// [SchemaImageObject].
+  ///
+  /// Supported types: [SchemaImageObject], [String]
   dynamic image;
 
-  /// Indicates a page (or other CreativeWork) for which this thing is
-  /// the main entity being described See [background
+  /// Indicates a page (or other CreativeWork) for which this thing is the main
+  /// entity being described. See [background
   /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  /// Supported types: [CreativeWork], [String]
+  ///
+  /// Supported types: [SchemaCreativeWork], [String]
   dynamic mainEntityOfPage;
 
   /// The name of the item.
   String? name;
 
-  /// Indicates a potential Action, which describes an idealized
-  /// action in which this thing would play an 'object' role.
+  /// Indicates a potential Action, which describes an idealized action in
+  /// which this thing would play an 'object' role.
   SchemaAction? potentialAction;
 
-  /// URL of a reference Web page that unambiguously indicates the
-  /// item's identity E.g the URL of the item's Wikipedia page,
-  /// Wikidata entry, or official website.
+  /// URL of a reference Web page that unambiguously indicates the item's
+  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
+  /// official website.
   String? sameAs;
 
-  /// A CreativeWork or Event about this Thing.  Supported types:
-  /// [CreativeWork], [Event]
+  /// A CreativeWork or Event about this Thing.
+  ///
+  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
   dynamic subjectOf;
 
   /// URL of the item.

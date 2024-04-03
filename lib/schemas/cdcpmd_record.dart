@@ -1,5 +1,5 @@
-import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/src/schema_serializable.dart';
+import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/image_object.dart';
@@ -7,73 +7,70 @@ import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/action.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// A CDCPMDRecord is a data structure representing a record in a
-/// CDC tabular data format  used for hospital data reporting See
-/// [documentation](/docs/cdc-covid.html) for details, and the
-/// linked CDC materials for authoritative  definitions used as the
-/// source here.
+/// A CDCPMDRecord is a data structure representing a record in a CDC tabular
+/// data format used for hospital data reporting. See
+/// [documentation](/docs/cdc-covid.html) for details, and the linked CDC
+/// materials for authoritative definitions used as the source here.
 /// See https://schema.org/CDCPMDRecord
 class SchemaCDCPMDRecord implements SchemaSerializable {
   /// collectiondate - Date for which patient counts are reported.
+  ///
   /// Supported types: [String], [String]
   String? cvdCollectionDate;
 
-  /// Name of the County of the NHSN facility that this data record
-  /// applies to Use [[cvdFacilityId]] to identify the facility To
-  /// provide other details, [[healthcareReportingData]] can be used
-  /// on a [[Hospital]] entry.
+  /// Name of the County of the NHSN facility that this data record applies to.
+  /// Use [SchemacvdFacilityId] to identify the facility. To provide other
+  /// details, [SchemahealthcareReportingData] can be used on a
+  /// [SchemaHospital] entry.
   String? cvdFacilityCounty;
 
-  /// Identifier of the NHSN facility that this data record applies to
-  /// Use [[cvdFacilityCounty]] to indicate the county To provide
-  /// other details, [[healthcareReportingData]] can be used on a
-  /// [[Hospital]] entry.
+  /// Identifier of the NHSN facility that this data record applies to. Use
+  /// [SchemacvdFacilityCounty] to indicate the county. To provide other
+  /// details, [SchemahealthcareReportingData] can be used on a
+  /// [SchemaHospital] entry.
   String? cvdFacilityId;
 
-  /// Inpatient beds, including all staffed, licensed, and overflow
-  /// (surge) beds used for inpatients.
+  /// Inpatient beds, including all staffed, licensed, and overflow (surge)
+  /// beds used for inpatients.
   int? cvdNumBeds;
 
   /// Total number of staffed inpatient beds that are occupied.
   int? cvdNumBedsOcc;
 
-  /// Patients with suspected or confirmed COVID-19 who died in the
-  /// hospital, ED, or any overflow location.
+  /// Patients with suspected or confirmed COVID-19 who died in the hospital,
+  /// ED, or any overflow location.
   int? cvdNumC19Died;
 
-  /// Patients hospitalized in an NHSN inpatient care location with
-  /// onset of suspected or confirmed COVID-19 14 or more days after
-  /// hospitalization.
+  /// Patients hospitalized in an NHSN inpatient care location with onset of
+  /// suspected or confirmed COVID-19 14 or more days after hospitalization.
   int? cvdNumC19HOPats;
 
-  /// Patients currently hospitalized in an inpatient care location
-  /// who have suspected or confirmed COVID-19.
+  /// Patients currently hospitalized in an inpatient care location who have
+  /// suspected or confirmed COVID-19.
   int? cvdNumC19HospPats;
 
-  /// Patients hospitalized in an NHSN inpatient care location who
-  /// have suspected or confirmed COVID-19 and are on a mechanical
-  /// ventilator.
+  /// Patients hospitalized in an NHSN inpatient care location who have
+  /// suspected or confirmed COVID-19 and are on a mechanical ventilator.
   int? cvdNumC19MechVentPats;
 
-  /// Patients with suspected or confirmed COVID-19 who are in the ED
-  /// or any overflow location awaiting an inpatient bed and on a
-  /// mechanical ventilator.
+  /// Patients with suspected or confirmed COVID-19 who are in the ED or any
+  /// overflow location awaiting an inpatient bed and on a mechanical
+  /// ventilator.
   int? cvdNumC19OFMechVentPats;
 
-  /// Patients with suspected or confirmed COVID-19 who are in the ED
-  /// or any overflow location awaiting an inpatient bed.
+  /// Patients with suspected or confirmed COVID-19 who are in the ED or any
+  /// overflow location awaiting an inpatient bed.
   int? cvdNumC19OverflowPats;
 
-  /// Total number of staffed inpatient intensive care unit (ICU)
-  /// beds.
+  /// Total number of staffed inpatient intensive care unit (ICU) beds.
   int? cvdNumICUBeds;
 
   /// Total number of staffed inpatient ICU beds that are occupied.
   int? cvdNumICUBedsOcc;
 
-  /// Total number of all inpatient and outpatient beds, including all
-  /// staffed, ICU, licensed, and overflow (surge) beds used for
-  /// inpatients or outpatients.
+  /// Total number of all inpatient and outpatient beds, including all staffed,
+  /// ICU, licensed, and overflow (surge) beds used for inpatients or
+  /// outpatients.
   int? cvdNumTotBeds;
 
   /// Total number of ventilators available.
@@ -82,59 +79,67 @@ class SchemaCDCPMDRecord implements SchemaSerializable {
   /// Total number of ventilators in use.
   int? cvdNumVentUse;
 
-  /// Publication date of an online listing.  Supported types:
-  /// [String], [String]
+  /// Publication date of an online listing.
+  ///
+  /// Supported types: [String], [String]
   String? datePosted;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.  Supported
-  /// types: [String], [String]
+  /// //schema.org/docs/styleguide.html">style guide</a>.
+  ///
+  /// Supported types: [String], [String]
   String? additionalType;
 
   /// An alias for the item.
   String? alternateName;
 
-  /// A description of the item.  Supported types: [String],
-  /// [TextObject]
+  /// A description of the item.
+  ///
+  /// Supported types: [String], [SchemaTextObject]
   dynamic description;
 
-  /// A sub property of description A short description of the item
-  /// used to disambiguate from other, similar items Information from
-  /// other properties (in particular, name) may be necessary for the
-  /// description to be useful for disambiguation.
+  /// A sub property of description. A short description of the item used to
+  /// disambiguate from other, similar items. Information from other properties
+  /// (in particular, name) may be necessary for the description to be useful
+  /// for disambiguation.
   String? disambiguatingDescription;
 
-  /// The identifier property represents any kind of identifier for
-  /// any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc
-  /// Schema.org provides dedicated properties for representing many
-  /// of these, either as textual strings or as URL (URI) links See
-  /// [background notes](/docs/datamodel.html#identifierBg) for more
-  /// details    Supported types: [PropertyValue], [String], [String]
+  /// The identifier property represents any kind of identifier for any kind of
+  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
+  /// dedicated properties for representing many of these, either as textual
+  /// strings or as URL (URI) links. See [background
+  /// notes](/docs/datamodel.html#identifierBg) for more details.
+  ///
+  /// Supported types: [SchemaPropertyValue], [String], [String]
   dynamic identifier;
 
-  /// An image of the item This can be a [[URL]] or a fully described
-  /// [[ImageObject]].  Supported types: [ImageObject], [String]
+  /// An image of the item. This can be a [SchemaURL] or a fully described
+  /// [SchemaImageObject].
+  ///
+  /// Supported types: [SchemaImageObject], [String]
   dynamic image;
 
-  /// Indicates a page (or other CreativeWork) for which this thing is
-  /// the main entity being described See [background
+  /// Indicates a page (or other CreativeWork) for which this thing is the main
+  /// entity being described. See [background
   /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  /// Supported types: [CreativeWork], [String]
+  ///
+  /// Supported types: [SchemaCreativeWork], [String]
   dynamic mainEntityOfPage;
 
   /// The name of the item.
   String? name;
 
-  /// Indicates a potential Action, which describes an idealized
-  /// action in which this thing would play an 'object' role.
+  /// Indicates a potential Action, which describes an idealized action in
+  /// which this thing would play an 'object' role.
   SchemaAction? potentialAction;
 
-  /// URL of a reference Web page that unambiguously indicates the
-  /// item's identity E.g the URL of the item's Wikipedia page,
-  /// Wikidata entry, or official website.
+  /// URL of a reference Web page that unambiguously indicates the item's
+  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
+  /// official website.
   String? sameAs;
 
-  /// A CreativeWork or Event about this Thing.  Supported types:
-  /// [CreativeWork], [Event]
+  /// A CreativeWork or Event about this Thing.
+  ///
+  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
   dynamic subjectOf;
 
   /// URL of the item.

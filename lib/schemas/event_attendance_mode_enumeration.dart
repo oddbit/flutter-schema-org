@@ -1,16 +1,16 @@
 import 'package:schema_org/src/schema_serializable.dart';
 
-/// An EventAttendanceModeEnumeration value is one of potentially
-/// several modes of organising an event, relating to whether it is
-/// online or offline.
+/// An EventAttendanceModeEnumeration value is one of potentially several
+/// modes of organising an event, relating to whether it is online or
+/// offline.
 /// See https://schema.org/EventAttendanceModeEnumeration
 enum SchemaEventAttendanceModeEnumeration implements SchemaSerializable {
   /// MixedEventAttendanceMode - an event that is conducted as a
   /// combination of both offline and online modes.
   mixedEventAttendanceMode('https://schema.org/EventAttendanceModeEnumeration'),
 
-  /// OfflineEventAttendanceMode - an event that is primarily
-  /// conducted offline.
+  /// OfflineEventAttendanceMode - an event that is primarily conducted
+  /// offline.
   offlineEventAttendanceMode(
       'https://schema.org/EventAttendanceModeEnumeration'),
 

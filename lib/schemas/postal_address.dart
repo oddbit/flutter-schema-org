@@ -1,5 +1,5 @@
-import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/src/schema_serializable.dart';
+import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/country.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
 import 'package:schema_org/schemas/geo_shape.dart';
@@ -18,44 +18,45 @@ import 'package:schema_org/schemas/event.dart';
 /// The mailing address.
 /// See https://schema.org/PostalAddress
 class SchemaPostalAddress implements SchemaSerializable {
-  /// //en.wikipedia.org/wiki/ISO_3166-1).  Supported types:
-  /// [Country], [String]
+  /// //en.wikipedia.org/wiki/ISO_3166-1).
+  ///
+  /// Supported types: [SchemaCountry], [String]
   dynamic addressCountry;
 
-  /// The locality in which the street address is, and which is in the
-  /// region For example, Mountain View.
+  /// The locality in which the street address is, and which is in the region.
+  /// For example, Mountain View.
   String? addressLocality;
 
-  ///
   /// //en.wikipedia.org/wiki/List_of_administrative_divisions_by_country).
   String? addressRegion;
 
   /// The post office box number for PO box addresses.
   String? postOfficeBoxNumber;
 
-  /// The postal code For example, 94043.
+  /// The postal code. For example, 94043.
   String? postalCode;
 
-  /// The street address For example, 1600 Amphitheatre Pkwy.
+  /// The street address. For example, 1600 Amphitheatre Pkwy.
   String? streetAddress;
 
   /// The geographic area where a service or offered item is provided.
-  /// Supported types: [AdministrativeArea], [GeoShape], [Place],
-  /// [String]
+  ///
+  /// Supported types: [SchemaAdministrativeArea], [SchemaGeoShape],
+  /// [SchemaPlace], [String]
   dynamic areaServed;
 
-  /// //tools.ietf.org/html/bcp47) See also [[inLanguage]].  Supported
-  /// types: [Language], [String]
+  /// //tools.ietf.org/html/bcp47). See also [SchemainLanguage].
+  ///
+  /// Supported types: [SchemaLanguage], [String]
   dynamic availableLanguage;
 
-  /// An option available on this contact point (e.g a toll-free
-  /// number or support for hearing-impaired callers).
+  /// An option available on this contact point (e.g. a toll-free number or
+  /// support for hearing-impaired callers).
   SchemaContactPointOption? contactOption;
 
-  /// A person or organization can have different contact points, for
-  /// different purposes For example, a sales contact point, a PR
-  /// contact point and so on This property is used to specify the
-  /// kind of contact point.
+  /// A person or organization can have different contact points, for different
+  /// purposes. For example, a sales contact point, a PR contact point and so
+  /// on. This property is used to specify the kind of contact point.
   String? contactType;
 
   /// Email address.
@@ -67,69 +68,79 @@ class SchemaPostalAddress implements SchemaSerializable {
   /// The hours during which this service or contact is available.
   SchemaOpeningHoursSpecification? hoursAvailable;
 
-  /// The product or service this support contact point is related to
-  /// (such as product support for a particular product line) This can
-  /// be a specific product or product line (e.g "iPhone") or a
-  /// general category of products or services (e.g "smartphones").
-  /// Supported types: [Product], [String]
+  /// The product or service this support contact point is related to (such as
+  /// product support for a particular product line). This can be a specific
+  /// product or product line (e.g. "iPhone") or a general category of products
+  /// or services (e.g. "smartphones").
+  ///
+  /// Supported types: [SchemaProduct], [String]
   dynamic productSupported;
 
-  /// The geographic area where the service is provided.  Supported
-  /// types: [AdministrativeArea], [GeoShape], [Place]
+  /// The geographic area where the service is provided.
+  ///
+  /// Supported types: [SchemaAdministrativeArea], [SchemaGeoShape],
+  /// [SchemaPlace]
   dynamic serviceArea;
 
   /// The telephone number.
   String? telephone;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.  Supported
-  /// types: [String], [String]
+  /// //schema.org/docs/styleguide.html">style guide</a>.
+  ///
+  /// Supported types: [String], [String]
   String? additionalType;
 
   /// An alias for the item.
   String? alternateName;
 
-  /// A description of the item.  Supported types: [String],
-  /// [TextObject]
+  /// A description of the item.
+  ///
+  /// Supported types: [String], [SchemaTextObject]
   dynamic description;
 
-  /// A sub property of description A short description of the item
-  /// used to disambiguate from other, similar items Information from
-  /// other properties (in particular, name) may be necessary for the
-  /// description to be useful for disambiguation.
+  /// A sub property of description. A short description of the item used to
+  /// disambiguate from other, similar items. Information from other properties
+  /// (in particular, name) may be necessary for the description to be useful
+  /// for disambiguation.
   String? disambiguatingDescription;
 
-  /// The identifier property represents any kind of identifier for
-  /// any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc
-  /// Schema.org provides dedicated properties for representing many
-  /// of these, either as textual strings or as URL (URI) links See
-  /// [background notes](/docs/datamodel.html#identifierBg) for more
-  /// details    Supported types: [PropertyValue], [String], [String]
+  /// The identifier property represents any kind of identifier for any kind of
+  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
+  /// dedicated properties for representing many of these, either as textual
+  /// strings or as URL (URI) links. See [background
+  /// notes](/docs/datamodel.html#identifierBg) for more details.
+  ///
+  /// Supported types: [SchemaPropertyValue], [String], [String]
   dynamic identifier;
 
-  /// An image of the item This can be a [[URL]] or a fully described
-  /// [[ImageObject]].  Supported types: [ImageObject], [String]
+  /// An image of the item. This can be a [SchemaURL] or a fully described
+  /// [SchemaImageObject].
+  ///
+  /// Supported types: [SchemaImageObject], [String]
   dynamic image;
 
-  /// Indicates a page (or other CreativeWork) for which this thing is
-  /// the main entity being described See [background
+  /// Indicates a page (or other CreativeWork) for which this thing is the main
+  /// entity being described. See [background
   /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  /// Supported types: [CreativeWork], [String]
+  ///
+  /// Supported types: [SchemaCreativeWork], [String]
   dynamic mainEntityOfPage;
 
   /// The name of the item.
   String? name;
 
-  /// Indicates a potential Action, which describes an idealized
-  /// action in which this thing would play an 'object' role.
+  /// Indicates a potential Action, which describes an idealized action in
+  /// which this thing would play an 'object' role.
   SchemaAction? potentialAction;
 
-  /// URL of a reference Web page that unambiguously indicates the
-  /// item's identity E.g the URL of the item's Wikipedia page,
-  /// Wikidata entry, or official website.
+  /// URL of a reference Web page that unambiguously indicates the item's
+  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
+  /// official website.
   String? sameAs;
 
-  /// A CreativeWork or Event about this Thing.  Supported types:
-  /// [CreativeWork], [Event]
+  /// A CreativeWork or Event about this Thing.
+  ///
+  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
   dynamic subjectOf;
 
   /// URL of the item.

@@ -1,6 +1,6 @@
 import 'package:schema_org/schemas/medical_enumeration.dart';
 
-/// The status of a medical study Enumerated type.
+/// The status of a medical study. Enumerated type.
 /// See https://schema.org/MedicalStudyStatus
 enum SchemaMedicalStudyStatus implements SchemaMedicalEnumeration {
   /// Active, but not recruiting new participants.

@@ -10,12 +10,12 @@ enum SchemaReservationStatusType implements SchemaStatusEnumeration {
   /// The status of a confirmed reservation.
   reservationConfirmed('https://schema.org/ReservationStatusType'),
 
-  /// The status of a reservation on hold pending an update like
-  /// credit card number or flight changes.
+  /// The status of a reservation on hold pending an update like credit
+  /// card number or flight changes.
   reservationHold('https://schema.org/ReservationStatusType'),
 
-  /// The status of a reservation when a request has been sent, but
-  /// not confirmed.
+  /// The status of a reservation when a request has been sent, but not
+  /// confirmed.
   reservationPending('https://schema.org/ReservationStatusType');
 
   /// Constructor for [SchemaReservationStatusType]

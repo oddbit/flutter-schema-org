@@ -1,7 +1,7 @@
 import 'package:schema_org/src/schema_serializable.dart';
 
-/// RsvpResponseType is an enumeration type whose instances
-/// represent responding to an RSVP request.
+/// RsvpResponseType is an enumeration type whose instances represent
+/// responding to an RSVP request.
 /// See https://schema.org/RsvpResponseType
 enum SchemaRsvpResponseType implements SchemaSerializable {
   /// The invitee may or may not attend.

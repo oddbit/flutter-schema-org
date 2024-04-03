@@ -1,7 +1,7 @@
 import 'package:schema_org/src/schema_serializable.dart';
 
-/// Format of this release (the type of recording media used, i.e
-/// compact disc, digital media, LP, etc.).
+/// Format of this release (the type of recording media used, i.e. compact
+/// disc, digital media, LP, etc.).
 /// See https://schema.org/MusicReleaseFormatType
 enum SchemaMusicReleaseFormatType implements SchemaSerializable {
   /// CDFormat.

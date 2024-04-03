@@ -1,7 +1,7 @@
 import 'package:schema_org/src/schema_serializable.dart';
 
-/// A type of permission which can be granted for accessing a
-/// digital document.
+/// A type of permission which can be granted for accessing a digital
+/// document.
 /// See https://schema.org/DigitalDocumentPermissionType
 enum SchemaDigitalDocumentPermissionType implements SchemaSerializable {
   /// Permission to add comments to the document.

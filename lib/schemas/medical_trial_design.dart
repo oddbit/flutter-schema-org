@@ -1,11 +1,10 @@
 import 'package:schema_org/schemas/medical_enumeration.dart';
 
-/// Design models for medical trials Enumerated type.
+/// Design models for medical trials. Enumerated type.
 /// See https://schema.org/MedicalTrialDesign
 enum SchemaMedicalTrialDesign implements SchemaMedicalEnumeration {
-  /// A trial design in which neither the researcher nor the patient
-  /// knows the details of the treatment the patient was randomly
-  /// assigned to.
+  /// A trial design in which neither the researcher nor the patient knows
+  /// the details of the treatment the patient was randomly assigned to.
   doubleBlindedTrial('https://schema.org/MedicalTrialDesign'),
 
   /// An international trial.
@@ -14,8 +13,8 @@ enum SchemaMedicalTrialDesign implements SchemaMedicalEnumeration {
   /// A trial that takes place at multiple centers.
   multiCenterTrial('https://schema.org/MedicalTrialDesign'),
 
-  /// A trial design in which the researcher knows the full details of
-  /// the treatment, and so does the patient.
+  /// A trial design in which the researcher knows the full details of the
+  /// treatment, and so does the patient.
   openTrial('https://schema.org/MedicalTrialDesign'),
 
   /// A placebo-controlled trial design.
@@ -32,8 +31,8 @@ enum SchemaMedicalTrialDesign implements SchemaMedicalEnumeration {
   singleCenterTrial('https://schema.org/MedicalTrialDesign'),
 
   /// A trial design in which neither the researcher, the person
-  /// administering the therapy nor the patient knows the details of
-  /// the treatment the patient was randomly assigned to.
+  /// administering the therapy nor the patient knows the details of the
+  /// treatment the patient was randomly assigned to.
   tripleBlindedTrial('https://schema.org/MedicalTrialDesign');
 
   /// Constructor for [SchemaMedicalTrialDesign]

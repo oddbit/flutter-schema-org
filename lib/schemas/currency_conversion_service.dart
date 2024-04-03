@@ -1,5 +1,5 @@
-import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/src/schema_serializable.dart';
+import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
@@ -29,187 +29,208 @@ import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/action.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// A service to convert funds from one currency to another
-/// currency.
+/// A service to convert funds from one currency to another currency.
 /// See https://schema.org/CurrencyConversionService
 class SchemaCurrencyConversionService implements SchemaSerializable {
-  /// The annual rate that is charged for borrowing (or made by
-  /// investing), expressed as a single percentage number that
-  /// represents the actual yearly cost of funds over the term of a
-  /// loan This includes any fees or additional costs associated with
-  /// the transaction.  Supported types: [QuantitativeValue], [int]
+  /// The annual rate that is charged for borrowing (or made by investing),
+  /// expressed as a single percentage number that represents the actual yearly
+  /// cost of funds over the term of a loan. This includes any fees or
+  /// additional costs associated with the transaction.
+  ///
+  /// Supported types: [SchemaQuantitativeValue], [int]
   dynamic annualPercentageRate;
 
-  /// Description of fees, commissions, and other terms applied either
-  /// to a class of financial product, or by a financial service
-  /// organization.  Supported types: [String], [String]
+  /// Description of fees, commissions, and other terms applied either to a
+  /// class of financial product, or by a financial service organization.
+  ///
+  /// Supported types: [String], [String]
   String? feesAndCommissionsSpecification;
 
   /// This is different from the calculated annualPercentageRate.
-  /// Supported types: [QuantitativeValue], [int]
+  ///
+  /// Supported types: [SchemaQuantitativeValue], [int]
   dynamic interestRate;
 
-  /// The overall rating, based on a collection of reviews or ratings,
-  /// of the item.
+  /// The overall rating, based on a collection of reviews or ratings, of the
+  /// item.
   SchemaAggregateRating? aggregateRating;
 
   /// The geographic area where a service or offered item is provided.
-  /// Supported types: [AdministrativeArea], [GeoShape], [Place],
-  /// [String]
+  ///
+  /// Supported types: [SchemaAdministrativeArea], [SchemaGeoShape],
+  /// [SchemaPlace], [String]
   dynamic areaServed;
 
-  /// An intended audience, i.e a group for whom something was
-  /// created.
+  /// An intended audience, i.e. a group for whom something was created.
   SchemaAudience? audience;
 
-  /// A means of accessing the service (e.g a phone bank, a web site,
-  /// a location, etc.).
+  /// A means of accessing the service (e.g. a phone bank, a web site, a
+  /// location, etc.).
   SchemaServiceChannel? availableChannel;
 
   /// An award won by or for this item.
   String? award;
 
-  /// The brand(s) associated with a product or service, or the
-  /// brand(s) maintained by an organization or business person.
-  /// Supported types: [Brand], [Organization]
+  /// The brand(s) associated with a product or service, or the brand(s)
+  /// maintained by an organization or business person.
+  ///
+  /// Supported types: [SchemaBrand], [SchemaOrganization]
   dynamic brand;
 
-  /// An entity that arranges for an exchange between a buyer and a
-  /// seller In most cases a broker never acquires or releases
-  /// ownership of a product or service involved in an exchange If it
-  /// is not clear whether an entity is a broker, seller, or buyer,
-  /// the latter two terms are preferred.  Supported types:
-  /// [Organization], [Person]
+  /// An entity that arranges for an exchange between a buyer and a seller. In
+  /// most cases a broker never acquires or releases ownership of a product or
+  /// service involved in an exchange. If it is not clear whether an entity is
+  /// a broker, seller, or buyer, the latter two terms are preferred.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic broker;
 
-  /// A category for the item Greater signs or slashes can be used to
-  /// informally indicate a category hierarchy.  Supported types:
-  /// [CategoryCode], [PhysicalActivityCategory], [String], [String],
-  /// [Thing]
+  /// A category for the item. Greater signs or slashes can be used to
+  /// informally indicate a category hierarchy.
+  ///
+  /// Supported types: [SchemaCategoryCode], [SchemaPhysicalActivityCategory],
+  /// [String], [String], [SchemaThing]
   dynamic category;
 
-  /// Certification information about a product, organization,
-  /// service, place, or person.
+  /// Certification information about a product, organization, service, place,
+  /// or person.
   SchemaCertification? hasCertification;
 
-  /// Indicates an OfferCatalog listing for this Organization, Person,
-  /// or Service.
+  /// Indicates an OfferCatalog listing for this Organization, Person, or
+  /// Service.
   SchemaOfferCatalog? hasOfferCatalog;
 
   /// The hours during which this service or contact is available.
   SchemaOpeningHoursSpecification? hoursAvailable;
 
-  /// A pointer to another, somehow related product (or multiple
-  /// products).  Supported types: [Product], [Service]
+  /// A pointer to another, somehow related product (or multiple products).
+  ///
+  /// Supported types: [SchemaProduct], [SchemaService]
   dynamic isRelatedTo;
 
   /// A pointer to another, functionally similar product (or multiple
-  /// products).  Supported types: [Product], [Service]
+  /// products).
+  ///
+  /// Supported types: [SchemaProduct], [SchemaService]
   dynamic isSimilarTo;
 
-  /// An associated logo.  Supported types: [ImageObject], [String]
+  /// An associated logo.
+  ///
+  /// Supported types: [SchemaImageObject], [String]
   dynamic logo;
 
-  /// An offer to provide this item&#x2014;for example, an offer to
-  /// sell a product, rent the DVD of a movie, perform a service, or
-  /// give away tickets to an event Use [[businessFunction]] to
-  /// indicate the kind of transaction offered, i.e sell, lease, etc
-  /// This property can also be used to describe a [[Demand]] While
-  /// this property is listed as expected on a number of common types,
-  /// it can be used in others In that case, using a second type, such
-  /// as Product or a subtype of Product, can clarify the nature of
-  /// the offer    Supported types: [Demand], [Offer]
+  /// An offer to provide this item&#x2014;for example, an offer to sell a
+  /// product, rent the DVD of a movie, perform a service, or give away tickets
+  /// to an event. Use [SchemabusinessFunction] to indicate the kind of
+  /// transaction offered, i.e. sell, lease, etc. This property can also be
+  /// used to describe a [SchemaDemand]. While this property is listed as
+  /// expected on a number of common types, it can be used in others. In that
+  /// case, using a second type, such as Product or a subtype of Product, can
+  /// clarify the nature of the offer.
+  ///
+  /// Supported types: [SchemaDemand], [SchemaOffer]
   dynamic offers;
 
-  /// The tangible thing generated by the service, e.g a passport,
-  /// permit, etc.
+  /// The tangible thing generated by the service, e.g. a passport, permit,
+  /// etc.
   SchemaThing? produces;
 
-  /// The service provider, service operator, or service performer;
-  /// the goods producer Another party (a seller) may offer those
-  /// services or goods on behalf of the provider A provider may also
-  /// serve as the seller.  Supported types: [Organization], [Person]
+  /// The service provider, service operator, or service performer; the goods
+  /// producer. Another party (a seller) may offer those services or goods on
+  /// behalf of the provider. A provider may also serve as the seller.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic provider;
 
-  /// Indicates the mobility of a provided service (e.g 'static',
-  /// 'dynamic').
+  /// Indicates the mobility of a provided service (e.g. 'static', 'dynamic').
   String? providerMobility;
 
   /// A review of the item.
   SchemaReview? review;
 
-  /// The geographic area where the service is provided.  Supported
-  /// types: [AdministrativeArea], [GeoShape], [Place]
+  /// The geographic area where the service is provided.
+  ///
+  /// Supported types: [SchemaAdministrativeArea], [SchemaGeoShape],
+  /// [SchemaPlace]
   dynamic serviceArea;
 
   /// The audience eligible for this service.
   SchemaAudience? serviceAudience;
 
-  /// The tangible thing generated by the service, e.g a passport,
-  /// permit, etc.
+  /// The tangible thing generated by the service, e.g. a passport, permit,
+  /// etc.
   SchemaThing? serviceOutput;
 
-  /// The type of service being offered, e.g veterans' benefits,
-  /// emergency relief, etc.  Supported types:
-  /// [GovernmentBenefitsType], [String]
+  /// The type of service being offered, e.g. veterans' benefits, emergency
+  /// relief, etc.
+  ///
+  /// Supported types: [SchemaGovernmentBenefitsType], [String]
   dynamic serviceType;
 
   /// A slogan or motto associated with the item.
   String? slogan;
 
-  /// Human-readable terms of service documentation.  Supported types:
-  /// [String], [String]
+  /// Human-readable terms of service documentation.
+  ///
+  /// Supported types: [String], [String]
   String? termsOfService;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.  Supported
-  /// types: [String], [String]
+  /// //schema.org/docs/styleguide.html">style guide</a>.
+  ///
+  /// Supported types: [String], [String]
   String? additionalType;
 
   /// An alias for the item.
   String? alternateName;
 
-  /// A description of the item.  Supported types: [String],
-  /// [TextObject]
+  /// A description of the item.
+  ///
+  /// Supported types: [String], [SchemaTextObject]
   dynamic description;
 
-  /// A sub property of description A short description of the item
-  /// used to disambiguate from other, similar items Information from
-  /// other properties (in particular, name) may be necessary for the
-  /// description to be useful for disambiguation.
+  /// A sub property of description. A short description of the item used to
+  /// disambiguate from other, similar items. Information from other properties
+  /// (in particular, name) may be necessary for the description to be useful
+  /// for disambiguation.
   String? disambiguatingDescription;
 
-  /// The identifier property represents any kind of identifier for
-  /// any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc
-  /// Schema.org provides dedicated properties for representing many
-  /// of these, either as textual strings or as URL (URI) links See
-  /// [background notes](/docs/datamodel.html#identifierBg) for more
-  /// details    Supported types: [PropertyValue], [String], [String]
+  /// The identifier property represents any kind of identifier for any kind of
+  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
+  /// dedicated properties for representing many of these, either as textual
+  /// strings or as URL (URI) links. See [background
+  /// notes](/docs/datamodel.html#identifierBg) for more details.
+  ///
+  /// Supported types: [SchemaPropertyValue], [String], [String]
   dynamic identifier;
 
-  /// An image of the item This can be a [[URL]] or a fully described
-  /// [[ImageObject]].  Supported types: [ImageObject], [String]
+  /// An image of the item. This can be a [SchemaURL] or a fully described
+  /// [SchemaImageObject].
+  ///
+  /// Supported types: [SchemaImageObject], [String]
   dynamic image;
 
-  /// Indicates a page (or other CreativeWork) for which this thing is
-  /// the main entity being described See [background
+  /// Indicates a page (or other CreativeWork) for which this thing is the main
+  /// entity being described. See [background
   /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  /// Supported types: [CreativeWork], [String]
+  ///
+  /// Supported types: [SchemaCreativeWork], [String]
   dynamic mainEntityOfPage;
 
   /// The name of the item.
   String? name;
 
-  /// Indicates a potential Action, which describes an idealized
-  /// action in which this thing would play an 'object' role.
+  /// Indicates a potential Action, which describes an idealized action in
+  /// which this thing would play an 'object' role.
   SchemaAction? potentialAction;
 
-  /// URL of a reference Web page that unambiguously indicates the
-  /// item's identity E.g the URL of the item's Wikipedia page,
-  /// Wikidata entry, or official website.
+  /// URL of a reference Web page that unambiguously indicates the item's
+  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
+  /// official website.
   String? sameAs;
 
-  /// A CreativeWork or Event about this Thing.  Supported types:
-  /// [CreativeWork], [Event]
+  /// A CreativeWork or Event about this Thing.
+  ///
+  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
   dynamic subjectOf;
 
   /// URL of the item.

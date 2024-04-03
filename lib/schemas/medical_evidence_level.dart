@@ -1,6 +1,6 @@
 import 'package:schema_org/schemas/medical_enumeration.dart';
 
-/// Level of evidence for a medical guideline Enumerated type.
+/// Level of evidence for a medical guideline. Enumerated type.
 /// See https://schema.org/MedicalEvidenceLevel
 enum SchemaMedicalEvidenceLevel implements SchemaMedicalEnumeration {
   /// Data derived from multiple randomized clinical trials or
@@ -11,8 +11,7 @@ enum SchemaMedicalEvidenceLevel implements SchemaMedicalEnumeration {
   /// studies.
   evidenceLevelB('https://schema.org/MedicalEvidenceLevel'),
 
-  /// Only consensus opinion of experts, case studies, or
-  /// standard-of-care.
+  /// Only consensus opinion of experts, case studies, or standard-of-care.
   evidenceLevelC('https://schema.org/MedicalEvidenceLevel');
 
   /// Constructor for [SchemaMedicalEvidenceLevel]

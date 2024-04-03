@@ -1,5 +1,5 @@
-import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/src/schema_serializable.dart';
+import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/property.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 import 'package:schema_org/schemas/measurement_method_enum.dart';
@@ -12,127 +12,139 @@ import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/action.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// the population type is [[Person]]; the measuredProperty
-/// [[height]]; the [[statType]] [[median]]; the [[gender]]
-/// [[Female]] It is important to note that there are many kinds of
-/// scientific quantitative observation which are not fully,
-/// perfectly or unambiguously described following this pattern, or
-/// with solely Schema.org terminology The approach taken here is
-/// designed to allow partial, incremental or minimal description of
-/// [[StatisticalVariable]]s, and the use of detailed sets of entity
-/// and property IDs from external repositories The
-/// [[measurementMethod]], [[unitCode]] and [[unitText]] properties
-/// can also be used to clarify the specific nature and notation of
-/// an observed measurement.
+/// the population type is [SchemaPerson]; the measuredProperty
+/// [Schemaheight]; the [SchemastatType] [Schemamedian]; the [Schemagender]
+/// [SchemaFemale]. It is important to note that there are many kinds of
+/// scientific quantitative observation which are not fully, perfectly or
+/// unambiguously described following this pattern, or with solely Schema.org
+/// terminology. The approach taken here is designed to allow partial,
+/// incremental or minimal description of [SchemaStatisticalVariable]s, and
+/// the use of detailed sets of entity and property IDs from external
+/// repositories. The [SchemameasurementMethod], [SchemaunitCode] and
+/// [SchemaunitText] properties can also be used to clarify the specific
+/// nature and notation of an observed measurement.
 /// See https://schema.org/StatisticalVariable
 class SchemaStatisticalVariable implements SchemaSerializable {
   /// //www.gs1.org/voc/?show=properties).
   SchemaProperty? measuredProperty;
 
-  /// Identifies the denominator variable when an observation
-  /// represents a ratio or percentage.
+  /// Identifies the denominator variable when an observation represents a
+  /// ratio or percentage.
   SchemaStatisticalVariable? measurementDenominator;
 
-  /// A subproperty of [[measurementTechnique]] that can be used for
+  /// A subproperty of [SchemameasurementTechnique] that can be used for
   /// specifying specific methods, in particular via
-  /// [[MeasurementMethodEnum]].  Supported types: [DefinedTerm],
-  /// [MeasurementMethodEnum], [String], [String]
+  /// [SchemaMeasurementMethodEnum].
+  ///
+  /// Supported types: [SchemaDefinedTerm], [SchemaMeasurementMethodEnum],
+  /// [String], [String]
   dynamic measurementMethod;
 
-  /// Provides additional qualification to an observation For example,
-  /// a GDP observation measures the Nominal value.
+  /// Provides additional qualification to an observation. For example, a GDP
+  /// observation measures the Nominal value.
   SchemaEnumeration? measurementQualifier;
 
   /// "mass spectrometry" or "nmr spectroscopy" or "colorimetry" or
-  /// "immunofluorescence" If the [[variableMeasured]] is "depression
-  /// rating", the [[measurementTechnique]] could be "Zung Scale" or
-  /// "HAM-D" or "Beck Depression Inventory"   If there are several
-  /// [[variableMeasured]] properties recorded for some given data
-  /// object, use a [[PropertyValue]] for each [[variableMeasured]]
-  /// and attach the corresponding [[measurementTechnique]] The value
-  /// can also be from an enumeration, organized as a
-  /// [[MeasurementMetholdEnumeration]].  Supported types:
-  /// [DefinedTerm], [MeasurementMethodEnum], [String], [String]
+  /// "immunofluorescence". If the [SchemavariableMeasured] is "depression
+  /// rating", the [SchemameasurementTechnique] could be "Zung Scale" or
+  /// "HAM-D" or "Beck Depression Inventory".
+  ///
+  /// If there are several [SchemavariableMeasured] properties recorded for
+  /// some given data object, use a [SchemaPropertyValue] for each
+  /// [SchemavariableMeasured] and attach the corresponding
+  /// [SchemameasurementTechnique]. The value can also be from an enumeration,
+  /// organized as a [SchemaMeasurementMetholdEnumeration].
+  ///
+  /// Supported types: [SchemaDefinedTerm], [SchemaMeasurementMethodEnum],
+  /// [String], [String]
   dynamic measurementTechnique;
 
   /// Indicates the populationType common to all members of a
-  /// [[StatisticalPopulation]] or all cases within the scope of a
-  /// [[StatisticalVariable]].
+  /// [SchemaStatisticalPopulation] or all cases within the scope of a
+  /// [SchemaStatisticalVariable].
   SchemaClass? populationType;
 
   /// Indicates the kind of statistic represented by a
-  /// [[StatisticalVariable]], e.g mean, count etc The value of
-  /// statType is a property, either from within Schema.org (e.g
-  /// [[count]], [[median]], [[marginOfError]], [[maxValue]],
-  /// [[minValue]]) or from other compatible (e.g RDF) systems such as
-  /// DataCommons.org or Wikidata.org   Supported types: [Property],
-  /// [String], [String]
+  /// [SchemaStatisticalVariable], e.g. mean, count etc. The value of statType
+  /// is a property, either from within Schema.org (e.g. [Schemacount],
+  /// [Schemamedian], [SchemamarginOfError], [SchemamaxValue],
+  /// [SchemaminValue]) or from other compatible (e.g. RDF) systems such as
+  /// DataCommons.org or Wikidata.org.
+  ///
+  /// Supported types: [SchemaProperty], [String], [String]
   dynamic statType;
 
-  /// Indicates a property used as a constraint For example, in the
-  /// definition of a [[StatisticalVariable]] The value is a property,
-  /// either from within Schema.org or from other compatible (e.g RDF)
-  /// systems such as DataCommons.org or Wikidata.org   Supported
-  /// types: [Property], [String]
+  /// Indicates a property used as a constraint. For example, in the definition
+  /// of a [SchemaStatisticalVariable]. The value is a property, either from
+  /// within Schema.org or from other compatible (e.g. RDF) systems such as
+  /// DataCommons.org or Wikidata.org.
+  ///
+  /// Supported types: [SchemaProperty], [String]
   dynamic constraintProperty;
 
-  /// Indicates the number of constraints property values defined for
-  /// a particular [[ConstraintNode]] such as [[StatisticalVariable]]
-  /// This helps applications understand if they have access to a
-  /// sufficiently complete description of a [[StatisticalVariable]]
-  /// or other construct that is defined using properties on
-  /// template-style nodes.
+  /// Indicates the number of constraints property values defined for a
+  /// particular [SchemaConstraintNode] such as [SchemaStatisticalVariable].
+  /// This helps applications understand if they have access to a sufficiently
+  /// complete description of a [SchemaStatisticalVariable] or other construct
+  /// that is defined using properties on template-style nodes.
   int? numConstraints;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.  Supported
-  /// types: [String], [String]
+  /// //schema.org/docs/styleguide.html">style guide</a>.
+  ///
+  /// Supported types: [String], [String]
   String? additionalType;
 
   /// An alias for the item.
   String? alternateName;
 
-  /// A description of the item.  Supported types: [String],
-  /// [TextObject]
+  /// A description of the item.
+  ///
+  /// Supported types: [String], [SchemaTextObject]
   dynamic description;
 
-  /// A sub property of description A short description of the item
-  /// used to disambiguate from other, similar items Information from
-  /// other properties (in particular, name) may be necessary for the
-  /// description to be useful for disambiguation.
+  /// A sub property of description. A short description of the item used to
+  /// disambiguate from other, similar items. Information from other properties
+  /// (in particular, name) may be necessary for the description to be useful
+  /// for disambiguation.
   String? disambiguatingDescription;
 
-  /// The identifier property represents any kind of identifier for
-  /// any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc
-  /// Schema.org provides dedicated properties for representing many
-  /// of these, either as textual strings or as URL (URI) links See
-  /// [background notes](/docs/datamodel.html#identifierBg) for more
-  /// details    Supported types: [PropertyValue], [String], [String]
+  /// The identifier property represents any kind of identifier for any kind of
+  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
+  /// dedicated properties for representing many of these, either as textual
+  /// strings or as URL (URI) links. See [background
+  /// notes](/docs/datamodel.html#identifierBg) for more details.
+  ///
+  /// Supported types: [SchemaPropertyValue], [String], [String]
   dynamic identifier;
 
-  /// An image of the item This can be a [[URL]] or a fully described
-  /// [[ImageObject]].  Supported types: [ImageObject], [String]
+  /// An image of the item. This can be a [SchemaURL] or a fully described
+  /// [SchemaImageObject].
+  ///
+  /// Supported types: [SchemaImageObject], [String]
   dynamic image;
 
-  /// Indicates a page (or other CreativeWork) for which this thing is
-  /// the main entity being described See [background
+  /// Indicates a page (or other CreativeWork) for which this thing is the main
+  /// entity being described. See [background
   /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  /// Supported types: [CreativeWork], [String]
+  ///
+  /// Supported types: [SchemaCreativeWork], [String]
   dynamic mainEntityOfPage;
 
   /// The name of the item.
   String? name;
 
-  /// Indicates a potential Action, which describes an idealized
-  /// action in which this thing would play an 'object' role.
+  /// Indicates a potential Action, which describes an idealized action in
+  /// which this thing would play an 'object' role.
   SchemaAction? potentialAction;
 
-  /// URL of a reference Web page that unambiguously indicates the
-  /// item's identity E.g the URL of the item's Wikipedia page,
-  /// Wikidata entry, or official website.
+  /// URL of a reference Web page that unambiguously indicates the item's
+  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
+  /// official website.
   String? sameAs;
 
-  /// A CreativeWork or Event about this Thing.  Supported types:
-  /// [CreativeWork], [Event]
+  /// A CreativeWork or Event about this Thing.
+  ///
+  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
   dynamic subjectOf;
 
   /// URL of the item.

@@ -1,5 +1,5 @@
-import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/src/schema_serializable.dart';
+import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/language.dart';
 import 'package:schema_org/schemas/movie.dart';
 import 'package:schema_org/schemas/thing.dart';
@@ -29,12 +29,13 @@ import 'package:schema_org/schemas/action.dart';
 /// A screening of a movie or other video.
 /// See https://schema.org/ScreeningEvent
 class SchemaScreeningEvent implements SchemaSerializable {
-  /// //tools.ietf.org/html/bcp47).  Supported types: [Language],
-  /// [String]
+  /// //tools.ietf.org/html/bcp47).
+  ///
+  /// Supported types: [SchemaLanguage], [String]
   dynamic subtitleLanguage;
 
-  /// The type of screening or video broadcast used (e.g IMAX, 3D, SD,
-  /// HD, etc.).
+  /// The type of screening or video broadcast used (e.g. IMAX, 3D, SD, HD,
+  /// etc.).
   String? videoFormat;
 
   /// The movie presented during this event.
@@ -43,255 +44,270 @@ class SchemaScreeningEvent implements SchemaSerializable {
   /// The subject matter of the content.
   SchemaThing? about;
 
-  /// An actor, e.g in TV, radio, movie, video games etc., or in an
-  /// event Actors can be associated with individual items or with a
-  /// series, episode, clip.
+  /// An actor, e.g. in TV, radio, movie, video games etc., or in an event.
+  /// Actors can be associated with individual items or with a series, episode,
+  /// clip.
   SchemaPerson? actor;
 
-  /// The overall rating, based on a collection of reviews or ratings,
-  /// of the item.
+  /// The overall rating, based on a collection of reviews or ratings, of the
+  /// item.
   SchemaAggregateRating? aggregateRating;
 
-  /// A person or organization attending the event.  Supported types:
-  /// [Organization], [Person]
+  /// A person or organization attending the event.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic attendee;
 
-  /// A person attending the event.  Supported types: [Organization],
-  /// [Person]
+  /// A person attending the event.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic attendees;
 
-  /// An intended audience, i.e a group for whom something was
-  /// created.
+  /// An intended audience, i.e. a group for whom something was created.
   SchemaAudience? audience;
 
-  /// The person or organization who wrote a composition, or who is
-  /// the composer of a work performed at some event.  Supported
-  /// types: [Organization], [Person]
+  /// The person or organization who wrote a composition, or who is the
+  /// composer of a work performed at some event.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic composer;
 
-  /// A secondary contributor to the CreativeWork or Event.  Supported
-  /// types: [Organization], [Person]
+  /// A secondary contributor to the CreativeWork or Event.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic contributor;
 
-  /// A director of e.g TV, radio, movie, video gaming etc content, or
-  /// of an event Directors can be associated with individual items or
-  /// with a series, episode, clip.
+  /// A director of e.g. TV, radio, movie, video gaming etc. content, or of an
+  /// event. Directors can be associated with individual items or with a
+  /// series, episode, clip.
   SchemaPerson? director;
 
-  /// The time admission will commence.  Supported types: [String],
-  /// [String]
+  /// The time admission will commence.
+  ///
+  /// Supported types: [String], [String]
   String? doorTime;
 
   /// //en.wikipedia.org/wiki/ISO_8601).
   SchemaDuration? duration;
 
-  /// //en.wikipedia.org/wiki/ISO_8601)).  Supported types: [String],
-  /// [String]
+  /// //en.wikipedia.org/wiki/ISO_8601)).
+  ///
+  /// Supported types: [String], [String]
   String? endDate;
 
-  /// The eventAttendanceMode of an event indicates whether it occurs
-  /// online, offline, or a mix.
+  /// The eventAttendanceMode of an event indicates whether it occurs online,
+  /// offline, or a mix.
   SchemaEventAttendanceModeEnumeration? eventAttendanceMode;
 
-  /// Associates an [[Event]] with a [[Schedule]] There are
-  /// circumstances where it is preferable to share a schedule for a
-  /// series of  repeating events rather than data on the individual
-  /// events themselves For example, a website or application might
-  /// prefer to publish a schedule for a weekly  gym class rather than
-  /// provide data on every event A schedule could be processed by
-  /// applications to add forthcoming events to a calendar An
-  /// [[Event]] that  is associated with a [[Schedule]] using this
-  /// property should not have [[startDate]] or [[endDate]] properties
-  /// These are instead defined within the associated  [[Schedule]],
-  /// this avoids any ambiguity for clients using the data The
-  /// property might have repeated values to specify different
-  /// schedules, e.g for different months  or seasons.
+  /// Associates an [SchemaEvent] with a [SchemaSchedule]. There are
+  /// circumstances where it is preferable to share a schedule for a series of
+  /// repeating events rather than data on the individual events themselves.
+  /// For example, a website or application might prefer to publish a schedule
+  /// for a weekly gym class rather than provide data on every event. A
+  /// schedule could be processed by applications to add forthcoming events to
+  /// a calendar. An [SchemaEvent] that is associated with a [SchemaSchedule]
+  /// using this property should not have [SchemastartDate] or [SchemaendDate]
+  /// properties. These are instead defined within the associated
+  /// [SchemaSchedule], this avoids any ambiguity for clients using the data.
+  /// The property might have repeated values to specify different schedules,
+  /// e.g. for different months or seasons.
   SchemaSchedule? eventSchedule;
 
-  /// An eventStatus of an event represents its status; particularly
-  /// useful when an event is cancelled or rescheduled.
+  /// An eventStatus of an event represents its status; particularly useful
+  /// when an event is cancelled or rescheduled.
   SchemaEventStatusType? eventStatus;
 
-  /// A person or organization that supports (sponsors) something
-  /// through some kind of financial contribution.  Supported types:
-  /// [Organization], [Person]
+  /// A person or organization that supports (sponsors) something through some
+  /// kind of financial contribution.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic funder;
 
-  /// A [[Grant]] that directly or indirectly provide funding or
-  /// sponsorship for this item See also [[ownershipFundingInfo]].
+  /// A [SchemaGrant] that directly or indirectly provide funding or
+  /// sponsorship for this item. See also [SchemaownershipFundingInfo].
   SchemaGrant? funding;
 
-  /// //tools.ietf.org/html/bcp47) See also [[availableLanguage]].
-  /// Supported types: [Language], [String]
+  /// //tools.ietf.org/html/bcp47). See also [SchemaavailableLanguage].
+  ///
+  /// Supported types: [SchemaLanguage], [String]
   dynamic inLanguage;
 
-  /// A flag to signal that the item, event, or place is accessible
-  /// for free.
+  /// A flag to signal that the item, event, or place is accessible for free.
   bool? isAccessibleForFree;
 
-  /// Keywords or tags used to describe some item Multiple textual
-  /// entries in a keywords list are typically delimited by commas, or
-  /// by repeating the property.  Supported types: [DefinedTerm],
-  /// [String], [String]
+  /// Keywords or tags used to describe some item. Multiple textual entries in
+  /// a keywords list are typically delimited by commas, or by repeating the
+  /// property.
+  ///
+  /// Supported types: [SchemaDefinedTerm], [String], [String]
   dynamic keywords;
 
-  /// The location of, for example, where an event is happening, where
-  /// an organization is located, or where an action takes place.
-  /// Supported types: [Place], [PostalAddress], [String],
-  /// [VirtualLocation]
+  /// The location of, for example, where an event is happening, where an
+  /// organization is located, or where an action takes place.
+  ///
+  /// Supported types: [SchemaPlace], [SchemaPostalAddress], [String],
+  /// [SchemaVirtualLocation]
   dynamic location;
 
-  /// The total number of individuals that may attend an event or
-  /// venue.
+  /// The total number of individuals that may attend an event or venue.
   int? maximumAttendeeCapacity;
 
-  /// The maximum physical attendee capacity of an [[Event]] whose
-  /// [[eventAttendanceMode]] is [[OfflineEventAttendanceMode]] (or
-  /// the offline aspects, in the case of a
-  /// [[MixedEventAttendanceMode]]).
+  /// The maximum physical attendee capacity of an [SchemaEvent] whose
+  /// [SchemaeventAttendanceMode] is [SchemaOfflineEventAttendanceMode] (or the
+  /// offline aspects, in the case of a [SchemaMixedEventAttendanceMode]).
   int? maximumPhysicalAttendeeCapacity;
 
-  /// The maximum virtual attendee capacity of an [[Event]] whose
-  /// [[eventAttendanceMode]] is [[OnlineEventAttendanceMode]] (or the
-  /// online aspects, in the case of a [[MixedEventAttendanceMode]]).
+  /// The maximum virtual attendee capacity of an [SchemaEvent] whose
+  /// [SchemaeventAttendanceMode] is [SchemaOnlineEventAttendanceMode] (or the
+  /// online aspects, in the case of a [SchemaMixedEventAttendanceMode]).
   int? maximumVirtualAttendeeCapacity;
 
-  /// An offer to provide this item&#x2014;for example, an offer to
-  /// sell a product, rent the DVD of a movie, perform a service, or
-  /// give away tickets to an event Use [[businessFunction]] to
-  /// indicate the kind of transaction offered, i.e sell, lease, etc
-  /// This property can also be used to describe a [[Demand]] While
-  /// this property is listed as expected on a number of common types,
-  /// it can be used in others In that case, using a second type, such
-  /// as Product or a subtype of Product, can clarify the nature of
-  /// the offer    Supported types: [Demand], [Offer]
+  /// An offer to provide this item&#x2014;for example, an offer to sell a
+  /// product, rent the DVD of a movie, perform a service, or give away tickets
+  /// to an event. Use [SchemabusinessFunction] to indicate the kind of
+  /// transaction offered, i.e. sell, lease, etc. This property can also be
+  /// used to describe a [SchemaDemand]. While this property is listed as
+  /// expected on a number of common types, it can be used in others. In that
+  /// case, using a second type, such as Product or a subtype of Product, can
+  /// clarify the nature of the offer.
+  ///
+  /// Supported types: [SchemaDemand], [SchemaOffer]
   dynamic offers;
 
-  /// An organizer of an Event.  Supported types: [Organization],
-  /// [Person]
+  /// An organizer of an Event.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic organizer;
 
-  /// A performer at the event&#x2014;for example, a presenter,
-  /// musician, musical group or actor.  Supported types:
-  /// [Organization], [Person]
+  /// A performer at the event&#x2014;for example, a presenter, musician,
+  /// musical group or actor.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic performer;
 
-  /// The main performer or performers of the event&#x2014;for
-  /// example, a presenter, musician, or actor.  Supported types:
-  /// [Organization], [Person]
+  /// The main performer or performers of the event&#x2014;for example, a
+  /// presenter, musician, or actor.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic performers;
 
-  /// Used in conjunction with eventStatus for rescheduled or
-  /// cancelled events This property contains the previously scheduled
-  /// start date For rescheduled events, the startDate property should
-  /// be used for the newly scheduled start date In the (rare) case of
-  /// an event that has been postponed and rescheduled multiple times,
-  /// this field may be repeated.
+  /// Used in conjunction with eventStatus for rescheduled or cancelled events.
+  /// This property contains the previously scheduled start date. For
+  /// rescheduled events, the startDate property should be used for the newly
+  /// scheduled start date. In the (rare) case of an event that has been
+  /// postponed and rescheduled multiple times, this field may be repeated.
   String? previousStartDate;
 
   /// The CreativeWork that captured all or part of this Event.
   SchemaCreativeWork? recordedIn;
 
-  /// The number of attendee places for an event that remain
-  /// unallocated.
+  /// The number of attendee places for an event that remain unallocated.
   int? remainingAttendeeCapacity;
 
   /// A review of the item.
   SchemaReview? review;
 
-  /// A person or organization that supports a thing through a pledge,
-  /// promise, or financial contribution E.g a sponsor of a Medical
-  /// Study or a corporate sponsor of an event.  Supported types:
-  /// [Organization], [Person]
+  /// A person or organization that supports a thing through a pledge, promise,
+  /// or financial contribution. E.g. a sponsor of a Medical Study or a
+  /// corporate sponsor of an event.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic sponsor;
 
-  /// //en.wikipedia.org/wiki/ISO_8601)).  Supported types: [String],
-  /// [String]
+  /// //en.wikipedia.org/wiki/ISO_8601)).
+  ///
+  /// Supported types: [String], [String]
   String? startDate;
 
-  /// An Event that is part of this event For example, a conference
-  /// event includes many presentations, each of which is a subEvent
-  /// of the conference.
+  /// An Event that is part of this event. For example, a conference event
+  /// includes many presentations, each of which is a subEvent of the
+  /// conference.
   SchemaEvent? subEvent;
 
-  /// Events that are a part of this event For example, a conference
-  /// event includes many presentations, each subEvents of the
-  /// conference.
+  /// Events that are a part of this event. For example, a conference event
+  /// includes many presentations, each subEvents of the conference.
   SchemaEvent? subEvents;
 
-  /// An event that this event is a part of For example, a collection
-  /// of individual music performances might each have a music
-  /// festival as their superEvent.
+  /// An event that this event is a part of. For example, a collection of
+  /// individual music performances might each have a music festival as their
+  /// superEvent.
   SchemaEvent? superEvent;
 
-  /// Organization or person who adapts a creative work to different
-  /// languages, regional differences and technical requirements of a
-  /// target market, or that translates during some event.  Supported
-  /// types: [Organization], [Person]
+  /// Organization or person who adapts a creative work to different languages,
+  /// regional differences and technical requirements of a target market, or
+  /// that translates during some event.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic translator;
 
-  /// The typical expected age range, e.g '7-9', '11-'.
+  /// The typical expected age range, e.g. '7-9', '11-'.
   String? typicalAgeRange;
 
-  /// A work featured in some event, e.g exhibited in an
-  /// ExhibitionEvent  Specific subproperties are available for
-  /// workPerformed (e.g a play), or a workPresented (a Movie at a
-  /// ScreeningEvent).
+  /// A work featured in some event, e.g. exhibited in an ExhibitionEvent.
+  /// Specific subproperties are available for workPerformed (e.g. a play), or
+  /// a workPresented (a Movie at a ScreeningEvent).
   SchemaCreativeWork? workFeatured;
 
-  /// A work performed in some event, for example a play performed in
-  /// a TheaterEvent.
+  /// A work performed in some event, for example a play performed in a
+  /// TheaterEvent.
   SchemaCreativeWork? workPerformed;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.  Supported
-  /// types: [String], [String]
+  /// //schema.org/docs/styleguide.html">style guide</a>.
+  ///
+  /// Supported types: [String], [String]
   String? additionalType;
 
   /// An alias for the item.
   String? alternateName;
 
-  /// A description of the item.  Supported types: [String],
-  /// [TextObject]
+  /// A description of the item.
+  ///
+  /// Supported types: [String], [SchemaTextObject]
   dynamic description;
 
-  /// A sub property of description A short description of the item
-  /// used to disambiguate from other, similar items Information from
-  /// other properties (in particular, name) may be necessary for the
-  /// description to be useful for disambiguation.
+  /// A sub property of description. A short description of the item used to
+  /// disambiguate from other, similar items. Information from other properties
+  /// (in particular, name) may be necessary for the description to be useful
+  /// for disambiguation.
   String? disambiguatingDescription;
 
-  /// The identifier property represents any kind of identifier for
-  /// any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc
-  /// Schema.org provides dedicated properties for representing many
-  /// of these, either as textual strings or as URL (URI) links See
-  /// [background notes](/docs/datamodel.html#identifierBg) for more
-  /// details    Supported types: [PropertyValue], [String], [String]
+  /// The identifier property represents any kind of identifier for any kind of
+  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
+  /// dedicated properties for representing many of these, either as textual
+  /// strings or as URL (URI) links. See [background
+  /// notes](/docs/datamodel.html#identifierBg) for more details.
+  ///
+  /// Supported types: [SchemaPropertyValue], [String], [String]
   dynamic identifier;
 
-  /// An image of the item This can be a [[URL]] or a fully described
-  /// [[ImageObject]].  Supported types: [ImageObject], [String]
+  /// An image of the item. This can be a [SchemaURL] or a fully described
+  /// [SchemaImageObject].
+  ///
+  /// Supported types: [SchemaImageObject], [String]
   dynamic image;
 
-  /// Indicates a page (or other CreativeWork) for which this thing is
-  /// the main entity being described See [background
+  /// Indicates a page (or other CreativeWork) for which this thing is the main
+  /// entity being described. See [background
   /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  /// Supported types: [CreativeWork], [String]
+  ///
+  /// Supported types: [SchemaCreativeWork], [String]
   dynamic mainEntityOfPage;
 
   /// The name of the item.
   String? name;
 
-  /// Indicates a potential Action, which describes an idealized
-  /// action in which this thing would play an 'object' role.
+  /// Indicates a potential Action, which describes an idealized action in
+  /// which this thing would play an 'object' role.
   SchemaAction? potentialAction;
 
-  /// URL of a reference Web page that unambiguously indicates the
-  /// item's identity E.g the URL of the item's Wikipedia page,
-  /// Wikidata entry, or official website.
+  /// URL of a reference Web page that unambiguously indicates the item's
+  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
+  /// official website.
   String? sameAs;
 
-  /// A CreativeWork or Event about this Thing.  Supported types:
-  /// [CreativeWork], [Event]
+  /// A CreativeWork or Event about this Thing.
+  ///
+  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
   dynamic subjectOf;
 
   /// URL of the item.

@@ -4,8 +4,8 @@ import 'package:schema_org/schemas/medical_enumeration.dart';
 /// over-the-counter.
 /// See https://schema.org/DrugPrescriptionStatus
 enum SchemaDrugPrescriptionStatus implements SchemaMedicalEnumeration {
-  /// The character of a medical substance, typically a medicine, of
-  /// being available over the counter or not.
+  /// The character of a medical substance, typically a medicine, of being
+  /// available over the counter or not.
   oTC('https://schema.org/DrugPrescriptionStatus'),
 
   /// Available by prescription only.

@@ -1,15 +1,14 @@
 import 'package:schema_org/schemas/nonprofit_type.dart';
 
-/// Non-profit organization type originating from the United
-/// Kingdom.
+/// Non-profit organization type originating from the United Kingdom.
 /// See https://schema.org/UKNonprofitType
 enum SchemaUKNonprofitType implements SchemaNonprofitType {
-  /// Non-profit type referring to a Charitable Incorporated
-  /// Organization (UK).
+  /// Non-profit type referring to a Charitable Incorporated Organization
+  /// (UK).
   charitableIncorporatedOrganization('https://schema.org/UKNonprofitType'),
 
-  /// Non-profit type referring to a charitable company that is
-  /// limited by guarantee (UK).
+  /// Non-profit type referring to a charitable company that is limited by
+  /// guarantee (UK).
   limitedByGuaranteeCharity('https://schema.org/UKNonprofitType'),
 
   /// Non-profit type referring to a UK trust.

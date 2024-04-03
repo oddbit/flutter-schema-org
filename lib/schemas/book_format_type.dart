@@ -3,15 +3,15 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// The publication format of the book.
 /// See https://schema.org/BookFormatType
 enum SchemaBookFormatType implements SchemaSerializable {
-  /// Audiobook This is an enumerated value for use with the
-  /// bookFormat property There is also a type 'Audiobook' in the bib
-  /// extension which includes Audiobook specific properties.
+  /// Audiobook. This is an enumerated value for use with the bookFormat
+  /// property. There is also a type 'Audiobook' in the bib extension which
+  /// includes Audiobook specific properties.
   audiobookFormat('https://schema.org/BookFormatType'),
 
   /// Ebook.
   eBook('https://schema.org/BookFormatType'),
 
-  /// GraphicNovel May represent a bound collection of ComicIssue
+  /// GraphicNovel. May represent a bound collection of ComicIssue
   /// instances.
   graphicNovel('https://schema.org/BookFormatType'),
 

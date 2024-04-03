@@ -17,8 +17,7 @@ enum SchemaWearableSizeSystemEnumeration {
   /// German size system for wearables.
   wearableSizeSystemDE('https://schema.org/WearableSizeSystemEnumeration'),
 
-  /// EN 13402 (joint European standard for size labelling of
-  /// clothes).
+  /// EN 13402 (joint European standard for size labelling of clothes).
   wearableSizeSystemEN13402('https://schema.org/WearableSizeSystemEnumeration'),
 
   /// European size system for wearables.

@@ -7,12 +7,12 @@ enum SchemaRefundTypeEnumeration implements SchemaSerializable {
   /// product.
   exchangeRefund('https://schema.org/RefundTypeEnumeration'),
 
-  /// Specifies that a refund can be done in the full amount the
-  /// customer paid for the product.
+  /// Specifies that a refund can be done in the full amount the customer
+  /// paid for the product.
   fullRefund('https://schema.org/RefundTypeEnumeration'),
 
-  /// Specifies that the customer receives a store credit as refund
-  /// when returning a product.
+  /// Specifies that the customer receives a store credit as refund when
+  /// returning a product.
   storeCreditRefund('https://schema.org/RefundTypeEnumeration');
 
   /// Constructor for [SchemaRefundTypeEnumeration]

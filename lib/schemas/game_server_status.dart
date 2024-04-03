@@ -3,18 +3,17 @@ import 'package:schema_org/schemas/status_enumeration.dart';
 /// Status of a game server.
 /// See https://schema.org/GameServerStatus
 enum SchemaGameServerStatus implements SchemaStatusEnumeration {
-  /// OfflinePermanently Server is offline and not available.
+  /// OfflinePermanently. Server is offline and not available.
   offlinePermanently('https://schema.org/GameServerStatus'),
 
-  /// OfflineTemporarily Server is offline now but it can be online
-  /// soon.
+  /// OfflineTemporarily. Server is offline now but it can be online soon.
   offlineTemporarily('https://schema.org/GameServerStatus'),
 
-  /// Online Server is available.
+  /// Online. Server is available.
   online('https://schema.org/GameServerStatus'),
 
-  /// OnlineFull Server is online but unavailable The maximum number
-  /// of players has reached.
+  /// OnlineFull. Server is online but unavailable. The maximum number of
+  /// players has reached.
   onlineFull('https://schema.org/GameServerStatus');
 
   /// Constructor for [SchemaGameServerStatus]

@@ -1,5 +1,5 @@
-import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/src/schema_serializable.dart';
+import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/country.dart';
 import 'package:schema_org/schemas/text_object.dart';
@@ -9,101 +9,109 @@ import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/action.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// The geographic shape of a place A GeoShape can be described
-/// using several properties whose values are based on
-/// latitude/longitude pairs Either whitespace or commas can be used
-/// to separate latitude and longitude; whitespace should be used
-/// when writing a list of several such points.
+/// The geographic shape of a place. A GeoShape can be described using
+/// several properties whose values are based on latitude/longitude pairs.
+/// Either whitespace or commas can be used to separate latitude and
+/// longitude; whitespace should be used when writing a list of several such
+/// points.
 /// See https://schema.org/GeoShape
 class SchemaGeoShape implements SchemaSerializable {
-  /// Physical address of the item.  Supported types: [PostalAddress],
-  /// [String]
+  /// Physical address of the item.
+  ///
+  /// Supported types: [SchemaPostalAddress], [String]
   dynamic address;
 
-  /// //en.wikipedia.org/wiki/ISO_3166-1).  Supported types:
-  /// [Country], [String]
+  /// //en.wikipedia.org/wiki/ISO_3166-1).
+  ///
+  /// Supported types: [SchemaCountry], [String]
   dynamic addressCountry;
 
-  /// A box is the area enclosed by the rectangle formed by two points
-  /// The first point is the lower corner, the second point is the
-  /// upper corner A box is expressed as two points separated by a
-  /// space character.
+  /// A box is the area enclosed by the rectangle formed by two points. The
+  /// first point is the lower corner, the second point is the upper corner. A
+  /// box is expressed as two points separated by a space character.
   String? box;
 
-  /// A circle is the circular region of a specified radius centered
-  /// at a specified latitude and longitude A circle is expressed as a
-  /// pair followed by a radius in meters.
+  /// A circle is the circular region of a specified radius centered at a
+  /// specified latitude and longitude. A circle is expressed as a pair
+  /// followed by a radius in meters.
   String? circle;
 
-  /// //en.wikipedia.org/wiki/World_Geodetic_System)) Values may be of
-  /// the form 'NUMBER UNIT\_OF\_MEASUREMENT' (e.g., '1,000 m', '3,200
-  /// ft') while numbers alone should be assumed to be a value in
-  /// meters.  Supported types: [String], [int]
+  /// //en.wikipedia.org/wiki/World_Geodetic_System)). Values may be of the
+  /// form 'NUMBER UNIT\_OF\_MEASUREMENT' (e.g., '1,000 m', '3,200 ft') while
+  /// numbers alone should be assumed to be a value in meters.
+  ///
+  /// Supported types: [String], [int]
   dynamic elevation;
 
-  /// A line is a point-to-point path consisting of two or more points
-  /// A line is expressed as a series of two or more point objects
-  /// separated by space.
+  /// A line is a point-to-point path consisting of two or more points. A line
+  /// is expressed as a series of two or more point objects separated by space.
   String? line;
 
-  /// A polygon is the area enclosed by a point-to-point path for
-  /// which the starting and ending points are the same A polygon is
-  /// expressed as a series of four or more space delimited points
-  /// where the first and final points are identical.
+  /// A polygon is the area enclosed by a point-to-point path for which the
+  /// starting and ending points are the same. A polygon is expressed as a
+  /// series of four or more space delimited points where the first and final
+  /// points are identical.
   String? polygon;
 
-  /// The postal code For example, 94043.
+  /// The postal code. For example, 94043.
   String? postalCode;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.  Supported
-  /// types: [String], [String]
+  /// //schema.org/docs/styleguide.html">style guide</a>.
+  ///
+  /// Supported types: [String], [String]
   String? additionalType;
 
   /// An alias for the item.
   String? alternateName;
 
-  /// A description of the item.  Supported types: [String],
-  /// [TextObject]
+  /// A description of the item.
+  ///
+  /// Supported types: [String], [SchemaTextObject]
   dynamic description;
 
-  /// A sub property of description A short description of the item
-  /// used to disambiguate from other, similar items Information from
-  /// other properties (in particular, name) may be necessary for the
-  /// description to be useful for disambiguation.
+  /// A sub property of description. A short description of the item used to
+  /// disambiguate from other, similar items. Information from other properties
+  /// (in particular, name) may be necessary for the description to be useful
+  /// for disambiguation.
   String? disambiguatingDescription;
 
-  /// The identifier property represents any kind of identifier for
-  /// any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc
-  /// Schema.org provides dedicated properties for representing many
-  /// of these, either as textual strings or as URL (URI) links See
-  /// [background notes](/docs/datamodel.html#identifierBg) for more
-  /// details    Supported types: [PropertyValue], [String], [String]
+  /// The identifier property represents any kind of identifier for any kind of
+  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
+  /// dedicated properties for representing many of these, either as textual
+  /// strings or as URL (URI) links. See [background
+  /// notes](/docs/datamodel.html#identifierBg) for more details.
+  ///
+  /// Supported types: [SchemaPropertyValue], [String], [String]
   dynamic identifier;
 
-  /// An image of the item This can be a [[URL]] or a fully described
-  /// [[ImageObject]].  Supported types: [ImageObject], [String]
+  /// An image of the item. This can be a [SchemaURL] or a fully described
+  /// [SchemaImageObject].
+  ///
+  /// Supported types: [SchemaImageObject], [String]
   dynamic image;
 
-  /// Indicates a page (or other CreativeWork) for which this thing is
-  /// the main entity being described See [background
+  /// Indicates a page (or other CreativeWork) for which this thing is the main
+  /// entity being described. See [background
   /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  /// Supported types: [CreativeWork], [String]
+  ///
+  /// Supported types: [SchemaCreativeWork], [String]
   dynamic mainEntityOfPage;
 
   /// The name of the item.
   String? name;
 
-  /// Indicates a potential Action, which describes an idealized
-  /// action in which this thing would play an 'object' role.
+  /// Indicates a potential Action, which describes an idealized action in
+  /// which this thing would play an 'object' role.
   SchemaAction? potentialAction;
 
-  /// URL of a reference Web page that unambiguously indicates the
-  /// item's identity E.g the URL of the item's Wikipedia page,
-  /// Wikidata entry, or official website.
+  /// URL of a reference Web page that unambiguously indicates the item's
+  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
+  /// official website.
   String? sameAs;
 
-  /// A CreativeWork or Event about this Thing.  Supported types:
-  /// [CreativeWork], [Event]
+  /// A CreativeWork or Event about this Thing.
+  ///
+  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
   dynamic subjectOf;
 
   /// URL of the item.

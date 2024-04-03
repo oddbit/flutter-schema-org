@@ -1,9 +1,18 @@
 import 'package:schema_org/src/schema_serializable.dart';
 import 'package:schema_org/src/utils.dart';
+import 'package:schema_org/schemas/news_article.dart';
+import 'package:schema_org/schemas/duration.dart';
+import 'package:schema_org/schemas/creative_work.dart';
+import 'package:schema_org/schemas/distance.dart';
+import 'package:schema_org/schemas/quantitative_value.dart';
+import 'package:schema_org/schemas/geo_shape.dart';
+import 'package:schema_org/schemas/place.dart';
+import 'package:schema_org/schemas/claim.dart';
+import 'package:schema_org/schemas/organization.dart';
+import 'package:schema_org/schemas/media_subscription.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/person.dart';
-import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
 import 'package:schema_org/schemas/web_page.dart';
 import 'package:schema_org/schemas/defined_term.dart';
@@ -12,9 +21,7 @@ import 'package:schema_org/schemas/audience.dart';
 import 'package:schema_org/schemas/audio_object.dart';
 import 'package:schema_org/schemas/clip.dart';
 import 'package:schema_org/schemas/music_recording.dart';
-import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/comment.dart';
-import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/rating.dart';
 import 'package:schema_org/schemas/correction_comment.dart';
 import 'package:schema_org/schemas/country.dart';
@@ -23,9 +30,7 @@ import 'package:schema_org/schemas/alignment_object.dart';
 import 'package:schema_org/schemas/grant.dart';
 import 'package:schema_org/schemas/language.dart';
 import 'package:schema_org/schemas/interaction_counter.dart';
-import 'package:schema_org/schemas/claim.dart';
 import 'package:schema_org/schemas/product.dart';
-import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/demand.dart';
 import 'package:schema_org/schemas/offer.dart';
 import 'package:schema_org/schemas/publication_event.dart';
@@ -33,24 +38,140 @@ import 'package:schema_org/schemas/event.dart';
 import 'package:schema_org/schemas/review.dart';
 import 'package:schema_org/schemas/size_specification.dart';
 import 'package:schema_org/schemas/image_object.dart';
-import 'package:schema_org/schemas/duration.dart';
 import 'package:schema_org/schemas/video_object.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/action.dart';
 
-/// An advertising section of the page.
-/// See https://schema.org/WPAdBlock
-class SchemaWPAdBlock implements SchemaSerializable {
-  /// A CSS selector, e.g. of a [SchemaSpeakableSpecification] or
-  /// [SchemaWebPageElement]. In the latter case, multiple matches within a
-  /// page can constitute a single conceptual "Web page element".
-  String? cssSelector;
+/// 3D_graphics_file_formats)); specific encoding formats can be represented
+/// using the [SchemaencodingFormat] property applied to the relevant
+/// [SchemaMediaObject]. For the case of a single file published after Zip
+/// compression, the convention of appending '+zip' to the
+/// [SchemaencodingFormat] can be used. Geospatial, AR/VR,
+/// artistic/animation, gaming, engineering and scientific content can all be
+/// represented using [Schema3DModel].
+/// See https://schema.org/3DModel
+class Schema3DModel implements SchemaSerializable {
+  /// Whether the 3DModel allows resizing. For example, room layout
+  /// applications often do not allow 3DModel elements to be resized to reflect
+  /// reality.
+  bool? isResizable;
 
-  /// An XPath, e.g. of a [SchemaSpeakableSpecification] or
-  /// [SchemaWebPageElement]. In the latter case, multiple matches within a
-  /// page can constitute a single conceptual "Web page element".
-  String? xpath;
+  /// A NewsArticle associated with the Media Object.
+  SchemaNewsArticle? associatedArticle;
+
+  /// The bitrate of the media object.
+  String? bitrate;
+
+  /// File size in (mega/kilo)bytes.
+  String? contentSize;
+
+  /// Actual bytes of the media object, for example the image file or video
+  /// file.
+  String? contentUrl;
+
+  /// //en.wikipedia.org/wiki/ISO_8601).
+  SchemaDuration? duration;
+
+  /// A URL pointing to a player for a specific video. In general, this is the
+  /// information in the ```src``` element of an ```embed``` tag and should not
+  /// be the same as the content of the ```loc``` tag.
+  String? embedUrl;
+
+  /// The CreativeWork encoded by this media object.
+  SchemaCreativeWork? encodesCreativeWork;
+
+  /// //developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)),
+  /// e.g. application/zip for a SoftwareApplication binary, audio/mpeg for
+  /// .mp3 etc.
+  ///
+  /// In cases where a [SchemaCreativeWork] has several media type
+  /// representations, [Schemaencoding] can be used to indicate each
+  /// [SchemaMediaObject] alongside particular [SchemaencodingFormat]
+  /// information.
+  ///
+  /// Unregistered or niche encoding and file formats can be indicated instead
+  /// via the most appropriate URL, e.g. defining Web page or a
+  /// Wikipedia/Wikidata entry.
+  ///
+  /// Supported types: [String], [String]
+  String? encodingFormat;
+
+  /// The endTime of something. For a reserved event or service (e.g.
+  /// FoodEstablishmentReservation), the time that it is expected to end. For
+  /// actions that span a period of time, when the action was performed. E.g.
+  /// John wrote a book from January to *December*. For media, including audio
+  /// and video, it's the time offset of the end of a clip within a larger
+  /// file.\n\nNote that Event uses startDate/endDate instead of
+  /// startTime/endTime, even when describing dates with times. This situation
+  /// may be clarified in future revisions.
+  ///
+  /// Supported types: [String], [String]
+  String? endTime;
+
+  /// The height of the item.
+  ///
+  /// Supported types: [SchemaDistance], [SchemaQuantitativeValue]
+  dynamic height;
+
+  /// The ISO 3166-1 (ISO 3166-1 alpha-2) or ISO 3166-2 code, the place, or the
+  /// GeoShape for the geo-political region(s) for which the offer or delivery
+  /// charge specification is not valid, e.g. a region where the transaction is
+  /// not allowed.\n\nSee also [SchemaeligibleRegion].
+  ///
+  /// Supported types: [SchemaGeoShape], [SchemaPlace], [String]
+  dynamic ineligibleRegion;
+
+  /// Used to indicate a specific claim contained, implied, translated or
+  /// refined from the content of a [SchemaMediaObject] or other
+  /// [SchemaCreativeWork]. The interpreting party can be indicated using
+  /// [SchemaclaimInterpreter].
+  SchemaClaim? interpretedAsClaim;
+
+  /// Player type required&#x2014;for example, Flash or Silverlight.
+  String? playerType;
+
+  /// The production company or studio responsible for the item, e.g. series,
+  /// video game, episode etc.
+  SchemaOrganization? productionCompany;
+
+  /// //en.wikipedia.org/wiki/ISO_3166).
+  SchemaPlace? regionsAllowed;
+
+  /// Indicates if use of the media require a subscription (either paid or
+  /// free). Allowed values are ```true``` or ```false``` (note that an earlier
+  /// version had 'yes', 'no').
+  ///
+  /// Supported types: [SchemaMediaSubscription], [bool]
+  dynamic requiresSubscription;
+
+  /// //en.wikipedia.org/wiki/SHA-2) SHA256 hash of the content of the item.
+  /// For example, a zero-length input has value
+  /// 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'.
+  String? sha256;
+
+  /// The startTime of something. For a reserved event or service (e.g.
+  /// FoodEstablishmentReservation), the time that it is expected to start. For
+  /// actions that span a period of time, when the action was performed. E.g.
+  /// John wrote a book from *January* to December. For media, including audio
+  /// and video, it's the time offset of the start of a clip within a larger
+  /// file.\n\nNote that Event uses startDate/endDate instead of
+  /// startTime/endTime, even when describing dates with times. This situation
+  /// may be clarified in future revisions.
+  ///
+  /// Supported types: [String], [String]
+  String? startTime;
+
+  /// Date (including time if available) when this media object was uploaded to
+  /// this site.
+  ///
+  /// Supported types: [String], [String]
+  String? uploadDate;
+
+  /// The width of the item.
+  ///
+  /// Supported types: [SchemaDistance], [SchemaQuantitativeValue]
+  dynamic width;
 
   /// The subject matter of the content.
   SchemaThing? about;
@@ -310,22 +431,6 @@ class SchemaWPAdBlock implements SchemaSerializable {
   /// for associatedMedia.
   SchemaMediaObject? encoding;
 
-  /// //developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)),
-  /// e.g. application/zip for a SoftwareApplication binary, audio/mpeg for
-  /// .mp3 etc.
-  ///
-  /// In cases where a [SchemaCreativeWork] has several media type
-  /// representations, [Schemaencoding] can be used to indicate each
-  /// [SchemaMediaObject] alongside particular [SchemaencodingFormat]
-  /// information.
-  ///
-  /// Unregistered or niche encoding and file formats can be indicated instead
-  /// via the most appropriate URL, e.g. defining Web page or a
-  /// Wikipedia/Wikidata entry.
-  ///
-  /// Supported types: [String], [String]
-  String? encodingFormat;
-
   /// A media object that encodes this CreativeWork.
   SchemaMediaObject? encodings;
 
@@ -389,12 +494,6 @@ class SchemaWPAdBlock implements SchemaSerializable {
   /// The predominant mode of learning supported by the learning resource.
   /// Acceptable values are 'active', 'expositive', or 'mixed'.
   String? interactivityType;
-
-  /// Used to indicate a specific claim contained, implied, translated or
-  /// refined from the content of a [SchemaMediaObject] or other
-  /// [SchemaCreativeWork]. The interpreting party can be indicated using
-  /// [SchemaclaimInterpreter].
-  SchemaClaim? interpretedAsClaim;
 
   /// A flag to signal that the item, event, or place is accessible for free.
   bool? isAccessibleForFree;
@@ -768,10 +867,29 @@ class SchemaWPAdBlock implements SchemaSerializable {
   /// URL of the item.
   String? url;
 
-  /// Create a new instance of [SchemaWPAdBlock]
-  SchemaWPAdBlock({
-    this.cssSelector,
-    this.xpath,
+  /// Create a new instance of [Schema3DModel]
+  Schema3DModel({
+    this.isResizable,
+    this.associatedArticle,
+    this.bitrate,
+    this.contentSize,
+    this.contentUrl,
+    this.duration,
+    this.embedUrl,
+    this.encodesCreativeWork,
+    this.encodingFormat,
+    this.endTime,
+    this.height,
+    this.ineligibleRegion,
+    this.interpretedAsClaim,
+    this.playerType,
+    this.productionCompany,
+    this.regionsAllowed,
+    this.requiresSubscription,
+    this.sha256,
+    this.startTime,
+    this.uploadDate,
+    this.width,
     this.about,
     this.abstract,
     this.accessMode,
@@ -821,7 +939,6 @@ class SchemaWPAdBlock implements SchemaSerializable {
     this.educationalLevel,
     this.educationalUse,
     this.encoding,
-    this.encodingFormat,
     this.encodings,
     this.exampleOfWork,
     this.expires,
@@ -834,7 +951,6 @@ class SchemaWPAdBlock implements SchemaSerializable {
     this.inLanguage,
     this.interactionStatistic,
     this.interactivityType,
-    this.interpretedAsClaim,
     this.isAccessibleForFree,
     this.isBasedOn,
     this.isBasedOnUrl,
@@ -900,13 +1016,40 @@ class SchemaWPAdBlock implements SchemaSerializable {
     this.url,
   });
 
-  /// Serialize [SchemaWPAdBlock] to JSON-LD
+  /// Serialize [Schema3DModel] to JSON-LD
   @override
   Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
-        '@type': 'WPAdBlock',
-        'cssSelector': convertToJsonLd(cssSelector, [String]),
-        'xpath': convertToJsonLd(xpath, [String]),
+        '@type': '3DModel',
+        'isResizable': convertToJsonLd(isResizable, [bool]),
+        'associatedArticle':
+            convertToJsonLd(associatedArticle, [SchemaNewsArticle]),
+        'bitrate': convertToJsonLd(bitrate, [String]),
+        'contentSize': convertToJsonLd(contentSize, [String]),
+        'contentUrl': convertToJsonLd(contentUrl, [String]),
+        'duration': convertToJsonLd(duration, [SchemaDuration]),
+        'embedUrl': convertToJsonLd(embedUrl, [String]),
+        'encodesCreativeWork':
+            convertToJsonLd(encodesCreativeWork, [SchemaCreativeWork]),
+        'encodingFormat': convertToJsonLd(encodingFormat, [String, String]),
+        'endTime': convertToJsonLd(endTime, [String, String]),
+        'height':
+            convertToJsonLd(height, [SchemaDistance, SchemaQuantitativeValue]),
+        'ineligibleRegion': convertToJsonLd(
+            ineligibleRegion, [SchemaGeoShape, SchemaPlace, String]),
+        'interpretedAsClaim':
+            convertToJsonLd(interpretedAsClaim, [SchemaClaim]),
+        'playerType': convertToJsonLd(playerType, [String]),
+        'productionCompany':
+            convertToJsonLd(productionCompany, [SchemaOrganization]),
+        'regionsAllowed': convertToJsonLd(regionsAllowed, [SchemaPlace]),
+        'requiresSubscription': convertToJsonLd(
+            requiresSubscription, [SchemaMediaSubscription, bool]),
+        'sha256': convertToJsonLd(sha256, [String]),
+        'startTime': convertToJsonLd(startTime, [String, String]),
+        'uploadDate': convertToJsonLd(uploadDate, [String, String]),
+        'width':
+            convertToJsonLd(width, [SchemaDistance, SchemaQuantitativeValue]),
         'about': convertToJsonLd(about, [SchemaThing]),
         'abstract': convertToJsonLd(abstract, [String]),
         'accessMode': convertToJsonLd(accessMode, [String]),
@@ -969,7 +1112,6 @@ class SchemaWPAdBlock implements SchemaSerializable {
         'educationalUse':
             convertToJsonLd(educationalUse, [SchemaDefinedTerm, String]),
         'encoding': convertToJsonLd(encoding, [SchemaMediaObject]),
-        'encodingFormat': convertToJsonLd(encodingFormat, [String, String]),
         'encodings': convertToJsonLd(encodings, [SchemaMediaObject]),
         'exampleOfWork': convertToJsonLd(exampleOfWork, [SchemaCreativeWork]),
         'expires': convertToJsonLd(expires, [String, String]),
@@ -983,8 +1125,6 @@ class SchemaWPAdBlock implements SchemaSerializable {
         'interactionStatistic':
             convertToJsonLd(interactionStatistic, [SchemaInteractionCounter]),
         'interactivityType': convertToJsonLd(interactivityType, [String]),
-        'interpretedAsClaim':
-            convertToJsonLd(interpretedAsClaim, [SchemaClaim]),
         'isAccessibleForFree': convertToJsonLd(isAccessibleForFree, [bool]),
         'isBasedOn': convertToJsonLd(
             isBasedOn, [SchemaCreativeWork, SchemaProduct, String]),

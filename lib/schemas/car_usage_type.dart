@@ -1,7 +1,7 @@
 import 'package:schema_org/src/schema_serializable.dart';
 
-/// A value indicating a special usage of a car, e.g commercial
-/// rental, driving school, or as a taxi.
+/// A value indicating a special usage of a car, e.g. commercial rental,
+/// driving school, or as a taxi.
 /// See https://schema.org/CarUsageType
 enum SchemaCarUsageType implements SchemaSerializable {
   /// Indicates the usage of the vehicle for driving school.

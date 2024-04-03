@@ -12,7 +12,7 @@ enum SchemaMapCategoryType implements SchemaSerializable {
   /// A transit map.
   transitMap('https://schema.org/MapCategoryType'),
 
-  /// A venue map (e.g for malls, auditoriums, museums, etc.).
+  /// A venue map (e.g. for malls, auditoriums, museums, etc.).
   venueMap('https://schema.org/MapCategoryType');
 
   /// Constructor for [SchemaMapCategoryType]

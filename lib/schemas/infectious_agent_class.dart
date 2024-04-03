@@ -1,6 +1,6 @@
 import 'package:schema_org/schemas/medical_enumeration.dart';
 
-/// Classes of agents or pathogens that transmit infectious diseases
+/// Classes of agents or pathogens that transmit infectious diseases.
 /// Enumerated type.
 /// See https://schema.org/InfectiousAgentClass
 enum SchemaInfectiousAgentClass implements SchemaMedicalEnumeration {
@@ -13,8 +13,8 @@ enum SchemaInfectiousAgentClass implements SchemaMedicalEnumeration {
   /// Multicellular parasite that causes an infection.
   multicellularParasite('https://schema.org/InfectiousAgentClass'),
 
-  /// A prion is an infectious agent composed of protein in a
-  /// misfolded form.
+  /// A prion is an infectious agent composed of protein in a misfolded
+  /// form.
   prion('https://schema.org/InfectiousAgentClass'),
 
   /// Single-celled organism that causes an infection.

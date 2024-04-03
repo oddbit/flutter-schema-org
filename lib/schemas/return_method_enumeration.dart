@@ -3,8 +3,8 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// Enumerates several types of product return methods.
 /// See https://schema.org/ReturnMethodEnumeration
 enum SchemaReturnMethodEnumeration implements SchemaSerializable {
-  /// Specifies that the consumer can keep the product, even when
-  /// receiving a refund or store credit.
+  /// Specifies that the consumer can keep the product, even when receiving
+  /// a refund or store credit.
   keepProduct('https://schema.org/ReturnMethodEnumeration'),
 
   /// Specifies that product returns must be made at a kiosk.

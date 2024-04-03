@@ -1,30 +1,29 @@
 import 'package:schema_org/src/schema_serializable.dart';
 
-/// Enumerates different price types, for example list price,
-/// invoice price, and sale price.
+/// Enumerates different price types, for example list price, invoice price,
+/// and sale price.
 /// See https://schema.org/PriceTypeEnumeration
 enum SchemaPriceTypeEnumeration implements SchemaSerializable {
   /// Represents the invoice price of an offered product.
   invoicePrice('https://schema.org/PriceTypeEnumeration'),
 
-  /// Represents the list price (the price a product is actually
-  /// advertised for) of an offered product.
+  /// Represents the list price (the price a product is actually advertised
+  /// for) of an offered product.
   listPrice('https://schema.org/PriceTypeEnumeration'),
 
-  /// Represents the manufacturer suggested retail price ("MSRP") of
-  /// an offered product.
+  /// Represents the manufacturer suggested retail price ("MSRP") of an
+  /// offered product.
   mSRP('https://schema.org/PriceTypeEnumeration'),
 
-  /// Represents the minimum advertised price ("MAP") (as dictated by
-  /// the manufacturer) of an offered product.
+  /// Represents the minimum advertised price ("MAP") (as dictated by the
+  /// manufacturer) of an offered product.
   minimumAdvertisedPrice('https://schema.org/PriceTypeEnumeration'),
 
-  /// Represents the suggested retail price ("SRP") of an offered
-  /// product.
+  /// Represents the suggested retail price ("SRP") of an offered product.
   sRP('https://schema.org/PriceTypeEnumeration'),
 
-  /// Represents a sale price (usually active for a limited period) of
-  /// an offered product.
+  /// Represents a sale price (usually active for a limited period) of an
+  /// offered product.
   salePrice('https://schema.org/PriceTypeEnumeration');
 
   /// Constructor for [SchemaPriceTypeEnumeration]

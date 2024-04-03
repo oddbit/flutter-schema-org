@@ -1,7 +1,7 @@
 import 'package:schema_org/src/schema_serializable.dart';
 
-/// Enumerated for values for itemListOrder for indicating how an
-/// ordered ItemList is organized.
+/// Enumerated for values for itemListOrder for indicating how an ordered
+/// ItemList is organized.
 /// See https://schema.org/ItemListOrderType
 enum SchemaItemListOrderType implements SchemaSerializable {
   /// An ItemList ordered with lower values listed first.

@@ -1,5 +1,5 @@
-import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/src/schema_serializable.dart';
+import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
@@ -11,10 +11,11 @@ import 'package:schema_org/schemas/event.dart';
 /// A Property value specification.
 /// See https://schema.org/PropertyValueSpecification
 class SchemaPropertyValueSpecification implements SchemaSerializable {
-  /// The default value of the input For properties that expect a
-  /// literal, the default is a literal value, for properties that
-  /// expect an object, it's an ID reference to one of the current
-  /// values.  Supported types: [String], [Thing]
+  /// The default value of the input. For properties that expect a literal, the
+  /// default is a literal value, for properties that expect an object, it's an
+  /// ID reference to one of the current values.
+  ///
+  /// Supported types: [String], [SchemaThing]
   dynamic defaultValue;
 
   /// The upper value of some characteristic or property.
@@ -23,90 +24,93 @@ class SchemaPropertyValueSpecification implements SchemaSerializable {
   /// The lower value of some characteristic or property.
   int? minValue;
 
-  /// Whether multiple values are allowed for the property Default is
-  /// false.
+  /// Whether multiple values are allowed for the property. Default is false.
   bool? multipleValues;
 
-  /// Whether or not a property is mutable Default is false Specifying
-  /// this for a property that also has a value makes it act similar
-  /// to a "hidden" input in an HTML form.
+  /// Whether or not a property is mutable. Default is false. Specifying this
+  /// for a property that also has a value makes it act similar to a "hidden"
+  /// input in an HTML form.
   bool? readonlyValue;
 
-  /// The stepValue attribute indicates the granularity that is
-  /// expected (and required) of the value in a
-  /// PropertyValueSpecification.
+  /// The stepValue attribute indicates the granularity that is expected (and
+  /// required) of the value in a PropertyValueSpecification.
   int? stepValue;
 
-  /// Specifies the allowed range for number of characters in a
-  /// literal value.
+  /// Specifies the allowed range for number of characters in a literal value.
   int? valueMaxLength;
 
-  /// Specifies the minimum allowed range for number of characters in
-  /// a literal value.
+  /// Specifies the minimum allowed range for number of characters in a literal
+  /// value.
   int? valueMinLength;
 
-  /// Indicates the name of the PropertyValueSpecification to be used
-  /// in URL templates and form encoding in a manner analogous to
-  /// HTML's input@name.
+  /// Indicates the name of the PropertyValueSpecification to be used in URL
+  /// templates and form encoding in a manner analogous to HTML's input@name.
   String? valueName;
 
-  /// Specifies a regular expression for testing literal values
-  /// according to the HTML spec.
+  /// Specifies a regular expression for testing literal values according to
+  /// the HTML spec.
   String? valuePattern;
 
-  /// Whether the property must be filled in to complete the action
-  /// Default is false.
+  /// Whether the property must be filled in to complete the action. Default is
+  /// false.
   bool? valueRequired;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.  Supported
-  /// types: [String], [String]
+  /// //schema.org/docs/styleguide.html">style guide</a>.
+  ///
+  /// Supported types: [String], [String]
   String? additionalType;
 
   /// An alias for the item.
   String? alternateName;
 
-  /// A description of the item.  Supported types: [String],
-  /// [TextObject]
+  /// A description of the item.
+  ///
+  /// Supported types: [String], [SchemaTextObject]
   dynamic description;
 
-  /// A sub property of description A short description of the item
-  /// used to disambiguate from other, similar items Information from
-  /// other properties (in particular, name) may be necessary for the
-  /// description to be useful for disambiguation.
+  /// A sub property of description. A short description of the item used to
+  /// disambiguate from other, similar items. Information from other properties
+  /// (in particular, name) may be necessary for the description to be useful
+  /// for disambiguation.
   String? disambiguatingDescription;
 
-  /// The identifier property represents any kind of identifier for
-  /// any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc
-  /// Schema.org provides dedicated properties for representing many
-  /// of these, either as textual strings or as URL (URI) links See
-  /// [background notes](/docs/datamodel.html#identifierBg) for more
-  /// details    Supported types: [PropertyValue], [String], [String]
+  /// The identifier property represents any kind of identifier for any kind of
+  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
+  /// dedicated properties for representing many of these, either as textual
+  /// strings or as URL (URI) links. See [background
+  /// notes](/docs/datamodel.html#identifierBg) for more details.
+  ///
+  /// Supported types: [SchemaPropertyValue], [String], [String]
   dynamic identifier;
 
-  /// An image of the item This can be a [[URL]] or a fully described
-  /// [[ImageObject]].  Supported types: [ImageObject], [String]
+  /// An image of the item. This can be a [SchemaURL] or a fully described
+  /// [SchemaImageObject].
+  ///
+  /// Supported types: [SchemaImageObject], [String]
   dynamic image;
 
-  /// Indicates a page (or other CreativeWork) for which this thing is
-  /// the main entity being described See [background
+  /// Indicates a page (or other CreativeWork) for which this thing is the main
+  /// entity being described. See [background
   /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  /// Supported types: [CreativeWork], [String]
+  ///
+  /// Supported types: [SchemaCreativeWork], [String]
   dynamic mainEntityOfPage;
 
   /// The name of the item.
   String? name;
 
-  /// Indicates a potential Action, which describes an idealized
-  /// action in which this thing would play an 'object' role.
+  /// Indicates a potential Action, which describes an idealized action in
+  /// which this thing would play an 'object' role.
   SchemaAction? potentialAction;
 
-  /// URL of a reference Web page that unambiguously indicates the
-  /// item's identity E.g the URL of the item's Wikipedia page,
-  /// Wikidata entry, or official website.
+  /// URL of a reference Web page that unambiguously indicates the item's
+  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
+  /// official website.
   String? sameAs;
 
-  /// A CreativeWork or Event about this Thing.  Supported types:
-  /// [CreativeWork], [Event]
+  /// A CreativeWork or Event about this Thing.
+  ///
+  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
   dynamic subjectOf;
 
   /// URL of the item.

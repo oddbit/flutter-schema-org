@@ -7,8 +7,7 @@ enum SchemaCertificationStatusEnumeration implements SchemaSerializable {
   /// Specifies that a certification is active.
   certificationActive('https://schema.org/CertificationStatusEnumeration'),
 
-  /// Specifies that a certification is inactive (no longer in
-  /// effect).
+  /// Specifies that a certification is inactive (no longer in effect).
   certificationInactive('https://schema.org/CertificationStatusEnumeration');
 
   /// Constructor for [SchemaCertificationStatusEnumeration]

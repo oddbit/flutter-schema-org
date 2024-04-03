@@ -1,5 +1,5 @@
-import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/src/schema_serializable.dart';
+import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/interaction_counter.dart';
@@ -39,22 +39,23 @@ class SchemaPerson implements SchemaSerializable {
   /// An additional name for a Person, can be used for a middle name.
   String? additionalName;
 
-  /// Physical address of the item.  Supported types: [PostalAddress],
-  /// [String]
+  /// Physical address of the item.
+  ///
+  /// Supported types: [SchemaPostalAddress], [String]
   dynamic address;
 
-  /// An organization that this person is affiliated with For example,
-  /// a school/university, a club, or a team.
+  /// An organization that this person is affiliated with. For example, a
+  /// school/university, a club, or a team.
   SchemaOrganization? affiliation;
 
-  /// The number of completed interactions for this entity, in a
-  /// particular role (the 'agent'), in a particular action (indicated
-  /// in the statistic), and in a particular context (i.e
-  /// interactionService).
+  /// The number of completed interactions for this entity, in a particular
+  /// role (the 'agent'), in a particular action (indicated in the statistic),
+  /// and in a particular context (i.e. interactionService).
   SchemaInteractionCounter? agentInteractionStatistic;
 
-  /// An organization that the person is an alumni of.  Supported
-  /// types: [EducationalOrganization], [Organization]
+  /// An organization that the person is an alumni of.
+  ///
+  /// Supported types: [SchemaEducationalOrganization], [SchemaOrganization]
   dynamic alumniOf;
 
   /// An award won by or for this item.
@@ -69,20 +70,22 @@ class SchemaPerson implements SchemaSerializable {
   /// The place where the person was born.
   SchemaPlace? birthPlace;
 
-  /// The brand(s) associated with a product or service, or the
-  /// brand(s) maintained by an organization or business person.
-  /// Supported types: [Brand], [Organization]
+  /// The brand(s) associated with a product or service, or the brand(s)
+  /// maintained by an organization or business person.
+  ///
+  /// Supported types: [SchemaBrand], [SchemaOrganization]
   dynamic brand;
 
-  /// //en.wikipedia.org/wiki/Call_sign), as used in broadcasting and
-  /// radio communications to identify people, radio and TV stations,
-  /// or vehicles.
+  /// //en.wikipedia.org/wiki/Call_sign), as used in broadcasting and radio
+  /// communications to identify people, radio and TV stations, or vehicles.
   String? callSign;
 
   /// A child of the person.
   SchemaPerson? children;
 
-  /// A colleague of the person.  Supported types: [Person], [String]
+  /// A colleague of the person.
+  ///
+  /// Supported types: [SchemaPerson], [String]
   dynamic colleague;
 
   /// A colleague of the person.
@@ -100,14 +103,14 @@ class SchemaPerson implements SchemaSerializable {
   /// The place where the person died.
   SchemaPlace? deathPlace;
 
-  /// The Dun & Bradstreet DUNS number for identifying an organization
-  /// or business person.
+  /// The Dun & Bradstreet DUNS number for identifying an organization or
+  /// business person.
   String? duns;
 
   /// Email address.
   String? email;
 
-  /// Family name In the U.S., the last name of a Person.
+  /// Family name. In the U.S., the last name of a Person.
   String? familyName;
 
   /// The fax number.
@@ -116,118 +119,126 @@ class SchemaPerson implements SchemaSerializable {
   /// The most generic uni-directional social relation.
   SchemaPerson? follows;
 
-  /// A person or organization that supports (sponsors) something
-  /// through some kind of financial contribution.  Supported types:
-  /// [Organization], [Person]
+  /// A person or organization that supports (sponsors) something through some
+  /// kind of financial contribution.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic funder;
 
-  /// A [[Grant]] that directly or indirectly provide funding or
-  /// sponsorship for this item See also [[ownershipFundingInfo]].
+  /// A [SchemaGrant] that directly or indirectly provide funding or
+  /// sponsorship for this item. See also [SchemaownershipFundingInfo].
   SchemaGrant? funding;
 
-  /// //schema.org/Female may be used, text strings are also
-  /// acceptable for people who do not identify as a binary gender The
-  /// [[gender]] property can also be used in an extended sense to
-  /// cover e.g the gender of sports teams As with the gender of
-  /// individuals, we do not try to enumerate all possibilities A
-  /// mixed-gender [[SportsTeam]] can be indicated with a text value
-  /// of "Mixed".  Supported types: [GenderType], [String]
+  /// //schema.org/Female may be used, text strings are also acceptable for
+  /// people who do not identify as a binary gender. The [Schemagender]
+  /// property can also be used in an extended sense to cover e.g. the gender
+  /// of sports teams. As with the gender of individuals, we do not try to
+  /// enumerate all possibilities. A mixed-gender [SchemaSportsTeam] can be
+  /// indicated with a text value of "Mixed".
+  ///
+  /// Supported types: [SchemaGenderType], [String]
   dynamic gender;
 
-  /// Given name In the U.S., the first name of a Person.
+  /// Given name. In the U.S., the first name of a Person.
   String? givenName;
 
-  /// //www.gs1.org/gln) (GLN, sometimes also referred to as
-  /// International Location Number or ILN) of the respective
-  /// organization, person, or place The GLN is a 13-digit number used
-  /// to identify parties and physical locations.
+  /// //www.gs1.org/gln) (GLN, sometimes also referred to as International
+  /// Location Number or ILN) of the respective organization, person, or place.
+  /// The GLN is a 13-digit number used to identify parties and physical
+  /// locations.
   String? globalLocationNumber;
 
-  /// Certification information about a product, organization,
-  /// service, place, or person.
+  /// Certification information about a product, organization, service, place,
+  /// or person.
   SchemaCertification? hasCertification;
 
   /// A credential awarded to the Person or Organization.
   SchemaEducationalOccupationalCredential? hasCredential;
 
-  /// The Person's occupation For past professions, use Role for
-  /// expressing dates.
+  /// The Person's occupation. For past professions, use Role for expressing
+  /// dates.
   SchemaOccupation? hasOccupation;
 
-  /// Indicates an OfferCatalog listing for this Organization, Person,
-  /// or Service.
+  /// Indicates an OfferCatalog listing for this Organization, Person, or
+  /// Service.
   SchemaOfferCatalog? hasOfferCatalog;
 
   /// Points-of-Sales operated by the organization or person.
   SchemaPlace? hasPOS;
 
-  /// The height of the item.  Supported types: [Distance],
-  /// [QuantitativeValue]
+  /// The height of the item.
+  ///
+  /// Supported types: [SchemaDistance], [SchemaQuantitativeValue]
   dynamic height;
 
-  /// A contact location for a person's residence.  Supported types:
-  /// [ContactPoint], [Place]
+  /// A contact location for a person's residence.
+  ///
+  /// Supported types: [SchemaContactPoint], [SchemaPlace]
   dynamic homeLocation;
 
   /// An honorific prefix preceding a Person's name such as Dr/Mrs/Mr.
   String? honorificPrefix;
 
-  /// An honorific suffix following a Person's name such as
-  /// M.D./PhD/MSCSW.
+  /// An honorific suffix following a Person's name such as M.D./PhD/MSCSW.
   String? honorificSuffix;
 
-  /// The number of interactions for the CreativeWork using the
-  /// WebSite or SoftwareApplication The most specific child type of
-  /// InteractionCounter should be used.
+  /// The number of interactions for the CreativeWork using the WebSite or
+  /// SoftwareApplication. The most specific child type of InteractionCounter
+  /// should be used.
   SchemaInteractionCounter? interactionStatistic;
 
-  /// The International Standard of Industrial Classification of All
-  /// Economic Activities (ISIC), Revision 4 code for a particular
-  /// organization, business person, or place.
+  /// The International Standard of Industrial Classification of All Economic
+  /// Activities (ISIC), Revision 4 code for a particular organization,
+  /// business person, or place.
   String? isicV4;
 
   /// The job title of the person (for example, Financial Manager).
-  /// Supported types: [DefinedTerm], [String]
+  ///
+  /// Supported types: [SchemaDefinedTerm], [String]
   dynamic jobTitle;
 
   /// The most generic bi-directional social/work relation.
   SchemaPerson? knows;
 
-  /// Of a [[Person]], and less typically of an [[Organization]], to
-  /// indicate a topic that is known about - suggesting possible
-  /// expertise but not implying it We do not distinguish skill levels
-  /// here, or relate this to educational content, events, objectives
-  /// or [[JobPosting]] descriptions.  Supported types: [String],
-  /// [String], [Thing]
+  /// Of a [SchemaPerson], and less typically of an [SchemaOrganization], to
+  /// indicate a topic that is known about - suggesting possible expertise but
+  /// not implying it. We do not distinguish skill levels here, or relate this
+  /// to educational content, events, objectives or [SchemaJobPosting]
+  /// descriptions.
+  ///
+  /// Supported types: [String], [String], [SchemaThing]
   dynamic knowsAbout;
 
-  /// //tools.ietf.org/html/bcp47).  Supported types: [Language],
-  /// [String]
+  /// //tools.ietf.org/html/bcp47).
+  ///
+  /// Supported types: [SchemaLanguage], [String]
   dynamic knowsLanguage;
 
-  /// A pointer to products or services offered by the organization or
-  /// person.
+  /// A pointer to products or services offered by the organization or person.
   SchemaOffer? makesOffer;
 
   /// An Organization (or ProgramMembership) to which this Person or
-  /// Organization belongs.  Supported types: [Organization],
-  /// [ProgramMembership]
+  /// Organization belongs.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaProgramMembership]
   dynamic memberOf;
 
-  /// The North American Industry Classification System (NAICS) code
-  /// for a particular organization or business person.
+  /// The North American Industry Classification System (NAICS) code for a
+  /// particular organization or business person.
   String? naics;
 
   /// Nationality of the person.
   SchemaCountry? nationality;
 
-  /// The total financial value of the person as calculated by
-  /// subtracting assets from liabilities.  Supported types:
-  /// [MonetaryAmount], [PriceSpecification]
+  /// The total financial value of the person as calculated by subtracting
+  /// assets from liabilities.
+  ///
+  /// Supported types: [SchemaMonetaryAmount], [SchemaPriceSpecification]
   dynamic netWorth;
 
-  /// Products owned by the organization or person.  Supported types:
-  /// [OwnershipInfo], [Product]
+  /// Products owned by the organization or person.
+  ///
+  /// Supported types: [SchemaOwnershipInfo], [SchemaProduct]
   dynamic owns;
 
   /// A parent of this person.
@@ -239,24 +250,26 @@ class SchemaPerson implements SchemaSerializable {
   /// Event that this person is a performer or participant in.
   SchemaEvent? performerIn;
 
-  /// The publishingPrinciples property indicates (typically via
-  /// [[URL]]) a document describing the editorial principles of an
-  /// [[Organization]] (or individual, e.g a [[Person]] writing a
-  /// blog) that relate to their activities as a publisher, e.g ethics
-  /// or diversity policies When applied to a [[CreativeWork]] (e.g
-  /// [[NewsArticle]]) the principles are those of the party primarily
-  /// responsible for the creation of the [[CreativeWork]]  While such
-  /// policies are most typically expressed in natural language,
-  /// sometimes related information (e.g indicating a [[funder]]) can
-  /// be expressed using schema.org terminology   Supported types:
-  /// [CreativeWork], [String]
+  /// The publishingPrinciples property indicates (typically via [SchemaURL]) a
+  /// document describing the editorial principles of an [SchemaOrganization]
+  /// (or individual, e.g. a [SchemaPerson] writing a blog) that relate to
+  /// their activities as a publisher, e.g. ethics or diversity policies. When
+  /// applied to a [SchemaCreativeWork] (e.g. [SchemaNewsArticle]) the
+  /// principles are those of the party primarily responsible for the creation
+  /// of the [SchemaCreativeWork].
+  ///
+  /// While such policies are most typically expressed in natural language,
+  /// sometimes related information (e.g. indicating a [Schemafunder]) can be
+  /// expressed using schema.org terminology.
+  ///
+  /// Supported types: [SchemaCreativeWork], [String]
   dynamic publishingPrinciples;
 
   /// The most generic familial relation.
   SchemaPerson? relatedTo;
 
-  /// A pointer to products or services sought by the organization or
-  /// person (demand).
+  /// A pointer to products or services sought by the organization or person
+  /// (demand).
   SchemaDemand? seeks;
 
   /// A sibling of the person.
@@ -265,17 +278,18 @@ class SchemaPerson implements SchemaSerializable {
   /// A sibling of the person.
   SchemaPerson? siblings;
 
-  /// A person or organization that supports a thing through a pledge,
-  /// promise, or financial contribution E.g a sponsor of a Medical
-  /// Study or a corporate sponsor of an event.  Supported types:
-  /// [Organization], [Person]
+  /// A person or organization that supports a thing through a pledge, promise,
+  /// or financial contribution. E.g. a sponsor of a Medical Study or a
+  /// corporate sponsor of an event.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic sponsor;
 
   /// The person's spouse.
   SchemaPerson? spouse;
 
-  /// The Tax / Fiscal ID of the organization or person, e.g the TIN
-  /// in the US or the CIF/NIF in Spain.
+  /// The Tax / Fiscal ID of the organization or person, e.g. the TIN in the US
+  /// or the CIF/NIF in Spain.
   String? taxID;
 
   /// The telephone number.
@@ -287,62 +301,70 @@ class SchemaPerson implements SchemaSerializable {
   /// The weight of the product or person.
   SchemaQuantitativeValue? weight;
 
-  /// A contact location for a person's place of work.  Supported
-  /// types: [ContactPoint], [Place]
+  /// A contact location for a person's place of work.
+  ///
+  /// Supported types: [SchemaContactPoint], [SchemaPlace]
   dynamic workLocation;
 
   /// Organizations that the person works for.
   SchemaOrganization? worksFor;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.  Supported
-  /// types: [String], [String]
+  /// //schema.org/docs/styleguide.html">style guide</a>.
+  ///
+  /// Supported types: [String], [String]
   String? additionalType;
 
   /// An alias for the item.
   String? alternateName;
 
-  /// A description of the item.  Supported types: [String],
-  /// [TextObject]
+  /// A description of the item.
+  ///
+  /// Supported types: [String], [SchemaTextObject]
   dynamic description;
 
-  /// A sub property of description A short description of the item
-  /// used to disambiguate from other, similar items Information from
-  /// other properties (in particular, name) may be necessary for the
-  /// description to be useful for disambiguation.
+  /// A sub property of description. A short description of the item used to
+  /// disambiguate from other, similar items. Information from other properties
+  /// (in particular, name) may be necessary for the description to be useful
+  /// for disambiguation.
   String? disambiguatingDescription;
 
-  /// The identifier property represents any kind of identifier for
-  /// any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc
-  /// Schema.org provides dedicated properties for representing many
-  /// of these, either as textual strings or as URL (URI) links See
-  /// [background notes](/docs/datamodel.html#identifierBg) for more
-  /// details    Supported types: [PropertyValue], [String], [String]
+  /// The identifier property represents any kind of identifier for any kind of
+  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
+  /// dedicated properties for representing many of these, either as textual
+  /// strings or as URL (URI) links. See [background
+  /// notes](/docs/datamodel.html#identifierBg) for more details.
+  ///
+  /// Supported types: [SchemaPropertyValue], [String], [String]
   dynamic identifier;
 
-  /// An image of the item This can be a [[URL]] or a fully described
-  /// [[ImageObject]].  Supported types: [ImageObject], [String]
+  /// An image of the item. This can be a [SchemaURL] or a fully described
+  /// [SchemaImageObject].
+  ///
+  /// Supported types: [SchemaImageObject], [String]
   dynamic image;
 
-  /// Indicates a page (or other CreativeWork) for which this thing is
-  /// the main entity being described See [background
+  /// Indicates a page (or other CreativeWork) for which this thing is the main
+  /// entity being described. See [background
   /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  /// Supported types: [CreativeWork], [String]
+  ///
+  /// Supported types: [SchemaCreativeWork], [String]
   dynamic mainEntityOfPage;
 
   /// The name of the item.
   String? name;
 
-  /// Indicates a potential Action, which describes an idealized
-  /// action in which this thing would play an 'object' role.
+  /// Indicates a potential Action, which describes an idealized action in
+  /// which this thing would play an 'object' role.
   SchemaAction? potentialAction;
 
-  /// URL of a reference Web page that unambiguously indicates the
-  /// item's identity E.g the URL of the item's Wikipedia page,
-  /// Wikidata entry, or official website.
+  /// URL of a reference Web page that unambiguously indicates the item's
+  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
+  /// official website.
   String? sameAs;
 
-  /// A CreativeWork or Event about this Thing.  Supported types:
-  /// [CreativeWork], [Event]
+  /// A CreativeWork or Event about this Thing.
+  ///
+  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
   dynamic subjectOf;
 
   /// URL of the item.

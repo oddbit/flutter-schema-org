@@ -1,7 +1,7 @@
 import 'package:schema_org/schemas/energy_efficiency_enumeration.dart';
 
-/// Enumerates the EU energy efficiency classes A-G as well as A+,
-/// A++, and A+++ as defined in EU directive 2017/1369.
+/// Enumerates the EU energy efficiency classes A-G as well as A+, A++, and
+/// A+++ as defined in EU directive 2017/1369.
 /// See https://schema.org/EUEnergyEfficiencyEnumeration
 enum SchemaEUEnergyEfficiencyEnumeration
     implements SchemaEnergyEfficiencyEnumeration {
@@ -15,13 +15,13 @@ enum SchemaEUEnergyEfficiencyEnumeration
   eUEnergyEfficiencyCategoryA1Plus(
       'https://schema.org/EUEnergyEfficiencyEnumeration'),
 
-  /// Represents EU Energy Efficiency Class A++ as defined in EU
-  /// energy labeling regulations.
+  /// Represents EU Energy Efficiency Class A++ as defined in EU energy
+  /// labeling regulations.
   eUEnergyEfficiencyCategoryA2Plus(
       'https://schema.org/EUEnergyEfficiencyEnumeration'),
 
-  /// Represents EU Energy Efficiency Class A+++ as defined in EU
-  /// energy labeling regulations.
+  /// Represents EU Energy Efficiency Class A+++ as defined in EU energy
+  /// labeling regulations.
   eUEnergyEfficiencyCategoryA3Plus(
       'https://schema.org/EUEnergyEfficiencyEnumeration'),
 

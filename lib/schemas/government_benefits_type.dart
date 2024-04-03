@@ -1,8 +1,8 @@
 import 'package:schema_org/src/schema_serializable.dart';
 
-/// GovernmentBenefitsType enumerates several kinds of government
-/// benefits to support the COVID-19 situation Note that this
-/// structure may not capture all benefits offered.
+/// GovernmentBenefitsType enumerates several kinds of government benefits to
+/// support the COVID-19 situation. Note that this structure may not capture
+/// all benefits offered.
 /// See https://schema.org/GovernmentBenefitsType
 enum SchemaGovernmentBenefitsType implements SchemaSerializable {
   /// this is a benefit for basic income.

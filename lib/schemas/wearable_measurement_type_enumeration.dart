@@ -20,8 +20,7 @@ enum SchemaWearableMeasurementTypeEnumeration
   wearableMeasurementCup(
       'https://schema.org/WearableMeasurementTypeEnumeration'),
 
-  /// Measurement of the height, for example the heel height of a
-  /// shoe.
+  /// Measurement of the height, for example the heel height of a shoe.
   wearableMeasurementHeight(
       'https://schema.org/WearableMeasurementTypeEnumeration'),
 

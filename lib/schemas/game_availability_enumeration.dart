@@ -1,10 +1,10 @@
 import 'package:schema_org/src/schema_serializable.dart';
 
-/// For a [[VideoGame]], such as used with a [[PlayGameAction]], an
+/// For a [SchemaVideoGame], such as used with a [SchemaPlayGameAction], an
 /// enumeration of the kind of game availability offered.
 /// See https://schema.org/GameAvailabilityEnumeration
 enum SchemaGameAvailabilityEnumeration implements SchemaSerializable {
-  /// Indicates demo game availability, i.e a somehow limited
+  /// Indicates demo game availability, i.e. a somehow limited
   /// demonstration of the full game.
   demoGameAvailability('https://schema.org/GameAvailabilityEnumeration'),
 

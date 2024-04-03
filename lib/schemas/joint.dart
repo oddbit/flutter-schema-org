@@ -1,5 +1,5 @@
-import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/src/schema_serializable.dart';
+import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/medical_entity.dart';
 import 'package:schema_org/schemas/anatomical_structure.dart';
 import 'package:schema_org/schemas/image_object.dart';
@@ -27,29 +27,27 @@ class SchemaJoint implements SchemaSerializable {
   /// The biomechanical properties of the bone.
   String? biomechnicalClass;
 
-  /// The degree of mobility the joint allows.  Supported types:
-  /// [MedicalEntity], [String]
+  /// The degree of mobility the joint allows.
+  ///
+  /// Supported types: [SchemaMedicalEntity], [String]
   dynamic functionalClass;
 
   /// The name given to how bone physically connects to each other.
   String? structuralClass;
 
-  /// If applicable, a description of the pathophysiology associated
-  /// with the anatomical system, including potential abnormal changes
-  /// in the mechanical, physical, and biochemical functions of the
-  /// system.
+  /// If applicable, a description of the pathophysiology associated with the
+  /// anatomical system, including potential abnormal changes in the
+  /// mechanical, physical, and biochemical functions of the system.
   String? associatedPathophysiology;
 
   /// Location in the body of the anatomical structure.
   String? bodyLocation;
 
-  /// Other anatomical structures to which this structure is
-  /// connected.
+  /// Other anatomical structures to which this structure is connected.
   SchemaAnatomicalStructure? connectedTo;
 
-  /// An image containing a diagram that illustrates the structure
-  /// and/or its component substructures and/or connections with other
-  /// structures.
+  /// An image containing a diagram that illustrates the structure and/or its
+  /// component substructures and/or connections with other structures.
   SchemaImageObject? diagram;
 
   /// The anatomical or organ system that this structure is part of.
@@ -61,91 +59,97 @@ class SchemaJoint implements SchemaSerializable {
   /// A medical therapy related to this anatomy.
   SchemaMedicalTherapy? relatedTherapy;
 
-  /// Component (sub-)structure(s) that comprise this anatomical
-  /// structure.
+  /// Component (sub-)structure(s) that comprise this anatomical structure.
   SchemaAnatomicalStructure? subStructure;
 
-  /// A medical code for the entity, taken from a controlled
-  /// vocabulary or ontology such as ICD-9, DiseasesDB, MeSH,
-  /// SNOMED-CT, RxNorm, etc.
+  /// A medical code for the entity, taken from a controlled vocabulary or
+  /// ontology such as ICD-9, DiseasesDB, MeSH, SNOMED-CT, RxNorm, etc.
   SchemaMedicalCode? code;
 
-  /// A [[Grant]] that directly or indirectly provide funding or
-  /// sponsorship for this item See also [[ownershipFundingInfo]].
+  /// A [SchemaGrant] that directly or indirectly provide funding or
+  /// sponsorship for this item. See also [SchemaownershipFundingInfo].
   SchemaGrant? funding;
 
   /// A medical guideline related to this entity.
   SchemaMedicalGuideline? guideline;
 
-  /// The drug or supplement's legal status, including any controlled
-  /// substance schedules that apply.  Supported types:
-  /// [DrugLegalStatus], [MedicalEnumeration], [String]
+  /// The drug or supplement's legal status, including any controlled substance
+  /// schedules that apply.
+  ///
+  /// Supported types: [SchemaDrugLegalStatus], [SchemaMedicalEnumeration],
+  /// [String]
   dynamic legalStatus;
 
-  /// The system of medicine that includes this MedicalEntity, for
-  /// example 'evidence-based', 'homeopathic', 'chiropractic', etc.
+  /// The system of medicine that includes this MedicalEntity, for example
+  /// 'evidence-based', 'homeopathic', 'chiropractic', etc.
   SchemaMedicineSystem? medicineSystem;
 
-  /// If applicable, the organization that officially recognizes this
-  /// entity as part of its endorsed system of medicine.
+  /// If applicable, the organization that officially recognizes this entity as
+  /// part of its endorsed system of medicine.
   SchemaOrganization? recognizingAuthority;
 
-  /// If applicable, a medical specialty in which this entity is
-  /// relevant.
+  /// If applicable, a medical specialty in which this entity is relevant.
   SchemaMedicalSpecialty? relevantSpecialty;
 
   /// A medical study or trial related to this entity.
   SchemaMedicalStudy? study;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.  Supported
-  /// types: [String], [String]
+  /// //schema.org/docs/styleguide.html">style guide</a>.
+  ///
+  /// Supported types: [String], [String]
   String? additionalType;
 
   /// An alias for the item.
   String? alternateName;
 
-  /// A description of the item.  Supported types: [String],
-  /// [TextObject]
+  /// A description of the item.
+  ///
+  /// Supported types: [String], [SchemaTextObject]
   dynamic description;
 
-  /// A sub property of description A short description of the item
-  /// used to disambiguate from other, similar items Information from
-  /// other properties (in particular, name) may be necessary for the
-  /// description to be useful for disambiguation.
+  /// A sub property of description. A short description of the item used to
+  /// disambiguate from other, similar items. Information from other properties
+  /// (in particular, name) may be necessary for the description to be useful
+  /// for disambiguation.
   String? disambiguatingDescription;
 
-  /// The identifier property represents any kind of identifier for
-  /// any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc
-  /// Schema.org provides dedicated properties for representing many
-  /// of these, either as textual strings or as URL (URI) links See
-  /// [background notes](/docs/datamodel.html#identifierBg) for more
-  /// details    Supported types: [PropertyValue], [String], [String]
+  /// The identifier property represents any kind of identifier for any kind of
+  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
+  /// dedicated properties for representing many of these, either as textual
+  /// strings or as URL (URI) links. See [background
+  /// notes](/docs/datamodel.html#identifierBg) for more details.
+  ///
+  /// Supported types: [SchemaPropertyValue], [String], [String]
   dynamic identifier;
 
-  /// An image of the item This can be a [[URL]] or a fully described
-  /// [[ImageObject]].  Supported types: [ImageObject], [String]
+  /// An image of the item. This can be a [SchemaURL] or a fully described
+  /// [SchemaImageObject].
+  ///
+  /// Supported types: [SchemaImageObject], [String]
   dynamic image;
 
-  /// Indicates a page (or other CreativeWork) for which this thing is
-  /// the main entity being described See [background
+  /// Indicates a page (or other CreativeWork) for which this thing is the main
+  /// entity being described. See [background
   /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  /// Supported types: [CreativeWork], [String]
+  ///
+  /// Supported types: [SchemaCreativeWork], [String]
   dynamic mainEntityOfPage;
 
   /// The name of the item.
   String? name;
 
-  /// Indicates a potential Action, which describes an idealized
-  /// action in which this thing would play an 'object' role.
+  /// Indicates a potential Action, which describes an idealized action in
+  /// which this thing would play an 'object' role.
   SchemaAction? potentialAction;
 
-  /// URL of a reference Web page that unambiguously indicates the
-  /// item's identity E.g the URL of the item's Wikipedia page,
-  /// Wikidata entry, or official website.
+  /// URL of a reference Web page that unambiguously indicates the item's
+  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
+  /// official website.
   String? sameAs;
 
-  /// A CreativeWork or Event about this Thing.  Supported types:
-  /// [CreativeWork], [Event]
+  /// A CreativeWork or Event about this Thing.
+  ///
+  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
   dynamic subjectOf;
 
   /// URL of the item.

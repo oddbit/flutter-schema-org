@@ -1,5 +1,5 @@
-import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/src/schema_serializable.dart';
+import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/boat_terminal.dart';
 import 'package:schema_org/schemas/item_list.dart';
 import 'package:schema_org/schemas/place.dart';
@@ -24,95 +24,109 @@ class SchemaBoatTrip implements SchemaSerializable {
   /// The terminal or port from which the boat departs.
   SchemaBoatTerminal? departureBoatTerminal;
 
-  /// The expected arrival time.  Supported types: [String], [String]
+  /// The expected arrival time.
+  ///
+  /// Supported types: [String], [String]
   String? arrivalTime;
 
-  /// The expected departure time.  Supported types: [String],
-  /// [String]
+  /// The expected departure time.
+  ///
+  /// Supported types: [String], [String]
   String? departureTime;
 
-  /// Destination(s) ( [[Place]] ) that make up a trip For a trip
-  /// where destination order is important use [[ItemList]] to specify
-  /// that order (see examples).  Supported types: [ItemList], [Place]
+  /// Destination(s) ( [SchemaPlace] ) that make up a trip. For a trip where
+  /// destination order is important use [SchemaItemList] to specify that order
+  /// (see examples).
+  ///
+  /// Supported types: [SchemaItemList], [SchemaPlace]
   dynamic itinerary;
 
-  /// An offer to provide this item&#x2014;for example, an offer to
-  /// sell a product, rent the DVD of a movie, perform a service, or
-  /// give away tickets to an event Use [[businessFunction]] to
-  /// indicate the kind of transaction offered, i.e sell, lease, etc
-  /// This property can also be used to describe a [[Demand]] While
-  /// this property is listed as expected on a number of common types,
-  /// it can be used in others In that case, using a second type, such
-  /// as Product or a subtype of Product, can clarify the nature of
-  /// the offer    Supported types: [Demand], [Offer]
+  /// An offer to provide this item&#x2014;for example, an offer to sell a
+  /// product, rent the DVD of a movie, perform a service, or give away tickets
+  /// to an event. Use [SchemabusinessFunction] to indicate the kind of
+  /// transaction offered, i.e. sell, lease, etc. This property can also be
+  /// used to describe a [SchemaDemand]. While this property is listed as
+  /// expected on a number of common types, it can be used in others. In that
+  /// case, using a second type, such as Product or a subtype of Product, can
+  /// clarify the nature of the offer.
+  ///
+  /// Supported types: [SchemaDemand], [SchemaOffer]
   dynamic offers;
 
-  /// Identifies that this [[Trip]] is a subTrip of another Trip For
-  /// example Day 1, Day 2, etc of a multi-day trip.
+  /// Identifies that this [SchemaTrip] is a subTrip of another Trip. For
+  /// example Day 1, Day 2, etc. of a multi-day trip.
   SchemaTrip? partOfTrip;
 
-  /// The service provider, service operator, or service performer;
-  /// the goods producer Another party (a seller) may offer those
-  /// services or goods on behalf of the provider A provider may also
-  /// serve as the seller.  Supported types: [Organization], [Person]
+  /// The service provider, service operator, or service performer; the goods
+  /// producer. Another party (a seller) may offer those services or goods on
+  /// behalf of the provider. A provider may also serve as the seller.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic provider;
 
-  /// Identifies a [[Trip]] that is a subTrip of this Trip For example
-  /// Day 1, Day 2, etc of a multi-day trip.
+  /// Identifies a [SchemaTrip] that is a subTrip of this Trip. For example Day
+  /// 1, Day 2, etc. of a multi-day trip.
   SchemaTrip? subTrip;
 
   /// The location of origin of the trip, prior to any destination(s).
   SchemaPlace? tripOrigin;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.  Supported
-  /// types: [String], [String]
+  /// //schema.org/docs/styleguide.html">style guide</a>.
+  ///
+  /// Supported types: [String], [String]
   String? additionalType;
 
   /// An alias for the item.
   String? alternateName;
 
-  /// A description of the item.  Supported types: [String],
-  /// [TextObject]
+  /// A description of the item.
+  ///
+  /// Supported types: [String], [SchemaTextObject]
   dynamic description;
 
-  /// A sub property of description A short description of the item
-  /// used to disambiguate from other, similar items Information from
-  /// other properties (in particular, name) may be necessary for the
-  /// description to be useful for disambiguation.
+  /// A sub property of description. A short description of the item used to
+  /// disambiguate from other, similar items. Information from other properties
+  /// (in particular, name) may be necessary for the description to be useful
+  /// for disambiguation.
   String? disambiguatingDescription;
 
-  /// The identifier property represents any kind of identifier for
-  /// any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc
-  /// Schema.org provides dedicated properties for representing many
-  /// of these, either as textual strings or as URL (URI) links See
-  /// [background notes](/docs/datamodel.html#identifierBg) for more
-  /// details    Supported types: [PropertyValue], [String], [String]
+  /// The identifier property represents any kind of identifier for any kind of
+  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
+  /// dedicated properties for representing many of these, either as textual
+  /// strings or as URL (URI) links. See [background
+  /// notes](/docs/datamodel.html#identifierBg) for more details.
+  ///
+  /// Supported types: [SchemaPropertyValue], [String], [String]
   dynamic identifier;
 
-  /// An image of the item This can be a [[URL]] or a fully described
-  /// [[ImageObject]].  Supported types: [ImageObject], [String]
+  /// An image of the item. This can be a [SchemaURL] or a fully described
+  /// [SchemaImageObject].
+  ///
+  /// Supported types: [SchemaImageObject], [String]
   dynamic image;
 
-  /// Indicates a page (or other CreativeWork) for which this thing is
-  /// the main entity being described See [background
+  /// Indicates a page (or other CreativeWork) for which this thing is the main
+  /// entity being described. See [background
   /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  /// Supported types: [CreativeWork], [String]
+  ///
+  /// Supported types: [SchemaCreativeWork], [String]
   dynamic mainEntityOfPage;
 
   /// The name of the item.
   String? name;
 
-  /// Indicates a potential Action, which describes an idealized
-  /// action in which this thing would play an 'object' role.
+  /// Indicates a potential Action, which describes an idealized action in
+  /// which this thing would play an 'object' role.
   SchemaAction? potentialAction;
 
-  /// URL of a reference Web page that unambiguously indicates the
-  /// item's identity E.g the URL of the item's Wikipedia page,
-  /// Wikidata entry, or official website.
+  /// URL of a reference Web page that unambiguously indicates the item's
+  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
+  /// official website.
   String? sameAs;
 
-  /// A CreativeWork or Event about this Thing.  Supported types:
-  /// [CreativeWork], [Event]
+  /// A CreativeWork or Event about this Thing.
+  ///
+  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
   dynamic subjectOf;
 
   /// URL of the item.

@@ -1,7 +1,7 @@
 import 'package:schema_org/schemas/medical_enumeration.dart';
 
-/// Categories of medical devices, organized by the purpose or
-/// intended use of the device.
+/// Categories of medical devices, organized by the purpose or intended use
+/// of the device.
 /// See https://schema.org/MedicalDevicePurpose
 enum SchemaMedicalDevicePurpose implements SchemaMedicalEnumeration {
   /// A medical device used for diagnostic purposes.

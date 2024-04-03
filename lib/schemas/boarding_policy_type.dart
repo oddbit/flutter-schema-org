@@ -3,8 +3,7 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// A type of boarding policy used by an airline.
 /// See https://schema.org/BoardingPolicyType
 enum SchemaBoardingPolicyType implements SchemaSerializable {
-  /// The airline boards by groups based on check-in time, priority,
-  /// etc.
+  /// The airline boards by groups based on check-in time, priority, etc.
   groupBoardingPolicy('https://schema.org/BoardingPolicyType'),
 
   /// The airline boards by zones of the plane.

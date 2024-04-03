@@ -1,7 +1,6 @@
 import 'package:schema_org/schemas/status_enumeration.dart';
 
-/// A list of possible statuses for the legal force of a
-/// legislation.
+/// A list of possible statuses for the legal force of a legislation.
 /// See https://schema.org/LegalForceStatus
 enum SchemaLegalForceStatus implements SchemaStatusEnumeration {
   /// Indicates that a legislation is in force.
@@ -10,8 +9,8 @@ enum SchemaLegalForceStatus implements SchemaStatusEnumeration {
   /// Indicates that a legislation is currently not in force.
   notInForce('https://schema.org/LegalForceStatus'),
 
-  /// Indicates that parts of the legislation are in force, and parts
-  /// are not.
+  /// Indicates that parts of the legislation are in force, and parts are
+  /// not.
   partiallyInForce('https://schema.org/LegalForceStatus');
 
   /// Constructor for [SchemaLegalForceStatus]

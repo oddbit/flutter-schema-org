@@ -1,9 +1,9 @@
 import 'package:schema_org/src/schema_serializable.dart';
 
-/// Enumeration(s) for use with [[measurementMethod]].
+/// Enumeration(s) for use with [SchemameasurementMethod].
 /// See https://schema.org/MeasurementMethodEnum
 enum SchemaMeasurementMethodEnum implements SchemaSerializable {
-  /// An example [[MeasurementMethodEnum]] (to remove when real enums
+  /// An example [SchemaMeasurementMethodEnum] (to remove when real enums
   /// are added).
   exampleMeasurementMethodEnum('https://schema.org/MeasurementMethodEnum');
 

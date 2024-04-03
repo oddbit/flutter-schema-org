@@ -1,7 +1,7 @@
 import 'package:schema_org/schemas/size_group_enumeration.dart';
 
-/// Enumerates common size groups (also known as "size types") for
-/// wearable products.
+/// Enumerates common size groups (also known as "size types") for wearable
+/// products.
 /// See https://schema.org/WearableSizeGroupEnumeration
 enum SchemaWearableSizeGroupEnumeration implements SchemaSizeGroupEnumeration {
   /// Size group "Big" for wearables.

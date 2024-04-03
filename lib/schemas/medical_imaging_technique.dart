@@ -1,7 +1,7 @@
 import 'package:schema_org/schemas/medical_enumeration.dart';
 
-/// Any medical imaging modality typically used for diagnostic
-/// purposes Enumerated type.
+/// Any medical imaging modality typically used for diagnostic purposes.
+/// Enumerated type.
 /// See https://schema.org/MedicalImagingTechnique
 enum SchemaMedicalImagingTechnique implements SchemaMedicalEnumeration {
   /// X-ray computed tomography imaging.
