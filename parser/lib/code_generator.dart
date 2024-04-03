@@ -190,8 +190,15 @@ void generateClassCode(
 /// Split a text into lines of 65 characters
 /// This splits long texts into arrays that can be written as code comments.
 void _writeCodeComment(StringBuffer sb, String text, [int indent = 0]) {
-  final sanitized = text.replaceAll(RegExp(r' +'), ' ').trim();
-  List<String> words = sanitized.split(RegExp(r' |\n|\.\s'));
+  RegExp defaultClassReferenceRegExp = RegExp(r'\[\[(.*?)\]\]');
+  String sanitized =
+      text.replaceAllMapped(defaultClassReferenceRegExp, (match) {
+    String matchedString = match.group(1)!;
+    return "[${_toCodeName(matchedString)}]";
+  }).trim();
+
+  List<String> words =
+      sanitized.split(RegExp(r' |\n|\.\s')).map((e) => e.trim()).toList();
 
   String indentSpaces = ' ' * indent * 2;
   StringBuffer line = StringBuffer('$indentSpaces/// ');
