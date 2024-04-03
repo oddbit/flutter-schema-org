@@ -29,7 +29,7 @@ void generateEnumCode(StringBuffer sb, SchemaEnum schemaEnum) {
   if (schemaEnum.implementsParent) {
     _writeImportStatement(schemaEnum.parents.first, sb);
   } else {
-    sb.writeln("import 'package:schema_org/schema_org.dart';");
+    sb.writeln("import 'package:schema_org/src/schema_serializable.dart';");
   }
 
   String enumCodeName = _toCodeName(schemaEnum.name);
@@ -94,8 +94,8 @@ void generateClassCode(
   SchemaType schemaClass,
   List<SchemaType> classes,
 ) {
-  sb.writeln("import 'package:schema_org/utils.dart';");
-  sb.writeln("import 'package:schema_org/schema_org.dart';");
+  sb.writeln("import 'package:schema_org/src/schema_serializable.dart';");
+  sb.writeln("import 'package:schema_org/src/utils.dart';");
 
   final classCodeName = _toCodeName(schemaClass.name);
 
