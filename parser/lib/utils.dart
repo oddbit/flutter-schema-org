@@ -95,12 +95,22 @@ List<String> parseRelationship(dynamic json) {
 //   }
 // }
 
-/// Convert class names into snake case file names
+/// Convert class names into dart naming standard names
+/// This will convert the class name into a snake case file name and dart files
+/// [should not start with a number](https://github.com/dart-lang/linter/issues/3009)
+///
 /// Example
-/// MyClass => my_class.dart
-/// APICredentials => api_credentials.dart
+///  - MyClass => my_class.dart
+///  - APICredentials => api_credentials.dart
+///  - 3DModel => schema_3d_model.dart
 String classToFileName(String input) {
   final result = StringBuffer();
+
+  // If the first character is a number, prepend 'schema_'
+  if (input.isNotEmpty && RegExp(r'^[0-9]').hasMatch(input)) {
+    result.write('schema_');
+  }
+
   for (int i = 0; i < input.length; i++) {
     if (i > 0 &&
         input[i].toUpperCase() == input[i] &&

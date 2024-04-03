@@ -52,6 +52,7 @@ void main() {
         expect(classToFileName('MyClass'), 'my_class.dart');
         expect(classToFileName('SomeOtherClass'), 'some_other_class.dart');
         expect(classToFileName('Foo'), 'foo.dart');
+        expect(classToFileName('3DModel'), 'schema_3d_model.dart');
       });
     });
   });
