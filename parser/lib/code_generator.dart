@@ -26,8 +26,6 @@ void writeToFile(StringBuffer sb, String schemaName) {
 }
 
 void generateEnumCode(StringBuffer sb, SchemaEnum schemaEnum) {
-  sb.writeln('library schema_org;');
-  sb.writeln();
   if (schemaEnum.implementsParent) {
     _writeImportStatement(schemaEnum.parents.first, sb);
   } else {
@@ -79,9 +77,6 @@ void generateEnumCode(StringBuffer sb, SchemaEnum schemaEnum) {
 /// Generate an abstract class to represent inheritance structure of an
 /// enum that doesn't define any values directly in schema.org
 void generateAbstractEnumCode(StringBuffer sb, SchemaEnum schemaEnum) {
-  sb.writeln('library schema_org;');
-  sb.writeln();
-
   String enumCodeName = _toCodeName(schemaEnum.name);
 
   // -----------------------------------------------------------
@@ -99,8 +94,6 @@ void generateClassCode(
   SchemaType schemaClass,
   List<SchemaType> classes,
 ) {
-  sb.writeln('library schema_org;');
-  sb.writeln();
   sb.writeln("import 'package:schema_org/utils.dart';");
   sb.writeln("import 'package:schema_org/schema_org.dart';");
 
