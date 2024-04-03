@@ -198,32 +198,42 @@ void _writeCodeComment(StringBuffer sb, String text, [int indent = 0]) {
     return "[${_toCodeName(matchedString)}]";
   }).trim();
 
-  List<String> words =
-      sanitized.split(RegExp(r' |\n|\.\s')).map((e) => e.trim()).toList();
+  List<String> paragraphs = sanitized.split('\n\n');
 
   String indentSpaces = ' ' * indent * 2;
-  StringBuffer line = StringBuffer('$indentSpaces/// ');
 
-  for (var word in words) {
-    if (word == '\n' ||
-        (line.length + word.length + 1) > (lineLength - 3 - indent * 2)) {
-      // lineLength - 3 to account for '/// ', plus indent spaces
-      // Append line to sb and start a new line
+  for (var i = 0; i < paragraphs.length; i++) {
+    var paragraph = paragraphs[i];
+    List<String> words =
+        paragraph.split(RegExp(r'\s')).where((e) => e.isNotEmpty).toList();
+
+    StringBuffer line = StringBuffer('$indentSpaces/// ');
+
+    for (var word in words) {
+      if (word == '\n' ||
+          (line.length + word.length + 1) > (lineLength - 3 - indent * 2)) {
+        // lineLength - 3 to account for '/// ', plus indent spaces
+        // Append line to sb and start a new line
+        sb.writeln(line.toString());
+        line.clear();
+        line.write('$indentSpaces/// ');
+      }
+      if (line.length > (4 + indent * 2) && word != '\n') {
+        // 4 to account for '/// ', plus indent spaces
+        line.write(' ');
+      }
+      if (word != '\n') {
+        line.write(word);
+      }
+    }
+    // Write the last line if it's not empty
+    if (line.isNotEmpty) {
       sb.writeln(line.toString());
-      line.clear();
-      line.write('$indentSpaces/// ');
     }
-    if (line.length > (4 + indent * 2) && word != '\n') {
-      // 4 to account for '/// ', plus indent spaces
-      line.write(' ');
+    // Add a blank comment line between paragraphs, but not after the last paragraph
+    if (i < paragraphs.length - 1) {
+      sb.writeln('$indentSpaces/// ');
     }
-    if (word != '\n') {
-      line.write(word);
-    }
-  }
-  // Write the last line if it's not empty
-  if (line.isNotEmpty) {
-    sb.writeln(line.toString());
   }
 }
 
