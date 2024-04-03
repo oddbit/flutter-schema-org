@@ -2,6 +2,9 @@ name: schema_parser
 description: A Dart command-line tool to parse schema files.
 version: 0.1.0
 
+executables:
+  schema_parser: bin/schema_parser.dart
+
 environment:
   sdk: ^3.3.2
 
