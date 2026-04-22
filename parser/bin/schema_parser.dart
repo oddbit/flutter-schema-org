@@ -96,13 +96,22 @@ void main(List<String> arguments) {
   exit(0);
 }
 
-/// Whether [node] is declared as `rdfs:Class` in the JSON-LD graph.
+/// Whether [node] is a Schema.org class node we should generate code
+/// for.
 ///
-/// The `@type` attribute is usually a single string, but some Schema.org
-/// nodes (e.g. `schema:Quantity`, which is both a `DataType` and an
-/// `rdfs:Class`) use a list. Match either shape so multi-typed classes
-/// are not silently dropped.
+/// Two conditions must hold:
+///
+/// 1. The node is declared as `rdfs:Class`. `@type` is usually a single
+///    string but can be a list (e.g. `schema:Quantity` is both a
+///    `DataType` and an `rdfs:Class`), so either shape matches.
+/// 2. The node lives in the `schema:` namespace. The upstream dump
+///    references foreign vocabularies (`unece:`, `fibo-*`, `gs1:`,
+///    `snomed:`, …) via `owl:equivalentClass` and similar. Those are
+///    not part of the Dart class library we emit, so we skip them to
+///    avoid generating empty placeholder files.
 bool _isRdfsClassNode(Map<String, dynamic> node) {
+  final id = node['@id'];
+  if (id is! String || !id.startsWith('schema:')) return false;
   final type = node['@type'];
   if (type is String) return type == 'rdfs:Class';
   if (type is List) return type.contains('rdfs:Class');
