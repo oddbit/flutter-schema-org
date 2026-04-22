@@ -10,5 +10,4 @@
 // loaded. Every other target gets the no-op stub, which still exposes
 // `toJsonLdString` so callers can serialize JSON-LD on mobile/desktop
 // without referencing any DOM type.
-export 'html_writer_stub.dart'
-    if (dart.library.html) 'html_writer_web.dart';
+export 'html_writer_stub.dart' if (dart.library.html) 'html_writer_web.dart';

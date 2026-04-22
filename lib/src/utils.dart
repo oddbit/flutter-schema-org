@@ -74,9 +74,8 @@ Map<String, dynamic> removeEmpty(Map<String, dynamic> json) {
         return;
       case Map<String, dynamic> m:
         final cleaned = removeEmpty(m);
-        final hasRealData = cleaned.keys
-            .toSet()
-            .difference({'@context', '@type'}).isNotEmpty;
+        final hasRealData =
+            cleaned.keys.toSet().difference({'@context', '@type'}).isNotEmpty;
         if (hasRealData) output[key] = cleaned;
       case List l:
         final cleanedList = l.where((e) => e != null).toList();
