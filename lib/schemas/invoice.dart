@@ -1,5 +1,14 @@
-import 'package:schema_org/src/schema_serializable.dart';
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+//
+// GENERATED CODE — DO NOT MODIFY BY HAND.
+// Produced by the schema_parser tool in /parser.
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:schema_org/src/utils.dart';
+import 'package:schema_org/schemas/intangible.dart';
 import 'package:schema_org/schemas/duration.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
@@ -11,16 +20,10 @@ import 'package:schema_org/schemas/price_specification.dart';
 import 'package:schema_org/schemas/payment_method.dart';
 import 'package:schema_org/schemas/payment_status_type.dart';
 import 'package:schema_org/schemas/order.dart';
-import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/schemas/property_value.dart';
-import 'package:schema_org/schemas/image_object.dart';
-import 'package:schema_org/schemas/creative_work.dart';
-import 'package:schema_org/schemas/action.dart';
-import 'package:schema_org/schemas/event.dart';
 
 /// A statement of the money due for goods or services; a bill.
 /// See https://schema.org/Invoice
-class SchemaInvoice implements SchemaSerializable {
+class SchemaInvoice extends SchemaIntangible {
   /// The identifier for the account the payment will be applied to.
   String? accountId;
 
@@ -39,7 +42,7 @@ class SchemaInvoice implements SchemaSerializable {
   /// informally indicate a category hierarchy.
   ///
   /// Supported types: [SchemaCategoryCode], [SchemaPhysicalActivityCategory],
-  /// [String], [String], [SchemaThing]
+  /// [String], [SchemaThing]
   dynamic category;
 
   /// A number that confirms the given order or payment has been received.
@@ -56,15 +59,16 @@ class SchemaInvoice implements SchemaSerializable {
   dynamic minimumPaymentDue;
 
   /// The date that payment is due.
+  @Deprecated('Use [paymentDueDate]. See https://schema.org/paymentDue')
   String? paymentDue;
 
   /// The date that payment is due.
-  ///
-  /// Supported types: [String], [String]
   String? paymentDueDate;
 
   /// The name of the credit card or other method of payment for the order.
-  SchemaPaymentMethod? paymentMethod;
+  ///
+  /// Supported types: [SchemaPaymentMethod], [String]
+  dynamic paymentMethod;
 
   /// An identifier for the method of payment used (e.g. the last 4 digits of
   /// the credit card).
@@ -94,69 +98,21 @@ class SchemaInvoice implements SchemaSerializable {
   /// Supported types: [SchemaMonetaryAmount], [SchemaPriceSpecification]
   dynamic totalPaymentDue;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.
-  ///
-  /// Supported types: [String], [String]
-  String? additionalType;
-
-  /// An alias for the item.
-  String? alternateName;
-
-  /// A description of the item.
-  ///
-  /// Supported types: [String], [SchemaTextObject]
-  dynamic description;
-
-  /// A sub property of description. A short description of the item used to
-  /// disambiguate from other, similar items. Information from other properties
-  /// (in particular, name) may be necessary for the description to be useful
-  /// for disambiguation.
-  String? disambiguatingDescription;
-
-  /// The identifier property represents any kind of identifier for any kind of
-  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
-  /// dedicated properties for representing many of these, either as textual
-  /// strings or as URL (URI) links. See [background
-  /// notes](/docs/datamodel.html#identifierBg) for more details.
-  ///
-  /// Supported types: [SchemaPropertyValue], [String], [String]
-  dynamic identifier;
-
-  /// An image of the item. This can be a [SchemaURL] or a fully described
-  /// [SchemaImageObject].
-  ///
-  /// Supported types: [SchemaImageObject], [String]
-  dynamic image;
-
-  /// Indicates a page (or other CreativeWork) for which this thing is the main
-  /// entity being described. See [background
-  /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  ///
-  /// Supported types: [SchemaCreativeWork], [String]
-  dynamic mainEntityOfPage;
-
-  /// The name of the item.
-  String? name;
-
-  /// Indicates a potential Action, which describes an idealized action in
-  /// which this thing would play an 'object' role.
-  SchemaAction? potentialAction;
-
-  /// URL of a reference Web page that unambiguously indicates the item's
-  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
-  /// official website.
-  String? sameAs;
-
-  /// A CreativeWork or Event about this Thing.
-  ///
-  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
-  dynamic subjectOf;
-
-  /// URL of the item.
-  String? url;
-
   /// Create a new instance of [SchemaInvoice]
   SchemaInvoice({
+    super.additionalType,
+    super.alternateName,
+    super.description,
+    super.disambiguatingDescription,
+    super.identifier,
+    super.image,
+    super.mainEntityOfPage,
+    super.name,
+    super.owner,
+    super.potentialAction,
+    super.sameAs,
+    super.subjectOf,
+    super.url,
     this.accountId,
     this.billingPeriod,
     this.broker,
@@ -173,24 +129,12 @@ class SchemaInvoice implements SchemaSerializable {
     this.referencesOrder,
     this.scheduledPaymentDate,
     this.totalPaymentDue,
-    this.additionalType,
-    this.alternateName,
-    this.description,
-    this.disambiguatingDescription,
-    this.identifier,
-    this.image,
-    this.mainEntityOfPage,
-    this.name,
-    this.potentialAction,
-    this.sameAs,
-    this.subjectOf,
-    this.url,
   });
 
   /// Serialize [SchemaInvoice] to JSON-LD
   @override
   Map<String, dynamic> toJsonLd() => removeEmpty({
-        '@context': 'https://schema.org',
+        ...super.toJsonLd(),
         '@type': 'Invoice',
         'accountId': convertToJsonLd(accountId, [String]),
         'billingPeriod': convertToJsonLd(billingPeriod, [SchemaDuration]),
@@ -198,7 +142,6 @@ class SchemaInvoice implements SchemaSerializable {
         'category': convertToJsonLd(category, [
           SchemaCategoryCode,
           SchemaPhysicalActivityCategory,
-          String,
           String,
           SchemaThing
         ]),
@@ -208,8 +151,9 @@ class SchemaInvoice implements SchemaSerializable {
         'minimumPaymentDue': convertToJsonLd(minimumPaymentDue,
             [SchemaMonetaryAmount, SchemaPriceSpecification]),
         'paymentDue': convertToJsonLd(paymentDue, [String]),
-        'paymentDueDate': convertToJsonLd(paymentDueDate, [String, String]),
-        'paymentMethod': convertToJsonLd(paymentMethod, [SchemaPaymentMethod]),
+        'paymentDueDate': convertToJsonLd(paymentDueDate, [String]),
+        'paymentMethod':
+            convertToJsonLd(paymentMethod, [SchemaPaymentMethod, String]),
         'paymentMethodId': convertToJsonLd(paymentMethodId, [String]),
         'paymentStatus':
             convertToJsonLd(paymentStatus, [SchemaPaymentStatusType, String]),
@@ -219,21 +163,5 @@ class SchemaInvoice implements SchemaSerializable {
         'scheduledPaymentDate': convertToJsonLd(scheduledPaymentDate, [String]),
         'totalPaymentDue': convertToJsonLd(
             totalPaymentDue, [SchemaMonetaryAmount, SchemaPriceSpecification]),
-        'additionalType': convertToJsonLd(additionalType, [String, String]),
-        'alternateName': convertToJsonLd(alternateName, [String]),
-        'description': convertToJsonLd(description, [String, SchemaTextObject]),
-        'disambiguatingDescription':
-            convertToJsonLd(disambiguatingDescription, [String]),
-        'identifier':
-            convertToJsonLd(identifier, [SchemaPropertyValue, String, String]),
-        'image': convertToJsonLd(image, [SchemaImageObject, String]),
-        'mainEntityOfPage':
-            convertToJsonLd(mainEntityOfPage, [SchemaCreativeWork, String]),
-        'name': convertToJsonLd(name, [String]),
-        'potentialAction': convertToJsonLd(potentialAction, [SchemaAction]),
-        'sameAs': convertToJsonLd(sameAs, [String]),
-        'subjectOf':
-            convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
-        'url': convertToJsonLd(url, [String]),
       });
 }

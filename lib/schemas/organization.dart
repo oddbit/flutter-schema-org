@@ -1,5 +1,16 @@
-import 'package:schema_org/src/schema_serializable.dart';
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+//
+// GENERATED CODE — DO NOT MODIFY BY HAND.
+// Produced by the schema_parser tool in /parser.
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:schema_org/src/utils.dart';
+import 'package:schema_org/schemas/thing.dart';
+import 'package:schema_org/schemas/loan_or_credit.dart';
+import 'package:schema_org/schemas/payment_method.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/interaction_counter.dart';
@@ -9,35 +20,38 @@ import 'package:schema_org/schemas/administrative_area.dart';
 import 'package:schema_org/schemas/geo_shape.dart';
 import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/brand.dart';
+import 'package:schema_org/schemas/certification.dart';
 import 'package:schema_org/schemas/contact_point.dart';
 import 'package:schema_org/schemas/article.dart';
 import 'package:schema_org/schemas/event.dart';
 import 'package:schema_org/schemas/grant.dart';
-import 'package:schema_org/schemas/certification.dart';
-import 'package:schema_org/schemas/educational_occupational_credential.dart';
+import 'package:schema_org/schemas/credential.dart';
+import 'package:schema_org/schemas/member_program.dart';
 import 'package:schema_org/schemas/merchant_return_policy.dart';
 import 'package:schema_org/schemas/offer_catalog.dart';
+import 'package:schema_org/schemas/shipping_service.dart';
 import 'package:schema_org/schemas/defined_term.dart';
-import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/language.dart';
 import 'package:schema_org/schemas/virtual_location.dart';
 import 'package:schema_org/schemas/image_object.dart';
 import 'package:schema_org/schemas/offer.dart';
+import 'package:schema_org/schemas/member_program_tier.dart';
 import 'package:schema_org/schemas/program_membership.dart';
 import 'package:schema_org/schemas/nonprofit_type.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/about_page.dart';
-import 'package:schema_org/schemas/ownership_info.dart';
-import 'package:schema_org/schemas/product.dart';
 import 'package:schema_org/schemas/review.dart';
 import 'package:schema_org/schemas/demand.dart';
-import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/schemas/property_value.dart';
-import 'package:schema_org/schemas/action.dart';
 
 /// An organization such as a school, NGO, corporation, club, etc.
 /// See https://schema.org/Organization
-class SchemaOrganization implements SchemaSerializable {
+class SchemaOrganization extends SchemaThing {
+  /// The payment method(s) that are accepted in general by an organization, or
+  /// for some specific demand or offer.
+  ///
+  /// Supported types: [SchemaLoanOrCredit], [SchemaPaymentMethod], [String]
+  dynamic acceptedPaymentMethod;
+
   /// For a [SchemaNewsMediaOrganization] or other news-related
   /// [SchemaOrganization], a statement about public engagement activities (for
   /// news media, the newsroom’s), including involving the public - digitally
@@ -74,6 +88,7 @@ class SchemaOrganization implements SchemaSerializable {
   String? award;
 
   /// Awards won by or for this item.
+  @Deprecated('Use [award]. See https://schema.org/awards')
   String? awards;
 
   /// The brand(s) associated with a product or service, or the brand(s)
@@ -82,10 +97,16 @@ class SchemaOrganization implements SchemaSerializable {
   /// Supported types: [SchemaBrand], [SchemaOrganization]
   dynamic brand;
 
+  /// The official registration information of a business including the
+  /// organization that issued it such as Company House or Chamber of Commerce
+  /// in form of a Certification.
+  SchemaCertification? companyRegistration;
+
   /// A contact point for a person or organization.
   SchemaContactPoint? contactPoint;
 
   /// A contact point for a person or organization.
+  @Deprecated('Use [contactPoint]. See https://schema.org/contactPoints')
   SchemaContactPoint? contactPoints;
 
   /// For an [SchemaOrganization] (e.g. [SchemaNewsMediaOrganization]), a
@@ -128,6 +149,7 @@ class SchemaOrganization implements SchemaSerializable {
   SchemaPerson? employee;
 
   /// People working for this organization.
+  @Deprecated('Use [employee]. See https://schema.org/employees')
   SchemaPerson? employees;
 
   /// Statement about ethics policy, e.g. of a [SchemaNewsMediaOrganization]
@@ -145,15 +167,19 @@ class SchemaOrganization implements SchemaSerializable {
   SchemaEvent? event;
 
   /// Upcoming or past events associated with this place or organization.
+  @Deprecated('Use [event]. See https://schema.org/events')
   SchemaEvent? events;
 
   /// The fax number.
   String? faxNumber;
 
-  /// A person who founded this organization.
-  SchemaPerson? founder;
+  /// A person or organization who founded this organization.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaPerson]
+  dynamic founder;
 
   /// A person who founded this organization.
+  @Deprecated('Use [founder]. See https://schema.org/founders')
   SchemaPerson? founders;
 
   /// The date that this organization was founded.
@@ -183,7 +209,22 @@ class SchemaOrganization implements SchemaSerializable {
   SchemaCertification? hasCertification;
 
   /// A credential awarded to the Person or Organization.
-  SchemaEducationalOccupationalCredential? hasCredential;
+  SchemaCredential? hasCredential;
+
+  /// <ul><li>A Digital Link that contains a serial number (AI <code>21</code>)
+  /// should only be present on instances of
+  /// [SchemaIndividualProduct]</li><li>A Digital Link that contains a lot
+  /// number (AI <code>10</code>) should be annotated as [SchemaSomeProducts]
+  /// if only products from that lot are sold, or [SchemaIndividualProduct] if
+  /// there is only a specific product.</li><li>A Digital Link that contains a
+  /// global model number (AI <code>8013</code>) should be attached to a
+  /// [SchemaProduct] or a [SchemaProductModel].</li></ul> Other item types
+  /// should be adapted similarly.
+  String? hasGS1DigitalLink;
+
+  /// MemberProgram offered by an Organization, for example an eCommerce
+  /// merchant or an airline.
+  SchemaMemberProgram? hasMemberProgram;
 
   /// Specifies a MerchantReturnPolicy that may be applicable.
   SchemaMerchantReturnPolicy? hasMerchantReturnPolicy;
@@ -194,6 +235,9 @@ class SchemaOrganization implements SchemaSerializable {
 
   /// Points-of-Sales operated by the organization or person.
   SchemaPlace? hasPOS;
+
+  /// Specification of a shipping service offered by the organization.
+  SchemaShippingService? hasShippingService;
 
   /// The number of interactions for the CreativeWork using the WebSite or
   /// SoftwareApplication. The most specific child type of InteractionCounter
@@ -212,7 +256,7 @@ class SchemaOrganization implements SchemaSerializable {
   /// a keywords list are typically delimited by commas, or by repeating the
   /// property.
   ///
-  /// Supported types: [SchemaDefinedTerm], [String], [String]
+  /// Supported types: [SchemaDefinedTerm], [String]
   dynamic keywords;
 
   /// Of a [SchemaPerson], and less typically of an [SchemaOrganization], to
@@ -221,7 +265,7 @@ class SchemaOrganization implements SchemaSerializable {
   /// to educational content, events, objectives or [SchemaJobPosting]
   /// descriptions.
   ///
-  /// Supported types: [String], [String], [SchemaThing]
+  /// Supported types: [String], [SchemaThing]
   dynamic knowsAbout;
 
   /// //tools.ietf.org/html/bcp47).
@@ -229,8 +273,18 @@ class SchemaOrganization implements SchemaSerializable {
   /// Supported types: [SchemaLanguage], [String]
   dynamic knowsLanguage;
 
+  /// The legal address of an organization which acts as the officially
+  /// registered address used for legal and tax purposes. The legal address can
+  /// be different from the place of operations of a business and other
+  /// addresses can be part of an organization.
+  SchemaPostalAddress? legalAddress;
+
   /// The official name of the organization, e.g. the registered company name.
   String? legalName;
+
+  /// One or multiple persons who represent this organization legally such as
+  /// CEO or sole administrator.
+  SchemaPerson? legalRepresentative;
 
   /// An organization identifier that uniquely identifies a legal entity as
   /// defined in ISO 17442.
@@ -260,12 +314,14 @@ class SchemaOrganization implements SchemaSerializable {
   /// An Organization (or ProgramMembership) to which this Person or
   /// Organization belongs.
   ///
-  /// Supported types: [SchemaOrganization], [SchemaProgramMembership]
+  /// Supported types: [SchemaMemberProgramTier], [SchemaOrganization],
+  /// [SchemaProgramMembership]
   dynamic memberOf;
 
   /// A member of this organization.
   ///
   /// Supported types: [SchemaOrganization], [SchemaPerson]
+  @Deprecated('Use [member]. See https://schema.org/members')
   dynamic members;
 
   /// The North American Industry Classification System (NAICS) code for a
@@ -286,14 +342,11 @@ class SchemaOrganization implements SchemaSerializable {
   /// [Schemafunder] is also available and can be used to make basic funder
   /// information machine-readable.
   ///
-  /// Supported types: [SchemaAboutPage], [SchemaCreativeWork], [String],
-  /// [String]
+  /// Supported types: [SchemaAboutPage], [SchemaCreativeWork], [String]
   dynamic ownershipFundingInfo;
 
-  /// Products owned by the organization or person.
-  ///
-  /// Supported types: [SchemaOwnershipInfo], [SchemaProduct]
-  dynamic owns;
+  /// Things owned by the organization or person.
+  SchemaThing? owns;
 
   /// The larger organization that this organization is a
   /// [SchemasubOrganization] of, if any.
@@ -318,6 +371,7 @@ class SchemaOrganization implements SchemaSerializable {
   SchemaReview? review;
 
   /// Review of the item.
+  @Deprecated('Use [review]. See https://schema.org/reviews')
   SchemaReview? reviews;
 
   /// A pointer to products or services sought by the organization or person
@@ -328,7 +382,16 @@ class SchemaOrganization implements SchemaSerializable {
   ///
   /// Supported types: [SchemaAdministrativeArea], [SchemaGeoShape],
   /// [SchemaPlace]
+  @Deprecated('Use [areaServed]. See https://schema.org/serviceArea')
   dynamic serviceArea;
+
+  /// A statement of knowledge, skill, ability, task or any other assertion
+  /// expressing a competency that is either claimed by a person, an
+  /// organization or desired or required to fulfill a role or to work in an
+  /// occupation.
+  ///
+  /// Supported types: [SchemaDefinedTerm], [String]
+  dynamic skills;
 
   /// A slogan or motto associated with the item.
   String? slogan;
@@ -357,72 +420,27 @@ class SchemaOrganization implements SchemaSerializable {
   /// Supported types: [SchemaCreativeWork], [String]
   dynamic unnamedSourcesPolicy;
 
-  /// The Value-added Tax ID of the organization or person.
+  /// The value-added Tax ID of the organization or person with national prefix
+  /// (for example IT123456789). Can also be described as [Schemaiso6523Code]
+  /// with proper prefix.
   String? vatID;
-
-  /// //schema.org/docs/styleguide.html">style guide</a>.
-  ///
-  /// Supported types: [String], [String]
-  String? additionalType;
-
-  /// An alias for the item.
-  String? alternateName;
-
-  /// A description of the item.
-  ///
-  /// Supported types: [String], [SchemaTextObject]
-  dynamic description;
-
-  /// A sub property of description. A short description of the item used to
-  /// disambiguate from other, similar items. Information from other properties
-  /// (in particular, name) may be necessary for the description to be useful
-  /// for disambiguation.
-  String? disambiguatingDescription;
-
-  /// The identifier property represents any kind of identifier for any kind of
-  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
-  /// dedicated properties for representing many of these, either as textual
-  /// strings or as URL (URI) links. See [background
-  /// notes](/docs/datamodel.html#identifierBg) for more details.
-  ///
-  /// Supported types: [SchemaPropertyValue], [String], [String]
-  dynamic identifier;
-
-  /// An image of the item. This can be a [SchemaURL] or a fully described
-  /// [SchemaImageObject].
-  ///
-  /// Supported types: [SchemaImageObject], [String]
-  dynamic image;
-
-  /// Indicates a page (or other CreativeWork) for which this thing is the main
-  /// entity being described. See [background
-  /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  ///
-  /// Supported types: [SchemaCreativeWork], [String]
-  dynamic mainEntityOfPage;
-
-  /// The name of the item.
-  String? name;
-
-  /// Indicates a potential Action, which describes an idealized action in
-  /// which this thing would play an 'object' role.
-  SchemaAction? potentialAction;
-
-  /// URL of a reference Web page that unambiguously indicates the item's
-  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
-  /// official website.
-  String? sameAs;
-
-  /// A CreativeWork or Event about this Thing.
-  ///
-  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
-  dynamic subjectOf;
-
-  /// URL of the item.
-  String? url;
 
   /// Create a new instance of [SchemaOrganization]
   SchemaOrganization({
+    super.additionalType,
+    super.alternateName,
+    super.description,
+    super.disambiguatingDescription,
+    super.identifier,
+    super.image,
+    super.mainEntityOfPage,
+    super.name,
+    super.owner,
+    super.potentialAction,
+    super.sameAs,
+    super.subjectOf,
+    super.url,
+    this.acceptedPaymentMethod,
     this.actionableFeedbackPolicy,
     this.address,
     this.agentInteractionStatistic,
@@ -432,6 +450,7 @@ class SchemaOrganization implements SchemaSerializable {
     this.award,
     this.awards,
     this.brand,
+    this.companyRegistration,
     this.contactPoint,
     this.contactPoints,
     this.correctionsPolicy,
@@ -456,16 +475,21 @@ class SchemaOrganization implements SchemaSerializable {
     this.globalLocationNumber,
     this.hasCertification,
     this.hasCredential,
+    this.hasGS1DigitalLink,
+    this.hasMemberProgram,
     this.hasMerchantReturnPolicy,
     this.hasOfferCatalog,
     this.hasPOS,
+    this.hasShippingService,
     this.interactionStatistic,
     this.isicV4,
     this.iso6523Code,
     this.keywords,
     this.knowsAbout,
     this.knowsLanguage,
+    this.legalAddress,
     this.legalName,
+    this.legalRepresentative,
     this.leiCode,
     this.location,
     this.logo,
@@ -484,6 +508,7 @@ class SchemaOrganization implements SchemaSerializable {
     this.reviews,
     this.seeks,
     this.serviceArea,
+    this.skills,
     this.slogan,
     this.sponsor,
     this.subOrganization,
@@ -491,25 +516,15 @@ class SchemaOrganization implements SchemaSerializable {
     this.telephone,
     this.unnamedSourcesPolicy,
     this.vatID,
-    this.additionalType,
-    this.alternateName,
-    this.description,
-    this.disambiguatingDescription,
-    this.identifier,
-    this.image,
-    this.mainEntityOfPage,
-    this.name,
-    this.potentialAction,
-    this.sameAs,
-    this.subjectOf,
-    this.url,
   });
 
   /// Serialize [SchemaOrganization] to JSON-LD
   @override
   Map<String, dynamic> toJsonLd() => removeEmpty({
-        '@context': 'https://schema.org',
+        ...super.toJsonLd(),
         '@type': 'Organization',
+        'acceptedPaymentMethod': convertToJsonLd(acceptedPaymentMethod,
+            [SchemaLoanOrCredit, SchemaPaymentMethod, String]),
         'actionableFeedbackPolicy': convertToJsonLd(
             actionableFeedbackPolicy, [SchemaCreativeWork, String]),
         'address': convertToJsonLd(address, [SchemaPostalAddress, String]),
@@ -523,6 +538,8 @@ class SchemaOrganization implements SchemaSerializable {
         'award': convertToJsonLd(award, [String]),
         'awards': convertToJsonLd(awards, [String]),
         'brand': convertToJsonLd(brand, [SchemaBrand, SchemaOrganization]),
+        'companyRegistration':
+            convertToJsonLd(companyRegistration, [SchemaCertification]),
         'contactPoint': convertToJsonLd(contactPoint, [SchemaContactPoint]),
         'contactPoints': convertToJsonLd(contactPoints, [SchemaContactPoint]),
         'correctionsPolicy':
@@ -542,7 +559,7 @@ class SchemaOrganization implements SchemaSerializable {
         'event': convertToJsonLd(event, [SchemaEvent]),
         'events': convertToJsonLd(events, [SchemaEvent]),
         'faxNumber': convertToJsonLd(faxNumber, [String]),
-        'founder': convertToJsonLd(founder, [SchemaPerson]),
+        'founder': convertToJsonLd(founder, [SchemaOrganization, SchemaPerson]),
         'founders': convertToJsonLd(founders, [SchemaPerson]),
         'foundingDate': convertToJsonLd(foundingDate, [String]),
         'foundingLocation': convertToJsonLd(foundingLocation, [SchemaPlace]),
@@ -551,32 +568,40 @@ class SchemaOrganization implements SchemaSerializable {
         'globalLocationNumber': convertToJsonLd(globalLocationNumber, [String]),
         'hasCertification':
             convertToJsonLd(hasCertification, [SchemaCertification]),
-        'hasCredential': convertToJsonLd(
-            hasCredential, [SchemaEducationalOccupationalCredential]),
+        'hasCredential': convertToJsonLd(hasCredential, [SchemaCredential]),
+        'hasGS1DigitalLink': convertToJsonLd(hasGS1DigitalLink, [String]),
+        'hasMemberProgram':
+            convertToJsonLd(hasMemberProgram, [SchemaMemberProgram]),
         'hasMerchantReturnPolicy': convertToJsonLd(
             hasMerchantReturnPolicy, [SchemaMerchantReturnPolicy]),
         'hasOfferCatalog':
             convertToJsonLd(hasOfferCatalog, [SchemaOfferCatalog]),
         'hasPOS': convertToJsonLd(hasPOS, [SchemaPlace]),
+        'hasShippingService':
+            convertToJsonLd(hasShippingService, [SchemaShippingService]),
         'interactionStatistic':
             convertToJsonLd(interactionStatistic, [SchemaInteractionCounter]),
         'isicV4': convertToJsonLd(isicV4, [String]),
         'iso6523Code': convertToJsonLd(iso6523Code, [String]),
-        'keywords':
-            convertToJsonLd(keywords, [SchemaDefinedTerm, String, String]),
-        'knowsAbout':
-            convertToJsonLd(knowsAbout, [String, String, SchemaThing]),
+        'keywords': convertToJsonLd(keywords, [SchemaDefinedTerm, String]),
+        'knowsAbout': convertToJsonLd(knowsAbout, [String, SchemaThing]),
         'knowsLanguage':
             convertToJsonLd(knowsLanguage, [SchemaLanguage, String]),
+        'legalAddress': convertToJsonLd(legalAddress, [SchemaPostalAddress]),
         'legalName': convertToJsonLd(legalName, [String]),
+        'legalRepresentative':
+            convertToJsonLd(legalRepresentative, [SchemaPerson]),
         'leiCode': convertToJsonLd(leiCode, [String]),
         'location': convertToJsonLd(location,
             [SchemaPlace, SchemaPostalAddress, String, SchemaVirtualLocation]),
         'logo': convertToJsonLd(logo, [SchemaImageObject, String]),
         'makesOffer': convertToJsonLd(makesOffer, [SchemaOffer]),
         'member': convertToJsonLd(member, [SchemaOrganization, SchemaPerson]),
-        'memberOf': convertToJsonLd(
-            memberOf, [SchemaOrganization, SchemaProgramMembership]),
+        'memberOf': convertToJsonLd(memberOf, [
+          SchemaMemberProgramTier,
+          SchemaOrganization,
+          SchemaProgramMembership
+        ]),
         'members': convertToJsonLd(members, [SchemaOrganization, SchemaPerson]),
         'naics': convertToJsonLd(naics, [String]),
         'nonprofitStatus':
@@ -584,8 +609,8 @@ class SchemaOrganization implements SchemaSerializable {
         'numberOfEmployees':
             convertToJsonLd(numberOfEmployees, [SchemaQuantitativeValue]),
         'ownershipFundingInfo': convertToJsonLd(ownershipFundingInfo,
-            [SchemaAboutPage, SchemaCreativeWork, String, String]),
-        'owns': convertToJsonLd(owns, [SchemaOwnershipInfo, SchemaProduct]),
+            [SchemaAboutPage, SchemaCreativeWork, String]),
+        'owns': convertToJsonLd(owns, [SchemaThing]),
         'parentOrganization':
             convertToJsonLd(parentOrganization, [SchemaOrganization]),
         'publishingPrinciples':
@@ -595,6 +620,7 @@ class SchemaOrganization implements SchemaSerializable {
         'seeks': convertToJsonLd(seeks, [SchemaDemand]),
         'serviceArea': convertToJsonLd(serviceArea,
             [SchemaAdministrativeArea, SchemaGeoShape, SchemaPlace]),
+        'skills': convertToJsonLd(skills, [SchemaDefinedTerm, String]),
         'slogan': convertToJsonLd(slogan, [String]),
         'sponsor': convertToJsonLd(sponsor, [SchemaOrganization, SchemaPerson]),
         'subOrganization':
@@ -604,21 +630,5 @@ class SchemaOrganization implements SchemaSerializable {
         'unnamedSourcesPolicy':
             convertToJsonLd(unnamedSourcesPolicy, [SchemaCreativeWork, String]),
         'vatID': convertToJsonLd(vatID, [String]),
-        'additionalType': convertToJsonLd(additionalType, [String, String]),
-        'alternateName': convertToJsonLd(alternateName, [String]),
-        'description': convertToJsonLd(description, [String, SchemaTextObject]),
-        'disambiguatingDescription':
-            convertToJsonLd(disambiguatingDescription, [String]),
-        'identifier':
-            convertToJsonLd(identifier, [SchemaPropertyValue, String, String]),
-        'image': convertToJsonLd(image, [SchemaImageObject, String]),
-        'mainEntityOfPage':
-            convertToJsonLd(mainEntityOfPage, [SchemaCreativeWork, String]),
-        'name': convertToJsonLd(name, [String]),
-        'potentialAction': convertToJsonLd(potentialAction, [SchemaAction]),
-        'sameAs': convertToJsonLd(sameAs, [String]),
-        'subjectOf':
-            convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
-        'url': convertToJsonLd(url, [String]),
       });
 }

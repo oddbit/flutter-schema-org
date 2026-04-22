@@ -1,10 +1,22 @@
-import 'package:schema_org/src/schema_serializable.dart';
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+//
+// GENERATED CODE — DO NOT MODIFY BY HAND.
+// Produced by the schema_parser tool in /parser.
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:schema_org/src/utils.dart';
+import 'package:schema_org/schemas/medical_entity.dart';
 import 'package:schema_org/schemas/anatomical_structure.dart';
 import 'package:schema_org/schemas/anatomical_system.dart';
 import 'package:schema_org/schemas/superficial_anatomy.dart';
+import 'package:schema_org/schemas/medical_cause.dart';
 import 'package:schema_org/schemas/d_dx_element.dart';
 import 'package:schema_org/schemas/drug.dart';
+import 'package:schema_org/schemas/drug_class.dart';
+import 'package:schema_org/schemas/lifestyle_modification.dart';
 import 'package:schema_org/schemas/medical_therapy.dart';
 import 'package:schema_org/schemas/medical_risk_factor.dart';
 import 'package:schema_org/schemas/medical_sign_or_symptom.dart';
@@ -12,33 +24,21 @@ import 'package:schema_org/schemas/medical_condition_stage.dart';
 import 'package:schema_org/schemas/event_status_type.dart';
 import 'package:schema_org/schemas/medical_study_status.dart';
 import 'package:schema_org/schemas/medical_test.dart';
-import 'package:schema_org/schemas/medical_code.dart';
-import 'package:schema_org/schemas/grant.dart';
-import 'package:schema_org/schemas/medical_guideline.dart';
-import 'package:schema_org/schemas/drug_legal_status.dart';
-import 'package:schema_org/schemas/medical_enumeration.dart';
-import 'package:schema_org/schemas/medicine_system.dart';
-import 'package:schema_org/schemas/organization.dart';
-import 'package:schema_org/schemas/medical_specialty.dart';
-import 'package:schema_org/schemas/medical_study.dart';
-import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/schemas/property_value.dart';
-import 'package:schema_org/schemas/image_object.dart';
-import 'package:schema_org/schemas/creative_work.dart';
-import 'package:schema_org/schemas/action.dart';
-import 'package:schema_org/schemas/event.dart';
 
 /// Any condition of the human body that affects the normal functioning of a
 /// person, whether physically or mentally. Includes diseases, injuries,
 /// disabilities, disorders, syndromes, etc.
 /// See https://schema.org/MedicalCondition
-class SchemaMedicalCondition implements SchemaSerializable {
+class SchemaMedicalCondition extends SchemaMedicalEntity {
   /// The anatomy of the underlying organ system or structures associated with
   /// this entity.
   ///
   /// Supported types: [SchemaAnatomicalStructure], [SchemaAnatomicalSystem],
   /// [SchemaSuperficialAnatomy]
   dynamic associatedAnatomy;
+
+  /// The cause of a medical condition.
+  SchemaMedicalCause? cause;
 
   /// One of a set of differential diagnoses for the condition. Specifically, a
   /// closely-related or competing diagnosis typically considered later in the
@@ -73,7 +73,10 @@ class SchemaMedicalCondition implements SchemaSerializable {
   String? possibleComplication;
 
   /// A possible treatment to address this condition, sign or symptom.
-  SchemaMedicalTherapy? possibleTreatment;
+  ///
+  /// Supported types: [SchemaDrug], [SchemaDrugClass],
+  /// [SchemaLifestyleModification], [SchemaMedicalTherapy]
+  dynamic possibleTreatment;
 
   /// A preventative therapy used to prevent an initial occurrence of the
   /// medical condition, such as vaccination.
@@ -85,7 +88,10 @@ class SchemaMedicalCondition implements SchemaSerializable {
 
   /// A preventative therapy used to prevent reoccurrence of the medical
   /// condition after an initial episode of the condition.
-  SchemaMedicalTherapy? secondaryPrevention;
+  ///
+  /// Supported types: [SchemaDrug], [SchemaDrugClass],
+  /// [SchemaLifestyleModification], [SchemaMedicalTherapy]
+  dynamic secondaryPrevention;
 
   /// A sign or symptom of this condition. Signs are objective or physically
   /// observable manifestations of the medical condition while symptoms are the
@@ -104,102 +110,31 @@ class SchemaMedicalCondition implements SchemaSerializable {
   /// A medical test typically performed given this condition.
   SchemaMedicalTest? typicalTest;
 
-  /// A medical code for the entity, taken from a controlled vocabulary or
-  /// ontology such as ICD-9, DiseasesDB, MeSH, SNOMED-CT, RxNorm, etc.
-  SchemaMedicalCode? code;
-
-  /// A [SchemaGrant] that directly or indirectly provide funding or
-  /// sponsorship for this item. See also [SchemaownershipFundingInfo].
-  SchemaGrant? funding;
-
-  /// A medical guideline related to this entity.
-  SchemaMedicalGuideline? guideline;
-
-  /// The drug or supplement's legal status, including any controlled substance
-  /// schedules that apply.
-  ///
-  /// Supported types: [SchemaDrugLegalStatus], [SchemaMedicalEnumeration],
-  /// [String]
-  dynamic legalStatus;
-
-  /// The system of medicine that includes this MedicalEntity, for example
-  /// 'evidence-based', 'homeopathic', 'chiropractic', etc.
-  SchemaMedicineSystem? medicineSystem;
-
-  /// If applicable, the organization that officially recognizes this entity as
-  /// part of its endorsed system of medicine.
-  SchemaOrganization? recognizingAuthority;
-
-  /// If applicable, a medical specialty in which this entity is relevant.
-  SchemaMedicalSpecialty? relevantSpecialty;
-
-  /// A medical study or trial related to this entity.
-  SchemaMedicalStudy? study;
-
-  /// //schema.org/docs/styleguide.html">style guide</a>.
-  ///
-  /// Supported types: [String], [String]
-  String? additionalType;
-
-  /// An alias for the item.
-  String? alternateName;
-
-  /// A description of the item.
-  ///
-  /// Supported types: [String], [SchemaTextObject]
-  dynamic description;
-
-  /// A sub property of description. A short description of the item used to
-  /// disambiguate from other, similar items. Information from other properties
-  /// (in particular, name) may be necessary for the description to be useful
-  /// for disambiguation.
-  String? disambiguatingDescription;
-
-  /// The identifier property represents any kind of identifier for any kind of
-  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
-  /// dedicated properties for representing many of these, either as textual
-  /// strings or as URL (URI) links. See [background
-  /// notes](/docs/datamodel.html#identifierBg) for more details.
-  ///
-  /// Supported types: [SchemaPropertyValue], [String], [String]
-  dynamic identifier;
-
-  /// An image of the item. This can be a [SchemaURL] or a fully described
-  /// [SchemaImageObject].
-  ///
-  /// Supported types: [SchemaImageObject], [String]
-  dynamic image;
-
-  /// Indicates a page (or other CreativeWork) for which this thing is the main
-  /// entity being described. See [background
-  /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  ///
-  /// Supported types: [SchemaCreativeWork], [String]
-  dynamic mainEntityOfPage;
-
-  /// The name of the item.
-  String? name;
-
-  /// Indicates a potential Action, which describes an idealized action in
-  /// which this thing would play an 'object' role.
-  SchemaAction? potentialAction;
-
-  /// URL of a reference Web page that unambiguously indicates the item's
-  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
-  /// official website.
-  String? sameAs;
-
-  /// A CreativeWork or Event about this Thing.
-  ///
-  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
-  dynamic subjectOf;
-
-  /// URL of the item.
-  String? url;
-
   /// Create a new instance of [SchemaMedicalCondition]
   SchemaMedicalCondition({
+    super.additionalType,
+    super.alternateName,
+    super.code,
+    super.description,
+    super.disambiguatingDescription,
+    super.funding,
+    super.guideline,
+    super.identifier,
+    super.image,
+    super.legalStatus,
+    super.mainEntityOfPage,
+    super.medicineSystem,
+    super.name,
+    super.owner,
+    super.potentialAction,
+    super.recognizingAuthority,
+    super.relevantSpecialty,
+    super.sameAs,
+    super.study,
+    super.subjectOf,
+    super.url,
     this.associatedAnatomy,
+    this.cause,
     this.differentialDiagnosis,
     this.drug,
     this.epidemiology,
@@ -215,38 +150,19 @@ class SchemaMedicalCondition implements SchemaSerializable {
     this.stage,
     this.status,
     this.typicalTest,
-    this.code,
-    this.funding,
-    this.guideline,
-    this.legalStatus,
-    this.medicineSystem,
-    this.recognizingAuthority,
-    this.relevantSpecialty,
-    this.study,
-    this.additionalType,
-    this.alternateName,
-    this.description,
-    this.disambiguatingDescription,
-    this.identifier,
-    this.image,
-    this.mainEntityOfPage,
-    this.name,
-    this.potentialAction,
-    this.sameAs,
-    this.subjectOf,
-    this.url,
   });
 
   /// Serialize [SchemaMedicalCondition] to JSON-LD
   @override
   Map<String, dynamic> toJsonLd() => removeEmpty({
-        '@context': 'https://schema.org',
+        ...super.toJsonLd(),
         '@type': 'MedicalCondition',
         'associatedAnatomy': convertToJsonLd(associatedAnatomy, [
           SchemaAnatomicalStructure,
           SchemaAnatomicalSystem,
           SchemaSuperficialAnatomy
         ]),
+        'cause': convertToJsonLd(cause, [SchemaMedicalCause]),
         'differentialDiagnosis':
             convertToJsonLd(differentialDiagnosis, [SchemaDDxElement]),
         'drug': convertToJsonLd(drug, [SchemaDrug]),
@@ -255,46 +171,26 @@ class SchemaMedicalCondition implements SchemaSerializable {
         'naturalProgression': convertToJsonLd(naturalProgression, [String]),
         'pathophysiology': convertToJsonLd(pathophysiology, [String]),
         'possibleComplication': convertToJsonLd(possibleComplication, [String]),
-        'possibleTreatment':
-            convertToJsonLd(possibleTreatment, [SchemaMedicalTherapy]),
+        'possibleTreatment': convertToJsonLd(possibleTreatment, [
+          SchemaDrug,
+          SchemaDrugClass,
+          SchemaLifestyleModification,
+          SchemaMedicalTherapy
+        ]),
         'primaryPrevention':
             convertToJsonLd(primaryPrevention, [SchemaMedicalTherapy]),
         'riskFactor': convertToJsonLd(riskFactor, [SchemaMedicalRiskFactor]),
-        'secondaryPrevention':
-            convertToJsonLd(secondaryPrevention, [SchemaMedicalTherapy]),
+        'secondaryPrevention': convertToJsonLd(secondaryPrevention, [
+          SchemaDrug,
+          SchemaDrugClass,
+          SchemaLifestyleModification,
+          SchemaMedicalTherapy
+        ]),
         'signOrSymptom':
             convertToJsonLd(signOrSymptom, [SchemaMedicalSignOrSymptom]),
         'stage': convertToJsonLd(stage, [SchemaMedicalConditionStage]),
         'status': convertToJsonLd(
             status, [SchemaEventStatusType, SchemaMedicalStudyStatus, String]),
         'typicalTest': convertToJsonLd(typicalTest, [SchemaMedicalTest]),
-        'code': convertToJsonLd(code, [SchemaMedicalCode]),
-        'funding': convertToJsonLd(funding, [SchemaGrant]),
-        'guideline': convertToJsonLd(guideline, [SchemaMedicalGuideline]),
-        'legalStatus': convertToJsonLd(legalStatus,
-            [SchemaDrugLegalStatus, SchemaMedicalEnumeration, String]),
-        'medicineSystem':
-            convertToJsonLd(medicineSystem, [SchemaMedicineSystem]),
-        'recognizingAuthority':
-            convertToJsonLd(recognizingAuthority, [SchemaOrganization]),
-        'relevantSpecialty':
-            convertToJsonLd(relevantSpecialty, [SchemaMedicalSpecialty]),
-        'study': convertToJsonLd(study, [SchemaMedicalStudy]),
-        'additionalType': convertToJsonLd(additionalType, [String, String]),
-        'alternateName': convertToJsonLd(alternateName, [String]),
-        'description': convertToJsonLd(description, [String, SchemaTextObject]),
-        'disambiguatingDescription':
-            convertToJsonLd(disambiguatingDescription, [String]),
-        'identifier':
-            convertToJsonLd(identifier, [SchemaPropertyValue, String, String]),
-        'image': convertToJsonLd(image, [SchemaImageObject, String]),
-        'mainEntityOfPage':
-            convertToJsonLd(mainEntityOfPage, [SchemaCreativeWork, String]),
-        'name': convertToJsonLd(name, [String]),
-        'potentialAction': convertToJsonLd(potentialAction, [SchemaAction]),
-        'sameAs': convertToJsonLd(sameAs, [String]),
-        'subjectOf':
-            convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
-        'url': convertToJsonLd(url, [String]),
       });
 }

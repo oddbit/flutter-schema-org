@@ -1,5 +1,14 @@
-import 'package:schema_org/src/schema_serializable.dart';
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+//
+// GENERATED CODE — DO NOT MODIFY BY HAND.
+// Produced by the schema_parser tool in /parser.
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:schema_org/src/utils.dart';
+import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/interaction_counter.dart';
@@ -10,32 +19,28 @@ import 'package:schema_org/schemas/contact_point.dart';
 import 'package:schema_org/schemas/grant.dart';
 import 'package:schema_org/schemas/gender_type.dart';
 import 'package:schema_org/schemas/certification.dart';
-import 'package:schema_org/schemas/educational_occupational_credential.dart';
+import 'package:schema_org/schemas/credential.dart';
 import 'package:schema_org/schemas/occupation.dart';
 import 'package:schema_org/schemas/offer_catalog.dart';
 import 'package:schema_org/schemas/distance.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/defined_term.dart';
-import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/language.dart';
+import 'package:schema_org/schemas/event.dart';
 import 'package:schema_org/schemas/offer.dart';
+import 'package:schema_org/schemas/member_program_tier.dart';
 import 'package:schema_org/schemas/program_membership.dart';
 import 'package:schema_org/schemas/country.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 import 'package:schema_org/schemas/price_specification.dart';
-import 'package:schema_org/schemas/ownership_info.dart';
-import 'package:schema_org/schemas/product.dart';
-import 'package:schema_org/schemas/event.dart';
+import 'package:schema_org/schemas/structured_value.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/demand.dart';
-import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/schemas/property_value.dart';
-import 'package:schema_org/schemas/image_object.dart';
-import 'package:schema_org/schemas/action.dart';
+import 'package:schema_org/schemas/mass.dart';
 
 /// A person (alive, dead, undead, or fictional).
 /// See https://schema.org/Person
-class SchemaPerson implements SchemaSerializable {
+class SchemaPerson extends SchemaThing {
   /// An additional name for a Person, can be used for a middle name.
   String? additionalName;
 
@@ -62,6 +67,7 @@ class SchemaPerson implements SchemaSerializable {
   String? award;
 
   /// Awards won by or for this item.
+  @Deprecated('Use [award]. See https://schema.org/awards')
   String? awards;
 
   /// Date of birth.
@@ -89,12 +95,14 @@ class SchemaPerson implements SchemaSerializable {
   dynamic colleague;
 
   /// A colleague of the person.
+  @Deprecated('Use [colleague]. See https://schema.org/colleagues')
   SchemaPerson? colleagues;
 
   /// A contact point for a person or organization.
   SchemaContactPoint? contactPoint;
 
   /// A contact point for a person or organization.
+  @Deprecated('Use [contactPoint]. See https://schema.org/contactPoints')
   SchemaContactPoint? contactPoints;
 
   /// Date of death.
@@ -130,11 +138,11 @@ class SchemaPerson implements SchemaSerializable {
   SchemaGrant? funding;
 
   /// //schema.org/Female may be used, text strings are also acceptable for
-  /// people who do not identify as a binary gender. The [Schemagender]
-  /// property can also be used in an extended sense to cover e.g. the gender
-  /// of sports teams. As with the gender of individuals, we do not try to
-  /// enumerate all possibilities. A mixed-gender [SchemaSportsTeam] can be
-  /// indicated with a text value of "Mixed".
+  /// people who are not a binary gender. The [Schemagender] property can also
+  /// be used in an extended sense to cover e.g. the gender of sports teams. As
+  /// with the gender of individuals, we do not try to enumerate all
+  /// possibilities. A mixed-gender [SchemaSportsTeam] can be indicated with a
+  /// text value of "Mixed".
   ///
   /// Supported types: [SchemaGenderType], [String]
   dynamic gender;
@@ -153,7 +161,7 @@ class SchemaPerson implements SchemaSerializable {
   SchemaCertification? hasCertification;
 
   /// A credential awarded to the Person or Organization.
-  SchemaEducationalOccupationalCredential? hasCredential;
+  SchemaCredential? hasCredential;
 
   /// The Person's occupation. For past professions, use Role for expressing
   /// dates.
@@ -206,7 +214,7 @@ class SchemaPerson implements SchemaSerializable {
   /// to educational content, events, objectives or [SchemaJobPosting]
   /// descriptions.
   ///
-  /// Supported types: [String], [String], [SchemaThing]
+  /// Supported types: [String], [SchemaThing]
   dynamic knowsAbout;
 
   /// //tools.ietf.org/html/bcp47).
@@ -214,13 +222,18 @@ class SchemaPerson implements SchemaSerializable {
   /// Supported types: [SchemaLanguage], [String]
   dynamic knowsLanguage;
 
+  /// A life event like baptism, communions, Bar Mitzvahs, Aqiqah, Namakarana,
+  /// Miyamairi, burial, ....
+  SchemaEvent? lifeEvent;
+
   /// A pointer to products or services offered by the organization or person.
   SchemaOffer? makesOffer;
 
   /// An Organization (or ProgramMembership) to which this Person or
   /// Organization belongs.
   ///
-  /// Supported types: [SchemaOrganization], [SchemaProgramMembership]
+  /// Supported types: [SchemaMemberProgramTier], [SchemaOrganization],
+  /// [SchemaProgramMembership]
   dynamic memberOf;
 
   /// The North American Industry Classification System (NAICS) code for a
@@ -230,25 +243,41 @@ class SchemaPerson implements SchemaSerializable {
   /// Nationality of the person.
   SchemaCountry? nationality;
 
-  /// The total financial value of the person as calculated by subtracting
-  /// assets from liabilities.
+  /// The total financial value of the person as calculated by subtracting the
+  /// total value of liabilities from the total value of assets.
   ///
   /// Supported types: [SchemaMonetaryAmount], [SchemaPriceSpecification]
   dynamic netWorth;
 
-  /// Products owned by the organization or person.
-  ///
-  /// Supported types: [SchemaOwnershipInfo], [SchemaProduct]
-  dynamic owns;
+  /// Things owned by the organization or person.
+  SchemaThing? owns;
 
   /// A parent of this person.
   SchemaPerson? parent;
 
   /// A parents of the person.
+  @Deprecated('Use [parent]. See https://schema.org/parents')
   SchemaPerson? parents;
 
   /// Event that this person is a performer or participant in.
   SchemaEvent? performerIn;
+
+  /// A short string listing or describing pronouns for a person. Typically the
+  /// person concerned is the best authority as pronouns are a critical part of
+  /// personal identity and expression. Publishers and consumers of this
+  /// information are reminded to treat this data responsibly, take
+  /// country-specific laws related to gender expression into account, and be
+  /// wary of out-of-date data and drawing unwarranted inferences about the
+  /// person being described.
+  ///
+  /// In English, formulations such as "they/them", "she/her", and "he/him" are
+  /// commonly used online and can also be used here. We do not intend to
+  /// enumerate all possible micro-syntaxes in all languages. More structured
+  /// and well-defined external values for pronouns can be referenced using the
+  /// [SchemaStructuredValue] or [SchemaDefinedTerm] values.
+  ///
+  /// Supported types: [SchemaDefinedTerm], [String], [SchemaStructuredValue]
+  dynamic pronouns;
 
   /// The publishingPrinciples property indicates (typically via [SchemaURL]) a
   /// document describing the editorial principles of an [SchemaOrganization]
@@ -276,7 +305,16 @@ class SchemaPerson implements SchemaSerializable {
   SchemaPerson? sibling;
 
   /// A sibling of the person.
+  @Deprecated('Use [sibling]. See https://schema.org/siblings')
   SchemaPerson? siblings;
+
+  /// A statement of knowledge, skill, ability, task or any other assertion
+  /// expressing a competency that is either claimed by a person, an
+  /// organization or desired or required to fulfill a role or to work in an
+  /// occupation.
+  ///
+  /// Supported types: [SchemaDefinedTerm], [String]
+  dynamic skills;
 
   /// A person or organization that supports a thing through a pledge, promise,
   /// or financial contribution. E.g. a sponsor of a Medical Study or a
@@ -295,11 +333,15 @@ class SchemaPerson implements SchemaSerializable {
   /// The telephone number.
   String? telephone;
 
-  /// The Value-added Tax ID of the organization or person.
+  /// The value-added Tax ID of the organization or person with national prefix
+  /// (for example IT123456789). Can also be described as [Schemaiso6523Code]
+  /// with proper prefix.
   String? vatID;
 
   /// The weight of the product or person.
-  SchemaQuantitativeValue? weight;
+  ///
+  /// Supported types: [SchemaMass], [SchemaQuantitativeValue]
+  dynamic weight;
 
   /// A contact location for a person's place of work.
   ///
@@ -309,69 +351,21 @@ class SchemaPerson implements SchemaSerializable {
   /// Organizations that the person works for.
   SchemaOrganization? worksFor;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.
-  ///
-  /// Supported types: [String], [String]
-  String? additionalType;
-
-  /// An alias for the item.
-  String? alternateName;
-
-  /// A description of the item.
-  ///
-  /// Supported types: [String], [SchemaTextObject]
-  dynamic description;
-
-  /// A sub property of description. A short description of the item used to
-  /// disambiguate from other, similar items. Information from other properties
-  /// (in particular, name) may be necessary for the description to be useful
-  /// for disambiguation.
-  String? disambiguatingDescription;
-
-  /// The identifier property represents any kind of identifier for any kind of
-  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
-  /// dedicated properties for representing many of these, either as textual
-  /// strings or as URL (URI) links. See [background
-  /// notes](/docs/datamodel.html#identifierBg) for more details.
-  ///
-  /// Supported types: [SchemaPropertyValue], [String], [String]
-  dynamic identifier;
-
-  /// An image of the item. This can be a [SchemaURL] or a fully described
-  /// [SchemaImageObject].
-  ///
-  /// Supported types: [SchemaImageObject], [String]
-  dynamic image;
-
-  /// Indicates a page (or other CreativeWork) for which this thing is the main
-  /// entity being described. See [background
-  /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  ///
-  /// Supported types: [SchemaCreativeWork], [String]
-  dynamic mainEntityOfPage;
-
-  /// The name of the item.
-  String? name;
-
-  /// Indicates a potential Action, which describes an idealized action in
-  /// which this thing would play an 'object' role.
-  SchemaAction? potentialAction;
-
-  /// URL of a reference Web page that unambiguously indicates the item's
-  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
-  /// official website.
-  String? sameAs;
-
-  /// A CreativeWork or Event about this Thing.
-  ///
-  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
-  dynamic subjectOf;
-
-  /// URL of the item.
-  String? url;
-
   /// Create a new instance of [SchemaPerson]
   SchemaPerson({
+    super.additionalType,
+    super.alternateName,
+    super.description,
+    super.disambiguatingDescription,
+    super.identifier,
+    super.image,
+    super.mainEntityOfPage,
+    super.name,
+    super.owner,
+    super.potentialAction,
+    super.sameAs,
+    super.subjectOf,
+    super.url,
     this.additionalName,
     this.address,
     this.affiliation,
@@ -415,6 +409,7 @@ class SchemaPerson implements SchemaSerializable {
     this.knows,
     this.knowsAbout,
     this.knowsLanguage,
+    this.lifeEvent,
     this.makesOffer,
     this.memberOf,
     this.naics,
@@ -424,11 +419,13 @@ class SchemaPerson implements SchemaSerializable {
     this.parent,
     this.parents,
     this.performerIn,
+    this.pronouns,
     this.publishingPrinciples,
     this.relatedTo,
     this.seeks,
     this.sibling,
     this.siblings,
+    this.skills,
     this.sponsor,
     this.spouse,
     this.taxID,
@@ -437,24 +434,12 @@ class SchemaPerson implements SchemaSerializable {
     this.weight,
     this.workLocation,
     this.worksFor,
-    this.additionalType,
-    this.alternateName,
-    this.description,
-    this.disambiguatingDescription,
-    this.identifier,
-    this.image,
-    this.mainEntityOfPage,
-    this.name,
-    this.potentialAction,
-    this.sameAs,
-    this.subjectOf,
-    this.url,
   });
 
   /// Serialize [SchemaPerson] to JSON-LD
   @override
   Map<String, dynamic> toJsonLd() => removeEmpty({
-        '@context': 'https://schema.org',
+        ...super.toJsonLd(),
         '@type': 'Person',
         'additionalName': convertToJsonLd(additionalName, [String]),
         'address': convertToJsonLd(address, [SchemaPostalAddress, String]),
@@ -488,8 +473,7 @@ class SchemaPerson implements SchemaSerializable {
         'globalLocationNumber': convertToJsonLd(globalLocationNumber, [String]),
         'hasCertification':
             convertToJsonLd(hasCertification, [SchemaCertification]),
-        'hasCredential': convertToJsonLd(
-            hasCredential, [SchemaEducationalOccupationalCredential]),
+        'hasCredential': convertToJsonLd(hasCredential, [SchemaCredential]),
         'hasOccupation': convertToJsonLd(hasOccupation, [SchemaOccupation]),
         'hasOfferCatalog':
             convertToJsonLd(hasOfferCatalog, [SchemaOfferCatalog]),
@@ -505,51 +489,42 @@ class SchemaPerson implements SchemaSerializable {
         'isicV4': convertToJsonLd(isicV4, [String]),
         'jobTitle': convertToJsonLd(jobTitle, [SchemaDefinedTerm, String]),
         'knows': convertToJsonLd(knows, [SchemaPerson]),
-        'knowsAbout':
-            convertToJsonLd(knowsAbout, [String, String, SchemaThing]),
+        'knowsAbout': convertToJsonLd(knowsAbout, [String, SchemaThing]),
         'knowsLanguage':
             convertToJsonLd(knowsLanguage, [SchemaLanguage, String]),
+        'lifeEvent': convertToJsonLd(lifeEvent, [SchemaEvent]),
         'makesOffer': convertToJsonLd(makesOffer, [SchemaOffer]),
-        'memberOf': convertToJsonLd(
-            memberOf, [SchemaOrganization, SchemaProgramMembership]),
+        'memberOf': convertToJsonLd(memberOf, [
+          SchemaMemberProgramTier,
+          SchemaOrganization,
+          SchemaProgramMembership
+        ]),
         'naics': convertToJsonLd(naics, [String]),
         'nationality': convertToJsonLd(nationality, [SchemaCountry]),
         'netWorth': convertToJsonLd(
             netWorth, [SchemaMonetaryAmount, SchemaPriceSpecification]),
-        'owns': convertToJsonLd(owns, [SchemaOwnershipInfo, SchemaProduct]),
+        'owns': convertToJsonLd(owns, [SchemaThing]),
         'parent': convertToJsonLd(parent, [SchemaPerson]),
         'parents': convertToJsonLd(parents, [SchemaPerson]),
         'performerIn': convertToJsonLd(performerIn, [SchemaEvent]),
+        'pronouns': convertToJsonLd(
+            pronouns, [SchemaDefinedTerm, String, SchemaStructuredValue]),
         'publishingPrinciples':
             convertToJsonLd(publishingPrinciples, [SchemaCreativeWork, String]),
         'relatedTo': convertToJsonLd(relatedTo, [SchemaPerson]),
         'seeks': convertToJsonLd(seeks, [SchemaDemand]),
         'sibling': convertToJsonLd(sibling, [SchemaPerson]),
         'siblings': convertToJsonLd(siblings, [SchemaPerson]),
+        'skills': convertToJsonLd(skills, [SchemaDefinedTerm, String]),
         'sponsor': convertToJsonLd(sponsor, [SchemaOrganization, SchemaPerson]),
         'spouse': convertToJsonLd(spouse, [SchemaPerson]),
         'taxID': convertToJsonLd(taxID, [String]),
         'telephone': convertToJsonLd(telephone, [String]),
         'vatID': convertToJsonLd(vatID, [String]),
-        'weight': convertToJsonLd(weight, [SchemaQuantitativeValue]),
+        'weight':
+            convertToJsonLd(weight, [SchemaMass, SchemaQuantitativeValue]),
         'workLocation':
             convertToJsonLd(workLocation, [SchemaContactPoint, SchemaPlace]),
         'worksFor': convertToJsonLd(worksFor, [SchemaOrganization]),
-        'additionalType': convertToJsonLd(additionalType, [String, String]),
-        'alternateName': convertToJsonLd(alternateName, [String]),
-        'description': convertToJsonLd(description, [String, SchemaTextObject]),
-        'disambiguatingDescription':
-            convertToJsonLd(disambiguatingDescription, [String]),
-        'identifier':
-            convertToJsonLd(identifier, [SchemaPropertyValue, String, String]),
-        'image': convertToJsonLd(image, [SchemaImageObject, String]),
-        'mainEntityOfPage':
-            convertToJsonLd(mainEntityOfPage, [SchemaCreativeWork, String]),
-        'name': convertToJsonLd(name, [String]),
-        'potentialAction': convertToJsonLd(potentialAction, [SchemaAction]),
-        'sameAs': convertToJsonLd(sameAs, [String]),
-        'subjectOf':
-            convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
-        'url': convertToJsonLd(url, [String]),
       });
 }

@@ -1,42 +1,50 @@
-import 'package:schema_org/src/schema_serializable.dart';
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+//
+// GENERATED CODE — DO NOT MODIFY BY HAND.
+// Produced by the schema_parser tool in /parser.
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/thing.dart';
+import 'package:schema_org/schemas/performing_group.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/audience.dart';
 import 'package:schema_org/schemas/duration.dart';
+import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/event_attendance_mode_enumeration.dart';
 import 'package:schema_org/schemas/schedule.dart';
 import 'package:schema_org/schemas/event_status_type.dart';
 import 'package:schema_org/schemas/grant.dart';
+import 'package:schema_org/schemas/offer.dart';
 import 'package:schema_org/schemas/language.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/virtual_location.dart';
 import 'package:schema_org/schemas/demand.dart';
-import 'package:schema_org/schemas/offer.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/review.dart';
-import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/schemas/property_value.dart';
-import 'package:schema_org/schemas/image_object.dart';
-import 'package:schema_org/schemas/action.dart';
 
 /// An event happening at a certain time and location, such as a concert,
 /// lecture, or festival. Ticketing information may be added via the
 /// [Schemaoffers] property. Repeated events may be structured as separate
 /// Event objects.
 /// See https://schema.org/Event
-class SchemaEvent implements SchemaSerializable {
-  /// The subject matter of the content.
+class SchemaEvent extends SchemaThing {
+  /// The subject matter of an object.
   SchemaThing? about;
 
-  /// An actor, e.g. in TV, radio, movie, video games etc., or in an event.
-  /// Actors can be associated with individual items or with a series, episode,
-  /// clip.
-  SchemaPerson? actor;
+  /// An actor (individual or a group), e.g. in TV, radio, movie, video games
+  /// etc., or in an event. Actors can be associated with individual items or
+  /// with a series, episode, clip.
+  ///
+  /// Supported types: [SchemaPerformingGroup], [SchemaPerson]
+  dynamic actor;
 
   /// The overall rating, based on a collection of reviews or ratings, of the
   /// item.
@@ -50,6 +58,7 @@ class SchemaEvent implements SchemaSerializable {
   /// A person attending the event.
   ///
   /// Supported types: [SchemaOrganization], [SchemaPerson]
+  @Deprecated('Use [attendee]. See https://schema.org/attendees')
   dynamic attendees;
 
   /// An intended audience, i.e. a group for whom something was created.
@@ -72,16 +81,14 @@ class SchemaEvent implements SchemaSerializable {
   SchemaPerson? director;
 
   /// The time admission will commence.
-  ///
-  /// Supported types: [String], [String]
   String? doorTime;
 
   /// //en.wikipedia.org/wiki/ISO_8601).
-  SchemaDuration? duration;
+  ///
+  /// Supported types: [SchemaDuration], [SchemaQuantitativeValue]
+  dynamic duration;
 
   /// //en.wikipedia.org/wiki/ISO_8601)).
-  ///
-  /// Supported types: [String], [String]
   String? endDate;
 
   /// The eventAttendanceMode of an event indicates whether it occurs online,
@@ -116,6 +123,14 @@ class SchemaEvent implements SchemaSerializable {
   /// sponsorship for this item. See also [SchemaownershipFundingInfo].
   SchemaGrant? funding;
 
+  /// An offer to participate in the event, for example, Call for Proposals,
+  /// Call for Speakers, or Call for Performers.
+  SchemaOffer? hasParticipationOffer;
+
+  /// An offer to sponsor the event, for example, Sponsorship Prospectus,
+  /// Sponsorship Opportunities, or Sponsor Packages.
+  SchemaOffer? hasSponsorshipOffer;
+
   /// //tools.ietf.org/html/bcp47). See also [SchemaavailableLanguage].
   ///
   /// Supported types: [SchemaLanguage], [String]
@@ -128,7 +143,7 @@ class SchemaEvent implements SchemaSerializable {
   /// a keywords list are typically delimited by commas, or by repeating the
   /// property.
   ///
-  /// Supported types: [SchemaDefinedTerm], [String], [String]
+  /// Supported types: [SchemaDefinedTerm], [String]
   dynamic keywords;
 
   /// The location of, for example, where an event is happening, where an
@@ -178,6 +193,7 @@ class SchemaEvent implements SchemaSerializable {
   /// presenter, musician, or actor.
   ///
   /// Supported types: [SchemaOrganization], [SchemaPerson]
+  @Deprecated('Use [performer]. See https://schema.org/performers')
   dynamic performers;
 
   /// Used in conjunction with eventStatus for rescheduled or cancelled events.
@@ -204,8 +220,6 @@ class SchemaEvent implements SchemaSerializable {
   dynamic sponsor;
 
   /// //en.wikipedia.org/wiki/ISO_8601)).
-  ///
-  /// Supported types: [String], [String]
   String? startDate;
 
   /// An Event that is part of this event. For example, a conference event
@@ -215,6 +229,7 @@ class SchemaEvent implements SchemaSerializable {
 
   /// Events that are a part of this event. For example, a conference event
   /// includes many presentations, each subEvents of the conference.
+  @Deprecated('Use [subEvent]. See https://schema.org/subEvents')
   SchemaEvent? subEvents;
 
   /// An event that this event is a part of. For example, a collection of
@@ -241,69 +256,21 @@ class SchemaEvent implements SchemaSerializable {
   /// TheaterEvent.
   SchemaCreativeWork? workPerformed;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.
-  ///
-  /// Supported types: [String], [String]
-  String? additionalType;
-
-  /// An alias for the item.
-  String? alternateName;
-
-  /// A description of the item.
-  ///
-  /// Supported types: [String], [SchemaTextObject]
-  dynamic description;
-
-  /// A sub property of description. A short description of the item used to
-  /// disambiguate from other, similar items. Information from other properties
-  /// (in particular, name) may be necessary for the description to be useful
-  /// for disambiguation.
-  String? disambiguatingDescription;
-
-  /// The identifier property represents any kind of identifier for any kind of
-  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
-  /// dedicated properties for representing many of these, either as textual
-  /// strings or as URL (URI) links. See [background
-  /// notes](/docs/datamodel.html#identifierBg) for more details.
-  ///
-  /// Supported types: [SchemaPropertyValue], [String], [String]
-  dynamic identifier;
-
-  /// An image of the item. This can be a [SchemaURL] or a fully described
-  /// [SchemaImageObject].
-  ///
-  /// Supported types: [SchemaImageObject], [String]
-  dynamic image;
-
-  /// Indicates a page (or other CreativeWork) for which this thing is the main
-  /// entity being described. See [background
-  /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  ///
-  /// Supported types: [SchemaCreativeWork], [String]
-  dynamic mainEntityOfPage;
-
-  /// The name of the item.
-  String? name;
-
-  /// Indicates a potential Action, which describes an idealized action in
-  /// which this thing would play an 'object' role.
-  SchemaAction? potentialAction;
-
-  /// URL of a reference Web page that unambiguously indicates the item's
-  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
-  /// official website.
-  String? sameAs;
-
-  /// A CreativeWork or Event about this Thing.
-  ///
-  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
-  dynamic subjectOf;
-
-  /// URL of the item.
-  String? url;
-
   /// Create a new instance of [SchemaEvent]
   SchemaEvent({
+    super.additionalType,
+    super.alternateName,
+    super.description,
+    super.disambiguatingDescription,
+    super.identifier,
+    super.image,
+    super.mainEntityOfPage,
+    super.name,
+    super.owner,
+    super.potentialAction,
+    super.sameAs,
+    super.subjectOf,
+    super.url,
     this.about,
     this.actor,
     this.aggregateRating,
@@ -321,6 +288,8 @@ class SchemaEvent implements SchemaSerializable {
     this.eventStatus,
     this.funder,
     this.funding,
+    this.hasParticipationOffer,
+    this.hasSponsorshipOffer,
     this.inLanguage,
     this.isAccessibleForFree,
     this.keywords,
@@ -345,27 +314,15 @@ class SchemaEvent implements SchemaSerializable {
     this.typicalAgeRange,
     this.workFeatured,
     this.workPerformed,
-    this.additionalType,
-    this.alternateName,
-    this.description,
-    this.disambiguatingDescription,
-    this.identifier,
-    this.image,
-    this.mainEntityOfPage,
-    this.name,
-    this.potentialAction,
-    this.sameAs,
-    this.subjectOf,
-    this.url,
   });
 
   /// Serialize [SchemaEvent] to JSON-LD
   @override
   Map<String, dynamic> toJsonLd() => removeEmpty({
-        '@context': 'https://schema.org',
+        ...super.toJsonLd(),
         '@type': 'Event',
         'about': convertToJsonLd(about, [SchemaThing]),
-        'actor': convertToJsonLd(actor, [SchemaPerson]),
+        'actor': convertToJsonLd(actor, [SchemaPerformingGroup, SchemaPerson]),
         'aggregateRating':
             convertToJsonLd(aggregateRating, [SchemaAggregateRating]),
         'attendee':
@@ -378,19 +335,23 @@ class SchemaEvent implements SchemaSerializable {
         'contributor':
             convertToJsonLd(contributor, [SchemaOrganization, SchemaPerson]),
         'director': convertToJsonLd(director, [SchemaPerson]),
-        'doorTime': convertToJsonLd(doorTime, [String, String]),
-        'duration': convertToJsonLd(duration, [SchemaDuration]),
-        'endDate': convertToJsonLd(endDate, [String, String]),
+        'doorTime': convertToJsonLd(doorTime, [String]),
+        'duration': convertToJsonLd(
+            duration, [SchemaDuration, SchemaQuantitativeValue]),
+        'endDate': convertToJsonLd(endDate, [String]),
         'eventAttendanceMode': convertToJsonLd(
             eventAttendanceMode, [SchemaEventAttendanceModeEnumeration]),
         'eventSchedule': convertToJsonLd(eventSchedule, [SchemaSchedule]),
         'eventStatus': convertToJsonLd(eventStatus, [SchemaEventStatusType]),
         'funder': convertToJsonLd(funder, [SchemaOrganization, SchemaPerson]),
         'funding': convertToJsonLd(funding, [SchemaGrant]),
+        'hasParticipationOffer':
+            convertToJsonLd(hasParticipationOffer, [SchemaOffer]),
+        'hasSponsorshipOffer':
+            convertToJsonLd(hasSponsorshipOffer, [SchemaOffer]),
         'inLanguage': convertToJsonLd(inLanguage, [SchemaLanguage, String]),
         'isAccessibleForFree': convertToJsonLd(isAccessibleForFree, [bool]),
-        'keywords':
-            convertToJsonLd(keywords, [SchemaDefinedTerm, String, String]),
+        'keywords': convertToJsonLd(keywords, [SchemaDefinedTerm, String]),
         'location': convertToJsonLd(location,
             [SchemaPlace, SchemaPostalAddress, String, SchemaVirtualLocation]),
         'maximumAttendeeCapacity':
@@ -412,7 +373,7 @@ class SchemaEvent implements SchemaSerializable {
             convertToJsonLd(remainingAttendeeCapacity, [int]),
         'review': convertToJsonLd(review, [SchemaReview]),
         'sponsor': convertToJsonLd(sponsor, [SchemaOrganization, SchemaPerson]),
-        'startDate': convertToJsonLd(startDate, [String, String]),
+        'startDate': convertToJsonLd(startDate, [String]),
         'subEvent': convertToJsonLd(subEvent, [SchemaEvent]),
         'subEvents': convertToJsonLd(subEvents, [SchemaEvent]),
         'superEvent': convertToJsonLd(superEvent, [SchemaEvent]),
@@ -421,21 +382,5 @@ class SchemaEvent implements SchemaSerializable {
         'typicalAgeRange': convertToJsonLd(typicalAgeRange, [String]),
         'workFeatured': convertToJsonLd(workFeatured, [SchemaCreativeWork]),
         'workPerformed': convertToJsonLd(workPerformed, [SchemaCreativeWork]),
-        'additionalType': convertToJsonLd(additionalType, [String, String]),
-        'alternateName': convertToJsonLd(alternateName, [String]),
-        'description': convertToJsonLd(description, [String, SchemaTextObject]),
-        'disambiguatingDescription':
-            convertToJsonLd(disambiguatingDescription, [String]),
-        'identifier':
-            convertToJsonLd(identifier, [SchemaPropertyValue, String, String]),
-        'image': convertToJsonLd(image, [SchemaImageObject, String]),
-        'mainEntityOfPage':
-            convertToJsonLd(mainEntityOfPage, [SchemaCreativeWork, String]),
-        'name': convertToJsonLd(name, [String]),
-        'potentialAction': convertToJsonLd(potentialAction, [SchemaAction]),
-        'sameAs': convertToJsonLd(sameAs, [String]),
-        'subjectOf':
-            convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
-        'url': convertToJsonLd(url, [String]),
       });
 }

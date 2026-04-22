@@ -1,17 +1,21 @@
-import 'package:schema_org/src/schema_serializable.dart';
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+//
+// GENERATED CODE — DO NOT MODIFY BY HAND.
+// Produced by the schema_parser tool in /parser.
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:schema_org/src/utils.dart';
+import 'package:schema_org/schemas/intangible.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
-import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/schemas/property_value.dart';
-import 'package:schema_org/schemas/image_object.dart';
-import 'package:schema_org/schemas/creative_work.dart';
-import 'package:schema_org/schemas/action.dart';
-import 'package:schema_org/schemas/event.dart';
+import 'package:schema_org/schemas/structured_value.dart';
 
 /// A rating is an evaluation on a numeric scale, such as 1 to 5 stars.
 /// See https://schema.org/Rating
-class SchemaRating implements SchemaSerializable {
+class SchemaRating extends SchemaIntangible {
   /// The author of this content or rating. Please note that author is special
   /// in that HTML 5 provides a special mechanism for indicating authorship via
   /// the rel tag. That is equivalent to this and may be used interchangeably.
@@ -19,10 +23,9 @@ class SchemaRating implements SchemaSerializable {
   /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic author;
 
-  /// The highest value allowed in this rating system. If bestRating is
-  /// omitted, 5 is assumed.
+  /// The highest value allowed in this rating system.
   ///
-  /// Supported types: [String], [int]
+  /// Supported types: [String], [num]
   dynamic bestRating;
 
   /// A short explanation (e.g. one to two sentences) providing background
@@ -36,128 +39,54 @@ class SchemaRating implements SchemaSerializable {
   /// '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal
   /// point. Avoid using these symbols as a readability separator.
   ///
-  /// Supported types: [String], [int]
+  /// Supported types: [String], [num]
   dynamic ratingValue;
 
   /// This Review or Rating is relevant to this part or facet of the
   /// itemReviewed.
-  String? reviewAspect;
-
-  /// The lowest value allowed in this rating system. If worstRating is
-  /// omitted, 1 is assumed.
   ///
-  /// Supported types: [String], [int]
+  /// Supported types: [String], [SchemaStructuredValue]
+  dynamic reviewAspect;
+
+  /// The lowest value allowed in this rating system.
+  ///
+  /// Supported types: [String], [num]
   dynamic worstRating;
-
-  /// //schema.org/docs/styleguide.html">style guide</a>.
-  ///
-  /// Supported types: [String], [String]
-  String? additionalType;
-
-  /// An alias for the item.
-  String? alternateName;
-
-  /// A description of the item.
-  ///
-  /// Supported types: [String], [SchemaTextObject]
-  dynamic description;
-
-  /// A sub property of description. A short description of the item used to
-  /// disambiguate from other, similar items. Information from other properties
-  /// (in particular, name) may be necessary for the description to be useful
-  /// for disambiguation.
-  String? disambiguatingDescription;
-
-  /// The identifier property represents any kind of identifier for any kind of
-  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
-  /// dedicated properties for representing many of these, either as textual
-  /// strings or as URL (URI) links. See [background
-  /// notes](/docs/datamodel.html#identifierBg) for more details.
-  ///
-  /// Supported types: [SchemaPropertyValue], [String], [String]
-  dynamic identifier;
-
-  /// An image of the item. This can be a [SchemaURL] or a fully described
-  /// [SchemaImageObject].
-  ///
-  /// Supported types: [SchemaImageObject], [String]
-  dynamic image;
-
-  /// Indicates a page (or other CreativeWork) for which this thing is the main
-  /// entity being described. See [background
-  /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  ///
-  /// Supported types: [SchemaCreativeWork], [String]
-  dynamic mainEntityOfPage;
-
-  /// The name of the item.
-  String? name;
-
-  /// Indicates a potential Action, which describes an idealized action in
-  /// which this thing would play an 'object' role.
-  SchemaAction? potentialAction;
-
-  /// URL of a reference Web page that unambiguously indicates the item's
-  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
-  /// official website.
-  String? sameAs;
-
-  /// A CreativeWork or Event about this Thing.
-  ///
-  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
-  dynamic subjectOf;
-
-  /// URL of the item.
-  String? url;
 
   /// Create a new instance of [SchemaRating]
   SchemaRating({
+    super.additionalType,
+    super.alternateName,
+    super.description,
+    super.disambiguatingDescription,
+    super.identifier,
+    super.image,
+    super.mainEntityOfPage,
+    super.name,
+    super.owner,
+    super.potentialAction,
+    super.sameAs,
+    super.subjectOf,
+    super.url,
     this.author,
     this.bestRating,
     this.ratingExplanation,
     this.ratingValue,
     this.reviewAspect,
     this.worstRating,
-    this.additionalType,
-    this.alternateName,
-    this.description,
-    this.disambiguatingDescription,
-    this.identifier,
-    this.image,
-    this.mainEntityOfPage,
-    this.name,
-    this.potentialAction,
-    this.sameAs,
-    this.subjectOf,
-    this.url,
   });
 
   /// Serialize [SchemaRating] to JSON-LD
   @override
   Map<String, dynamic> toJsonLd() => removeEmpty({
-        '@context': 'https://schema.org',
+        ...super.toJsonLd(),
         '@type': 'Rating',
         'author': convertToJsonLd(author, [SchemaOrganization, SchemaPerson]),
-        'bestRating': convertToJsonLd(bestRating, [String, int]),
+        'bestRating': convertToJsonLd(bestRating, [String, num]),
         'ratingExplanation': convertToJsonLd(ratingExplanation, [String]),
-        'ratingValue': convertToJsonLd(ratingValue, [String, int]),
-        'reviewAspect': convertToJsonLd(reviewAspect, [String]),
-        'worstRating': convertToJsonLd(worstRating, [String, int]),
-        'additionalType': convertToJsonLd(additionalType, [String, String]),
-        'alternateName': convertToJsonLd(alternateName, [String]),
-        'description': convertToJsonLd(description, [String, SchemaTextObject]),
-        'disambiguatingDescription':
-            convertToJsonLd(disambiguatingDescription, [String]),
-        'identifier':
-            convertToJsonLd(identifier, [SchemaPropertyValue, String, String]),
-        'image': convertToJsonLd(image, [SchemaImageObject, String]),
-        'mainEntityOfPage':
-            convertToJsonLd(mainEntityOfPage, [SchemaCreativeWork, String]),
-        'name': convertToJsonLd(name, [String]),
-        'potentialAction': convertToJsonLd(potentialAction, [SchemaAction]),
-        'sameAs': convertToJsonLd(sameAs, [String]),
-        'subjectOf':
-            convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
-        'url': convertToJsonLd(url, [String]),
+        'ratingValue': convertToJsonLd(ratingValue, [String, num]),
+        'reviewAspect':
+            convertToJsonLd(reviewAspect, [String, SchemaStructuredValue]),
+        'worstRating': convertToJsonLd(worstRating, [String, num]),
       });
 }

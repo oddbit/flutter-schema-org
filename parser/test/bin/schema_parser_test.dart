@@ -1,3 +1,8 @@
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+
 import 'package:test/test.dart';
 
 import '../../bin/schema_parser.dart';
@@ -185,7 +190,25 @@ void main() {
     });
 
     test('should be able to make enums with inheritance structure', () {
+      // Include `Thing` and `Enumeration` as first-class nodes so the
+      // ancestry walk in [getEnums] can count Thing ancestors and
+      // correctly resolve `AbstractEnum → Enumeration → Thing`. Without
+      // them the parser cannot disambiguate mixed-inheritance edge cases
+      // (see https://github.com/oddbit/flutter-schema-org/issues/1).
       final json = [
+        {
+          '@id': 'schema:Thing',
+          '@type': 'rdfs:Class',
+          'rdfs:comment': 'Thing comment',
+          'rdfs:label': 'Thing',
+        },
+        {
+          '@id': 'schema:Enumeration',
+          '@type': 'rdfs:Class',
+          'rdfs:comment': 'Enumeration comment',
+          'rdfs:label': 'Enumeration',
+          'rdfs:subClassOf': {'@id': 'schema:Thing'}
+        },
         {
           '@id': 'schema:AbstractEnum',
           '@type': 'rdfs:Class',

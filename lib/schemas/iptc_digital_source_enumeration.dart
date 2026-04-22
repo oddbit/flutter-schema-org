@@ -1,3 +1,12 @@
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+//
+// GENERATED CODE — DO NOT MODIFY BY HAND.
+// Produced by the schema_parser tool in /parser.
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:schema_org/schemas/media_enumeration.dart';
 
 /// //cv.iptc.org/newscodes/digitalsourcetype/">detailed definitions</a> of
@@ -18,6 +27,10 @@ enum SchemaIPTCDigitalSourceEnumeration implements SchemaMediaEnumeration {
   /// vocabulary.
   compositeCaptureDigitalSource(
       'https://schema.org/IPTCDigitalSourceEnumeration'),
+
+  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
+  /// vocabulary.
+  compositeDigitalSource('https://schema.org/IPTCDigitalSourceEnumeration'),
 
   /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
   /// vocabulary.
@@ -50,6 +63,11 @@ enum SchemaIPTCDigitalSourceEnumeration implements SchemaMediaEnumeration {
 
   /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
   /// vocabulary.
+  multiFrameComputationalCaptureDigitalSource(
+      'https://schema.org/IPTCDigitalSourceEnumeration'),
+
+  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
+  /// vocabulary.
   negativeFilmDigitalSource('https://schema.org/IPTCDigitalSourceEnumeration'),
 
   /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
@@ -59,6 +77,10 @@ enum SchemaIPTCDigitalSourceEnumeration implements SchemaMediaEnumeration {
   /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
   /// vocabulary.
   printDigitalSource('https://schema.org/IPTCDigitalSourceEnumeration'),
+
+  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
+  /// vocabulary.
+  screenCaptureDigitalSource('https://schema.org/IPTCDigitalSourceEnumeration'),
 
   /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
   /// vocabulary.
@@ -77,5 +99,6 @@ enum SchemaIPTCDigitalSourceEnumeration implements SchemaMediaEnumeration {
   final String value;
 
   /// Serialize [SchemaIPTCDigitalSourceEnumeration] to JSON-LD
+  @override
   String toJsonLd() => value;
 }

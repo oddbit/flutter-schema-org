@@ -1,5 +1,14 @@
-import 'package:schema_org/src/schema_serializable.dart';
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+//
+// GENERATED CODE — DO NOT MODIFY BY HAND.
+// Produced by the schema_parser tool in /parser.
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:schema_org/src/utils.dart';
+import 'package:schema_org/schemas/intangible.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
 import 'package:schema_org/schemas/contact_point.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
@@ -10,19 +19,16 @@ import 'package:schema_org/schemas/monetary_amount_distribution.dart';
 import 'package:schema_org/schemas/occupational_experience_requirements.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/defined_term.dart';
+import 'package:schema_org/schemas/duration.dart';
+import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/category_code.dart';
+import 'package:schema_org/schemas/credential.dart';
 import 'package:schema_org/schemas/occupation.dart';
-import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/schemas/property_value.dart';
-import 'package:schema_org/schemas/image_object.dart';
-import 'package:schema_org/schemas/creative_work.dart';
-import 'package:schema_org/schemas/action.dart';
-import 'package:schema_org/schemas/event.dart';
 
 /// A listing that describes a job opening in a certain organization.
 /// See https://schema.org/JobPosting
-class SchemaJobPosting implements SchemaSerializable {
+class SchemaJobPosting extends SchemaIntangible {
   /// This should not be used for citizenship or work visa requirements.
   SchemaAdministrativeArea? applicantLocationRequirements;
 
@@ -32,15 +38,14 @@ class SchemaJobPosting implements SchemaSerializable {
   /// The base salary of the job or of an employee in an EmployeeRole.
   ///
   /// Supported types: [SchemaMonetaryAmount], [SchemaPriceSpecification],
-  /// [int]
+  /// [num]
   dynamic baseSalary;
 
   /// Description of benefits associated with the job.
+  @Deprecated('Use [jobBenefits]. See https://schema.org/benefits')
   String? benefits;
 
   /// Publication date of an online listing.
-  ///
-  /// Supported types: [String], [String]
   String? datePosted;
 
   /// Indicates whether an [Schemaurl] that is associated with a
@@ -82,7 +87,7 @@ class SchemaJobPosting implements SchemaSerializable {
   /// estimated value.
   ///
   /// Supported types: [SchemaMonetaryAmount],
-  /// [SchemaMonetaryAmountDistribution], [int]
+  /// [SchemaMonetaryAmountDistribution], [num]
   dynamic estimatedSalary;
 
   /// Indicates whether a [SchemaJobPosting] will accept experience (as
@@ -107,6 +112,7 @@ class SchemaJobPosting implements SchemaSerializable {
   String? incentiveCompensation;
 
   /// Description of bonus and commission compensation aspects of the job.
+  @Deprecated('Use [incentiveCompensation]. See https://schema.org/incentives')
   String? incentives;
 
   /// The industry associated with the job position.
@@ -116,6 +122,14 @@ class SchemaJobPosting implements SchemaSerializable {
 
   /// Description of benefits associated with the job.
   String? jobBenefits;
+
+  /// The expected duration of an employment offer as advertised by the
+  /// employer. Relevant for job postings that have a clearly defined period in
+  /// mind such as seasonal work, substitutes for maternal leave or any other
+  /// temporary employment.
+  ///
+  /// Supported types: [SchemaDuration], [SchemaQuantitativeValue]
+  dynamic jobDuration;
 
   /// An indicator as to whether a position is available for an immediate
   /// start.
@@ -133,8 +147,6 @@ class SchemaJobPosting implements SchemaSerializable {
   /// to start work. Choose a specific date in the future or use the
   /// jobImmediateStart property to indicate the position is to be filled as
   /// soon as possible.
-  ///
-  /// Supported types: [String], [String]
   String? jobStartDate;
 
   /// for historical reasons, any textual label and formal code provided as a
@@ -148,12 +160,12 @@ class SchemaJobPosting implements SchemaSerializable {
   /// no way to specify the level of ability as well as its nature when using a
   /// defined term.
   ///
-  /// Supported types: [SchemaDefinedTerm], [String], [String]
+  /// Supported types: [SchemaDefinedTerm], [String]
   dynamic physicalRequirement;
 
   /// Specific qualifications required for this role or Occupation.
   ///
-  /// Supported types: [SchemaEducationalOccupationalCredential], [String]
+  /// Supported types: [SchemaCredential], [String]
   dynamic qualifications;
 
   /// The Occupation for the JobPosting.
@@ -167,8 +179,6 @@ class SchemaJobPosting implements SchemaSerializable {
   String? salaryCurrency;
 
   /// A description of any security clearance requirements of the job.
-  ///
-  /// Supported types: [String], [String]
   String? securityClearanceRequirement;
 
   /// A description of any sensory requirements and levels necessary to
@@ -176,12 +186,13 @@ class SchemaJobPosting implements SchemaSerializable {
   /// those in O*net may be used, but note that there is no way to specify the
   /// level of ability as well as its nature when using a defined term.
   ///
-  /// Supported types: [SchemaDefinedTerm], [String], [String]
+  /// Supported types: [SchemaDefinedTerm], [String]
   dynamic sensoryRequirement;
 
   /// A statement of knowledge, skill, ability, task or any other assertion
-  /// expressing a competency that is desired or required to fulfill this role
-  /// or to work in this occupation.
+  /// expressing a competency that is either claimed by a person, an
+  /// organization or desired or required to fulfill a role or to work in an
+  /// occupation.
   ///
   /// Supported types: [SchemaDefinedTerm], [String]
   dynamic skills;
@@ -199,77 +210,27 @@ class SchemaJobPosting implements SchemaSerializable {
 
   /// The date after when the item is not valid. For example the end of an
   /// offer, salary period, or a period of opening hours.
-  ///
-  /// Supported types: [String], [String]
   String? validThrough;
 
   /// The typical working hours for this job (e.g. 1st shift, night shift,
   /// 8am-5pm).
   String? workHours;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.
-  ///
-  /// Supported types: [String], [String]
-  String? additionalType;
-
-  /// An alias for the item.
-  String? alternateName;
-
-  /// A description of the item.
-  ///
-  /// Supported types: [String], [SchemaTextObject]
-  dynamic description;
-
-  /// A sub property of description. A short description of the item used to
-  /// disambiguate from other, similar items. Information from other properties
-  /// (in particular, name) may be necessary for the description to be useful
-  /// for disambiguation.
-  String? disambiguatingDescription;
-
-  /// The identifier property represents any kind of identifier for any kind of
-  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
-  /// dedicated properties for representing many of these, either as textual
-  /// strings or as URL (URI) links. See [background
-  /// notes](/docs/datamodel.html#identifierBg) for more details.
-  ///
-  /// Supported types: [SchemaPropertyValue], [String], [String]
-  dynamic identifier;
-
-  /// An image of the item. This can be a [SchemaURL] or a fully described
-  /// [SchemaImageObject].
-  ///
-  /// Supported types: [SchemaImageObject], [String]
-  dynamic image;
-
-  /// Indicates a page (or other CreativeWork) for which this thing is the main
-  /// entity being described. See [background
-  /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  ///
-  /// Supported types: [SchemaCreativeWork], [String]
-  dynamic mainEntityOfPage;
-
-  /// The name of the item.
-  String? name;
-
-  /// Indicates a potential Action, which describes an idealized action in
-  /// which this thing would play an 'object' role.
-  SchemaAction? potentialAction;
-
-  /// URL of a reference Web page that unambiguously indicates the item's
-  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
-  /// official website.
-  String? sameAs;
-
-  /// A CreativeWork or Event about this Thing.
-  ///
-  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
-  dynamic subjectOf;
-
-  /// URL of the item.
-  String? url;
-
   /// Create a new instance of [SchemaJobPosting]
   SchemaJobPosting({
+    super.additionalType,
+    super.alternateName,
+    super.description,
+    super.disambiguatingDescription,
+    super.identifier,
+    super.image,
+    super.mainEntityOfPage,
+    super.name,
+    super.owner,
+    super.potentialAction,
+    super.sameAs,
+    super.subjectOf,
+    super.url,
     this.applicantLocationRequirements,
     this.applicationContact,
     this.baseSalary,
@@ -289,6 +250,7 @@ class SchemaJobPosting implements SchemaSerializable {
     this.incentives,
     this.industry,
     this.jobBenefits,
+    this.jobDuration,
     this.jobImmediateStart,
     this.jobLocation,
     this.jobLocationType,
@@ -307,33 +269,21 @@ class SchemaJobPosting implements SchemaSerializable {
     this.totalJobOpenings,
     this.validThrough,
     this.workHours,
-    this.additionalType,
-    this.alternateName,
-    this.description,
-    this.disambiguatingDescription,
-    this.identifier,
-    this.image,
-    this.mainEntityOfPage,
-    this.name,
-    this.potentialAction,
-    this.sameAs,
-    this.subjectOf,
-    this.url,
   });
 
   /// Serialize [SchemaJobPosting] to JSON-LD
   @override
   Map<String, dynamic> toJsonLd() => removeEmpty({
-        '@context': 'https://schema.org',
+        ...super.toJsonLd(),
         '@type': 'JobPosting',
         'applicantLocationRequirements': convertToJsonLd(
             applicantLocationRequirements, [SchemaAdministrativeArea]),
         'applicationContact':
             convertToJsonLd(applicationContact, [SchemaContactPoint]),
         'baseSalary': convertToJsonLd(
-            baseSalary, [SchemaMonetaryAmount, SchemaPriceSpecification, int]),
+            baseSalary, [SchemaMonetaryAmount, SchemaPriceSpecification, num]),
         'benefits': convertToJsonLd(benefits, [String]),
-        'datePosted': convertToJsonLd(datePosted, [String, String]),
+        'datePosted': convertToJsonLd(datePosted, [String]),
         'directApply': convertToJsonLd(directApply, [bool]),
         'educationRequirements': convertToJsonLd(educationRequirements,
             [SchemaEducationalOccupationalCredential, String]),
@@ -343,7 +293,7 @@ class SchemaJobPosting implements SchemaSerializable {
         'employmentType': convertToJsonLd(employmentType, [String]),
         'employmentUnit': convertToJsonLd(employmentUnit, [SchemaOrganization]),
         'estimatedSalary': convertToJsonLd(estimatedSalary,
-            [SchemaMonetaryAmount, SchemaMonetaryAmountDistribution, int]),
+            [SchemaMonetaryAmount, SchemaMonetaryAmountDistribution, num]),
         'experienceInPlaceOfEducation':
             convertToJsonLd(experienceInPlaceOfEducation, [bool]),
         'experienceRequirements': convertToJsonLd(experienceRequirements,
@@ -355,45 +305,31 @@ class SchemaJobPosting implements SchemaSerializable {
         'incentives': convertToJsonLd(incentives, [String]),
         'industry': convertToJsonLd(industry, [SchemaDefinedTerm, String]),
         'jobBenefits': convertToJsonLd(jobBenefits, [String]),
+        'jobDuration': convertToJsonLd(
+            jobDuration, [SchemaDuration, SchemaQuantitativeValue]),
         'jobImmediateStart': convertToJsonLd(jobImmediateStart, [bool]),
         'jobLocation': convertToJsonLd(jobLocation, [SchemaPlace]),
         'jobLocationType': convertToJsonLd(jobLocationType, [String]),
-        'jobStartDate': convertToJsonLd(jobStartDate, [String, String]),
+        'jobStartDate': convertToJsonLd(jobStartDate, [String]),
         'occupationalCategory':
             convertToJsonLd(occupationalCategory, [SchemaCategoryCode, String]),
-        'physicalRequirement': convertToJsonLd(
-            physicalRequirement, [SchemaDefinedTerm, String, String]),
-        'qualifications': convertToJsonLd(
-            qualifications, [SchemaEducationalOccupationalCredential, String]),
+        'physicalRequirement':
+            convertToJsonLd(physicalRequirement, [SchemaDefinedTerm, String]),
+        'qualifications':
+            convertToJsonLd(qualifications, [SchemaCredential, String]),
         'relevantOccupation':
             convertToJsonLd(relevantOccupation, [SchemaOccupation]),
         'responsibilities': convertToJsonLd(responsibilities, [String]),
         'salaryCurrency': convertToJsonLd(salaryCurrency, [String]),
         'securityClearanceRequirement':
-            convertToJsonLd(securityClearanceRequirement, [String, String]),
-        'sensoryRequirement': convertToJsonLd(
-            sensoryRequirement, [SchemaDefinedTerm, String, String]),
+            convertToJsonLd(securityClearanceRequirement, [String]),
+        'sensoryRequirement':
+            convertToJsonLd(sensoryRequirement, [SchemaDefinedTerm, String]),
         'skills': convertToJsonLd(skills, [SchemaDefinedTerm, String]),
         'specialCommitments': convertToJsonLd(specialCommitments, [String]),
         'title': convertToJsonLd(title, [String]),
         'totalJobOpenings': convertToJsonLd(totalJobOpenings, [int]),
-        'validThrough': convertToJsonLd(validThrough, [String, String]),
+        'validThrough': convertToJsonLd(validThrough, [String]),
         'workHours': convertToJsonLd(workHours, [String]),
-        'additionalType': convertToJsonLd(additionalType, [String, String]),
-        'alternateName': convertToJsonLd(alternateName, [String]),
-        'description': convertToJsonLd(description, [String, SchemaTextObject]),
-        'disambiguatingDescription':
-            convertToJsonLd(disambiguatingDescription, [String]),
-        'identifier':
-            convertToJsonLd(identifier, [SchemaPropertyValue, String, String]),
-        'image': convertToJsonLd(image, [SchemaImageObject, String]),
-        'mainEntityOfPage':
-            convertToJsonLd(mainEntityOfPage, [SchemaCreativeWork, String]),
-        'name': convertToJsonLd(name, [String]),
-        'potentialAction': convertToJsonLd(potentialAction, [SchemaAction]),
-        'sameAs': convertToJsonLd(sameAs, [String]),
-        'subjectOf':
-            convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
-        'url': convertToJsonLd(url, [String]),
       });
 }

@@ -1,16 +1,19 @@
-import 'package:schema_org/src/schema_serializable.dart';
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+//
+// GENERATED CODE — DO NOT MODIFY BY HAND.
+// Produced by the schema_parser tool in /parser.
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:schema_org/src/utils.dart';
+import 'package:schema_org/schemas/constraint_node.dart';
 import 'package:schema_org/schemas/property.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 import 'package:schema_org/schemas/measurement_method_enum.dart';
 import 'package:schema_org/schemas/enumeration.dart';
 import 'package:schema_org/schemas/class.dart';
-import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/schemas/property_value.dart';
-import 'package:schema_org/schemas/image_object.dart';
-import 'package:schema_org/schemas/creative_work.dart';
-import 'package:schema_org/schemas/action.dart';
-import 'package:schema_org/schemas/event.dart';
 
 /// the population type is [SchemaPerson]; the measuredProperty
 /// [Schemaheight]; the [SchemastatType] [Schemamedian]; the [Schemagender]
@@ -24,7 +27,7 @@ import 'package:schema_org/schemas/event.dart';
 /// [SchemaunitText] properties can also be used to clarify the specific
 /// nature and notation of an observed measurement.
 /// See https://schema.org/StatisticalVariable
-class SchemaStatisticalVariable implements SchemaSerializable {
+class SchemaStatisticalVariable extends SchemaConstraintNode {
   /// //www.gs1.org/voc/?show=properties).
   SchemaProperty? measuredProperty;
 
@@ -37,7 +40,7 @@ class SchemaStatisticalVariable implements SchemaSerializable {
   /// [SchemaMeasurementMethodEnum].
   ///
   /// Supported types: [SchemaDefinedTerm], [SchemaMeasurementMethodEnum],
-  /// [String], [String]
+  /// [String]
   dynamic measurementMethod;
 
   /// Provides additional qualification to an observation. For example, a GDP
@@ -53,10 +56,10 @@ class SchemaStatisticalVariable implements SchemaSerializable {
   /// some given data object, use a [SchemaPropertyValue] for each
   /// [SchemavariableMeasured] and attach the corresponding
   /// [SchemameasurementTechnique]. The value can also be from an enumeration,
-  /// organized as a [SchemaMeasurementMetholdEnumeration].
+  /// organized as a [SchemaMeasurementMethodEnum].
   ///
   /// Supported types: [SchemaDefinedTerm], [SchemaMeasurementMethodEnum],
-  /// [String], [String]
+  /// [String]
   dynamic measurementTechnique;
 
   /// Indicates the populationType common to all members of a
@@ -66,92 +69,30 @@ class SchemaStatisticalVariable implements SchemaSerializable {
 
   /// Indicates the kind of statistic represented by a
   /// [SchemaStatisticalVariable], e.g. mean, count etc. The value of statType
-  /// is a property, either from within Schema.org (e.g. [Schemacount],
-  /// [Schemamedian], [SchemamarginOfError], [SchemamaxValue],
-  /// [SchemaminValue]) or from other compatible (e.g. RDF) systems such as
-  /// DataCommons.org or Wikidata.org.
-  ///
-  /// Supported types: [SchemaProperty], [String], [String]
-  dynamic statType;
-
-  /// Indicates a property used as a constraint. For example, in the definition
-  /// of a [SchemaStatisticalVariable]. The value is a property, either from
-  /// within Schema.org or from other compatible (e.g. RDF) systems such as
-  /// DataCommons.org or Wikidata.org.
+  /// is a property, either from within Schema.org (e.g. [Schemamedian],
+  /// [SchemamarginOfError], [SchemamaxValue], [SchemaminValue]) or from other
+  /// compatible (e.g. RDF) systems such as DataCommons.org or Wikidata.org.
   ///
   /// Supported types: [SchemaProperty], [String]
-  dynamic constraintProperty;
-
-  /// Indicates the number of constraints property values defined for a
-  /// particular [SchemaConstraintNode] such as [SchemaStatisticalVariable].
-  /// This helps applications understand if they have access to a sufficiently
-  /// complete description of a [SchemaStatisticalVariable] or other construct
-  /// that is defined using properties on template-style nodes.
-  int? numConstraints;
-
-  /// //schema.org/docs/styleguide.html">style guide</a>.
-  ///
-  /// Supported types: [String], [String]
-  String? additionalType;
-
-  /// An alias for the item.
-  String? alternateName;
-
-  /// A description of the item.
-  ///
-  /// Supported types: [String], [SchemaTextObject]
-  dynamic description;
-
-  /// A sub property of description. A short description of the item used to
-  /// disambiguate from other, similar items. Information from other properties
-  /// (in particular, name) may be necessary for the description to be useful
-  /// for disambiguation.
-  String? disambiguatingDescription;
-
-  /// The identifier property represents any kind of identifier for any kind of
-  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
-  /// dedicated properties for representing many of these, either as textual
-  /// strings or as URL (URI) links. See [background
-  /// notes](/docs/datamodel.html#identifierBg) for more details.
-  ///
-  /// Supported types: [SchemaPropertyValue], [String], [String]
-  dynamic identifier;
-
-  /// An image of the item. This can be a [SchemaURL] or a fully described
-  /// [SchemaImageObject].
-  ///
-  /// Supported types: [SchemaImageObject], [String]
-  dynamic image;
-
-  /// Indicates a page (or other CreativeWork) for which this thing is the main
-  /// entity being described. See [background
-  /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  ///
-  /// Supported types: [SchemaCreativeWork], [String]
-  dynamic mainEntityOfPage;
-
-  /// The name of the item.
-  String? name;
-
-  /// Indicates a potential Action, which describes an idealized action in
-  /// which this thing would play an 'object' role.
-  SchemaAction? potentialAction;
-
-  /// URL of a reference Web page that unambiguously indicates the item's
-  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
-  /// official website.
-  String? sameAs;
-
-  /// A CreativeWork or Event about this Thing.
-  ///
-  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
-  dynamic subjectOf;
-
-  /// URL of the item.
-  String? url;
+  dynamic statType;
 
   /// Create a new instance of [SchemaStatisticalVariable]
   SchemaStatisticalVariable({
+    super.additionalType,
+    super.alternateName,
+    super.constraintProperty,
+    super.description,
+    super.disambiguatingDescription,
+    super.identifier,
+    super.image,
+    super.mainEntityOfPage,
+    super.name,
+    super.numConstraints,
+    super.owner,
+    super.potentialAction,
+    super.sameAs,
+    super.subjectOf,
+    super.url,
     this.measuredProperty,
     this.measurementDenominator,
     this.measurementMethod,
@@ -159,56 +100,23 @@ class SchemaStatisticalVariable implements SchemaSerializable {
     this.measurementTechnique,
     this.populationType,
     this.statType,
-    this.constraintProperty,
-    this.numConstraints,
-    this.additionalType,
-    this.alternateName,
-    this.description,
-    this.disambiguatingDescription,
-    this.identifier,
-    this.image,
-    this.mainEntityOfPage,
-    this.name,
-    this.potentialAction,
-    this.sameAs,
-    this.subjectOf,
-    this.url,
   });
 
   /// Serialize [SchemaStatisticalVariable] to JSON-LD
   @override
   Map<String, dynamic> toJsonLd() => removeEmpty({
-        '@context': 'https://schema.org',
+        ...super.toJsonLd(),
         '@type': 'StatisticalVariable',
         'measuredProperty': convertToJsonLd(measuredProperty, [SchemaProperty]),
         'measurementDenominator': convertToJsonLd(
             measurementDenominator, [SchemaStatisticalVariable]),
         'measurementMethod': convertToJsonLd(measurementMethod,
-            [SchemaDefinedTerm, SchemaMeasurementMethodEnum, String, String]),
+            [SchemaDefinedTerm, SchemaMeasurementMethodEnum, String]),
         'measurementQualifier':
             convertToJsonLd(measurementQualifier, [SchemaEnumeration]),
         'measurementTechnique': convertToJsonLd(measurementTechnique,
-            [SchemaDefinedTerm, SchemaMeasurementMethodEnum, String, String]),
+            [SchemaDefinedTerm, SchemaMeasurementMethodEnum, String]),
         'populationType': convertToJsonLd(populationType, [SchemaClass]),
-        'statType': convertToJsonLd(statType, [SchemaProperty, String, String]),
-        'constraintProperty':
-            convertToJsonLd(constraintProperty, [SchemaProperty, String]),
-        'numConstraints': convertToJsonLd(numConstraints, [int]),
-        'additionalType': convertToJsonLd(additionalType, [String, String]),
-        'alternateName': convertToJsonLd(alternateName, [String]),
-        'description': convertToJsonLd(description, [String, SchemaTextObject]),
-        'disambiguatingDescription':
-            convertToJsonLd(disambiguatingDescription, [String]),
-        'identifier':
-            convertToJsonLd(identifier, [SchemaPropertyValue, String, String]),
-        'image': convertToJsonLd(image, [SchemaImageObject, String]),
-        'mainEntityOfPage':
-            convertToJsonLd(mainEntityOfPage, [SchemaCreativeWork, String]),
-        'name': convertToJsonLd(name, [String]),
-        'potentialAction': convertToJsonLd(potentialAction, [SchemaAction]),
-        'sameAs': convertToJsonLd(sameAs, [String]),
-        'subjectOf':
-            convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
-        'url': convertToJsonLd(url, [String]),
+        'statType': convertToJsonLd(statType, [SchemaProperty, String]),
       });
 }

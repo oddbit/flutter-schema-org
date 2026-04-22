@@ -1,5 +1,14 @@
-import 'package:schema_org/src/schema_serializable.dart';
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+//
+// GENERATED CODE — DO NOT MODIFY BY HAND.
+// Produced by the schema_parser tool in /parser.
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:schema_org/src/utils.dart';
+import 'package:schema_org/schemas/intangible.dart';
 import 'package:schema_org/schemas/day_of_week.dart';
 import 'package:schema_org/schemas/educational_occupational_credential.dart';
 import 'package:schema_org/schemas/defined_term.dart';
@@ -13,12 +22,6 @@ import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/monetary_amount_distribution.dart';
 import 'package:schema_org/schemas/duration.dart';
-import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/schemas/property_value.dart';
-import 'package:schema_org/schemas/image_object.dart';
-import 'package:schema_org/schemas/creative_work.dart';
-import 'package:schema_org/schemas/action.dart';
-import 'package:schema_org/schemas/event.dart';
 
 /// A program offered by an institution which determines the learning
 /// progress to achieve an outcome, usually a credential like a degree or
@@ -28,9 +31,11 @@ import 'package:schema_org/schemas/event.dart';
 /// (e.g., a job), or sometimes a higher educational opportunity (e.g., an
 /// advanced degree).
 /// See https://schema.org/EducationalOccupationalProgram
-class SchemaEducationalOccupationalProgram implements SchemaSerializable {
-  /// The date at which the program stops collecting applications for the next
-  /// enrollment cycle.
+class SchemaEducationalOccupationalProgram extends SchemaIntangible {
+  /// The date on which the program stops collecting applications for the next
+  /// enrollment cycle. Flexible application deadlines (for example, a program
+  /// with rolling admissions) can be described in a textual string, rather
+  /// than as a DateTime.
   String? applicationDeadline;
 
   /// The date at which the program begins collecting applications for the next
@@ -44,18 +49,13 @@ class SchemaEducationalOccupationalProgram implements SchemaSerializable {
   /// educational credential awarded as a consequence of successful completion
   /// of this course or program.
   ///
-  /// Supported types: [SchemaEducationalOccupationalCredential], [String],
-  /// [String]
+  /// Supported types: [SchemaEducationalOccupationalCredential], [String]
   dynamic educationalCredentialAwarded;
 
   /// //ceds.ed.gov/element/001311#Asynchronous ).
-  ///
-  /// Supported types: [String], [String]
   String? educationalProgramMode;
 
   /// //en.wikipedia.org/wiki/ISO_8601)).
-  ///
-  /// Supported types: [String], [String]
   String? endDate;
 
   /// A financial aid type or program which students may use to pay for tuition
@@ -90,8 +90,7 @@ class SchemaEducationalOccupationalProgram implements SchemaSerializable {
   /// occupational credential awarded as a consequence of successful completion
   /// of this course or program.
   ///
-  /// Supported types: [SchemaEducationalOccupationalCredential], [String],
-  /// [String]
+  /// Supported types: [SchemaEducationalOccupationalCredential], [String]
   dynamic occupationalCredentialAwarded;
 
   /// An offer to provide this item&#x2014;for example, an offer to sell a
@@ -129,8 +128,6 @@ class SchemaEducationalOccupationalProgram implements SchemaSerializable {
   SchemaMonetaryAmountDistribution? salaryUponCompletion;
 
   /// //en.wikipedia.org/wiki/ISO_8601)).
-  ///
-  /// Supported types: [String], [String]
   String? startDate;
 
   /// The amount of time in a term as defined by the institution. A term is a
@@ -142,7 +139,7 @@ class SchemaEducationalOccupationalProgram implements SchemaSerializable {
   /// quarters are common units for term. For example, if the student can only
   /// take 2 semesters for the program in one year, then termsPerYear should be
   /// 2.
-  int? termsPerYear;
+  num? termsPerYear;
 
   /// The time of day the program normally runs. For example, "evenings".
   String? timeOfDay;
@@ -160,69 +157,21 @@ class SchemaEducationalOccupationalProgram implements SchemaSerializable {
   /// Supported types: [SchemaStructuredValue], [int]
   dynamic typicalCreditsPerTerm;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.
-  ///
-  /// Supported types: [String], [String]
-  String? additionalType;
-
-  /// An alias for the item.
-  String? alternateName;
-
-  /// A description of the item.
-  ///
-  /// Supported types: [String], [SchemaTextObject]
-  dynamic description;
-
-  /// A sub property of description. A short description of the item used to
-  /// disambiguate from other, similar items. Information from other properties
-  /// (in particular, name) may be necessary for the description to be useful
-  /// for disambiguation.
-  String? disambiguatingDescription;
-
-  /// The identifier property represents any kind of identifier for any kind of
-  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
-  /// dedicated properties for representing many of these, either as textual
-  /// strings or as URL (URI) links. See [background
-  /// notes](/docs/datamodel.html#identifierBg) for more details.
-  ///
-  /// Supported types: [SchemaPropertyValue], [String], [String]
-  dynamic identifier;
-
-  /// An image of the item. This can be a [SchemaURL] or a fully described
-  /// [SchemaImageObject].
-  ///
-  /// Supported types: [SchemaImageObject], [String]
-  dynamic image;
-
-  /// Indicates a page (or other CreativeWork) for which this thing is the main
-  /// entity being described. See [background
-  /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  ///
-  /// Supported types: [SchemaCreativeWork], [String]
-  dynamic mainEntityOfPage;
-
-  /// The name of the item.
-  String? name;
-
-  /// Indicates a potential Action, which describes an idealized action in
-  /// which this thing would play an 'object' role.
-  SchemaAction? potentialAction;
-
-  /// URL of a reference Web page that unambiguously indicates the item's
-  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
-  /// official website.
-  String? sameAs;
-
-  /// A CreativeWork or Event about this Thing.
-  ///
-  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
-  dynamic subjectOf;
-
-  /// URL of the item.
-  String? url;
-
   /// Create a new instance of [SchemaEducationalOccupationalProgram]
   SchemaEducationalOccupationalProgram({
+    super.additionalType,
+    super.alternateName,
+    super.description,
+    super.disambiguatingDescription,
+    super.identifier,
+    super.image,
+    super.mainEntityOfPage,
+    super.name,
+    super.owner,
+    super.potentialAction,
+    super.sameAs,
+    super.subjectOf,
+    super.url,
     this.applicationDeadline,
     this.applicationStartDate,
     this.dayOfWeek,
@@ -247,34 +196,22 @@ class SchemaEducationalOccupationalProgram implements SchemaSerializable {
     this.timeToComplete,
     this.trainingSalary,
     this.typicalCreditsPerTerm,
-    this.additionalType,
-    this.alternateName,
-    this.description,
-    this.disambiguatingDescription,
-    this.identifier,
-    this.image,
-    this.mainEntityOfPage,
-    this.name,
-    this.potentialAction,
-    this.sameAs,
-    this.subjectOf,
-    this.url,
   });
 
   /// Serialize [SchemaEducationalOccupationalProgram] to JSON-LD
   @override
   Map<String, dynamic> toJsonLd() => removeEmpty({
-        '@context': 'https://schema.org',
+        ...super.toJsonLd(),
         '@type': 'EducationalOccupationalProgram',
         'applicationDeadline': convertToJsonLd(applicationDeadline, [String]),
         'applicationStartDate': convertToJsonLd(applicationStartDate, [String]),
         'dayOfWeek': convertToJsonLd(dayOfWeek, [SchemaDayOfWeek]),
         'educationalCredentialAwarded': convertToJsonLd(
             educationalCredentialAwarded,
-            [SchemaEducationalOccupationalCredential, String, String]),
+            [SchemaEducationalOccupationalCredential, String]),
         'educationalProgramMode':
-            convertToJsonLd(educationalProgramMode, [String, String]),
-        'endDate': convertToJsonLd(endDate, [String, String]),
+            convertToJsonLd(educationalProgramMode, [String]),
+        'endDate': convertToJsonLd(endDate, [String]),
         'financialAidEligible':
             convertToJsonLd(financialAidEligible, [SchemaDefinedTerm, String]),
         'hasCourse': convertToJsonLd(hasCourse, [SchemaCourse]),
@@ -285,7 +222,7 @@ class SchemaEducationalOccupationalProgram implements SchemaSerializable {
             convertToJsonLd(occupationalCategory, [SchemaCategoryCode, String]),
         'occupationalCredentialAwarded': convertToJsonLd(
             occupationalCredentialAwarded,
-            [SchemaEducationalOccupationalCredential, String, String]),
+            [SchemaEducationalOccupationalCredential, String]),
         'offers': convertToJsonLd(offers, [SchemaDemand, SchemaOffer]),
         'programPrerequisites': convertToJsonLd(programPrerequisites, [
           SchemaAlignmentObject,
@@ -299,30 +236,14 @@ class SchemaEducationalOccupationalProgram implements SchemaSerializable {
             convertToJsonLd(provider, [SchemaOrganization, SchemaPerson]),
         'salaryUponCompletion': convertToJsonLd(
             salaryUponCompletion, [SchemaMonetaryAmountDistribution]),
-        'startDate': convertToJsonLd(startDate, [String, String]),
+        'startDate': convertToJsonLd(startDate, [String]),
         'termDuration': convertToJsonLd(termDuration, [SchemaDuration]),
-        'termsPerYear': convertToJsonLd(termsPerYear, [int]),
+        'termsPerYear': convertToJsonLd(termsPerYear, [num]),
         'timeOfDay': convertToJsonLd(timeOfDay, [String]),
         'timeToComplete': convertToJsonLd(timeToComplete, [SchemaDuration]),
         'trainingSalary':
             convertToJsonLd(trainingSalary, [SchemaMonetaryAmountDistribution]),
         'typicalCreditsPerTerm': convertToJsonLd(
             typicalCreditsPerTerm, [SchemaStructuredValue, int]),
-        'additionalType': convertToJsonLd(additionalType, [String, String]),
-        'alternateName': convertToJsonLd(alternateName, [String]),
-        'description': convertToJsonLd(description, [String, SchemaTextObject]),
-        'disambiguatingDescription':
-            convertToJsonLd(disambiguatingDescription, [String]),
-        'identifier':
-            convertToJsonLd(identifier, [SchemaPropertyValue, String, String]),
-        'image': convertToJsonLd(image, [SchemaImageObject, String]),
-        'mainEntityOfPage':
-            convertToJsonLd(mainEntityOfPage, [SchemaCreativeWork, String]),
-        'name': convertToJsonLd(name, [String]),
-        'potentialAction': convertToJsonLd(potentialAction, [SchemaAction]),
-        'sameAs': convertToJsonLd(sameAs, [String]),
-        'subjectOf':
-            convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
-        'url': convertToJsonLd(url, [String]),
       });
 }

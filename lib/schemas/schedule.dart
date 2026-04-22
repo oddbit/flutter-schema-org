@@ -1,13 +1,17 @@
-import 'package:schema_org/src/schema_serializable.dart';
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+//
+// GENERATED CODE — DO NOT MODIFY BY HAND.
+// Produced by the schema_parser tool in /parser.
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:schema_org/src/utils.dart';
+import 'package:schema_org/schemas/intangible.dart';
 import 'package:schema_org/schemas/day_of_week.dart';
 import 'package:schema_org/schemas/duration.dart';
-import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/schemas/property_value.dart';
-import 'package:schema_org/schemas/image_object.dart';
-import 'package:schema_org/schemas/creative_work.dart';
-import 'package:schema_org/schemas/action.dart';
-import 'package:schema_org/schemas/event.dart';
+import 'package:schema_org/schemas/quantitative_value.dart';
 
 /// A schedule defines a repeating time period used to describe a regularly
 /// occurring [SchemaEvent]. At a minimum a schedule will specify
@@ -19,7 +23,7 @@ import 'package:schema_org/schemas/event.dart';
 /// indicate when they are active, e.g. to define a limited calendar of
 /// events.
 /// See https://schema.org/Schedule
-class SchemaSchedule implements SchemaSerializable {
+class SchemaSchedule extends SchemaIntangible {
   /// Defines the day(s) of the week on which a recurring [SchemaEvent] takes
   /// place. May be specified using either [SchemaDayOfWeek], or alternatively
   /// [SchemaText] conforming to iCal's syntax for byDay recurrence rules.
@@ -42,11 +46,11 @@ class SchemaSchedule implements SchemaSerializable {
   int? byMonthWeek;
 
   /// //en.wikipedia.org/wiki/ISO_8601).
-  SchemaDuration? duration;
+  ///
+  /// Supported types: [SchemaDuration], [SchemaQuantitativeValue]
+  dynamic duration;
 
   /// //en.wikipedia.org/wiki/ISO_8601)).
-  ///
-  /// Supported types: [String], [String]
   String? endDate;
 
   /// The endTime of something. For a reserved event or service (e.g.
@@ -57,8 +61,6 @@ class SchemaSchedule implements SchemaSerializable {
   /// file.\n\nNote that Event uses startDate/endDate instead of
   /// startTime/endTime, even when describing dates with times. This situation
   /// may be clarified in future revisions.
-  ///
-  /// Supported types: [String], [String]
   String? endTime;
 
   /// Defines a [SchemaDate] or [SchemaDateTime] during which a scheduled
@@ -70,8 +72,6 @@ class SchemaSchedule implements SchemaSerializable {
   /// for that 24 hour period should be excluded from the schedule. This allows
   /// a whole day to be excluded from the schedule without having to itemise
   /// every scheduled event.
-  ///
-  /// Supported types: [String], [String]
   String? exceptDate;
 
   /// Defines the number of times a recurring [SchemaEvent] will take place.
@@ -90,8 +90,6 @@ class SchemaSchedule implements SchemaSerializable {
   String? scheduleTimezone;
 
   /// //en.wikipedia.org/wiki/ISO_8601)).
-  ///
-  /// Supported types: [String], [String]
   String? startDate;
 
   /// The startTime of something. For a reserved event or service (e.g.
@@ -102,73 +100,23 @@ class SchemaSchedule implements SchemaSerializable {
   /// file.\n\nNote that Event uses startDate/endDate instead of
   /// startTime/endTime, even when describing dates with times. This situation
   /// may be clarified in future revisions.
-  ///
-  /// Supported types: [String], [String]
   String? startTime;
-
-  /// //schema.org/docs/styleguide.html">style guide</a>.
-  ///
-  /// Supported types: [String], [String]
-  String? additionalType;
-
-  /// An alias for the item.
-  String? alternateName;
-
-  /// A description of the item.
-  ///
-  /// Supported types: [String], [SchemaTextObject]
-  dynamic description;
-
-  /// A sub property of description. A short description of the item used to
-  /// disambiguate from other, similar items. Information from other properties
-  /// (in particular, name) may be necessary for the description to be useful
-  /// for disambiguation.
-  String? disambiguatingDescription;
-
-  /// The identifier property represents any kind of identifier for any kind of
-  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
-  /// dedicated properties for representing many of these, either as textual
-  /// strings or as URL (URI) links. See [background
-  /// notes](/docs/datamodel.html#identifierBg) for more details.
-  ///
-  /// Supported types: [SchemaPropertyValue], [String], [String]
-  dynamic identifier;
-
-  /// An image of the item. This can be a [SchemaURL] or a fully described
-  /// [SchemaImageObject].
-  ///
-  /// Supported types: [SchemaImageObject], [String]
-  dynamic image;
-
-  /// Indicates a page (or other CreativeWork) for which this thing is the main
-  /// entity being described. See [background
-  /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  ///
-  /// Supported types: [SchemaCreativeWork], [String]
-  dynamic mainEntityOfPage;
-
-  /// The name of the item.
-  String? name;
-
-  /// Indicates a potential Action, which describes an idealized action in
-  /// which this thing would play an 'object' role.
-  SchemaAction? potentialAction;
-
-  /// URL of a reference Web page that unambiguously indicates the item's
-  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
-  /// official website.
-  String? sameAs;
-
-  /// A CreativeWork or Event about this Thing.
-  ///
-  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
-  dynamic subjectOf;
-
-  /// URL of the item.
-  String? url;
 
   /// Create a new instance of [SchemaSchedule]
   SchemaSchedule({
+    super.additionalType,
+    super.alternateName,
+    super.description,
+    super.disambiguatingDescription,
+    super.identifier,
+    super.image,
+    super.mainEntityOfPage,
+    super.name,
+    super.owner,
+    super.potentialAction,
+    super.sameAs,
+    super.subjectOf,
+    super.url,
     this.byDay,
     this.byMonth,
     this.byMonthDay,
@@ -182,54 +130,27 @@ class SchemaSchedule implements SchemaSerializable {
     this.scheduleTimezone,
     this.startDate,
     this.startTime,
-    this.additionalType,
-    this.alternateName,
-    this.description,
-    this.disambiguatingDescription,
-    this.identifier,
-    this.image,
-    this.mainEntityOfPage,
-    this.name,
-    this.potentialAction,
-    this.sameAs,
-    this.subjectOf,
-    this.url,
   });
 
   /// Serialize [SchemaSchedule] to JSON-LD
   @override
   Map<String, dynamic> toJsonLd() => removeEmpty({
-        '@context': 'https://schema.org',
+        ...super.toJsonLd(),
         '@type': 'Schedule',
         'byDay': convertToJsonLd(byDay, [SchemaDayOfWeek, String]),
         'byMonth': convertToJsonLd(byMonth, [int]),
         'byMonthDay': convertToJsonLd(byMonthDay, [int]),
         'byMonthWeek': convertToJsonLd(byMonthWeek, [int]),
-        'duration': convertToJsonLd(duration, [SchemaDuration]),
-        'endDate': convertToJsonLd(endDate, [String, String]),
-        'endTime': convertToJsonLd(endTime, [String, String]),
-        'exceptDate': convertToJsonLd(exceptDate, [String, String]),
+        'duration': convertToJsonLd(
+            duration, [SchemaDuration, SchemaQuantitativeValue]),
+        'endDate': convertToJsonLd(endDate, [String]),
+        'endTime': convertToJsonLd(endTime, [String]),
+        'exceptDate': convertToJsonLd(exceptDate, [String]),
         'repeatCount': convertToJsonLd(repeatCount, [int]),
         'repeatFrequency':
             convertToJsonLd(repeatFrequency, [SchemaDuration, String]),
         'scheduleTimezone': convertToJsonLd(scheduleTimezone, [String]),
-        'startDate': convertToJsonLd(startDate, [String, String]),
-        'startTime': convertToJsonLd(startTime, [String, String]),
-        'additionalType': convertToJsonLd(additionalType, [String, String]),
-        'alternateName': convertToJsonLd(alternateName, [String]),
-        'description': convertToJsonLd(description, [String, SchemaTextObject]),
-        'disambiguatingDescription':
-            convertToJsonLd(disambiguatingDescription, [String]),
-        'identifier':
-            convertToJsonLd(identifier, [SchemaPropertyValue, String, String]),
-        'image': convertToJsonLd(image, [SchemaImageObject, String]),
-        'mainEntityOfPage':
-            convertToJsonLd(mainEntityOfPage, [SchemaCreativeWork, String]),
-        'name': convertToJsonLd(name, [String]),
-        'potentialAction': convertToJsonLd(potentialAction, [SchemaAction]),
-        'sameAs': convertToJsonLd(sameAs, [String]),
-        'subjectOf':
-            convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
-        'url': convertToJsonLd(url, [String]),
+        'startDate': convertToJsonLd(startDate, [String]),
+        'startTime': convertToJsonLd(startTime, [String]),
       });
 }

@@ -1,29 +1,47 @@
-/// Base class for schema types and enums
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+
+/// Base class shared by [SchemaType] (regular classes) and `SchemaEnum`
+/// (enumerations).
+///
+/// Captures the identity, human-readable description and declared
+/// inheritance relationships of a Schema.org node. The full ancestry is
+/// stored in two buckets so direct parents and transitive ones can be
+/// inspected separately; see [familyTree] for the merged view.
 abstract class SchemaClass {
-  /// Creates a new instance of [SchemaClass]
+  /// Creates a new instance of [SchemaClass].
   SchemaClass({
     required this.name,
     required this.description,
     required this.parents,
+    this.supersededBy = const [],
   });
 
-  /// The name of the class as it will be defined in code
+  /// The class name as it will appear in generated code.
   final String name;
 
-  /// The description of the class
-  /// This will be used as a class comment on the class
+  /// Human-readable description, used as a class doc comment.
   final String description;
 
-  /// The parent classes of this class
-  /// Will be used to determine the parent class properties that should be
-  /// added on this class.
+  /// Direct parents declared on the Schema.org node (`rdfs:subClassOf`).
   final List<String> parents;
 
-  /// The grand parent classes of this class
-  /// Will be used to determine the grand parent class properties that should be
-  /// added on this class.
+  /// Transitive ancestors computed by the parser as it walks the graph.
+  ///
+  /// Populated after construction because the full graph must be loaded
+  /// before the ancestry of any single node can be resolved.
   final List<String> grandParents = [];
 
-  /// Get a list of all parent relationships
+  /// Replacements declared via `schema:supersededBy`. When non-empty the
+  /// code generator annotates the emitted class / enum with `@Deprecated`
+  /// and points callers at the replacement(s).
+  final List<String> supersededBy;
+
+  /// Whether Schema.org has marked this node as deprecated.
+  bool get isDeprecated => supersededBy.isNotEmpty;
+
+  /// Full ancestry (direct + transitive), deduplicated.
   List<String> get familyTree => <String>{...parents, ...grandParents}.toList();
 }

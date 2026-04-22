@@ -1,5 +1,14 @@
-import 'package:schema_org/src/schema_serializable.dart';
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+//
+// GENERATED CODE — DO NOT MODIFY BY HAND.
+// Produced by the schema_parser tool in /parser.
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:schema_org/src/utils.dart';
+import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
@@ -15,13 +24,10 @@ import 'package:schema_org/schemas/image_object.dart';
 import 'package:schema_org/schemas/opening_hours_specification.dart';
 import 'package:schema_org/schemas/photograph.dart';
 import 'package:schema_org/schemas/review.dart';
-import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/schemas/creative_work.dart';
-import 'package:schema_org/schemas/action.dart';
 
 /// Entities that have a somewhat fixed, physical extension.
 /// See https://schema.org/Place
-class SchemaPlace implements SchemaSerializable {
+class SchemaPlace extends SchemaThing {
   /// //schema.org/gtin13, ...) will typically expect such data to be provided
   /// using those properties, rather than using the generic property/value
   /// mechanism.
@@ -47,6 +53,7 @@ class SchemaPlace implements SchemaSerializable {
   String? branchCode;
 
   /// The basic containment relation between a place and one that contains it.
+  @Deprecated('Use [containedInPlace]. See https://schema.org/containedIn')
   SchemaPlace? containedIn;
 
   /// The basic containment relation between a place and one that contains it.
@@ -61,6 +68,7 @@ class SchemaPlace implements SchemaSerializable {
   SchemaEvent? event;
 
   /// Upcoming or past events associated with this place or organization.
+  @Deprecated('Use [event]. See https://schema.org/events')
   SchemaEvent? events;
 
   /// The fax number.
@@ -141,6 +149,17 @@ class SchemaPlace implements SchemaSerializable {
   /// potentially-infected users.
   bool? hasDriveThroughService;
 
+  /// <ul><li>A Digital Link that contains a serial number (AI <code>21</code>)
+  /// should only be present on instances of
+  /// [SchemaIndividualProduct]</li><li>A Digital Link that contains a lot
+  /// number (AI <code>10</code>) should be annotated as [SchemaSomeProducts]
+  /// if only products from that lot are sold, or [SchemaIndividualProduct] if
+  /// there is only a specific product.</li><li>A Digital Link that contains a
+  /// global model number (AI <code>8013</code>) should be attached to a
+  /// [SchemaProduct] or a [SchemaProductModel].</li></ul> Other item types
+  /// should be adapted similarly.
+  String? hasGS1DigitalLink;
+
   /// A URL to a map of the place.
   ///
   /// Supported types: [SchemaMap], [String]
@@ -158,12 +177,12 @@ class SchemaPlace implements SchemaSerializable {
   /// a keywords list are typically delimited by commas, or by repeating the
   /// property.
   ///
-  /// Supported types: [SchemaDefinedTerm], [String], [String]
+  /// Supported types: [SchemaDefinedTerm], [String]
   dynamic keywords;
 
   /// //en.wikipedia.org/wiki/World_Geodetic_System)).
   ///
-  /// Supported types: [String], [int]
+  /// Supported types: [String], [num]
   dynamic latitude;
 
   /// An associated logo.
@@ -173,13 +192,15 @@ class SchemaPlace implements SchemaSerializable {
 
   /// //en.wikipedia.org/wiki/World_Geodetic_System)).
   ///
-  /// Supported types: [String], [int]
+  /// Supported types: [String], [num]
   dynamic longitude;
 
   /// A URL to a map of the place.
+  @Deprecated('Use [hasMap]. See https://schema.org/map')
   String? map;
 
   /// A URL to a map of the place.
+  @Deprecated('Use [hasMap]. See https://schema.org/maps')
   String? maps;
 
   /// The total number of individuals that may attend an event or venue.
@@ -196,6 +217,7 @@ class SchemaPlace implements SchemaSerializable {
   /// Photographs of this place.
   ///
   /// Supported types: [SchemaImageObject], [SchemaPhotograph]
+  @Deprecated('Use [photo]. See https://schema.org/photos')
   dynamic photos;
 
   /// A flag to signal that the [SchemaPlace] is open to public visitors. If
@@ -206,6 +228,7 @@ class SchemaPlace implements SchemaSerializable {
   SchemaReview? review;
 
   /// Review of the item.
+  @Deprecated('Use [review]. See https://schema.org/reviews')
   SchemaReview? reviews;
 
   /// A slogan or motto associated with the item.
@@ -228,69 +251,21 @@ class SchemaPlace implements SchemaSerializable {
   /// estate setting, as well as other kinds of tours as appropriate.
   String? tourBookingPage;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.
-  ///
-  /// Supported types: [String], [String]
-  String? additionalType;
-
-  /// An alias for the item.
-  String? alternateName;
-
-  /// A description of the item.
-  ///
-  /// Supported types: [String], [SchemaTextObject]
-  dynamic description;
-
-  /// A sub property of description. A short description of the item used to
-  /// disambiguate from other, similar items. Information from other properties
-  /// (in particular, name) may be necessary for the description to be useful
-  /// for disambiguation.
-  String? disambiguatingDescription;
-
-  /// The identifier property represents any kind of identifier for any kind of
-  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
-  /// dedicated properties for representing many of these, either as textual
-  /// strings or as URL (URI) links. See [background
-  /// notes](/docs/datamodel.html#identifierBg) for more details.
-  ///
-  /// Supported types: [SchemaPropertyValue], [String], [String]
-  dynamic identifier;
-
-  /// An image of the item. This can be a [SchemaURL] or a fully described
-  /// [SchemaImageObject].
-  ///
-  /// Supported types: [SchemaImageObject], [String]
-  dynamic image;
-
-  /// Indicates a page (or other CreativeWork) for which this thing is the main
-  /// entity being described. See [background
-  /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  ///
-  /// Supported types: [SchemaCreativeWork], [String]
-  dynamic mainEntityOfPage;
-
-  /// The name of the item.
-  String? name;
-
-  /// Indicates a potential Action, which describes an idealized action in
-  /// which this thing would play an 'object' role.
-  SchemaAction? potentialAction;
-
-  /// URL of a reference Web page that unambiguously indicates the item's
-  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
-  /// official website.
-  String? sameAs;
-
-  /// A CreativeWork or Event about this Thing.
-  ///
-  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
-  dynamic subjectOf;
-
-  /// URL of the item.
-  String? url;
-
   /// Create a new instance of [SchemaPlace]
   SchemaPlace({
+    super.additionalType,
+    super.alternateName,
+    super.description,
+    super.disambiguatingDescription,
+    super.identifier,
+    super.image,
+    super.mainEntityOfPage,
+    super.name,
+    super.owner,
+    super.potentialAction,
+    super.sameAs,
+    super.subjectOf,
+    super.url,
     this.additionalProperty,
     this.address,
     this.aggregateRating,
@@ -316,6 +291,7 @@ class SchemaPlace implements SchemaSerializable {
     this.globalLocationNumber,
     this.hasCertification,
     this.hasDriveThroughService,
+    this.hasGS1DigitalLink,
     this.hasMap,
     this.isAccessibleForFree,
     this.isicV4,
@@ -337,24 +313,12 @@ class SchemaPlace implements SchemaSerializable {
     this.specialOpeningHoursSpecification,
     this.telephone,
     this.tourBookingPage,
-    this.additionalType,
-    this.alternateName,
-    this.description,
-    this.disambiguatingDescription,
-    this.identifier,
-    this.image,
-    this.mainEntityOfPage,
-    this.name,
-    this.potentialAction,
-    this.sameAs,
-    this.subjectOf,
-    this.url,
   });
 
   /// Serialize [SchemaPlace] to JSON-LD
   @override
   Map<String, dynamic> toJsonLd() => removeEmpty({
-        '@context': 'https://schema.org',
+        ...super.toJsonLd(),
         '@type': 'Place',
         'additionalProperty':
             convertToJsonLd(additionalProperty, [SchemaPropertyValue]),
@@ -396,14 +360,14 @@ class SchemaPlace implements SchemaSerializable {
             convertToJsonLd(hasCertification, [SchemaCertification]),
         'hasDriveThroughService':
             convertToJsonLd(hasDriveThroughService, [bool]),
+        'hasGS1DigitalLink': convertToJsonLd(hasGS1DigitalLink, [String]),
         'hasMap': convertToJsonLd(hasMap, [SchemaMap, String]),
         'isAccessibleForFree': convertToJsonLd(isAccessibleForFree, [bool]),
         'isicV4': convertToJsonLd(isicV4, [String]),
-        'keywords':
-            convertToJsonLd(keywords, [SchemaDefinedTerm, String, String]),
-        'latitude': convertToJsonLd(latitude, [String, int]),
+        'keywords': convertToJsonLd(keywords, [SchemaDefinedTerm, String]),
+        'latitude': convertToJsonLd(latitude, [String, num]),
         'logo': convertToJsonLd(logo, [SchemaImageObject, String]),
-        'longitude': convertToJsonLd(longitude, [String, int]),
+        'longitude': convertToJsonLd(longitude, [String, num]),
         'map': convertToJsonLd(map, [String]),
         'maps': convertToJsonLd(maps, [String]),
         'maximumAttendeeCapacity':
@@ -423,21 +387,5 @@ class SchemaPlace implements SchemaSerializable {
             [SchemaOpeningHoursSpecification]),
         'telephone': convertToJsonLd(telephone, [String]),
         'tourBookingPage': convertToJsonLd(tourBookingPage, [String]),
-        'additionalType': convertToJsonLd(additionalType, [String, String]),
-        'alternateName': convertToJsonLd(alternateName, [String]),
-        'description': convertToJsonLd(description, [String, SchemaTextObject]),
-        'disambiguatingDescription':
-            convertToJsonLd(disambiguatingDescription, [String]),
-        'identifier':
-            convertToJsonLd(identifier, [SchemaPropertyValue, String, String]),
-        'image': convertToJsonLd(image, [SchemaImageObject, String]),
-        'mainEntityOfPage':
-            convertToJsonLd(mainEntityOfPage, [SchemaCreativeWork, String]),
-        'name': convertToJsonLd(name, [String]),
-        'potentialAction': convertToJsonLd(potentialAction, [SchemaAction]),
-        'sameAs': convertToJsonLd(sameAs, [String]),
-        'subjectOf':
-            convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
-        'url': convertToJsonLd(url, [String]),
       });
 }

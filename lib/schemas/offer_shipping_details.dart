@@ -1,20 +1,27 @@
-import 'package:schema_org/src/schema_serializable.dart';
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+//
+// GENERATED CODE — DO NOT MODIFY BY HAND.
+// Produced by the schema_parser tool in /parser.
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:schema_org/src/utils.dart';
+import 'package:schema_org/schemas/structured_value.dart';
 import 'package:schema_org/schemas/shipping_delivery_time.dart';
 import 'package:schema_org/schemas/distance.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
+import 'package:schema_org/schemas/shipping_service.dart';
 import 'package:schema_org/schemas/defined_region.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
-import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/schemas/property_value.dart';
-import 'package:schema_org/schemas/image_object.dart';
-import 'package:schema_org/schemas/creative_work.dart';
-import 'package:schema_org/schemas/action.dart';
-import 'package:schema_org/schemas/event.dart';
+import 'package:schema_org/schemas/shipping_rate_settings.dart';
+import 'package:schema_org/schemas/member_program_tier.dart';
+import 'package:schema_org/schemas/mass.dart';
 
 /// $15 in 1-2 days.
 /// See https://schema.org/OfferShippingDetails
-class SchemaOfferShippingDetails implements SchemaSerializable {
+class SchemaOfferShippingDetails extends SchemaStructuredValue {
   /// The total delay between the receipt of the order and the goods reaching
   /// the final customer.
   SchemaShippingDeliveryTime? deliveryTime;
@@ -28,6 +35,9 @@ class SchemaOfferShippingDetails implements SchemaSerializable {
   /// not available.
   bool? doesNotShip;
 
+  /// Specification of a shipping service offered by the organization.
+  SchemaShippingService? hasShippingService;
+
   /// The height of the item.
   ///
   /// Supported types: [SchemaDistance], [SchemaQuantitativeValue]
@@ -37,163 +47,84 @@ class SchemaOfferShippingDetails implements SchemaSerializable {
   /// in several ways, e.g. postalCode ranges.
   SchemaDefinedRegion? shippingDestination;
 
-  /// Label to match an [SchemaOfferShippingDetails] with a
-  /// [SchemaShippingRateSettings] (within the context of a
-  /// [SchemashippingSettingsLink] cross-reference).
-  String? shippingLabel;
-
   /// Indicates the origin of a shipment, i.e. where it should be coming from.
   SchemaDefinedRegion? shippingOrigin;
 
   /// The shipping rate is the cost of shipping to the specified destination.
   /// Typically, the maxValue and currency values (of the
   /// [SchemaMonetaryAmount]) are most appropriate.
-  SchemaMonetaryAmount? shippingRate;
+  ///
+  /// Supported types: [SchemaMonetaryAmount], [SchemaShippingRateSettings]
+  dynamic shippingRate;
 
-  /// Link to a page containing [SchemaShippingRateSettings] and
-  /// [SchemaDeliveryTimeSettings] details.
-  String? shippingSettingsLink;
-
-  /// Label to match an [SchemaOfferShippingDetails] with a
-  /// [SchemaDeliveryTimeSettings] (within the context of a
-  /// [SchemashippingSettingsLink] cross-reference).
-  String? transitTimeLabel;
+  /// The membership program tier(s) an Offer (or a PriceSpecification,
+  /// OfferShippingDetails, or MerchantReturnPolicy under an Offer) is valid
+  /// for.
+  SchemaMemberProgramTier? validForMemberTier;
 
   /// The weight of the product or person.
-  SchemaQuantitativeValue? weight;
+  ///
+  /// Supported types: [SchemaMass], [SchemaQuantitativeValue]
+  dynamic weight;
 
   /// The width of the item.
   ///
   /// Supported types: [SchemaDistance], [SchemaQuantitativeValue]
   dynamic width;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.
-  ///
-  /// Supported types: [String], [String]
-  String? additionalType;
-
-  /// An alias for the item.
-  String? alternateName;
-
-  /// A description of the item.
-  ///
-  /// Supported types: [String], [SchemaTextObject]
-  dynamic description;
-
-  /// A sub property of description. A short description of the item used to
-  /// disambiguate from other, similar items. Information from other properties
-  /// (in particular, name) may be necessary for the description to be useful
-  /// for disambiguation.
-  String? disambiguatingDescription;
-
-  /// The identifier property represents any kind of identifier for any kind of
-  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
-  /// dedicated properties for representing many of these, either as textual
-  /// strings or as URL (URI) links. See [background
-  /// notes](/docs/datamodel.html#identifierBg) for more details.
-  ///
-  /// Supported types: [SchemaPropertyValue], [String], [String]
-  dynamic identifier;
-
-  /// An image of the item. This can be a [SchemaURL] or a fully described
-  /// [SchemaImageObject].
-  ///
-  /// Supported types: [SchemaImageObject], [String]
-  dynamic image;
-
-  /// Indicates a page (or other CreativeWork) for which this thing is the main
-  /// entity being described. See [background
-  /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  ///
-  /// Supported types: [SchemaCreativeWork], [String]
-  dynamic mainEntityOfPage;
-
-  /// The name of the item.
-  String? name;
-
-  /// Indicates a potential Action, which describes an idealized action in
-  /// which this thing would play an 'object' role.
-  SchemaAction? potentialAction;
-
-  /// URL of a reference Web page that unambiguously indicates the item's
-  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
-  /// official website.
-  String? sameAs;
-
-  /// A CreativeWork or Event about this Thing.
-  ///
-  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
-  dynamic subjectOf;
-
-  /// URL of the item.
-  String? url;
-
   /// Create a new instance of [SchemaOfferShippingDetails]
   SchemaOfferShippingDetails({
+    super.additionalType,
+    super.alternateName,
+    super.description,
+    super.disambiguatingDescription,
+    super.identifier,
+    super.image,
+    super.mainEntityOfPage,
+    super.name,
+    super.owner,
+    super.potentialAction,
+    super.sameAs,
+    super.subjectOf,
+    super.url,
     this.deliveryTime,
     this.depth,
     this.doesNotShip,
+    this.hasShippingService,
     this.height,
     this.shippingDestination,
-    this.shippingLabel,
     this.shippingOrigin,
     this.shippingRate,
-    this.shippingSettingsLink,
-    this.transitTimeLabel,
+    this.validForMemberTier,
     this.weight,
     this.width,
-    this.additionalType,
-    this.alternateName,
-    this.description,
-    this.disambiguatingDescription,
-    this.identifier,
-    this.image,
-    this.mainEntityOfPage,
-    this.name,
-    this.potentialAction,
-    this.sameAs,
-    this.subjectOf,
-    this.url,
   });
 
   /// Serialize [SchemaOfferShippingDetails] to JSON-LD
   @override
   Map<String, dynamic> toJsonLd() => removeEmpty({
-        '@context': 'https://schema.org',
+        ...super.toJsonLd(),
         '@type': 'OfferShippingDetails',
         'deliveryTime':
             convertToJsonLd(deliveryTime, [SchemaShippingDeliveryTime]),
         'depth':
             convertToJsonLd(depth, [SchemaDistance, SchemaQuantitativeValue]),
         'doesNotShip': convertToJsonLd(doesNotShip, [bool]),
+        'hasShippingService':
+            convertToJsonLd(hasShippingService, [SchemaShippingService]),
         'height':
             convertToJsonLd(height, [SchemaDistance, SchemaQuantitativeValue]),
         'shippingDestination':
             convertToJsonLd(shippingDestination, [SchemaDefinedRegion]),
-        'shippingLabel': convertToJsonLd(shippingLabel, [String]),
         'shippingOrigin':
             convertToJsonLd(shippingOrigin, [SchemaDefinedRegion]),
-        'shippingRate': convertToJsonLd(shippingRate, [SchemaMonetaryAmount]),
-        'shippingSettingsLink': convertToJsonLd(shippingSettingsLink, [String]),
-        'transitTimeLabel': convertToJsonLd(transitTimeLabel, [String]),
-        'weight': convertToJsonLd(weight, [SchemaQuantitativeValue]),
+        'shippingRate': convertToJsonLd(
+            shippingRate, [SchemaMonetaryAmount, SchemaShippingRateSettings]),
+        'validForMemberTier':
+            convertToJsonLd(validForMemberTier, [SchemaMemberProgramTier]),
+        'weight':
+            convertToJsonLd(weight, [SchemaMass, SchemaQuantitativeValue]),
         'width':
             convertToJsonLd(width, [SchemaDistance, SchemaQuantitativeValue]),
-        'additionalType': convertToJsonLd(additionalType, [String, String]),
-        'alternateName': convertToJsonLd(alternateName, [String]),
-        'description': convertToJsonLd(description, [String, SchemaTextObject]),
-        'disambiguatingDescription':
-            convertToJsonLd(disambiguatingDescription, [String]),
-        'identifier':
-            convertToJsonLd(identifier, [SchemaPropertyValue, String, String]),
-        'image': convertToJsonLd(image, [SchemaImageObject, String]),
-        'mainEntityOfPage':
-            convertToJsonLd(mainEntityOfPage, [SchemaCreativeWork, String]),
-        'name': convertToJsonLd(name, [String]),
-        'potentialAction': convertToJsonLd(potentialAction, [SchemaAction]),
-        'sameAs': convertToJsonLd(sameAs, [String]),
-        'subjectOf':
-            convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
-        'url': convertToJsonLd(url, [String]),
       });
 }

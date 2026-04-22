@@ -1,14 +1,17 @@
-import 'package:schema_org/src/schema_serializable.dart';
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+//
+// GENERATED CODE — DO NOT MODIFY BY HAND.
+// Produced by the schema_parser tool in /parser.
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:schema_org/src/utils.dart';
+import 'package:schema_org/schemas/structured_value.dart';
 import 'package:schema_org/schemas/delivery_charge_specification.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 import 'package:schema_org/schemas/defined_region.dart';
-import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/schemas/property_value.dart';
-import 'package:schema_org/schemas/image_object.dart';
-import 'package:schema_org/schemas/creative_work.dart';
-import 'package:schema_org/schemas/action.dart';
-import 'package:schema_org/schemas/event.dart';
 
 /// A ShippingRateSettings represents re-usable pieces of shipping
 /// information. It is designed for publication on an URL that may be
@@ -17,7 +20,7 @@ import 'package:schema_org/schemas/event.dart';
 /// distinguished and matched (i.e. identified/referenced) by their different
 /// values for [SchemashippingLabel].
 /// See https://schema.org/ShippingRateSettings
-class SchemaShippingRateSettings implements SchemaSerializable {
+class SchemaShippingRateSettings extends SchemaStructuredValue {
   /// Indicates when shipping to a particular [SchemashippingDestination] is
   /// not available.
   bool? doesNotShip;
@@ -40,131 +43,62 @@ class SchemaShippingRateSettings implements SchemaSerializable {
   /// for use with unlabelled settings.
   bool? isUnlabelledFallback;
 
+  /// 0.10 would mean shipping rate is 10% of the total order value.
+  num? orderPercentage;
+
   /// indicates (possibly multiple) shipping destinations. These can be defined
   /// in several ways, e.g. postalCode ranges.
   SchemaDefinedRegion? shippingDestination;
 
-  /// Label to match an [SchemaOfferShippingDetails] with a
-  /// [SchemaShippingRateSettings] (within the context of a
-  /// [SchemashippingSettingsLink] cross-reference).
-  String? shippingLabel;
-
   /// The shipping rate is the cost of shipping to the specified destination.
   /// Typically, the maxValue and currency values (of the
   /// [SchemaMonetaryAmount]) are most appropriate.
-  SchemaMonetaryAmount? shippingRate;
-
-  /// //schema.org/docs/styleguide.html">style guide</a>.
   ///
-  /// Supported types: [String], [String]
-  String? additionalType;
+  /// Supported types: [SchemaMonetaryAmount], [SchemaShippingRateSettings]
+  dynamic shippingRate;
 
-  /// An alias for the item.
-  String? alternateName;
-
-  /// A description of the item.
-  ///
-  /// Supported types: [String], [SchemaTextObject]
-  dynamic description;
-
-  /// A sub property of description. A short description of the item used to
-  /// disambiguate from other, similar items. Information from other properties
-  /// (in particular, name) may be necessary for the description to be useful
-  /// for disambiguation.
-  String? disambiguatingDescription;
-
-  /// The identifier property represents any kind of identifier for any kind of
-  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
-  /// dedicated properties for representing many of these, either as textual
-  /// strings or as URL (URI) links. See [background
-  /// notes](/docs/datamodel.html#identifierBg) for more details.
-  ///
-  /// Supported types: [SchemaPropertyValue], [String], [String]
-  dynamic identifier;
-
-  /// An image of the item. This can be a [SchemaURL] or a fully described
-  /// [SchemaImageObject].
-  ///
-  /// Supported types: [SchemaImageObject], [String]
-  dynamic image;
-
-  /// Indicates a page (or other CreativeWork) for which this thing is the main
-  /// entity being described. See [background
-  /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  ///
-  /// Supported types: [SchemaCreativeWork], [String]
-  dynamic mainEntityOfPage;
-
-  /// The name of the item.
-  String? name;
-
-  /// Indicates a potential Action, which describes an idealized action in
-  /// which this thing would play an 'object' role.
-  SchemaAction? potentialAction;
-
-  /// URL of a reference Web page that unambiguously indicates the item's
-  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
-  /// official website.
-  String? sameAs;
-
-  /// A CreativeWork or Event about this Thing.
-  ///
-  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
-  dynamic subjectOf;
-
-  /// URL of the item.
-  String? url;
+  /// 0.10 and a shipping weight of 15kg would add $1.5 to the order price,
+  /// where the $ is the currency of the order.
+  num? weightPercentage;
 
   /// Create a new instance of [SchemaShippingRateSettings]
   SchemaShippingRateSettings({
+    super.additionalType,
+    super.alternateName,
+    super.description,
+    super.disambiguatingDescription,
+    super.identifier,
+    super.image,
+    super.mainEntityOfPage,
+    super.name,
+    super.owner,
+    super.potentialAction,
+    super.sameAs,
+    super.subjectOf,
+    super.url,
     this.doesNotShip,
     this.freeShippingThreshold,
     this.isUnlabelledFallback,
+    this.orderPercentage,
     this.shippingDestination,
-    this.shippingLabel,
     this.shippingRate,
-    this.additionalType,
-    this.alternateName,
-    this.description,
-    this.disambiguatingDescription,
-    this.identifier,
-    this.image,
-    this.mainEntityOfPage,
-    this.name,
-    this.potentialAction,
-    this.sameAs,
-    this.subjectOf,
-    this.url,
+    this.weightPercentage,
   });
 
   /// Serialize [SchemaShippingRateSettings] to JSON-LD
   @override
   Map<String, dynamic> toJsonLd() => removeEmpty({
-        '@context': 'https://schema.org',
+        ...super.toJsonLd(),
         '@type': 'ShippingRateSettings',
         'doesNotShip': convertToJsonLd(doesNotShip, [bool]),
         'freeShippingThreshold': convertToJsonLd(freeShippingThreshold,
             [SchemaDeliveryChargeSpecification, SchemaMonetaryAmount]),
         'isUnlabelledFallback': convertToJsonLd(isUnlabelledFallback, [bool]),
+        'orderPercentage': convertToJsonLd(orderPercentage, [num]),
         'shippingDestination':
             convertToJsonLd(shippingDestination, [SchemaDefinedRegion]),
-        'shippingLabel': convertToJsonLd(shippingLabel, [String]),
-        'shippingRate': convertToJsonLd(shippingRate, [SchemaMonetaryAmount]),
-        'additionalType': convertToJsonLd(additionalType, [String, String]),
-        'alternateName': convertToJsonLd(alternateName, [String]),
-        'description': convertToJsonLd(description, [String, SchemaTextObject]),
-        'disambiguatingDescription':
-            convertToJsonLd(disambiguatingDescription, [String]),
-        'identifier':
-            convertToJsonLd(identifier, [SchemaPropertyValue, String, String]),
-        'image': convertToJsonLd(image, [SchemaImageObject, String]),
-        'mainEntityOfPage':
-            convertToJsonLd(mainEntityOfPage, [SchemaCreativeWork, String]),
-        'name': convertToJsonLd(name, [String]),
-        'potentialAction': convertToJsonLd(potentialAction, [SchemaAction]),
-        'sameAs': convertToJsonLd(sameAs, [String]),
-        'subjectOf':
-            convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
-        'url': convertToJsonLd(url, [String]),
+        'shippingRate': convertToJsonLd(
+            shippingRate, [SchemaMonetaryAmount, SchemaShippingRateSettings]),
+        'weightPercentage': convertToJsonLd(weightPercentage, [num]),
       });
 }

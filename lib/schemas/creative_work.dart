@@ -1,4 +1,12 @@
-import 'package:schema_org/src/schema_serializable.dart';
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+//
+// GENERATED CODE — DO NOT MODIFY BY HAND.
+// Produced by the schema_parser tool in /parser.
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/item_list.dart';
@@ -34,15 +42,12 @@ import 'package:schema_org/schemas/size_specification.dart';
 import 'package:schema_org/schemas/image_object.dart';
 import 'package:schema_org/schemas/duration.dart';
 import 'package:schema_org/schemas/video_object.dart';
-import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/schemas/property_value.dart';
-import 'package:schema_org/schemas/action.dart';
 
 /// The most generic kind of creative work, including books, movies,
 /// photographs, software programs, etc.
 /// See https://schema.org/CreativeWork
-class SchemaCreativeWork implements SchemaSerializable {
-  /// The subject matter of the content.
+class SchemaCreativeWork extends SchemaThing {
+  /// The subject matter of an object.
   SchemaThing? about;
 
   /// An abstract is a short description that summarizes a
@@ -134,6 +139,7 @@ class SchemaCreativeWork implements SchemaSerializable {
   String? award;
 
   /// Awards won by or for this item.
+  @Deprecated('Use [award]. See https://schema.org/awards')
   String? awards;
 
   /// Fictional person connected with a creative work.
@@ -192,12 +198,12 @@ class SchemaCreativeWork implements SchemaSerializable {
 
   /// The year during which the claimed copyright for the CreativeWork was
   /// first asserted.
-  int? copyrightYear;
+  num? copyrightYear;
 
   /// Indicates a correction to a [SchemaCreativeWork], either via a
   /// [SchemaCorrectionComment], textually or in another document.
   ///
-  /// Supported types: [SchemaCorrectionComment], [String], [String]
+  /// Supported types: [SchemaCorrectionComment], [String]
   dynamic correction;
 
   /// The country of origin of something, including products as well as
@@ -234,20 +240,14 @@ class SchemaCreativeWork implements SchemaSerializable {
 
   /// The date on which the CreativeWork was created or the item was added to a
   /// DataFeed.
-  ///
-  /// Supported types: [String], [String]
   String? dateCreated;
 
   /// The date on which the CreativeWork was most recently modified or when the
   /// item's entry was modified within a DataFeed.
-  ///
-  /// Supported types: [String], [String]
   String? dateModified;
 
   /// Date of first publication or broadcast. For example the date a
   /// [SchemaCreativeWork] was broadcast or a [SchemaCertification] was issued.
-  ///
-  /// Supported types: [String], [String]
   String? datePublished;
 
   /// Indicates an IPTCDigitalSourceEnumeration code indicating the nature of
@@ -256,6 +256,9 @@ class SchemaCreativeWork implements SchemaSerializable {
 
   /// A link to the page containing the comments of the CreativeWork.
   String? discussionUrl;
+
+  /// The location at which an item can be viewed or experienced in-person.
+  SchemaPlace? displayLocation;
 
   /// //eidr.org/) (Entertainment Identifier Registry) [Schemaidentifier]
   /// representing a specific edit / edition for a work of film or television.
@@ -269,8 +272,6 @@ class SchemaCreativeWork implements SchemaSerializable {
   /// used for both works and their multiple expressions, it is possible to use
   /// [SchematitleEIDR] alone (for a general description), or alongside
   /// [SchemaeditEIDR] for a more edit-specific description.
-  ///
-  /// Supported types: [String], [String]
   String? editEIDR;
 
   /// Specifies the Person who edited the CreativeWork.
@@ -287,7 +288,7 @@ class SchemaCreativeWork implements SchemaSerializable {
   /// context. Examples of educational levels include 'beginner',
   /// 'intermediate' or 'advanced', and formal sets of level indicators.
   ///
-  /// Supported types: [SchemaDefinedTerm], [String], [String]
+  /// Supported types: [SchemaDefinedTerm], [String]
   dynamic educationalLevel;
 
   /// The purpose of a work in the context of education; for example,
@@ -312,11 +313,10 @@ class SchemaCreativeWork implements SchemaSerializable {
   /// Unregistered or niche encoding and file formats can be indicated instead
   /// via the most appropriate URL, e.g. defining Web page or a
   /// Wikipedia/Wikidata entry.
-  ///
-  /// Supported types: [String], [String]
   String? encodingFormat;
 
   /// A media object that encodes this CreativeWork.
+  @Deprecated('Use [encoding]. See https://schema.org/encodings')
   SchemaMediaObject? encodings;
 
   /// A creative work that this work is an
@@ -329,8 +329,6 @@ class SchemaCreativeWork implements SchemaSerializable {
   /// publisher wants to indicate that it may no longer be relevant (or helpful
   /// to highlight) after some date, or a [SchemaCertification] the validity
   /// has expired.
-  ///
-  /// Supported types: [String], [String]
   String? expires;
 
   /// //www.iana.org/assignments/media-types/media-types.xhtml)) of the
@@ -340,8 +338,7 @@ class SchemaCreativeWork implements SchemaSerializable {
   /// information. Unregistered or niche file formats can be indicated instead
   /// via the most appropriate URL, e.g. defining Web page or a Wikipedia
   /// entry.
-  ///
-  /// Supported types: [String], [String]
+  @Deprecated('Use [encodingFormat]. See https://schema.org/fileFormat')
   String? fileFormat;
 
   /// A person or organization that supports (sponsors) something through some
@@ -356,8 +353,8 @@ class SchemaCreativeWork implements SchemaSerializable {
 
   /// Genre of the creative work, broadcast channel or group.
   ///
-  /// Supported types: [String], [String]
-  String? genre;
+  /// Supported types: [SchemaDefinedTerm], [String]
+  dynamic genre;
 
   /// Indicates an item or CreativeWork that is part of this item, or
   /// CreativeWork (in some sense).
@@ -398,6 +395,7 @@ class SchemaCreativeWork implements SchemaSerializable {
   /// //example.com/great-multiplication-intro.html.
   ///
   /// Supported types: [SchemaCreativeWork], [SchemaProduct], [String]
+  @Deprecated('Use [isBasedOn]. See https://schema.org/isBasedOnUrl')
   dynamic isBasedOnUrl;
 
   /// Indicates whether this content is family friendly.
@@ -413,7 +411,7 @@ class SchemaCreativeWork implements SchemaSerializable {
   /// a keywords list are typically delimited by commas, or by repeating the
   /// property.
   ///
-  /// Supported types: [SchemaDefinedTerm], [String], [String]
+  /// Supported types: [SchemaDefinedTerm], [String]
   dynamic keywords;
 
   /// The predominant type or kind characterizing the learning resource. For
@@ -456,7 +454,7 @@ class SchemaCreativeWork implements SchemaSerializable {
   /// A material that something is made from, e.g. leather, wool, cotton,
   /// paper.
   ///
-  /// Supported types: [SchemaProduct], [String], [String]
+  /// Supported types: [SchemaProduct], [String]
   dynamic material;
 
   /// The quantity of the materials being described or an expression of the
@@ -509,7 +507,7 @@ class SchemaCreativeWork implements SchemaSerializable {
   /// A publication event associated with the item.
   SchemaPublicationEvent? publication;
 
-  /// The publisher of the creative work.
+  /// The publisher of the article in question.
   ///
   /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic publisher;
@@ -544,12 +542,11 @@ class SchemaCreativeWork implements SchemaSerializable {
   SchemaReview? review;
 
   /// Review of the item.
+  @Deprecated('Use [review]. See https://schema.org/reviews')
   SchemaReview? reviews;
 
   /// //dublincore.org/specifications/dublin-core/dces/1999-07-02/``` but this
   /// has not been carefully explored in the community.
-  ///
-  /// Supported types: [String], [String]
   String? schemaVersion;
 
   /// Indicates the date on which the current structured data was generated /
@@ -612,8 +609,6 @@ class SchemaCreativeWork implements SchemaSerializable {
   /// properties (e.g. [SchematemporalCoverage], [SchemadateCreated],
   /// [SchemadateModified], [SchemadatePublished]) are not known to be
   /// appropriate.
-  ///
-  /// Supported types: [String], [String]
   String? temporal;
 
   /// //en.wikipedia.org/wiki/ISO_8601#Time_intervals). In the case of a
@@ -629,8 +624,6 @@ class SchemaCreativeWork implements SchemaSerializable {
   /// For example, "2015-11/.." indicates a range beginning in November 2015
   /// and with no specified final date. This is tentative and might be updated
   /// in future when ISO 8601 is officially updated.
-  ///
-  /// Supported types: [String], [String], [String]
   String? temporalCoverage;
 
   /// The textual content of this CreativeWork.
@@ -680,13 +673,17 @@ class SchemaCreativeWork implements SchemaSerializable {
 
   /// The version of the CreativeWork embodied by a specified resource.
   ///
-  /// Supported types: [String], [int]
+  /// Supported types: [String], [num]
   dynamic version;
 
   /// An embedded video object.
   ///
   /// Supported types: [SchemaClip], [SchemaVideoObject]
   dynamic video;
+
+  /// The number of words in the text of the CreativeWork such as an Article,
+  /// Book, etc.
+  int? wordCount;
 
   /// Example/instance/realization/derivation of the concept of this creative
   /// work. E.g. the paperback edition, first edition, or e-book.
@@ -697,69 +694,21 @@ class SchemaCreativeWork implements SchemaSerializable {
   /// “Monkeys Pilgerfahrt” and a Vietnamese translation Tây du ký bình khảo.
   SchemaCreativeWork? workTranslation;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.
-  ///
-  /// Supported types: [String], [String]
-  String? additionalType;
-
-  /// An alias for the item.
-  String? alternateName;
-
-  /// A description of the item.
-  ///
-  /// Supported types: [String], [SchemaTextObject]
-  dynamic description;
-
-  /// A sub property of description. A short description of the item used to
-  /// disambiguate from other, similar items. Information from other properties
-  /// (in particular, name) may be necessary for the description to be useful
-  /// for disambiguation.
-  String? disambiguatingDescription;
-
-  /// The identifier property represents any kind of identifier for any kind of
-  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
-  /// dedicated properties for representing many of these, either as textual
-  /// strings or as URL (URI) links. See [background
-  /// notes](/docs/datamodel.html#identifierBg) for more details.
-  ///
-  /// Supported types: [SchemaPropertyValue], [String], [String]
-  dynamic identifier;
-
-  /// An image of the item. This can be a [SchemaURL] or a fully described
-  /// [SchemaImageObject].
-  ///
-  /// Supported types: [SchemaImageObject], [String]
-  dynamic image;
-
-  /// Indicates a page (or other CreativeWork) for which this thing is the main
-  /// entity being described. See [background
-  /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  ///
-  /// Supported types: [SchemaCreativeWork], [String]
-  dynamic mainEntityOfPage;
-
-  /// The name of the item.
-  String? name;
-
-  /// Indicates a potential Action, which describes an idealized action in
-  /// which this thing would play an 'object' role.
-  SchemaAction? potentialAction;
-
-  /// URL of a reference Web page that unambiguously indicates the item's
-  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
-  /// official website.
-  String? sameAs;
-
-  /// A CreativeWork or Event about this Thing.
-  ///
-  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
-  dynamic subjectOf;
-
-  /// URL of the item.
-  String? url;
-
   /// Create a new instance of [SchemaCreativeWork]
   SchemaCreativeWork({
+    super.additionalType,
+    super.alternateName,
+    super.description,
+    super.disambiguatingDescription,
+    super.identifier,
+    super.image,
+    super.mainEntityOfPage,
+    super.name,
+    super.owner,
+    super.potentialAction,
+    super.sameAs,
+    super.subjectOf,
+    super.url,
     this.about,
     this.abstract,
     this.accessMode,
@@ -803,6 +752,7 @@ class SchemaCreativeWork implements SchemaSerializable {
     this.datePublished,
     this.digitalSourceType,
     this.discussionUrl,
+    this.displayLocation,
     this.editEIDR,
     this.editor,
     this.educationalAlignment,
@@ -872,26 +822,15 @@ class SchemaCreativeWork implements SchemaSerializable {
     this.usageInfo,
     this.version,
     this.video,
+    this.wordCount,
     this.workExample,
     this.workTranslation,
-    this.additionalType,
-    this.alternateName,
-    this.description,
-    this.disambiguatingDescription,
-    this.identifier,
-    this.image,
-    this.mainEntityOfPage,
-    this.name,
-    this.potentialAction,
-    this.sameAs,
-    this.subjectOf,
-    this.url,
   });
 
   /// Serialize [SchemaCreativeWork] to JSON-LD
   @override
   Map<String, dynamic> toJsonLd() => removeEmpty({
-        '@context': 'https://schema.org',
+        ...super.toJsonLd(),
         '@type': 'CreativeWork',
         'about': convertToJsonLd(about, [SchemaThing]),
         'abstract': convertToJsonLd(abstract, [String]),
@@ -932,37 +871,38 @@ class SchemaCreativeWork implements SchemaSerializable {
         'copyrightHolder': convertToJsonLd(
             copyrightHolder, [SchemaOrganization, SchemaPerson]),
         'copyrightNotice': convertToJsonLd(copyrightNotice, [String]),
-        'copyrightYear': convertToJsonLd(copyrightYear, [int]),
-        'correction': convertToJsonLd(
-            correction, [SchemaCorrectionComment, String, String]),
+        'copyrightYear': convertToJsonLd(copyrightYear, [num]),
+        'correction':
+            convertToJsonLd(correction, [SchemaCorrectionComment, String]),
         'countryOfOrigin': convertToJsonLd(countryOfOrigin, [SchemaCountry]),
         'creativeWorkStatus':
             convertToJsonLd(creativeWorkStatus, [SchemaDefinedTerm, String]),
         'creator': convertToJsonLd(creator, [SchemaOrganization, SchemaPerson]),
         'creditText': convertToJsonLd(creditText, [String]),
-        'dateCreated': convertToJsonLd(dateCreated, [String, String]),
-        'dateModified': convertToJsonLd(dateModified, [String, String]),
-        'datePublished': convertToJsonLd(datePublished, [String, String]),
+        'dateCreated': convertToJsonLd(dateCreated, [String]),
+        'dateModified': convertToJsonLd(dateModified, [String]),
+        'datePublished': convertToJsonLd(datePublished, [String]),
         'digitalSourceType': convertToJsonLd(
             digitalSourceType, [SchemaIPTCDigitalSourceEnumeration]),
         'discussionUrl': convertToJsonLd(discussionUrl, [String]),
-        'editEIDR': convertToJsonLd(editEIDR, [String, String]),
+        'displayLocation': convertToJsonLd(displayLocation, [SchemaPlace]),
+        'editEIDR': convertToJsonLd(editEIDR, [String]),
         'editor': convertToJsonLd(editor, [SchemaPerson]),
         'educationalAlignment':
             convertToJsonLd(educationalAlignment, [SchemaAlignmentObject]),
-        'educationalLevel': convertToJsonLd(
-            educationalLevel, [SchemaDefinedTerm, String, String]),
+        'educationalLevel':
+            convertToJsonLd(educationalLevel, [SchemaDefinedTerm, String]),
         'educationalUse':
             convertToJsonLd(educationalUse, [SchemaDefinedTerm, String]),
         'encoding': convertToJsonLd(encoding, [SchemaMediaObject]),
-        'encodingFormat': convertToJsonLd(encodingFormat, [String, String]),
+        'encodingFormat': convertToJsonLd(encodingFormat, [String]),
         'encodings': convertToJsonLd(encodings, [SchemaMediaObject]),
         'exampleOfWork': convertToJsonLd(exampleOfWork, [SchemaCreativeWork]),
-        'expires': convertToJsonLd(expires, [String, String]),
-        'fileFormat': convertToJsonLd(fileFormat, [String, String]),
+        'expires': convertToJsonLd(expires, [String]),
+        'fileFormat': convertToJsonLd(fileFormat, [String]),
         'funder': convertToJsonLd(funder, [SchemaOrganization, SchemaPerson]),
         'funding': convertToJsonLd(funding, [SchemaGrant]),
-        'genre': convertToJsonLd(genre, [String, String]),
+        'genre': convertToJsonLd(genre, [SchemaDefinedTerm, String]),
         'hasPart': convertToJsonLd(hasPart, [SchemaCreativeWork]),
         'headline': convertToJsonLd(headline, [String]),
         'inLanguage': convertToJsonLd(inLanguage, [SchemaLanguage, String]),
@@ -978,8 +918,7 @@ class SchemaCreativeWork implements SchemaSerializable {
             isBasedOnUrl, [SchemaCreativeWork, SchemaProduct, String]),
         'isFamilyFriendly': convertToJsonLd(isFamilyFriendly, [bool]),
         'isPartOf': convertToJsonLd(isPartOf, [SchemaCreativeWork, String]),
-        'keywords':
-            convertToJsonLd(keywords, [SchemaDefinedTerm, String, String]),
+        'keywords': convertToJsonLd(keywords, [SchemaDefinedTerm, String]),
         'learningResourceType':
             convertToJsonLd(learningResourceType, [SchemaDefinedTerm, String]),
         'license': convertToJsonLd(license, [SchemaCreativeWork, String]),
@@ -987,7 +926,7 @@ class SchemaCreativeWork implements SchemaSerializable {
         'mainEntity': convertToJsonLd(mainEntity, [SchemaThing]),
         'maintainer':
             convertToJsonLd(maintainer, [SchemaOrganization, SchemaPerson]),
-        'material': convertToJsonLd(material, [SchemaProduct, String, String]),
+        'material': convertToJsonLd(material, [SchemaProduct, String]),
         'materialExtent':
             convertToJsonLd(materialExtent, [SchemaQuantitativeValue, String]),
         'mentions': convertToJsonLd(mentions, [SchemaThing]),
@@ -1010,7 +949,7 @@ class SchemaCreativeWork implements SchemaSerializable {
             convertToJsonLd(releasedEvent, [SchemaPublicationEvent]),
         'review': convertToJsonLd(review, [SchemaReview]),
         'reviews': convertToJsonLd(reviews, [SchemaReview]),
-        'schemaVersion': convertToJsonLd(schemaVersion, [String, String]),
+        'schemaVersion': convertToJsonLd(schemaVersion, [String]),
         'sdDatePublished': convertToJsonLd(sdDatePublished, [String]),
         'sdLicense': convertToJsonLd(sdLicense, [SchemaCreativeWork, String]),
         'sdPublisher':
@@ -1027,9 +966,8 @@ class SchemaCreativeWork implements SchemaSerializable {
         'spatialCoverage': convertToJsonLd(spatialCoverage, [SchemaPlace]),
         'sponsor': convertToJsonLd(sponsor, [SchemaOrganization, SchemaPerson]),
         'teaches': convertToJsonLd(teaches, [SchemaDefinedTerm, String]),
-        'temporal': convertToJsonLd(temporal, [String, String]),
-        'temporalCoverage':
-            convertToJsonLd(temporalCoverage, [String, String, String]),
+        'temporal': convertToJsonLd(temporal, [String]),
+        'temporalCoverage': convertToJsonLd(temporalCoverage, [String]),
         'text': convertToJsonLd(text, [String]),
         'thumbnail': convertToJsonLd(thumbnail, [SchemaImageObject]),
         'thumbnailUrl': convertToJsonLd(thumbnailUrl, [String]),
@@ -1040,26 +978,11 @@ class SchemaCreativeWork implements SchemaSerializable {
             convertToJsonLd(translator, [SchemaOrganization, SchemaPerson]),
         'typicalAgeRange': convertToJsonLd(typicalAgeRange, [String]),
         'usageInfo': convertToJsonLd(usageInfo, [SchemaCreativeWork, String]),
-        'version': convertToJsonLd(version, [String, int]),
+        'version': convertToJsonLd(version, [String, num]),
         'video': convertToJsonLd(video, [SchemaClip, SchemaVideoObject]),
+        'wordCount': convertToJsonLd(wordCount, [int]),
         'workExample': convertToJsonLd(workExample, [SchemaCreativeWork]),
         'workTranslation':
             convertToJsonLd(workTranslation, [SchemaCreativeWork]),
-        'additionalType': convertToJsonLd(additionalType, [String, String]),
-        'alternateName': convertToJsonLd(alternateName, [String]),
-        'description': convertToJsonLd(description, [String, SchemaTextObject]),
-        'disambiguatingDescription':
-            convertToJsonLd(disambiguatingDescription, [String]),
-        'identifier':
-            convertToJsonLd(identifier, [SchemaPropertyValue, String, String]),
-        'image': convertToJsonLd(image, [SchemaImageObject, String]),
-        'mainEntityOfPage':
-            convertToJsonLd(mainEntityOfPage, [SchemaCreativeWork, String]),
-        'name': convertToJsonLd(name, [String]),
-        'potentialAction': convertToJsonLd(potentialAction, [SchemaAction]),
-        'sameAs': convertToJsonLd(sameAs, [String]),
-        'subjectOf':
-            convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
-        'url': convertToJsonLd(url, [String]),
       });
 }

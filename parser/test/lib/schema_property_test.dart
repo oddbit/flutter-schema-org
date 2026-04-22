@@ -1,3 +1,8 @@
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+
 // ignore_for_file: avoid_relative_lib_imports
 
 import 'package:test/test.dart';
@@ -76,7 +81,10 @@ void main() {
         expect(schemaProperty.declaredType, 'int');
       });
 
-      test('should use type int for Number', () {
+      test('should use type num for Number', () {
+        // Schema.org `Number` is the union of Integer and Float, so it
+        // maps to `num` in Dart. Historically this was mis-mapped to `int`
+        // and truncated fractional values on serialization.
         final schemaProperty = SchemaProperty.fromJson(
           {
             '@id': 'schema:foo',
@@ -90,7 +98,30 @@ void main() {
           },
         );
 
-        expect(schemaProperty.declaredType, 'int');
+        expect(schemaProperty.declaredType, 'num');
+      });
+
+      test('collapses Text and URL into a single String declared type', () {
+        // `Text` and `URL` both map to `String` in Dart. The property
+        // should be declared as a plain `String`, not `dynamic`, and the
+        // supported-types list should not contain the same type twice.
+        final schemaProperty = SchemaProperty.fromJson(
+          {
+            '@id': 'schema:additionalType',
+            '@type': 'rdf:Property',
+            'rdfs:comment': 'additional type',
+            'rdfs:label': 'additionalType',
+            'schema:domainIncludes': [],
+            'schema:rangeIncludes': [
+              {'@id': 'schema:Text'},
+              {'@id': 'schema:URL'},
+            ]
+          },
+        );
+
+        expect(schemaProperty.schemaTypes, ['String']);
+        expect(schemaProperty.declaredType, 'String');
+        expect(schemaProperty.isNullable, isTrue);
       });
 
       test('should use type bool for Boolean', () {
@@ -108,6 +139,25 @@ void main() {
         );
 
         expect(schemaProperty.declaredType, 'bool');
+      });
+
+      test('captures schema:supersededBy as deprecation metadata', () {
+        final schemaProperty = SchemaProperty.fromJson(
+          {
+            '@id': 'schema:serverIssuesFor',
+            '@type': 'rdf:Property',
+            'rdfs:comment': 'Legacy property',
+            'rdfs:label': 'serverIssuesFor',
+            'schema:domainIncludes': [],
+            'schema:rangeIncludes': [
+              {'@id': 'schema:Text'},
+            ],
+            'schema:supersededBy': {'@id': 'schema:replacementProperty'},
+          },
+        );
+
+        expect(schemaProperty.isDeprecated, isTrue);
+        expect(schemaProperty.supersededBy, ['replacementProperty']);
       });
 
       test('should use type original schema name for other types', () {

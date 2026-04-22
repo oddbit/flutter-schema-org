@@ -1,5 +1,14 @@
-import 'package:schema_org/src/schema_serializable.dart';
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+//
+// GENERATED CODE — DO NOT MODIFY BY HAND.
+// Produced by the schema_parser tool in /parser.
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:schema_org/src/utils.dart';
+import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/aggregate_rating.dart';
 import 'package:schema_org/schemas/audience.dart';
@@ -7,11 +16,11 @@ import 'package:schema_org/schemas/brand.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/category_code.dart';
 import 'package:schema_org/schemas/physical_activity_category.dart';
-import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/image_object.dart';
 import 'package:schema_org/schemas/country.dart';
 import 'package:schema_org/schemas/distance.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
+import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/grant.dart';
 import 'package:schema_org/schemas/adult_oriented_enumeration.dart';
 import 'package:schema_org/schemas/certification.dart';
@@ -29,15 +38,12 @@ import 'package:schema_org/schemas/demand.dart';
 import 'package:schema_org/schemas/offer.dart';
 import 'package:schema_org/schemas/review.dart';
 import 'package:schema_org/schemas/size_specification.dart';
-import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/schemas/creative_work.dart';
-import 'package:schema_org/schemas/action.dart';
-import 'package:schema_org/schemas/event.dart';
+import 'package:schema_org/schemas/mass.dart';
 
 /// a pair of shoes; a concert ticket; the rental of a car; a haircut; or an
 /// episode of a TV show streamed online.
 /// See https://schema.org/Product
-class SchemaProduct implements SchemaSerializable {
+class SchemaProduct extends SchemaThing {
   /// //schema.org/gtin13, ...) will typically expect such data to be provided
   /// using those properties, rather than using the generic property/value
   /// mechanism.
@@ -55,8 +61,6 @@ class SchemaProduct implements SchemaSerializable {
   /// documentation from Amazon for authoritative details. ASINs are most
   /// commonly encoded as text strings, but the [asin] property supports
   /// URL/URI as potential values too.
-  ///
-  /// Supported types: [String], [String]
   String? asin;
 
   /// An intended audience, i.e. a group for whom something was created.
@@ -66,6 +70,7 @@ class SchemaProduct implements SchemaSerializable {
   String? award;
 
   /// Awards won by or for this item.
+  @Deprecated('Use [award]. See https://schema.org/awards')
   String? awards;
 
   /// The brand(s) associated with a product or service, or the brand(s)
@@ -78,7 +83,7 @@ class SchemaProduct implements SchemaSerializable {
   /// informally indicate a category hierarchy.
   ///
   /// Supported types: [SchemaCategoryCode], [SchemaPhysicalActivityCategory],
-  /// [String], [String], [SchemaThing]
+  /// [String], [SchemaThing]
   dynamic category;
 
   /// The color of the product.
@@ -117,20 +122,20 @@ class SchemaProduct implements SchemaSerializable {
   /// Supported types: [SchemaDistance], [SchemaQuantitativeValue]
   dynamic depth;
 
+  /// The location at which an item can be viewed or experienced in-person.
+  SchemaPlace? displayLocation;
+
   /// A [SchemaGrant] that directly or indirectly provide funding or
   /// sponsorship for this item. See also [SchemaownershipFundingInfo].
   SchemaGrant? funding;
 
-  /// //en.wikipedia.org/wiki/Global_Trade_Item_Number) for more details.
-  /// Left-padding of the gtin values is not required or encouraged. The
-  /// [Schemagtin] property generalizes the earlier [Schemagtin8],
-  /// [Schemagtin12], [Schemagtin13], and [Schemagtin14] properties.
+  /// //www.gs1.org/standards/Digital-Link/) expresses GTINs as URLs (URIs,
+  /// IRIs, etc.). Digital Links should be populated into the
+  /// [SchemahasGS1DigitalLink] attribute.
   ///
   /// Note also that this is a definition for how to include GTINs in
   /// Schema.org data, and not a definition of GTINs in general - see the GS1
   /// documentation for authoritative details.
-  ///
-  /// Supported types: [String], [String]
   String? gtin;
 
   /// //www.gs1.org/barcodes/technical/idkeys/gtin) for more details.
@@ -157,6 +162,17 @@ class SchemaProduct implements SchemaSerializable {
   /// "rating") for a product according to an international energy efficiency
   /// standard.
   SchemaEnergyConsumptionDetails? hasEnergyConsumptionDetails;
+
+  /// <ul><li>A Digital Link that contains a serial number (AI <code>21</code>)
+  /// should only be present on instances of
+  /// [SchemaIndividualProduct]</li><li>A Digital Link that contains a lot
+  /// number (AI <code>10</code>) should be annotated as [SchemaSomeProducts]
+  /// if only products from that lot are sold, or [SchemaIndividualProduct] if
+  /// there is only a specific product.</li><li>A Digital Link that contains a
+  /// global model number (AI <code>8013</code>) should be attached to a
+  /// [SchemaProduct] or a [SchemaProductModel].</li></ul> Other item types
+  /// should be adapted similarly.
+  String? hasGS1DigitalLink;
 
   /// A measurement of an item, For example, the inseam of pants, the wheel
   /// size of a bicycle, the gauge of a screw, or the carbon footprint measured
@@ -224,7 +240,7 @@ class SchemaProduct implements SchemaSerializable {
   /// a keywords list are typically delimited by commas, or by repeating the
   /// property.
   ///
-  /// Supported types: [SchemaDefinedTerm], [String], [String]
+  /// Supported types: [SchemaDefinedTerm], [String]
   dynamic keywords;
 
   /// An associated logo.
@@ -238,7 +254,7 @@ class SchemaProduct implements SchemaSerializable {
   /// A material that something is made from, e.g. leather, wool, cotton,
   /// paper.
   ///
-  /// Supported types: [SchemaProduct], [String], [String]
+  /// Supported types: [SchemaProduct], [String]
   dynamic material;
 
   /// //en.wikipedia.org/wiki/Responsive_web_design) in which content can be
@@ -340,6 +356,7 @@ class SchemaProduct implements SchemaSerializable {
   SchemaReview? review;
 
   /// Review of the item.
+  @Deprecated('Use [review]. See https://schema.org/reviews')
   SchemaReview? reviews;
 
   /// A standardized size of a product or creative work, specified either
@@ -361,76 +378,30 @@ class SchemaProduct implements SchemaSerializable {
   String? slogan;
 
   /// The weight of the product or person.
-  SchemaQuantitativeValue? weight;
+  ///
+  /// Supported types: [SchemaMass], [SchemaQuantitativeValue]
+  dynamic weight;
 
   /// The width of the item.
   ///
   /// Supported types: [SchemaDistance], [SchemaQuantitativeValue]
   dynamic width;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.
-  ///
-  /// Supported types: [String], [String]
-  String? additionalType;
-
-  /// An alias for the item.
-  String? alternateName;
-
-  /// A description of the item.
-  ///
-  /// Supported types: [String], [SchemaTextObject]
-  dynamic description;
-
-  /// A sub property of description. A short description of the item used to
-  /// disambiguate from other, similar items. Information from other properties
-  /// (in particular, name) may be necessary for the description to be useful
-  /// for disambiguation.
-  String? disambiguatingDescription;
-
-  /// The identifier property represents any kind of identifier for any kind of
-  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
-  /// dedicated properties for representing many of these, either as textual
-  /// strings or as URL (URI) links. See [background
-  /// notes](/docs/datamodel.html#identifierBg) for more details.
-  ///
-  /// Supported types: [SchemaPropertyValue], [String], [String]
-  dynamic identifier;
-
-  /// An image of the item. This can be a [SchemaURL] or a fully described
-  /// [SchemaImageObject].
-  ///
-  /// Supported types: [SchemaImageObject], [String]
-  dynamic image;
-
-  /// Indicates a page (or other CreativeWork) for which this thing is the main
-  /// entity being described. See [background
-  /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  ///
-  /// Supported types: [SchemaCreativeWork], [String]
-  dynamic mainEntityOfPage;
-
-  /// The name of the item.
-  String? name;
-
-  /// Indicates a potential Action, which describes an idealized action in
-  /// which this thing would play an 'object' role.
-  SchemaAction? potentialAction;
-
-  /// URL of a reference Web page that unambiguously indicates the item's
-  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
-  /// official website.
-  String? sameAs;
-
-  /// A CreativeWork or Event about this Thing.
-  ///
-  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
-  dynamic subjectOf;
-
-  /// URL of the item.
-  String? url;
-
   /// Create a new instance of [SchemaProduct]
   SchemaProduct({
+    super.additionalType,
+    super.alternateName,
+    super.description,
+    super.disambiguatingDescription,
+    super.identifier,
+    super.image,
+    super.mainEntityOfPage,
+    super.name,
+    super.owner,
+    super.potentialAction,
+    super.sameAs,
+    super.subjectOf,
+    super.url,
     this.additionalProperty,
     this.aggregateRating,
     this.asin,
@@ -445,6 +416,7 @@ class SchemaProduct implements SchemaSerializable {
     this.countryOfLastProcessing,
     this.countryOfOrigin,
     this.depth,
+    this.displayLocation,
     this.funding,
     this.gtin,
     this.gtin12,
@@ -454,6 +426,7 @@ class SchemaProduct implements SchemaSerializable {
     this.hasAdultConsideration,
     this.hasCertification,
     this.hasEnergyConsumptionDetails,
+    this.hasGS1DigitalLink,
     this.hasMeasurement,
     this.hasMerchantReturnPolicy,
     this.height,
@@ -488,30 +461,18 @@ class SchemaProduct implements SchemaSerializable {
     this.slogan,
     this.weight,
     this.width,
-    this.additionalType,
-    this.alternateName,
-    this.description,
-    this.disambiguatingDescription,
-    this.identifier,
-    this.image,
-    this.mainEntityOfPage,
-    this.name,
-    this.potentialAction,
-    this.sameAs,
-    this.subjectOf,
-    this.url,
   });
 
   /// Serialize [SchemaProduct] to JSON-LD
   @override
   Map<String, dynamic> toJsonLd() => removeEmpty({
-        '@context': 'https://schema.org',
+        ...super.toJsonLd(),
         '@type': 'Product',
         'additionalProperty':
             convertToJsonLd(additionalProperty, [SchemaPropertyValue]),
         'aggregateRating':
             convertToJsonLd(aggregateRating, [SchemaAggregateRating]),
-        'asin': convertToJsonLd(asin, [String, String]),
+        'asin': convertToJsonLd(asin, [String]),
         'audience': convertToJsonLd(audience, [SchemaAudience]),
         'award': convertToJsonLd(award, [String]),
         'awards': convertToJsonLd(awards, [String]),
@@ -519,7 +480,6 @@ class SchemaProduct implements SchemaSerializable {
         'category': convertToJsonLd(category, [
           SchemaCategoryCode,
           SchemaPhysicalActivityCategory,
-          String,
           String,
           SchemaThing
         ]),
@@ -532,8 +492,9 @@ class SchemaProduct implements SchemaSerializable {
         'countryOfOrigin': convertToJsonLd(countryOfOrigin, [SchemaCountry]),
         'depth':
             convertToJsonLd(depth, [SchemaDistance, SchemaQuantitativeValue]),
+        'displayLocation': convertToJsonLd(displayLocation, [SchemaPlace]),
         'funding': convertToJsonLd(funding, [SchemaGrant]),
-        'gtin': convertToJsonLd(gtin, [String, String]),
+        'gtin': convertToJsonLd(gtin, [String]),
         'gtin12': convertToJsonLd(gtin12, [String]),
         'gtin13': convertToJsonLd(gtin13, [String]),
         'gtin14': convertToJsonLd(gtin14, [String]),
@@ -544,6 +505,7 @@ class SchemaProduct implements SchemaSerializable {
             convertToJsonLd(hasCertification, [SchemaCertification]),
         'hasEnergyConsumptionDetails': convertToJsonLd(
             hasEnergyConsumptionDetails, [SchemaEnergyConsumptionDetails]),
+        'hasGS1DigitalLink': convertToJsonLd(hasGS1DigitalLink, [String]),
         'hasMeasurement':
             convertToJsonLd(hasMeasurement, [SchemaQuantitativeValue]),
         'hasMerchantReturnPolicy': convertToJsonLd(
@@ -563,11 +525,10 @@ class SchemaProduct implements SchemaSerializable {
             isVariantOf, [SchemaProductGroup, SchemaProductModel]),
         'itemCondition':
             convertToJsonLd(itemCondition, [SchemaOfferItemCondition]),
-        'keywords':
-            convertToJsonLd(keywords, [SchemaDefinedTerm, String, String]),
+        'keywords': convertToJsonLd(keywords, [SchemaDefinedTerm, String]),
         'logo': convertToJsonLd(logo, [SchemaImageObject, String]),
         'manufacturer': convertToJsonLd(manufacturer, [SchemaOrganization]),
-        'material': convertToJsonLd(material, [SchemaProduct, String, String]),
+        'material': convertToJsonLd(material, [SchemaProduct, String]),
         'mobileUrl': convertToJsonLd(mobileUrl, [String]),
         'model': convertToJsonLd(model, [SchemaProductModel, String]),
         'mpn': convertToJsonLd(mpn, [String]),
@@ -592,24 +553,9 @@ class SchemaProduct implements SchemaSerializable {
         ]),
         'sku': convertToJsonLd(sku, [String]),
         'slogan': convertToJsonLd(slogan, [String]),
-        'weight': convertToJsonLd(weight, [SchemaQuantitativeValue]),
+        'weight':
+            convertToJsonLd(weight, [SchemaMass, SchemaQuantitativeValue]),
         'width':
             convertToJsonLd(width, [SchemaDistance, SchemaQuantitativeValue]),
-        'additionalType': convertToJsonLd(additionalType, [String, String]),
-        'alternateName': convertToJsonLd(alternateName, [String]),
-        'description': convertToJsonLd(description, [String, SchemaTextObject]),
-        'disambiguatingDescription':
-            convertToJsonLd(disambiguatingDescription, [String]),
-        'identifier':
-            convertToJsonLd(identifier, [SchemaPropertyValue, String, String]),
-        'image': convertToJsonLd(image, [SchemaImageObject, String]),
-        'mainEntityOfPage':
-            convertToJsonLd(mainEntityOfPage, [SchemaCreativeWork, String]),
-        'name': convertToJsonLd(name, [String]),
-        'potentialAction': convertToJsonLd(potentialAction, [SchemaAction]),
-        'sameAs': convertToJsonLd(sameAs, [String]),
-        'subjectOf':
-            convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
-        'url': convertToJsonLd(url, [String]),
       });
 }

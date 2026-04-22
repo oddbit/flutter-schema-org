@@ -1,30 +1,29 @@
-// This is a basic Flutter widget test.
+// Copyright (c) Oddbit (https://oddbit.id)
 //
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:schema_org/schemas/organization.dart';
 
-import 'package:example/main.dart';
-
+// The example app's purpose is to show `SchemaOrg.writeJsonLd` injecting a
+// Schema.org Organization into the host page on Flutter web. The widget
+// tree itself is cosmetic (a network-loaded avatar and a title), so we
+// verify the piece that actually matters here: the JSON-LD payload that
+// the example produces for Oddbit.
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  test('Example produces valid Organization JSON-LD for Oddbit', () {
+    final json = SchemaOrganization(
+      name: 'Oddbit',
+      url: 'https://oddbit.id',
+      logo: 'https://avatars.githubusercontent.com/u/1946799?s=200&v=4',
+    ).toJsonLd();
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(json['@context'], 'https://schema.org');
+    expect(json['@type'], 'Organization');
+    expect(json['name'], 'Oddbit');
+    expect(json['url'], 'https://oddbit.id');
+    expect(json['logo'],
+        'https://avatars.githubusercontent.com/u/1946799?s=200&v=4');
   });
 }

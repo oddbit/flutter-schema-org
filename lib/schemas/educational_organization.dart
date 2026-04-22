@@ -1,59 +1,60 @@
-import 'package:schema_org/src/schema_serializable.dart';
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+//
+// GENERATED CODE — DO NOT MODIFY BY HAND.
+// Produced by the schema_parser tool in /parser.
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:schema_org/src/utils.dart';
+import 'package:schema_org/schemas/civic_structure.dart';
+import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
+import 'package:schema_org/schemas/loan_or_credit.dart';
+import 'package:schema_org/schemas/payment_method.dart';
 import 'package:schema_org/schemas/creative_work.dart';
-import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/interaction_counter.dart';
-import 'package:schema_org/schemas/aggregate_rating.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
 import 'package:schema_org/schemas/geo_shape.dart';
 import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/brand.dart';
-import 'package:schema_org/schemas/organization.dart';
+import 'package:schema_org/schemas/certification.dart';
 import 'package:schema_org/schemas/contact_point.dart';
 import 'package:schema_org/schemas/article.dart';
-import 'package:schema_org/schemas/event.dart';
 import 'package:schema_org/schemas/grant.dart';
-import 'package:schema_org/schemas/certification.dart';
-import 'package:schema_org/schemas/educational_occupational_credential.dart';
+import 'package:schema_org/schemas/credential.dart';
+import 'package:schema_org/schemas/member_program.dart';
 import 'package:schema_org/schemas/merchant_return_policy.dart';
 import 'package:schema_org/schemas/offer_catalog.dart';
-import 'package:schema_org/schemas/defined_term.dart';
+import 'package:schema_org/schemas/shipping_service.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/language.dart';
+import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/virtual_location.dart';
-import 'package:schema_org/schemas/image_object.dart';
 import 'package:schema_org/schemas/offer.dart';
+import 'package:schema_org/schemas/member_program_tier.dart';
 import 'package:schema_org/schemas/program_membership.dart';
 import 'package:schema_org/schemas/nonprofit_type.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/about_page.dart';
-import 'package:schema_org/schemas/ownership_info.dart';
-import 'package:schema_org/schemas/product.dart';
-import 'package:schema_org/schemas/review.dart';
 import 'package:schema_org/schemas/demand.dart';
-import 'package:schema_org/schemas/property_value.dart';
-import 'package:schema_org/schemas/location_feature_specification.dart';
-import 'package:schema_org/schemas/geo_coordinates.dart';
-import 'package:schema_org/schemas/geospatial_geometry.dart';
-import 'package:schema_org/schemas/map.dart';
-import 'package:schema_org/schemas/opening_hours_specification.dart';
-import 'package:schema_org/schemas/photograph.dart';
-import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/schemas/action.dart';
+import 'package:schema_org/schemas/defined_term.dart';
 
 /// An educational organization.
 /// See https://schema.org/EducationalOrganization
-class SchemaEducationalOrganization implements SchemaSerializable {
+class SchemaEducationalOrganization extends SchemaCivicStructure
+    implements SchemaOrganization {
   /// Alumni of an organization.
+  @override
   SchemaPerson? alumni;
 
-  /// 00&quot;&gt;Tuesdays and Thursdays 4-8pm&lt;/time&gt;</code>.\n* If a
-  /// business is open 7 days a week, then it can be specified as
-  /// <code>&lt;time itemprop=&quot;openingHours&quot;
-  /// datetime=&quot;Mo-Su&quot;&gt;Monday through Sunday, all
-  /// day&lt;/time&gt;</code>.
-  String? openingHours;
+  /// The payment method(s) that are accepted in general by an organization, or
+  /// for some specific demand or offer.
+  ///
+  /// Supported types: [SchemaLoanOrCredit], [SchemaPaymentMethod], [String]
+  @override
+  dynamic acceptedPaymentMethod;
 
   /// For a [SchemaNewsMediaOrganization] or other news-related
   /// [SchemaOrganization], a statement about public engagement activities (for
@@ -62,44 +63,51 @@ class SchemaEducationalOrganization implements SchemaSerializable {
   /// publication.
   ///
   /// Supported types: [SchemaCreativeWork], [String]
+  @override
   dynamic actionableFeedbackPolicy;
-
-  /// Physical address of the item.
-  ///
-  /// Supported types: [SchemaPostalAddress], [String]
-  dynamic address;
 
   /// The number of completed interactions for this entity, in a particular
   /// role (the 'agent'), in a particular action (indicated in the statistic),
   /// and in a particular context (i.e. interactionService).
+  @override
   SchemaInteractionCounter? agentInteractionStatistic;
-
-  /// The overall rating, based on a collection of reviews or ratings, of the
-  /// item.
-  SchemaAggregateRating? aggregateRating;
 
   /// The geographic area where a service or offered item is provided.
   ///
   /// Supported types: [SchemaAdministrativeArea], [SchemaGeoShape],
   /// [SchemaPlace], [String]
+  @override
   dynamic areaServed;
 
   /// An award won by or for this item.
+  @override
   String? award;
 
   /// Awards won by or for this item.
+  @override
+  @Deprecated('Use [award]. See https://schema.org/awards')
   String? awards;
 
   /// The brand(s) associated with a product or service, or the brand(s)
   /// maintained by an organization or business person.
   ///
   /// Supported types: [SchemaBrand], [SchemaOrganization]
+  @override
   dynamic brand;
 
+  /// The official registration information of a business including the
+  /// organization that issued it such as Company House or Chamber of Commerce
+  /// in form of a Certification.
+  @override
+  SchemaCertification? companyRegistration;
+
   /// A contact point for a person or organization.
+  @override
   SchemaContactPoint? contactPoint;
 
   /// A contact point for a person or organization.
+  @override
+  @Deprecated('Use [contactPoint]. See https://schema.org/contactPoints')
   SchemaContactPoint? contactPoints;
 
   /// For an [SchemaOrganization] (e.g. [SchemaNewsMediaOrganization]), a
@@ -107,12 +115,15 @@ class SchemaEducationalOrganization implements SchemaSerializable {
   /// correction policy for errors.
   ///
   /// Supported types: [SchemaCreativeWork], [String]
+  @override
   dynamic correctionsPolicy;
 
   /// a store with a pharmacy, or a bakery with a cafe.
+  @override
   SchemaOrganization? department;
 
   /// The date that this organization was dissolved.
+  @override
   String? dissolutionDate;
 
   /// Statement on diversity policy by an [SchemaOrganization] e.g. a
@@ -121,6 +132,7 @@ class SchemaEducationalOrganization implements SchemaSerializable {
   /// sources, typically providing staffing data.
   ///
   /// Supported types: [SchemaCreativeWork], [String]
+  @override
   dynamic diversityPolicy;
 
   /// For an [SchemaOrganization] (often but not necessarily a
@@ -129,19 +141,25 @@ class SchemaEducationalOrganization implements SchemaSerializable {
   /// self-reported.
   ///
   /// Supported types: [SchemaArticle], [String]
+  @override
   dynamic diversityStaffingReport;
 
   /// The Dun & Bradstreet DUNS number for identifying an organization or
   /// business person.
+  @override
   String? duns;
 
   /// Email address.
+  @override
   String? email;
 
   /// Someone working for this organization.
+  @override
   SchemaPerson? employee;
 
   /// People working for this organization.
+  @override
+  @Deprecated('Use [employee]. See https://schema.org/employees')
   SchemaPerson? employees;
 
   /// Statement about ethics policy, e.g. of a [SchemaNewsMediaOrganization]
@@ -152,82 +170,75 @@ class SchemaEducationalOrganization implements SchemaSerializable {
   /// standards of behavior expected by the organization.
   ///
   /// Supported types: [SchemaCreativeWork], [String]
+  @override
   dynamic ethicsPolicy;
 
-  /// Upcoming or past event associated with this place, organization, or
-  /// action.
-  SchemaEvent? event;
-
-  /// Upcoming or past events associated with this place or organization.
-  SchemaEvent? events;
-
-  /// The fax number.
-  String? faxNumber;
+  /// A person or organization who founded this organization.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaPerson]
+  @override
+  dynamic founder;
 
   /// A person who founded this organization.
-  SchemaPerson? founder;
-
-  /// A person who founded this organization.
+  @override
+  @Deprecated('Use [founder]. See https://schema.org/founders')
   SchemaPerson? founders;
 
   /// The date that this organization was founded.
+  @override
   String? foundingDate;
 
   /// The place where the Organization was founded.
+  @override
   SchemaPlace? foundingLocation;
 
   /// A person or organization that supports (sponsors) something through some
   /// kind of financial contribution.
   ///
   /// Supported types: [SchemaOrganization], [SchemaPerson]
+  @override
   dynamic funder;
 
   /// A [SchemaGrant] that directly or indirectly provide funding or
   /// sponsorship for this item. See also [SchemaownershipFundingInfo].
+  @override
   SchemaGrant? funding;
 
-  /// //www.gs1.org/gln) (GLN, sometimes also referred to as International
-  /// Location Number or ILN) of the respective organization, person, or place.
-  /// The GLN is a 13-digit number used to identify parties and physical
-  /// locations.
-  String? globalLocationNumber;
-
-  /// Certification information about a product, organization, service, place,
-  /// or person.
-  SchemaCertification? hasCertification;
-
   /// A credential awarded to the Person or Organization.
-  SchemaEducationalOccupationalCredential? hasCredential;
+  @override
+  SchemaCredential? hasCredential;
+
+  /// MemberProgram offered by an Organization, for example an eCommerce
+  /// merchant or an airline.
+  @override
+  SchemaMemberProgram? hasMemberProgram;
 
   /// Specifies a MerchantReturnPolicy that may be applicable.
+  @override
   SchemaMerchantReturnPolicy? hasMerchantReturnPolicy;
 
   /// Indicates an OfferCatalog listing for this Organization, Person, or
   /// Service.
+  @override
   SchemaOfferCatalog? hasOfferCatalog;
 
   /// Points-of-Sales operated by the organization or person.
+  @override
   SchemaPlace? hasPOS;
+
+  /// Specification of a shipping service offered by the organization.
+  @override
+  SchemaShippingService? hasShippingService;
 
   /// The number of interactions for the CreativeWork using the WebSite or
   /// SoftwareApplication. The most specific child type of InteractionCounter
   /// should be used.
+  @override
   SchemaInteractionCounter? interactionStatistic;
 
-  /// The International Standard of Industrial Classification of All Economic
-  /// Activities (ISIC), Revision 4 code for a particular organization,
-  /// business person, or place.
-  String? isicV4;
-
   /// //schema.org/taxID), as ISO identifiers are less ambiguous.
+  @override
   String? iso6523Code;
-
-  /// Keywords or tags used to describe some item. Multiple textual entries in
-  /// a keywords list are typically delimited by commas, or by repeating the
-  /// property.
-  ///
-  /// Supported types: [SchemaDefinedTerm], [String], [String]
-  dynamic keywords;
 
   /// Of a [SchemaPerson], and less typically of an [SchemaOrganization], to
   /// indicate a topic that is known about - suggesting possible expertise but
@@ -235,19 +246,35 @@ class SchemaEducationalOrganization implements SchemaSerializable {
   /// to educational content, events, objectives or [SchemaJobPosting]
   /// descriptions.
   ///
-  /// Supported types: [String], [String], [SchemaThing]
+  /// Supported types: [String], [SchemaThing]
+  @override
   dynamic knowsAbout;
 
   /// //tools.ietf.org/html/bcp47).
   ///
   /// Supported types: [SchemaLanguage], [String]
+  @override
   dynamic knowsLanguage;
 
+  /// The legal address of an organization which acts as the officially
+  /// registered address used for legal and tax purposes. The legal address can
+  /// be different from the place of operations of a business and other
+  /// addresses can be part of an organization.
+  @override
+  SchemaPostalAddress? legalAddress;
+
   /// The official name of the organization, e.g. the registered company name.
+  @override
   String? legalName;
+
+  /// One or multiple persons who represent this organization legally such as
+  /// CEO or sole administrator.
+  @override
+  SchemaPerson? legalRepresentative;
 
   /// An organization identifier that uniquely identifies a legal entity as
   /// defined in ISO 17442.
+  @override
   String? leiCode;
 
   /// The location of, for example, where an event is happening, where an
@@ -255,42 +282,47 @@ class SchemaEducationalOrganization implements SchemaSerializable {
   ///
   /// Supported types: [SchemaPlace], [SchemaPostalAddress], [String],
   /// [SchemaVirtualLocation]
+  @override
   dynamic location;
 
-  /// An associated logo.
-  ///
-  /// Supported types: [SchemaImageObject], [String]
-  dynamic logo;
-
   /// A pointer to products or services offered by the organization or person.
+  @override
   SchemaOffer? makesOffer;
 
   /// A member of an Organization or a ProgramMembership. Organizations can be
   /// members of organizations; ProgramMembership is typically for individuals.
   ///
   /// Supported types: [SchemaOrganization], [SchemaPerson]
+  @override
   dynamic member;
 
   /// An Organization (or ProgramMembership) to which this Person or
   /// Organization belongs.
   ///
-  /// Supported types: [SchemaOrganization], [SchemaProgramMembership]
+  /// Supported types: [SchemaMemberProgramTier], [SchemaOrganization],
+  /// [SchemaProgramMembership]
+  @override
   dynamic memberOf;
 
   /// A member of this organization.
   ///
   /// Supported types: [SchemaOrganization], [SchemaPerson]
+  @override
+  @Deprecated('Use [member]. See https://schema.org/members')
   dynamic members;
 
   /// The North American Industry Classification System (NAICS) code for a
   /// particular organization or business person.
+  @override
   String? naics;
 
   /// nonprofitStatus indicates the legal status of a non-profit organization
   /// in its primary place of business.
+  @override
   SchemaNonprofitType? nonprofitStatus;
 
   /// The number of employees in an organization, e.g. business.
+  @override
   SchemaQuantitativeValue? numberOfEmployees;
 
   /// For an [SchemaOrganization] (often but not necessarily a
@@ -300,17 +332,17 @@ class SchemaEducationalOrganization implements SchemaSerializable {
   /// [Schemafunder] is also available and can be used to make basic funder
   /// information machine-readable.
   ///
-  /// Supported types: [SchemaAboutPage], [SchemaCreativeWork], [String],
-  /// [String]
+  /// Supported types: [SchemaAboutPage], [SchemaCreativeWork], [String]
+  @override
   dynamic ownershipFundingInfo;
 
-  /// Products owned by the organization or person.
-  ///
-  /// Supported types: [SchemaOwnershipInfo], [SchemaProduct]
-  dynamic owns;
+  /// Things owned by the organization or person.
+  @override
+  SchemaThing? owns;
 
   /// The larger organization that this organization is a
   /// [SchemasubOrganization] of, if any.
+  @override
   SchemaOrganization? parentOrganization;
 
   /// The publishingPrinciples property indicates (typically via [SchemaURL]) a
@@ -326,275 +358,134 @@ class SchemaEducationalOrganization implements SchemaSerializable {
   /// expressed using schema.org terminology.
   ///
   /// Supported types: [SchemaCreativeWork], [String]
+  @override
   dynamic publishingPrinciples;
-
-  /// A review of the item.
-  SchemaReview? review;
-
-  /// Review of the item.
-  SchemaReview? reviews;
 
   /// A pointer to products or services sought by the organization or person
   /// (demand).
+  @override
   SchemaDemand? seeks;
 
   /// The geographic area where the service is provided.
   ///
   /// Supported types: [SchemaAdministrativeArea], [SchemaGeoShape],
   /// [SchemaPlace]
+  @override
+  @Deprecated('Use [areaServed]. See https://schema.org/serviceArea')
   dynamic serviceArea;
 
-  /// A slogan or motto associated with the item.
-  String? slogan;
+  /// A statement of knowledge, skill, ability, task or any other assertion
+  /// expressing a competency that is either claimed by a person, an
+  /// organization or desired or required to fulfill a role or to work in an
+  /// occupation.
+  ///
+  /// Supported types: [SchemaDefinedTerm], [String]
+  @override
+  dynamic skills;
 
   /// A person or organization that supports a thing through a pledge, promise,
   /// or financial contribution. E.g. a sponsor of a Medical Study or a
   /// corporate sponsor of an event.
   ///
   /// Supported types: [SchemaOrganization], [SchemaPerson]
+  @override
   dynamic sponsor;
 
   /// the more specific 'department' property.
+  @override
   SchemaOrganization? subOrganization;
 
   /// The Tax / Fiscal ID of the organization or person, e.g. the TIN in the US
   /// or the CIF/NIF in Spain.
+  @override
   String? taxID;
-
-  /// The telephone number.
-  String? telephone;
 
   /// For an [SchemaOrganization] (typically a [SchemaNewsMediaOrganization]),
   /// a statement about policy on use of unnamed sources and the decision
   /// process required.
   ///
   /// Supported types: [SchemaCreativeWork], [String]
+  @override
   dynamic unnamedSourcesPolicy;
 
-  /// The Value-added Tax ID of the organization or person.
+  /// The value-added Tax ID of the organization or person with national prefix
+  /// (for example IT123456789). Can also be described as [Schemaiso6523Code]
+  /// with proper prefix.
+  @override
   String? vatID;
-
-  /// //schema.org/gtin13, ...) will typically expect such data to be provided
-  /// using those properties, rather than using the generic property/value
-  /// mechanism.
-  SchemaPropertyValue? additionalProperty;
-
-  /// An amenity feature (e.g. a characteristic or service) of the
-  /// Accommodation. This generic property does not make a statement about
-  /// whether the feature is included in an offer for the main accommodation or
-  /// available at extra costs.
-  SchemaLocationFeatureSpecification? amenityFeature;
-
-  /// //www.starbucks.co.uk/store-locator/etc/detail/3047 the code "3047" is a
-  /// branchCode for a particular branch.
-  String? branchCode;
-
-  /// The basic containment relation between a place and one that contains it.
-  SchemaPlace? containedIn;
-
-  /// The basic containment relation between a place and one that contains it.
-  SchemaPlace? containedInPlace;
-
-  /// The basic containment relation between a place and another that it
-  /// contains.
-  SchemaPlace? containsPlace;
-
-  /// The geo coordinates of the place.
-  ///
-  /// Supported types: [SchemaGeoCoordinates], [SchemaGeoShape]
-  dynamic geo;
-
-  /// //en.wikipedia.org/wiki/DE-9IM).
-  ///
-  /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
-  dynamic geoContains;
-
-  /// //en.wikipedia.org/wiki/DE-9IM).
-  ///
-  /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
-  dynamic geoCoveredBy;
-
-  /// //en.wikipedia.org/wiki/DE-9IM).
-  ///
-  /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
-  dynamic geoCovers;
-
-  /// //en.wikipedia.org/wiki/DE-9IM).
-  ///
-  /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
-  dynamic geoCrosses;
-
-  /// //en.wikipedia.org/wiki/DE-9IM).)
-  ///
-  /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
-  dynamic geoDisjoint;
-
-  /// //en.wikipedia.org/wiki/DE-9IM). "Two geometries are topologically equal
-  /// if their interiors intersect and no part of the interior or boundary of
-  /// one geometry intersects the exterior of the other" (a symmetric
-  /// relationship).
-  ///
-  /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
-  dynamic geoEquals;
-
-  /// //en.wikipedia.org/wiki/DE-9IM).
-  ///
-  /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
-  dynamic geoIntersects;
-
-  /// //en.wikipedia.org/wiki/DE-9IM).
-  ///
-  /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
-  dynamic geoOverlaps;
-
-  /// //en.wikipedia.org/wiki/DE-9IM).)
-  ///
-  /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
-  dynamic geoTouches;
-
-  /// //en.wikipedia.org/wiki/DE-9IM).
-  ///
-  /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
-  dynamic geoWithin;
-
-  /// Indicates whether some facility (e.g. [SchemaFoodEstablishment],
-  /// [SchemaCovidTestingFacility]) offers a service that can be used by
-  /// driving through in a car. In the case of [SchemaCovidTestingFacility]
-  /// such facilities could potentially help with social distancing from other
-  /// potentially-infected users.
-  bool? hasDriveThroughService;
-
-  /// A URL to a map of the place.
-  ///
-  /// Supported types: [SchemaMap], [String]
-  dynamic hasMap;
-
-  /// A flag to signal that the item, event, or place is accessible for free.
-  bool? isAccessibleForFree;
-
-  /// //en.wikipedia.org/wiki/World_Geodetic_System)).
-  ///
-  /// Supported types: [String], [int]
-  dynamic latitude;
-
-  /// //en.wikipedia.org/wiki/World_Geodetic_System)).
-  ///
-  /// Supported types: [String], [int]
-  dynamic longitude;
-
-  /// A URL to a map of the place.
-  String? map;
-
-  /// A URL to a map of the place.
-  String? maps;
-
-  /// The total number of individuals that may attend an event or venue.
-  int? maximumAttendeeCapacity;
-
-  /// The opening hours of a certain place.
-  SchemaOpeningHoursSpecification? openingHoursSpecification;
-
-  /// A photograph of this place.
-  ///
-  /// Supported types: [SchemaImageObject], [SchemaPhotograph]
-  dynamic photo;
-
-  /// Photographs of this place.
-  ///
-  /// Supported types: [SchemaImageObject], [SchemaPhotograph]
-  dynamic photos;
-
-  /// A flag to signal that the [SchemaPlace] is open to public visitors. If
-  /// this property is omitted there is no assumed default boolean value.
-  bool? publicAccess;
-
-  /// Indicates whether it is allowed to smoke in the place, e.g. in the
-  /// restaurant, hotel or hotel room.
-  bool? smokingAllowed;
-
-  /// The special opening hours of a certain place.\n\nUse this to explicitly
-  /// override general opening hours brought in scope by
-  /// [SchemaopeningHoursSpecification] or [SchemaopeningHours].
-  SchemaOpeningHoursSpecification? specialOpeningHoursSpecification;
-
-  /// A page providing information on how to book a tour of some [SchemaPlace],
-  /// such as an [SchemaAccommodation] or [SchemaApartmentComplex] in a real
-  /// estate setting, as well as other kinds of tours as appropriate.
-  String? tourBookingPage;
-
-  /// //schema.org/docs/styleguide.html">style guide</a>.
-  ///
-  /// Supported types: [String], [String]
-  String? additionalType;
-
-  /// An alias for the item.
-  String? alternateName;
-
-  /// A description of the item.
-  ///
-  /// Supported types: [String], [SchemaTextObject]
-  dynamic description;
-
-  /// A sub property of description. A short description of the item used to
-  /// disambiguate from other, similar items. Information from other properties
-  /// (in particular, name) may be necessary for the description to be useful
-  /// for disambiguation.
-  String? disambiguatingDescription;
-
-  /// The identifier property represents any kind of identifier for any kind of
-  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
-  /// dedicated properties for representing many of these, either as textual
-  /// strings or as URL (URI) links. See [background
-  /// notes](/docs/datamodel.html#identifierBg) for more details.
-  ///
-  /// Supported types: [SchemaPropertyValue], [String], [String]
-  dynamic identifier;
-
-  /// An image of the item. This can be a [SchemaURL] or a fully described
-  /// [SchemaImageObject].
-  ///
-  /// Supported types: [SchemaImageObject], [String]
-  dynamic image;
-
-  /// Indicates a page (or other CreativeWork) for which this thing is the main
-  /// entity being described. See [background
-  /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  ///
-  /// Supported types: [SchemaCreativeWork], [String]
-  dynamic mainEntityOfPage;
-
-  /// The name of the item.
-  String? name;
-
-  /// Indicates a potential Action, which describes an idealized action in
-  /// which this thing would play an 'object' role.
-  SchemaAction? potentialAction;
-
-  /// URL of a reference Web page that unambiguously indicates the item's
-  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
-  /// official website.
-  String? sameAs;
-
-  /// A CreativeWork or Event about this Thing.
-  ///
-  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
-  dynamic subjectOf;
-
-  /// URL of the item.
-  String? url;
 
   /// Create a new instance of [SchemaEducationalOrganization]
   SchemaEducationalOrganization({
+    super.additionalProperty,
+    super.additionalType,
+    super.address,
+    super.aggregateRating,
+    super.alternateName,
+    super.amenityFeature,
+    super.branchCode,
+    super.containedIn,
+    super.containedInPlace,
+    super.containsPlace,
+    super.description,
+    super.disambiguatingDescription,
+    super.event,
+    super.events,
+    super.faxNumber,
+    super.geo,
+    super.geoContains,
+    super.geoCoveredBy,
+    super.geoCovers,
+    super.geoCrosses,
+    super.geoDisjoint,
+    super.geoEquals,
+    super.geoIntersects,
+    super.geoOverlaps,
+    super.geoTouches,
+    super.geoWithin,
+    super.globalLocationNumber,
+    super.hasCertification,
+    super.hasDriveThroughService,
+    super.hasGS1DigitalLink,
+    super.hasMap,
+    super.identifier,
+    super.image,
+    super.isAccessibleForFree,
+    super.isicV4,
+    super.keywords,
+    super.latitude,
+    super.logo,
+    super.longitude,
+    super.mainEntityOfPage,
+    super.map,
+    super.maps,
+    super.maximumAttendeeCapacity,
+    super.name,
+    super.openingHours,
+    super.openingHoursSpecification,
+    super.owner,
+    super.photo,
+    super.photos,
+    super.potentialAction,
+    super.publicAccess,
+    super.review,
+    super.reviews,
+    super.sameAs,
+    super.slogan,
+    super.smokingAllowed,
+    super.specialOpeningHoursSpecification,
+    super.subjectOf,
+    super.telephone,
+    super.tourBookingPage,
+    super.url,
     this.alumni,
-    this.openingHours,
+    this.acceptedPaymentMethod,
     this.actionableFeedbackPolicy,
-    this.address,
     this.agentInteractionStatistic,
-    this.aggregateRating,
     this.areaServed,
     this.award,
     this.awards,
     this.brand,
+    this.companyRegistration,
     this.contactPoint,
     this.contactPoints,
     this.correctionsPolicy,
@@ -607,31 +498,27 @@ class SchemaEducationalOrganization implements SchemaSerializable {
     this.employee,
     this.employees,
     this.ethicsPolicy,
-    this.event,
-    this.events,
-    this.faxNumber,
     this.founder,
     this.founders,
     this.foundingDate,
     this.foundingLocation,
     this.funder,
     this.funding,
-    this.globalLocationNumber,
-    this.hasCertification,
     this.hasCredential,
+    this.hasMemberProgram,
     this.hasMerchantReturnPolicy,
     this.hasOfferCatalog,
     this.hasPOS,
+    this.hasShippingService,
     this.interactionStatistic,
-    this.isicV4,
     this.iso6523Code,
-    this.keywords,
     this.knowsAbout,
     this.knowsLanguage,
+    this.legalAddress,
     this.legalName,
+    this.legalRepresentative,
     this.leiCode,
     this.location,
-    this.logo,
     this.makesOffer,
     this.member,
     this.memberOf,
@@ -643,82 +530,35 @@ class SchemaEducationalOrganization implements SchemaSerializable {
     this.owns,
     this.parentOrganization,
     this.publishingPrinciples,
-    this.review,
-    this.reviews,
     this.seeks,
     this.serviceArea,
-    this.slogan,
+    this.skills,
     this.sponsor,
     this.subOrganization,
     this.taxID,
-    this.telephone,
     this.unnamedSourcesPolicy,
     this.vatID,
-    this.additionalProperty,
-    this.amenityFeature,
-    this.branchCode,
-    this.containedIn,
-    this.containedInPlace,
-    this.containsPlace,
-    this.geo,
-    this.geoContains,
-    this.geoCoveredBy,
-    this.geoCovers,
-    this.geoCrosses,
-    this.geoDisjoint,
-    this.geoEquals,
-    this.geoIntersects,
-    this.geoOverlaps,
-    this.geoTouches,
-    this.geoWithin,
-    this.hasDriveThroughService,
-    this.hasMap,
-    this.isAccessibleForFree,
-    this.latitude,
-    this.longitude,
-    this.map,
-    this.maps,
-    this.maximumAttendeeCapacity,
-    this.openingHoursSpecification,
-    this.photo,
-    this.photos,
-    this.publicAccess,
-    this.smokingAllowed,
-    this.specialOpeningHoursSpecification,
-    this.tourBookingPage,
-    this.additionalType,
-    this.alternateName,
-    this.description,
-    this.disambiguatingDescription,
-    this.identifier,
-    this.image,
-    this.mainEntityOfPage,
-    this.name,
-    this.potentialAction,
-    this.sameAs,
-    this.subjectOf,
-    this.url,
   });
 
   /// Serialize [SchemaEducationalOrganization] to JSON-LD
   @override
   Map<String, dynamic> toJsonLd() => removeEmpty({
-        '@context': 'https://schema.org',
+        ...super.toJsonLd(),
         '@type': 'EducationalOrganization',
         'alumni': convertToJsonLd(alumni, [SchemaPerson]),
-        'openingHours': convertToJsonLd(openingHours, [String]),
+        'acceptedPaymentMethod': convertToJsonLd(acceptedPaymentMethod,
+            [SchemaLoanOrCredit, SchemaPaymentMethod, String]),
         'actionableFeedbackPolicy': convertToJsonLd(
             actionableFeedbackPolicy, [SchemaCreativeWork, String]),
-        'address': convertToJsonLd(address, [SchemaPostalAddress, String]),
         'agentInteractionStatistic': convertToJsonLd(
             agentInteractionStatistic, [SchemaInteractionCounter]),
-        'aggregateRating':
-            convertToJsonLd(aggregateRating, [SchemaAggregateRating]),
         'areaServed': convertToJsonLd(areaServed,
             [SchemaAdministrativeArea, SchemaGeoShape, SchemaPlace, String]),
         'award': convertToJsonLd(award, [String]),
         'awards': convertToJsonLd(awards, [String]),
         'brand': convertToJsonLd(brand, [SchemaBrand, SchemaOrganization]),
+        'companyRegistration':
+            convertToJsonLd(companyRegistration, [SchemaCertification]),
         'contactPoint': convertToJsonLd(contactPoint, [SchemaContactPoint]),
         'contactPoints': convertToJsonLd(contactPoints, [SchemaContactPoint]),
         'correctionsPolicy':
@@ -735,44 +575,42 @@ class SchemaEducationalOrganization implements SchemaSerializable {
         'employees': convertToJsonLd(employees, [SchemaPerson]),
         'ethicsPolicy':
             convertToJsonLd(ethicsPolicy, [SchemaCreativeWork, String]),
-        'event': convertToJsonLd(event, [SchemaEvent]),
-        'events': convertToJsonLd(events, [SchemaEvent]),
-        'faxNumber': convertToJsonLd(faxNumber, [String]),
-        'founder': convertToJsonLd(founder, [SchemaPerson]),
+        'founder': convertToJsonLd(founder, [SchemaOrganization, SchemaPerson]),
         'founders': convertToJsonLd(founders, [SchemaPerson]),
         'foundingDate': convertToJsonLd(foundingDate, [String]),
         'foundingLocation': convertToJsonLd(foundingLocation, [SchemaPlace]),
         'funder': convertToJsonLd(funder, [SchemaOrganization, SchemaPerson]),
         'funding': convertToJsonLd(funding, [SchemaGrant]),
-        'globalLocationNumber': convertToJsonLd(globalLocationNumber, [String]),
-        'hasCertification':
-            convertToJsonLd(hasCertification, [SchemaCertification]),
-        'hasCredential': convertToJsonLd(
-            hasCredential, [SchemaEducationalOccupationalCredential]),
+        'hasCredential': convertToJsonLd(hasCredential, [SchemaCredential]),
+        'hasMemberProgram':
+            convertToJsonLd(hasMemberProgram, [SchemaMemberProgram]),
         'hasMerchantReturnPolicy': convertToJsonLd(
             hasMerchantReturnPolicy, [SchemaMerchantReturnPolicy]),
         'hasOfferCatalog':
             convertToJsonLd(hasOfferCatalog, [SchemaOfferCatalog]),
         'hasPOS': convertToJsonLd(hasPOS, [SchemaPlace]),
+        'hasShippingService':
+            convertToJsonLd(hasShippingService, [SchemaShippingService]),
         'interactionStatistic':
             convertToJsonLd(interactionStatistic, [SchemaInteractionCounter]),
-        'isicV4': convertToJsonLd(isicV4, [String]),
         'iso6523Code': convertToJsonLd(iso6523Code, [String]),
-        'keywords':
-            convertToJsonLd(keywords, [SchemaDefinedTerm, String, String]),
-        'knowsAbout':
-            convertToJsonLd(knowsAbout, [String, String, SchemaThing]),
+        'knowsAbout': convertToJsonLd(knowsAbout, [String, SchemaThing]),
         'knowsLanguage':
             convertToJsonLd(knowsLanguage, [SchemaLanguage, String]),
+        'legalAddress': convertToJsonLd(legalAddress, [SchemaPostalAddress]),
         'legalName': convertToJsonLd(legalName, [String]),
+        'legalRepresentative':
+            convertToJsonLd(legalRepresentative, [SchemaPerson]),
         'leiCode': convertToJsonLd(leiCode, [String]),
         'location': convertToJsonLd(location,
             [SchemaPlace, SchemaPostalAddress, String, SchemaVirtualLocation]),
-        'logo': convertToJsonLd(logo, [SchemaImageObject, String]),
         'makesOffer': convertToJsonLd(makesOffer, [SchemaOffer]),
         'member': convertToJsonLd(member, [SchemaOrganization, SchemaPerson]),
-        'memberOf': convertToJsonLd(
-            memberOf, [SchemaOrganization, SchemaProgramMembership]),
+        'memberOf': convertToJsonLd(memberOf, [
+          SchemaMemberProgramTier,
+          SchemaOrganization,
+          SchemaProgramMembership
+        ]),
         'members': convertToJsonLd(members, [SchemaOrganization, SchemaPerson]),
         'naics': convertToJsonLd(naics, [String]),
         'nonprofitStatus':
@@ -780,91 +618,22 @@ class SchemaEducationalOrganization implements SchemaSerializable {
         'numberOfEmployees':
             convertToJsonLd(numberOfEmployees, [SchemaQuantitativeValue]),
         'ownershipFundingInfo': convertToJsonLd(ownershipFundingInfo,
-            [SchemaAboutPage, SchemaCreativeWork, String, String]),
-        'owns': convertToJsonLd(owns, [SchemaOwnershipInfo, SchemaProduct]),
+            [SchemaAboutPage, SchemaCreativeWork, String]),
+        'owns': convertToJsonLd(owns, [SchemaThing]),
         'parentOrganization':
             convertToJsonLd(parentOrganization, [SchemaOrganization]),
         'publishingPrinciples':
             convertToJsonLd(publishingPrinciples, [SchemaCreativeWork, String]),
-        'review': convertToJsonLd(review, [SchemaReview]),
-        'reviews': convertToJsonLd(reviews, [SchemaReview]),
         'seeks': convertToJsonLd(seeks, [SchemaDemand]),
         'serviceArea': convertToJsonLd(serviceArea,
             [SchemaAdministrativeArea, SchemaGeoShape, SchemaPlace]),
-        'slogan': convertToJsonLd(slogan, [String]),
+        'skills': convertToJsonLd(skills, [SchemaDefinedTerm, String]),
         'sponsor': convertToJsonLd(sponsor, [SchemaOrganization, SchemaPerson]),
         'subOrganization':
             convertToJsonLd(subOrganization, [SchemaOrganization]),
         'taxID': convertToJsonLd(taxID, [String]),
-        'telephone': convertToJsonLd(telephone, [String]),
         'unnamedSourcesPolicy':
             convertToJsonLd(unnamedSourcesPolicy, [SchemaCreativeWork, String]),
         'vatID': convertToJsonLd(vatID, [String]),
-        'additionalProperty':
-            convertToJsonLd(additionalProperty, [SchemaPropertyValue]),
-        'amenityFeature': convertToJsonLd(
-            amenityFeature, [SchemaLocationFeatureSpecification]),
-        'branchCode': convertToJsonLd(branchCode, [String]),
-        'containedIn': convertToJsonLd(containedIn, [SchemaPlace]),
-        'containedInPlace': convertToJsonLd(containedInPlace, [SchemaPlace]),
-        'containsPlace': convertToJsonLd(containsPlace, [SchemaPlace]),
-        'geo': convertToJsonLd(geo, [SchemaGeoCoordinates, SchemaGeoShape]),
-        'geoContains': convertToJsonLd(
-            geoContains, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoCoveredBy': convertToJsonLd(
-            geoCoveredBy, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoCovers':
-            convertToJsonLd(geoCovers, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoCrosses': convertToJsonLd(
-            geoCrosses, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoDisjoint': convertToJsonLd(
-            geoDisjoint, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoEquals':
-            convertToJsonLd(geoEquals, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoIntersects': convertToJsonLd(
-            geoIntersects, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoOverlaps': convertToJsonLd(
-            geoOverlaps, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoTouches': convertToJsonLd(
-            geoTouches, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoWithin':
-            convertToJsonLd(geoWithin, [SchemaGeospatialGeometry, SchemaPlace]),
-        'hasDriveThroughService':
-            convertToJsonLd(hasDriveThroughService, [bool]),
-        'hasMap': convertToJsonLd(hasMap, [SchemaMap, String]),
-        'isAccessibleForFree': convertToJsonLd(isAccessibleForFree, [bool]),
-        'latitude': convertToJsonLd(latitude, [String, int]),
-        'longitude': convertToJsonLd(longitude, [String, int]),
-        'map': convertToJsonLd(map, [String]),
-        'maps': convertToJsonLd(maps, [String]),
-        'maximumAttendeeCapacity':
-            convertToJsonLd(maximumAttendeeCapacity, [int]),
-        'openingHoursSpecification': convertToJsonLd(
-            openingHoursSpecification, [SchemaOpeningHoursSpecification]),
-        'photo': convertToJsonLd(photo, [SchemaImageObject, SchemaPhotograph]),
-        'photos':
-            convertToJsonLd(photos, [SchemaImageObject, SchemaPhotograph]),
-        'publicAccess': convertToJsonLd(publicAccess, [bool]),
-        'smokingAllowed': convertToJsonLd(smokingAllowed, [bool]),
-        'specialOpeningHoursSpecification': convertToJsonLd(
-            specialOpeningHoursSpecification,
-            [SchemaOpeningHoursSpecification]),
-        'tourBookingPage': convertToJsonLd(tourBookingPage, [String]),
-        'additionalType': convertToJsonLd(additionalType, [String, String]),
-        'alternateName': convertToJsonLd(alternateName, [String]),
-        'description': convertToJsonLd(description, [String, SchemaTextObject]),
-        'disambiguatingDescription':
-            convertToJsonLd(disambiguatingDescription, [String]),
-        'identifier':
-            convertToJsonLd(identifier, [SchemaPropertyValue, String, String]),
-        'image': convertToJsonLd(image, [SchemaImageObject, String]),
-        'mainEntityOfPage':
-            convertToJsonLd(mainEntityOfPage, [SchemaCreativeWork, String]),
-        'name': convertToJsonLd(name, [String]),
-        'potentialAction': convertToJsonLd(potentialAction, [SchemaAction]),
-        'sameAs': convertToJsonLd(sameAs, [String]),
-        'subjectOf':
-            convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
-        'url': convertToJsonLd(url, [String]),
       });
 }

@@ -1,3 +1,8 @@
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+
 // ignore_for_file: avoid_relative_lib_imports
 
 import 'package:test/test.dart';
@@ -15,6 +20,10 @@ void main() {
           getPossiblyTranslatedText({'@value': 'itemLocation'}),
           'itemLocation',
         );
+        // Some upstream nodes ship without a description or label. A
+        // missing value must not crash the whole generation.
+        expect(getPossiblyTranslatedText(null), '');
+        expect(getPossiblyTranslatedText(<String, dynamic>{}), '');
         expect(() => getPossiblyTranslatedText(123), throwsException);
       });
 
@@ -35,7 +44,9 @@ void main() {
         expect(toTypeName('Text'), 'String');
         expect(toTypeName('schema:Text'), 'String');
         expect(toTypeName('Integer'), 'int');
-        expect(toTypeName('Number'), 'int');
+        // Schema.org `Number` is the union of Integer and Float, so it must
+        // map to `num` (not `int`) to avoid truncating fractional values.
+        expect(toTypeName('Number'), 'num');
         expect(toTypeName('Boolean'), 'bool');
         expect(toTypeName('Float'), 'double');
         expect(toTypeName('URL'), 'String');
@@ -44,6 +55,30 @@ void main() {
         expect(toTypeName('Time'), 'String');
         expect(toTypeName('SomeOtherType'), 'SomeOtherType');
         expect(toTypeName('schema:SomeOtherType'), 'SomeOtherType');
+      });
+
+      test(
+          'dedupes and sorts relationships that collapse to the same '
+          'Dart type', () {
+        // `Text` and `URL` both map to `String`; the parsed result must
+        // dedupe them so generated doc comments don't read
+        // "Supported types: [String], [String]".
+        expect(
+          parseRelationship([
+            {'@id': 'schema:Text'},
+            {'@id': 'schema:URL'},
+          ]),
+          ['String'],
+        );
+
+        expect(
+          parseRelationship([
+            {'@id': 'schema:Person'},
+            {'@id': 'schema:Organization'},
+            {'@id': 'schema:Person'},
+          ]),
+          ['Organization', 'Person'],
+        );
       });
 
       test('should create proper file names from class name', () {

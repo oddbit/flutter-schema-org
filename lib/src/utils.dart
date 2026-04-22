@@ -1,54 +1,89 @@
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+
 import 'package:schema_org/src/exceptions.dart';
+import 'package:schema_org/src/schema_serializable.dart';
 
-/// Converts a dynamic value to JSON
-/// The [types] parameter is used to specify the expected types of the value.
-/// Its value will restric the expectations and ensure that correc types are
-/// passed into the function.
-dynamic convertToJsonLd(dynamic val, [List<Type> types = const []]) {
-  // If the value is null, return null
-  if (val == null) {
-    return null;
-  }
+/// Convert a Schema.org property value into a JSON-LD-ready representation.
+///
+/// This is the single serialization entry point used by every generated
+/// class in `package:schema_org/schemas/*`. The contract:
+///
+/// - `null` passes through as `null` (the caller strips nulls later via
+///   [removeEmpty]).
+/// - Scalars (`String`, `num`, `bool`) are returned as-is.
+/// - [SchemaSerializable] values recurse through `toJsonLd()`.
+/// - Objects that only expose `toJson()` are accepted for interop with
+///   hand-written types.
+/// - Lists recurse element-by-element and collapse to `null` when empty
+///   so [removeEmpty] can drop the key entirely.
+///
+/// When a property's Schema.org range allows more than one Dart type the
+/// generated class declares the field as `dynamic` and passes the set of
+/// permitted types via [types]. This function enforces that contract at
+/// runtime and throws [UnsupportedTypeException] for anything outside
+/// the set.
+Object? convertToJsonLd(Object? val, [List<Type> types = const []]) {
+  return switch (val) {
+    null => null,
+    String() || num() || bool() => val,
+    final List<Object?> list => _serializeList(list, types),
+    final Object obj => _serializeObject(obj, types),
+  };
+}
 
-  // Scalars are already JSON-serializable
-  if (val is String || val is num || val is bool) {
-    return val;
-  }
+Object? _serializeList(List<Object?> list, List<Type> types) {
+  if (list.isEmpty) return null;
+  return list.map((e) => convertToJsonLd(e, types)).toList();
+}
 
-  // If not explicitly expecting specific types, simply convert to JSON
-  if (types.isEmpty) {
-    return val.toJson();
-  }
+Object _serializeObject(Object val, List<Type> types) {
+  // Without a pinned type set we trust the value and delegate to its
+  // own serializer.
+  if (types.isEmpty) return _serializeOne(val);
 
-  // Some Schema attributes can be one of many types. The class that implements
-  // it has defined it as dynamic so we need to check the runtime type of the
-  // object is one of the expected types.
-  for (Type type in types) {
-    if (val.runtimeType == type) {
-      return val.toJson();
-    }
+  // Enforce the declared type union. `runtimeType` is used because
+  // generated union-typed fields are declared `dynamic`, so `is T`
+  // checks against a stored `Type` value cannot be expressed here.
+  for (final type in types) {
+    if (val.runtimeType == type) return _serializeOne(val);
   }
 
   throw UnsupportedTypeException(val.runtimeType);
 }
 
-/// Removes all empty values from a JSON-LD object
-/// A JSON-LD object is also considered empty if it only has its type and context
-/// properties.
-dynamic removeEmpty(Map<String, dynamic> json) {
-  final Map<String, dynamic> output = {};
+Object _serializeOne(Object val) {
+  if (val is SchemaSerializable) return val.toJsonLd() as Object;
+  // Fallback for legacy hand-written classes that only expose `toJson`.
+  return (val as dynamic).toJson() as Object;
+}
+
+/// Prune a JSON-LD map so empty values do not leak into the output.
+///
+/// A value is considered empty when it is `null`, an empty/all-null
+/// list, or a nested object that only carries `@context` and `@type`
+/// (meaning its owner never set any real data). Nested maps are
+/// cleaned recursively.
+Map<String, dynamic> removeEmpty(Map<String, dynamic> json) {
+  final output = <String, dynamic>{};
   json.forEach((key, value) {
-    if (value is Map<String, dynamic>) {
-      final cleanedValue = removeEmpty(value);
-      if (cleanedValue.keys
-          .toSet()
-          .difference({'@context', '@type'}).isNotEmpty) {
-        output[key] = cleanedValue;
-      }
-    } else if (value != null) {
-      output[key] = value;
+    switch (value) {
+      case null:
+        return;
+      case Map<String, dynamic> m:
+        final cleaned = removeEmpty(m);
+        final hasRealData = cleaned.keys
+            .toSet()
+            .difference({'@context', '@type'}).isNotEmpty;
+        if (hasRealData) output[key] = cleaned;
+      case List l:
+        final cleanedList = l.where((e) => e != null).toList();
+        if (cleanedList.isNotEmpty) output[key] = cleanedList;
+      default:
+        output[key] = value;
     }
   });
-
   return output;
 }

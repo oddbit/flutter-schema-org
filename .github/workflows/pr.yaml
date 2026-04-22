@@ -5,7 +5,8 @@ on:
       - main
 
 jobs:
-  validate_test:
+  flutter_vm:
+    name: Format, analyze & VM tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -13,7 +14,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: "stable"
+          channel: stable
           cache: true
 
       - run: flutter --version
@@ -24,5 +25,47 @@ jobs:
 
       - run: flutter analyze
 
-      - name: Run tests
+      - name: Run VM tests
         run: flutter test --test-randomize-ordering-seed=$RANDOM
+
+  flutter_chrome:
+    name: Chrome tests (package:web writer)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - run: flutter --version
+
+      - run: flutter pub get
+
+      - name: Run Chrome tests
+        # Chrome ships pre-installed on ubuntu-latest runners; Flutter
+        # auto-detects it. Running on the browser platform exercises the
+        # `package:web`-backed writer and any `@TestOn('browser')` cases.
+        run: flutter test --platform chrome --test-randomize-ordering-seed=$RANDOM
+
+  parser:
+    name: Parser tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: parser
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dart-lang/setup-dart@v1
+
+      - run: dart --version
+
+      - run: dart pub get
+
+      - run: dart analyze
+
+      - name: Run parser tests
+        run: dart test

@@ -1,5 +1,14 @@
-import 'package:schema_org/src/schema_serializable.dart';
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+//
+// GENERATED CODE — DO NOT MODIFY BY HAND.
+// Produced by the schema_parser tool in /parser.
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:schema_org/src/utils.dart';
+import 'package:schema_org/schemas/intangible.dart';
 import 'package:schema_org/schemas/offer.dart';
 import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/organization.dart';
@@ -11,18 +20,12 @@ import 'package:schema_org/schemas/product.dart';
 import 'package:schema_org/schemas/service.dart';
 import 'package:schema_org/schemas/invoice.dart';
 import 'package:schema_org/schemas/payment_method.dart';
-import 'package:schema_org/schemas/text_object.dart';
-import 'package:schema_org/schemas/property_value.dart';
-import 'package:schema_org/schemas/image_object.dart';
-import 'package:schema_org/schemas/creative_work.dart';
-import 'package:schema_org/schemas/action.dart';
-import 'package:schema_org/schemas/event.dart';
 
 /// An order is a confirmation of a transaction (a receipt), which can
 /// contain multiple line items, each represented by an Offer that has been
 /// accepted by the customer.
 /// See https://schema.org/Order
-class SchemaOrder implements SchemaSerializable {
+class SchemaOrder extends SchemaIntangible {
   /// The offer(s) -- e.g., product, quantity and price combinations --
   /// included in the order.
   SchemaOffer? acceptedOffer;
@@ -48,7 +51,7 @@ class SchemaOrder implements SchemaSerializable {
 
   /// Any discount applied (to an Order).
   ///
-  /// Supported types: [String], [int]
+  /// Supported types: [String], [num]
   dynamic discount;
 
   /// Code used to redeem a discount.
@@ -65,11 +68,10 @@ class SchemaOrder implements SchemaSerializable {
   /// 'merchant' is an out-dated term for 'seller'.
   ///
   /// Supported types: [SchemaOrganization], [SchemaPerson]
+  @Deprecated('Use [seller]. See https://schema.org/merchant')
   dynamic merchant;
 
   /// Date order was placed.
-  ///
-  /// Supported types: [String], [String]
   String? orderDate;
 
   /// The delivery of the parcel related to this order or order item.
@@ -90,15 +92,16 @@ class SchemaOrder implements SchemaSerializable {
   SchemaInvoice? partOfInvoice;
 
   /// The date that payment is due.
+  @Deprecated('Use [paymentDueDate]. See https://schema.org/paymentDue')
   String? paymentDue;
 
   /// The date that payment is due.
-  ///
-  /// Supported types: [String], [String]
   String? paymentDueDate;
 
   /// The name of the credit card or other method of payment for the order.
-  SchemaPaymentMethod? paymentMethod;
+  ///
+  /// Supported types: [SchemaPaymentMethod], [String]
+  dynamic paymentMethod;
 
   /// An identifier for the method of payment used (e.g. the last 4 digits of
   /// the credit card).
@@ -113,69 +116,21 @@ class SchemaOrder implements SchemaSerializable {
   /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic seller;
 
-  /// //schema.org/docs/styleguide.html">style guide</a>.
-  ///
-  /// Supported types: [String], [String]
-  String? additionalType;
-
-  /// An alias for the item.
-  String? alternateName;
-
-  /// A description of the item.
-  ///
-  /// Supported types: [String], [SchemaTextObject]
-  dynamic description;
-
-  /// A sub property of description. A short description of the item used to
-  /// disambiguate from other, similar items. Information from other properties
-  /// (in particular, name) may be necessary for the description to be useful
-  /// for disambiguation.
-  String? disambiguatingDescription;
-
-  /// The identifier property represents any kind of identifier for any kind of
-  /// [SchemaThing], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides
-  /// dedicated properties for representing many of these, either as textual
-  /// strings or as URL (URI) links. See [background
-  /// notes](/docs/datamodel.html#identifierBg) for more details.
-  ///
-  /// Supported types: [SchemaPropertyValue], [String], [String]
-  dynamic identifier;
-
-  /// An image of the item. This can be a [SchemaURL] or a fully described
-  /// [SchemaImageObject].
-  ///
-  /// Supported types: [SchemaImageObject], [String]
-  dynamic image;
-
-  /// Indicates a page (or other CreativeWork) for which this thing is the main
-  /// entity being described. See [background
-  /// notes](/docs/datamodel.html#mainEntityBackground) for details.
-  ///
-  /// Supported types: [SchemaCreativeWork], [String]
-  dynamic mainEntityOfPage;
-
-  /// The name of the item.
-  String? name;
-
-  /// Indicates a potential Action, which describes an idealized action in
-  /// which this thing would play an 'object' role.
-  SchemaAction? potentialAction;
-
-  /// URL of a reference Web page that unambiguously indicates the item's
-  /// identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or
-  /// official website.
-  String? sameAs;
-
-  /// A CreativeWork or Event about this Thing.
-  ///
-  /// Supported types: [SchemaCreativeWork], [SchemaEvent]
-  dynamic subjectOf;
-
-  /// URL of the item.
-  String? url;
-
   /// Create a new instance of [SchemaOrder]
   SchemaOrder({
+    super.additionalType,
+    super.alternateName,
+    super.description,
+    super.disambiguatingDescription,
+    super.identifier,
+    super.image,
+    super.mainEntityOfPage,
+    super.name,
+    super.owner,
+    super.potentialAction,
+    super.sameAs,
+    super.subjectOf,
+    super.url,
     this.acceptedOffer,
     this.billingAddress,
     this.broker,
@@ -198,24 +153,12 @@ class SchemaOrder implements SchemaSerializable {
     this.paymentMethodId,
     this.paymentUrl,
     this.seller,
-    this.additionalType,
-    this.alternateName,
-    this.description,
-    this.disambiguatingDescription,
-    this.identifier,
-    this.image,
-    this.mainEntityOfPage,
-    this.name,
-    this.potentialAction,
-    this.sameAs,
-    this.subjectOf,
-    this.url,
   });
 
   /// Serialize [SchemaOrder] to JSON-LD
   @override
   Map<String, dynamic> toJsonLd() => removeEmpty({
-        '@context': 'https://schema.org',
+        ...super.toJsonLd(),
         '@type': 'Order',
         'acceptedOffer': convertToJsonLd(acceptedOffer, [SchemaOffer]),
         'billingAddress':
@@ -224,13 +167,13 @@ class SchemaOrder implements SchemaSerializable {
         'confirmationNumber': convertToJsonLd(confirmationNumber, [String]),
         'customer':
             convertToJsonLd(customer, [SchemaOrganization, SchemaPerson]),
-        'discount': convertToJsonLd(discount, [String, int]),
+        'discount': convertToJsonLd(discount, [String, num]),
         'discountCode': convertToJsonLd(discountCode, [String]),
         'discountCurrency': convertToJsonLd(discountCurrency, [String]),
         'isGift': convertToJsonLd(isGift, [bool]),
         'merchant':
             convertToJsonLd(merchant, [SchemaOrganization, SchemaPerson]),
-        'orderDate': convertToJsonLd(orderDate, [String, String]),
+        'orderDate': convertToJsonLd(orderDate, [String]),
         'orderDelivery': convertToJsonLd(orderDelivery, [SchemaParcelDelivery]),
         'orderNumber': convertToJsonLd(orderNumber, [String]),
         'orderStatus': convertToJsonLd(orderStatus, [SchemaOrderStatus]),
@@ -238,26 +181,11 @@ class SchemaOrder implements SchemaSerializable {
             orderedItem, [SchemaOrderItem, SchemaProduct, SchemaService]),
         'partOfInvoice': convertToJsonLd(partOfInvoice, [SchemaInvoice]),
         'paymentDue': convertToJsonLd(paymentDue, [String]),
-        'paymentDueDate': convertToJsonLd(paymentDueDate, [String, String]),
-        'paymentMethod': convertToJsonLd(paymentMethod, [SchemaPaymentMethod]),
+        'paymentDueDate': convertToJsonLd(paymentDueDate, [String]),
+        'paymentMethod':
+            convertToJsonLd(paymentMethod, [SchemaPaymentMethod, String]),
         'paymentMethodId': convertToJsonLd(paymentMethodId, [String]),
         'paymentUrl': convertToJsonLd(paymentUrl, [String]),
         'seller': convertToJsonLd(seller, [SchemaOrganization, SchemaPerson]),
-        'additionalType': convertToJsonLd(additionalType, [String, String]),
-        'alternateName': convertToJsonLd(alternateName, [String]),
-        'description': convertToJsonLd(description, [String, SchemaTextObject]),
-        'disambiguatingDescription':
-            convertToJsonLd(disambiguatingDescription, [String]),
-        'identifier':
-            convertToJsonLd(identifier, [SchemaPropertyValue, String, String]),
-        'image': convertToJsonLd(image, [SchemaImageObject, String]),
-        'mainEntityOfPage':
-            convertToJsonLd(mainEntityOfPage, [SchemaCreativeWork, String]),
-        'name': convertToJsonLd(name, [String]),
-        'potentialAction': convertToJsonLd(potentialAction, [SchemaAction]),
-        'sameAs': convertToJsonLd(sameAs, [String]),
-        'subjectOf':
-            convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
-        'url': convertToJsonLd(url, [String]),
       });
 }

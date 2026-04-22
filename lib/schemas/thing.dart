@@ -1,9 +1,20 @@
+// Copyright (c) Oddbit (https://oddbit.id)
+//
+// This source file is part of schema_org.
+// Licensed under the Apache License, Version 2.0. See LICENSE and NOTICE.
+//
+// GENERATED CODE — DO NOT MODIFY BY HAND.
+// Produced by the schema_parser tool in /parser.
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:schema_org/src/schema_serializable.dart';
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/text_object.dart';
 import 'package:schema_org/schemas/property_value.dart';
 import 'package:schema_org/schemas/image_object.dart';
 import 'package:schema_org/schemas/creative_work.dart';
+import 'package:schema_org/schemas/organization.dart';
+import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/action.dart';
 import 'package:schema_org/schemas/event.dart';
 
@@ -11,8 +22,6 @@ import 'package:schema_org/schemas/event.dart';
 /// See https://schema.org/Thing
 class SchemaThing implements SchemaSerializable {
   /// //schema.org/docs/styleguide.html">style guide</a>.
-  ///
-  /// Supported types: [String], [String]
   String? additionalType;
 
   /// An alias for the item.
@@ -35,7 +44,7 @@ class SchemaThing implements SchemaSerializable {
   /// strings or as URL (URI) links. See [background
   /// notes](/docs/datamodel.html#identifierBg) for more details.
   ///
-  /// Supported types: [SchemaPropertyValue], [String], [String]
+  /// Supported types: [SchemaPropertyValue], [String]
   dynamic identifier;
 
   /// An image of the item. This can be a [SchemaURL] or a fully described
@@ -53,6 +62,11 @@ class SchemaThing implements SchemaSerializable {
 
   /// The name of the item.
   String? name;
+
+  /// A person or organization who owns this Thing.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaPerson]
+  dynamic owner;
 
   /// Indicates a potential Action, which describes an idealized action in
   /// which this thing would play an 'object' role.
@@ -81,6 +95,7 @@ class SchemaThing implements SchemaSerializable {
     this.image,
     this.mainEntityOfPage,
     this.name,
+    this.owner,
     this.potentialAction,
     this.sameAs,
     this.subjectOf,
@@ -92,17 +107,18 @@ class SchemaThing implements SchemaSerializable {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Thing',
-        'additionalType': convertToJsonLd(additionalType, [String, String]),
+        'additionalType': convertToJsonLd(additionalType, [String]),
         'alternateName': convertToJsonLd(alternateName, [String]),
         'description': convertToJsonLd(description, [String, SchemaTextObject]),
         'disambiguatingDescription':
             convertToJsonLd(disambiguatingDescription, [String]),
         'identifier':
-            convertToJsonLd(identifier, [SchemaPropertyValue, String, String]),
+            convertToJsonLd(identifier, [SchemaPropertyValue, String]),
         'image': convertToJsonLd(image, [SchemaImageObject, String]),
         'mainEntityOfPage':
             convertToJsonLd(mainEntityOfPage, [SchemaCreativeWork, String]),
         'name': convertToJsonLd(name, [String]),
+        'owner': convertToJsonLd(owner, [SchemaOrganization, SchemaPerson]),
         'potentialAction': convertToJsonLd(potentialAction, [SchemaAction]),
         'sameAs': convertToJsonLd(sameAs, [String]),
         'subjectOf':

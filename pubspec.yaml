@@ -1,20 +1,26 @@
 name: schema_org
-description: "A JSON-LD library with Flutter/Dart types for Schema.org vocabulary."
-version: 1.0.3
-homepage: https://github.com/oddbit/flutter-schema-org
+description: >-
+  JSON-LD Flutter/Dart classes for the full Schema.org vocabulary, generated
+  from the official schema distribution. Emit structured data from Flutter
+  web apps with type-safe constructors, or serialize to a JSON-LD string on
+  any target with `SchemaOrg.toJsonLdString`.
+version: 2.0.0
+homepage: https://oddb.it/website
+repository: https://github.com/oddbit/flutter-schema-org
+issue_tracker: https://github.com/oddbit/flutter-schema-org/issues
 
 environment:
-  sdk: '>=3.3.2 <4.0.0'
-  flutter: ">=1.17.0"
+  sdk: ^3.6.0
+  flutter: '>=3.27.0'
 
 dependencies:
-  build_runner: ^2.4.8
   flutter:
     sdk: flutter
+  web: ^1.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
+  flutter_lints: ^5.0.0
 
 flutter:
