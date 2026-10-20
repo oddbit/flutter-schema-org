@@ -1,10 +1,8 @@
 name: schema_org
 description: >-
-  JSON-LD Flutter/Dart classes for the full Schema.org vocabulary, generated
-  from the official schema distribution. Emit structured data from Flutter
-  web apps with type-safe constructors, or serialize to a JSON-LD string on
-  any target with `SchemaOrg.toJsonLdString`.
-version: 2.1.0
+  Type-safe Dart classes for the full Schema.org vocabulary. Serialize to
+  JSON-LD on any platform, or inject it into the page on Flutter web.
+version: 2.1.1
 homepage: https://oddb.it/website
 repository: https://github.com/oddbit/flutter-schema-org
 issue_tracker: https://github.com/oddbit/flutter-schema-org/issues

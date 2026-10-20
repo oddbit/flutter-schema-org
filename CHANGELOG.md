@@ -1,3 +1,8 @@
+## 2.1.1
+
+- Shorten the package description to the 60–180 characters pub.dev
+  recommends.
+
 ## 2.1.0
 
 ### Fixes

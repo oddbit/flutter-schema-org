@@ -26,7 +26,7 @@ validators later.
 
 ```yaml
 dependencies:
-  schema_org: ^2.1.0
+  schema_org: ^2.1.1
 ```
 
 ```bash
