@@ -48,11 +48,41 @@ class SchemaFinancialIncentive extends SchemaIntangible {
   /// valid for such as a utility company, merchant, or contractor.
   SchemaOrganization? eligibleWithSupplier;
 
-  /// <ul><li>Use [SchemaQuantitativeValue] for absolute/percentage-based
-  /// incentives applied on the price of a good/service.</li> <li>Use
-  /// [SchemaUnitPriceSpecification] for incentives based on a per-unit basis
-  /// (e.g. net metering).</li> <li>Use [SchemaLoanOrCredit] for
-  /// loans/credits.</li> </ul>.
+  /// Describes the amount that can be redeemed from this incentive.
+  /// <p>[SchemaQuantitativeValue]: Use this for incentives based on price
+  /// (either raw amount or percentage-based). For a raw amount example, "You
+  /// can claim $2,500 - $7,500 from the total cost of installation" would be
+  /// represented as the following:</p> { "@type": "QuantitativeValue",
+  /// “minValue”: 2500, “maxValue”: 7500, "unitCode": "USD" }
+  /// <p>[SchemaQuantitativeValue] can also be used for percentage amounts. In
+  /// such cases, value is used to represent the incentive’s percentage, while
+  /// maxValue represents a limit (if one exists) to that incentive. The
+  /// unitCode should be 'P1' and the unitText should be '%', while
+  /// valueReference should be used for holding the currency type. For example,
+  /// "You can claim up to 30% of the total cost of installation, up to a
+  /// maximum of $7,500" would be:</p> { "@type": "QuantitativeValue", "value":
+  /// 30, "unitCode": "P1", "unitText": "%", “maxValue”: 7500,
+  /// “valueReference”: “USD” } <p>[SchemaUnitPriceSpecification]: Use this for
+  /// incentives that are based on amounts rather than price. For example, a
+  /// net metering rebate that pays $10/kWh, up to $1,000:</p> { "@type":
+  /// "UnitPriceSpecification", "price": 10, "priceCurrency": "USD",
+  /// "referenceQuantity": 1, "unitCode": "DO3", "unitText": "kw/h",
+  /// "maxPrice": 1000, "description": "$10 / kwh up to $1000" }
+  /// <p>[SchemaLoanOrCredit]: Use for incentives that are loan based. For
+  /// example, a loan of $4,000 - $50,000 with a repayment term of 10 years,
+  /// interest free would look like:</p> { "@type": "LoanOrCredit", "loanTerm":
+  /// { "@type":"QuantitativeValue", "value":"10", "unitCode": "ANN" },
+  /// "amount":[ { "@type": "QuantitativeValue", "Name":"fixed interest rate",
+  /// "value":"0", }, ], "amount":[ { "@type": "MonetaryAmount", "Name":"min
+  /// loan amount", "value":"4000", "currency":"CAD" }, { "@type":
+  /// "MonetaryAmount", "Name":"max loan amount", "value":"50000",
+  /// "currency":"CAD" } ], }
+  ///
+  /// In summary: <ul><li>Use [SchemaQuantitativeValue] for
+  /// absolute/percentage-based incentives applied on the price of a
+  /// good/service.</li> <li>Use [SchemaUnitPriceSpecification] for incentives
+  /// based on a per-unit basis (e.g. net metering).</li> <li>Use
+  /// [SchemaLoanOrCredit] for loans/credits.</li> </ul>.
   ///
   /// Supported types: [SchemaLoanOrCredit], [SchemaQuantitativeValue],
   /// [SchemaUnitPriceSpecification]
@@ -65,13 +95,24 @@ class SchemaFinancialIncentive extends SchemaIntangible {
   /// waiver, subsidies, etc.).
   SchemaIncentiveType? incentiveType;
 
-  /// "Kenmore White 17" Microwave", } For multiple different incentivized
-  /// items, use multiple [SchemaDefinedTerm] or [SchemaProduct].
+  /// The type or specific product(s) and/or service(s) being incentivized.
+  /// <p>DefinedTermSets are used for product and service categories such as
+  /// the United Nations Standard Products and Services Code:</p> { "@type":
+  /// "DefinedTerm", "inDefinedTermSet": "https://www.unspsc.org/", "termCode":
+  /// "261315XX", "name": "Photovoltaic module" }
+  ///
+  /// <p>For a specific product or service, use the Product type:</p> {
+  /// "@type": "Product", "name": "Kenmore White 17" Microwave", } For multiple
+  /// different incentivized items, use multiple [SchemaDefinedTerm] or
+  /// [SchemaProduct].
   ///
   /// Supported types: [SchemaDefinedTerm], [SchemaProduct]
   dynamic incentivizedItem;
 
-  /// "USD", }
+  /// Optional. Income limit for which the incentive is applicable for. <p>If
+  /// MonetaryAmount is specified, this should be based on annualized income
+  /// (e.g. if an incentive is limited to those making <$114,000 annually):</p>
+  /// { "@type": "MonetaryAmount", "maxValue": 114000, "currency": "USD", }
   ///
   /// Use Text for incentives that are limited based on other criteria, for
   /// example if an incentive is only available to recipients making 120% of
@@ -148,32 +189,34 @@ class SchemaFinancialIncentive extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'FinancialIncentive',
-        'areaServed': convertToJsonLd(areaServed,
-            [SchemaAdministrativeArea, SchemaGeoShape, SchemaPlace, String]),
-        'eligibleWithSupplier':
-            convertToJsonLd(eligibleWithSupplier, [SchemaOrganization]),
-        'incentiveAmount': convertToJsonLd(incentiveAmount, [
-          SchemaLoanOrCredit,
-          SchemaQuantitativeValue,
-          SchemaUnitPriceSpecification
-        ]),
-        'incentiveStatus':
-            convertToJsonLd(incentiveStatus, [SchemaIncentiveStatus]),
-        'incentiveType': convertToJsonLd(incentiveType, [SchemaIncentiveType]),
-        'incentivizedItem': convertToJsonLd(
-            incentivizedItem, [SchemaDefinedTerm, SchemaProduct]),
-        'incomeLimit':
-            convertToJsonLd(incomeLimit, [SchemaMonetaryAmount, String]),
-        'provider':
-            convertToJsonLd(provider, [SchemaOrganization, SchemaPerson]),
-        'publisher':
-            convertToJsonLd(publisher, [SchemaOrganization, SchemaPerson]),
-        'purchasePriceLimit':
-            convertToJsonLd(purchasePriceLimit, [SchemaMonetaryAmount]),
-        'purchaseType': convertToJsonLd(purchaseType, [SchemaPurchaseType]),
-        'qualifiedExpense': convertToJsonLd(
-            qualifiedExpense, [SchemaIncentiveQualifiedExpenseType]),
-        'validFrom': convertToJsonLd(validFrom, [String]),
-        'validThrough': convertToJsonLd(validThrough, [String]),
+        'areaServed': convertToJsonLd(
+            areaServed,
+            (v) =>
+                v is SchemaAdministrativeArea ||
+                v is SchemaGeoShape ||
+                v is SchemaPlace ||
+                v is String),
+        'eligibleWithSupplier': convertToJsonLd(eligibleWithSupplier),
+        'incentiveAmount': convertToJsonLd(
+            incentiveAmount,
+            (v) =>
+                v is SchemaLoanOrCredit ||
+                v is SchemaQuantitativeValue ||
+                v is SchemaUnitPriceSpecification),
+        'incentiveStatus': convertToJsonLd(incentiveStatus),
+        'incentiveType': convertToJsonLd(incentiveType),
+        'incentivizedItem': convertToJsonLd(incentivizedItem,
+            (v) => v is SchemaDefinedTerm || v is SchemaProduct),
+        'incomeLimit': convertToJsonLd(
+            incomeLimit, (v) => v is SchemaMonetaryAmount || v is String),
+        'provider': convertToJsonLd(
+            provider, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'publisher': convertToJsonLd(
+            publisher, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'purchasePriceLimit': convertToJsonLd(purchasePriceLimit),
+        'purchaseType': convertToJsonLd(purchaseType),
+        'qualifiedExpense': convertToJsonLd(qualifiedExpense),
+        'validFrom': convertToJsonLd(validFrom),
+        'validThrough': convertToJsonLd(validThrough),
       });
 }

@@ -91,16 +91,17 @@ class SchemaPropertyValueSpecification extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'PropertyValueSpecification',
-        'defaultValue': convertToJsonLd(defaultValue, [String, SchemaThing]),
-        'maxValue': convertToJsonLd(maxValue, [num]),
-        'minValue': convertToJsonLd(minValue, [num]),
-        'multipleValues': convertToJsonLd(multipleValues, [bool]),
-        'readonlyValue': convertToJsonLd(readonlyValue, [bool]),
-        'stepValue': convertToJsonLd(stepValue, [num]),
-        'valueMaxLength': convertToJsonLd(valueMaxLength, [num]),
-        'valueMinLength': convertToJsonLd(valueMinLength, [num]),
-        'valueName': convertToJsonLd(valueName, [String]),
-        'valuePattern': convertToJsonLd(valuePattern, [String]),
-        'valueRequired': convertToJsonLd(valueRequired, [bool]),
+        'defaultValue': convertToJsonLd(
+            defaultValue, (v) => v is String || v is SchemaThing),
+        'maxValue': convertToJsonLd(maxValue),
+        'minValue': convertToJsonLd(minValue),
+        'multipleValues': convertToJsonLd(multipleValues),
+        'readonlyValue': convertToJsonLd(readonlyValue),
+        'stepValue': convertToJsonLd(stepValue),
+        'valueMaxLength': convertToJsonLd(valueMaxLength),
+        'valueMinLength': convertToJsonLd(valueMinLength),
+        'valueName': convertToJsonLd(valueName),
+        'valuePattern': convertToJsonLd(valuePattern),
+        'valueRequired': convertToJsonLd(valueRequired),
       });
 }

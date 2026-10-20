@@ -55,9 +55,9 @@ class SchemaDataFeedItem extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'DataFeedItem',
-        'dateCreated': convertToJsonLd(dateCreated, [String]),
-        'dateDeleted': convertToJsonLd(dateDeleted, [String]),
-        'dateModified': convertToJsonLd(dateModified, [String]),
-        'item': convertToJsonLd(item, [SchemaThing]),
+        'dateCreated': convertToJsonLd(dateCreated),
+        'dateDeleted': convertToJsonLd(dateDeleted),
+        'dateModified': convertToJsonLd(dateModified),
+        'item': convertToJsonLd(item),
       });
 }

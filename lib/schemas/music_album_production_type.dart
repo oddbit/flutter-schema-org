@@ -9,40 +9,41 @@
 
 import 'package:schema_org/src/schema_serializable.dart';
 
-/// soundtrack, live album, studio album, etc.
+/// Classification of the album by its type of content: soundtrack, live
+/// album, studio album, etc.
 /// See https://schema.org/MusicAlbumProductionType
 enum SchemaMusicAlbumProductionType implements SchemaSerializable {
   /// CompilationAlbum.
-  compilationAlbum('https://schema.org/MusicAlbumProductionType'),
+  compilationAlbum('https://schema.org/CompilationAlbum'),
 
   /// DJMixAlbum.
-  dJMixAlbum('https://schema.org/MusicAlbumProductionType'),
+  dJMixAlbum('https://schema.org/DJMixAlbum'),
 
   /// DemoAlbum.
-  demoAlbum('https://schema.org/MusicAlbumProductionType'),
+  demoAlbum('https://schema.org/DemoAlbum'),
 
   /// LiveAlbum.
-  liveAlbum('https://schema.org/MusicAlbumProductionType'),
+  liveAlbum('https://schema.org/LiveAlbum'),
 
   /// MixtapeAlbum.
-  mixtapeAlbum('https://schema.org/MusicAlbumProductionType'),
+  mixtapeAlbum('https://schema.org/MixtapeAlbum'),
 
   /// RemixAlbum.
-  remixAlbum('https://schema.org/MusicAlbumProductionType'),
+  remixAlbum('https://schema.org/RemixAlbum'),
 
   /// SoundtrackAlbum.
-  soundtrackAlbum('https://schema.org/MusicAlbumProductionType'),
+  soundtrackAlbum('https://schema.org/SoundtrackAlbum'),
 
   /// SpokenWordAlbum.
-  spokenWordAlbum('https://schema.org/MusicAlbumProductionType'),
+  spokenWordAlbum('https://schema.org/SpokenWordAlbum'),
 
   /// StudioAlbum.
-  studioAlbum('https://schema.org/MusicAlbumProductionType');
+  studioAlbum('https://schema.org/StudioAlbum');
 
   /// Constructor for [SchemaMusicAlbumProductionType]
   const SchemaMusicAlbumProductionType(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaMusicAlbumProductionType] to JSON-LD

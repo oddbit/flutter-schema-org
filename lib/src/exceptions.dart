@@ -7,9 +7,9 @@
 /// whose runtime type falls outside the set of Dart types declared for
 /// that property's Schema.org range.
 ///
-/// This normally means a dynamic-typed property (e.g. `Organization.agent`
-/// accepts `SchemaOrganization` or `SchemaPerson`) was set to something
-/// else. Catching this exception is only useful when you accept user input
+/// This normally means a dynamic-typed property (e.g.
+/// `SchemaOrganization.founder` accepts `SchemaOrganization` or
+/// `SchemaPerson`, including their subtypes) was set to something else. Catching this exception is only useful when you accept user input
 /// that flows into a schema object; generated code itself never throws it
 /// for values it constructs.
 class UnsupportedTypeException implements Exception {

@@ -158,7 +158,7 @@ class SchemaDigitalDocument extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'DigitalDocument',
-        'hasDigitalDocumentPermission': convertToJsonLd(
-            hasDigitalDocumentPermission, [SchemaDigitalDocumentPermission]),
+        'hasDigitalDocumentPermission':
+            convertToJsonLd(hasDigitalDocumentPermission),
       });
 }

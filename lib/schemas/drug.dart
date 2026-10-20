@@ -84,6 +84,8 @@ class SchemaDrug extends SchemaProduct implements SchemaSubstance {
   /// The insurance plans that cover this drug.
   SchemaHealthInsurancePlan? includedInHealthInsurancePlan;
 
+  /// Another drug that is known to interact with this drug in a way that
+  /// impacts the effect of this drug or causes a risk to the patient. Note:
   /// disease interactions are typically captured as contraindications.
   SchemaDrug? interactingDrug;
 
@@ -186,12 +188,14 @@ class SchemaDrug extends SchemaProduct implements SchemaSubstance {
     super.alternateName,
     super.asin,
     super.audience,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.brand,
     super.category,
     super.color,
     super.colorSwatch,
+    super.consumerNotice,
     super.countryOfAssembly,
     super.countryOfLastProcessing,
     super.countryOfOrigin,
@@ -207,17 +211,21 @@ class SchemaDrug extends SchemaProduct implements SchemaSubstance {
     super.gtin8,
     super.hasAdultConsideration,
     super.hasCertification,
+    super.hasDigitalProductPassport,
     super.hasEnergyConsumptionDetails,
     super.hasGS1DigitalLink,
     super.hasMeasurement,
     super.hasMerchantReturnPolicy,
+    super.hasProductReturnPolicy,
     super.height,
     super.identifier,
     super.image,
+    super.importer,
     super.inProductGroupWithID,
     super.isAccessoryOrSparePartFor,
     super.isConsumableFor,
     super.isFamilyFriendly,
+    super.isOftenBoughtWith,
     super.isRelatedTo,
     super.isSimilarTo,
     super.isVariantOf,
@@ -241,6 +249,7 @@ class SchemaDrug extends SchemaProduct implements SchemaSubstance {
     super.productID,
     super.productionDate,
     super.purchaseDate,
+    super.recycledContentPercentage,
     super.releaseDate,
     super.review,
     super.reviews,
@@ -248,7 +257,9 @@ class SchemaDrug extends SchemaProduct implements SchemaSubstance {
     super.size,
     super.sku,
     super.slogan,
+    super.specification,
     super.subjectOf,
+    super.substanceOfConcern,
     super.url,
     super.weight,
     super.width,
@@ -295,51 +306,48 @@ class SchemaDrug extends SchemaProduct implements SchemaSubstance {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Drug',
-        'activeIngredient': convertToJsonLd(activeIngredient, [String]),
-        'administrationRoute': convertToJsonLd(administrationRoute, [String]),
-        'alcoholWarning': convertToJsonLd(alcoholWarning, [String]),
-        'availableStrength':
-            convertToJsonLd(availableStrength, [SchemaDrugStrength]),
-        'breastfeedingWarning': convertToJsonLd(breastfeedingWarning, [String]),
-        'clincalPharmacology': convertToJsonLd(clincalPharmacology, [String]),
-        'clinicalPharmacology': convertToJsonLd(clinicalPharmacology, [String]),
-        'dosageForm': convertToJsonLd(dosageForm, [String]),
-        'doseSchedule': convertToJsonLd(doseSchedule, [SchemaDoseSchedule]),
-        'drugClass': convertToJsonLd(drugClass, [SchemaDrugClass]),
-        'drugUnit': convertToJsonLd(drugUnit, [String]),
-        'foodWarning': convertToJsonLd(foodWarning, [String]),
-        'includedInHealthInsurancePlan': convertToJsonLd(
-            includedInHealthInsurancePlan, [SchemaHealthInsurancePlan]),
-        'interactingDrug': convertToJsonLd(interactingDrug, [SchemaDrug]),
-        'isAvailableGenerically':
-            convertToJsonLd(isAvailableGenerically, [bool]),
-        'isProprietary': convertToJsonLd(isProprietary, [bool]),
-        'labelDetails': convertToJsonLd(labelDetails, [String]),
-        'legalStatus': convertToJsonLd(legalStatus,
-            [SchemaDrugLegalStatus, SchemaMedicalEnumeration, String]),
-        'maximumIntake':
-            convertToJsonLd(maximumIntake, [SchemaMaximumDoseSchedule]),
-        'mechanismOfAction': convertToJsonLd(mechanismOfAction, [String]),
-        'nonProprietaryName': convertToJsonLd(nonProprietaryName, [String]),
-        'overdosage': convertToJsonLd(overdosage, [String]),
-        'pregnancyCategory':
-            convertToJsonLd(pregnancyCategory, [SchemaDrugPregnancyCategory]),
-        'pregnancyWarning': convertToJsonLd(pregnancyWarning, [String]),
-        'prescribingInfo': convertToJsonLd(prescribingInfo, [String]),
-        'prescriptionStatus': convertToJsonLd(
-            prescriptionStatus, [SchemaDrugPrescriptionStatus, String]),
-        'proprietaryName': convertToJsonLd(proprietaryName, [String]),
-        'relatedDrug': convertToJsonLd(relatedDrug, [SchemaDrug]),
-        'rxcui': convertToJsonLd(rxcui, [String]),
-        'warning': convertToJsonLd(warning, [String]),
-        'code': convertToJsonLd(code, [SchemaMedicalCode]),
-        'guideline': convertToJsonLd(guideline, [SchemaMedicalGuideline]),
-        'medicineSystem':
-            convertToJsonLd(medicineSystem, [SchemaMedicineSystem]),
-        'recognizingAuthority':
-            convertToJsonLd(recognizingAuthority, [SchemaOrganization]),
-        'relevantSpecialty':
-            convertToJsonLd(relevantSpecialty, [SchemaMedicalSpecialty]),
-        'study': convertToJsonLd(study, [SchemaMedicalStudy]),
+        'activeIngredient': convertToJsonLd(activeIngredient),
+        'administrationRoute': convertToJsonLd(administrationRoute),
+        'alcoholWarning': convertToJsonLd(alcoholWarning),
+        'availableStrength': convertToJsonLd(availableStrength),
+        'breastfeedingWarning': convertToJsonLd(breastfeedingWarning),
+        'clincalPharmacology': convertToJsonLd(clincalPharmacology),
+        'clinicalPharmacology': convertToJsonLd(clinicalPharmacology),
+        'dosageForm': convertToJsonLd(dosageForm),
+        'doseSchedule': convertToJsonLd(doseSchedule),
+        'drugClass': convertToJsonLd(drugClass),
+        'drugUnit': convertToJsonLd(drugUnit),
+        'foodWarning': convertToJsonLd(foodWarning),
+        'includedInHealthInsurancePlan':
+            convertToJsonLd(includedInHealthInsurancePlan),
+        'interactingDrug': convertToJsonLd(interactingDrug),
+        'isAvailableGenerically': convertToJsonLd(isAvailableGenerically),
+        'isProprietary': convertToJsonLd(isProprietary),
+        'labelDetails': convertToJsonLd(labelDetails),
+        'legalStatus': convertToJsonLd(
+            legalStatus,
+            (v) =>
+                v is SchemaDrugLegalStatus ||
+                v is SchemaMedicalEnumeration ||
+                v is String),
+        'maximumIntake': convertToJsonLd(maximumIntake),
+        'mechanismOfAction': convertToJsonLd(mechanismOfAction),
+        'nonProprietaryName': convertToJsonLd(nonProprietaryName),
+        'overdosage': convertToJsonLd(overdosage),
+        'pregnancyCategory': convertToJsonLd(pregnancyCategory),
+        'pregnancyWarning': convertToJsonLd(pregnancyWarning),
+        'prescribingInfo': convertToJsonLd(prescribingInfo),
+        'prescriptionStatus': convertToJsonLd(prescriptionStatus,
+            (v) => v is SchemaDrugPrescriptionStatus || v is String),
+        'proprietaryName': convertToJsonLd(proprietaryName),
+        'relatedDrug': convertToJsonLd(relatedDrug),
+        'rxcui': convertToJsonLd(rxcui),
+        'warning': convertToJsonLd(warning),
+        'code': convertToJsonLd(code),
+        'guideline': convertToJsonLd(guideline),
+        'medicineSystem': convertToJsonLd(medicineSystem),
+        'recognizingAuthority': convertToJsonLd(recognizingAuthority),
+        'relevantSpecialty': convertToJsonLd(relevantSpecialty),
+        'study': convertToJsonLd(study),
       });
 }

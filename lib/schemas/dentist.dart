@@ -43,6 +43,7 @@ class SchemaDentist extends SchemaLocalBusiness
     super.alumni,
     super.amenityFeature,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.branchCode,
@@ -98,6 +99,7 @@ class SchemaDentist extends SchemaLocalBusiness
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,
@@ -169,10 +171,8 @@ class SchemaDentist extends SchemaLocalBusiness
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Dentist',
-        'healthPlanNetworkId': convertToJsonLd(healthPlanNetworkId, [String]),
-        'isAcceptingNewPatients':
-            convertToJsonLd(isAcceptingNewPatients, [bool]),
-        'medicalSpecialty':
-            convertToJsonLd(medicalSpecialty, [SchemaMedicalSpecialty]),
+        'healthPlanNetworkId': convertToJsonLd(healthPlanNetworkId),
+        'isAcceptingNewPatients': convertToJsonLd(isAcceptingNewPatients),
+        'medicalSpecialty': convertToJsonLd(medicalSpecialty),
       });
 }

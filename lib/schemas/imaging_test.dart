@@ -53,7 +53,6 @@ class SchemaImagingTest extends SchemaMedicalTest {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ImagingTest',
-        'imagingTechnique':
-            convertToJsonLd(imagingTechnique, [SchemaMedicalImagingTechnique]),
+        'imagingTechnique': convertToJsonLd(imagingTechnique),
       });
 }

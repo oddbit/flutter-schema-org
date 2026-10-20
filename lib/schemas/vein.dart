@@ -69,9 +69,11 @@ class SchemaVein extends SchemaVessel {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Vein',
-        'drainsTo': convertToJsonLd(drainsTo, [SchemaVessel]),
+        'drainsTo': convertToJsonLd(drainsTo),
         'regionDrained': convertToJsonLd(
-            regionDrained, [SchemaAnatomicalStructure, SchemaAnatomicalSystem]),
-        'tributary': convertToJsonLd(tributary, [SchemaAnatomicalStructure]),
+            regionDrained,
+            (v) =>
+                v is SchemaAnatomicalStructure || v is SchemaAnatomicalSystem),
+        'tributary': convertToJsonLd(tributary),
       });
 }

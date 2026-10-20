@@ -45,6 +45,6 @@ class SchemaPerformanceRole extends SchemaRole {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'PerformanceRole',
-        'characterName': convertToJsonLd(characterName, [String]),
+        'characterName': convertToJsonLd(characterName),
       });
 }

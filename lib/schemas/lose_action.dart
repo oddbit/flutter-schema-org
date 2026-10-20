@@ -53,6 +53,6 @@ class SchemaLoseAction extends SchemaAchieveAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'LoseAction',
-        'winner': convertToJsonLd(winner, [SchemaPerson]),
+        'winner': convertToJsonLd(winner),
       });
 }

@@ -13,17 +13,17 @@ import 'package:schema_org/schemas/medical_enumeration.dart';
 /// See https://schema.org/MedicalProcedureType
 enum SchemaMedicalProcedureType implements SchemaMedicalEnumeration {
   /// A type of medical procedure that involves noninvasive techniques.
-  noninvasiveProcedure('https://schema.org/MedicalProcedureType'),
+  noninvasiveProcedure('https://schema.org/NoninvasiveProcedure'),
 
   /// A type of medical procedure that involves percutaneous techniques,
   /// where access to organs or tissue is achieved via needle-puncture of
   /// the skin. For example, catheter-based procedures like stent delivery.
-  percutaneousProcedure('https://schema.org/MedicalProcedureType');
+  percutaneousProcedure('https://schema.org/PercutaneousProcedure');
 
   /// Constructor for [SchemaMedicalProcedureType]
   const SchemaMedicalProcedureType(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaMedicalProcedureType] to JSON-LD

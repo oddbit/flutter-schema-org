@@ -92,14 +92,16 @@ class SchemaTrip extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Trip',
-        'arrivalTime': convertToJsonLd(arrivalTime, [String]),
-        'departureTime': convertToJsonLd(departureTime, [String]),
-        'itinerary': convertToJsonLd(itinerary, [SchemaItemList, SchemaPlace]),
-        'offers': convertToJsonLd(offers, [SchemaDemand, SchemaOffer]),
-        'partOfTrip': convertToJsonLd(partOfTrip, [SchemaTrip]),
-        'provider':
-            convertToJsonLd(provider, [SchemaOrganization, SchemaPerson]),
-        'subTrip': convertToJsonLd(subTrip, [SchemaTrip]),
-        'tripOrigin': convertToJsonLd(tripOrigin, [SchemaPlace]),
+        'arrivalTime': convertToJsonLd(arrivalTime),
+        'departureTime': convertToJsonLd(departureTime),
+        'itinerary': convertToJsonLd(
+            itinerary, (v) => v is SchemaItemList || v is SchemaPlace),
+        'offers': convertToJsonLd(
+            offers, (v) => v is SchemaDemand || v is SchemaOffer),
+        'partOfTrip': convertToJsonLd(partOfTrip),
+        'provider': convertToJsonLd(
+            provider, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'subTrip': convertToJsonLd(subTrip),
+        'tripOrigin': convertToJsonLd(tripOrigin),
       });
 }

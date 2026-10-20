@@ -99,15 +99,12 @@ class SchemaPalliativeProcedure extends SchemaMedicalProcedure
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'PalliativeProcedure',
-        'contraindication': convertToJsonLd(
-            contraindication, [SchemaMedicalContraindication, String]),
-        'duplicateTherapy':
-            convertToJsonLd(duplicateTherapy, [SchemaMedicalTherapy]),
-        'seriousAdverseOutcome':
-            convertToJsonLd(seriousAdverseOutcome, [SchemaMedicalEntity]),
-        'adverseOutcome':
-            convertToJsonLd(adverseOutcome, [SchemaMedicalEntity]),
-        'doseSchedule': convertToJsonLd(doseSchedule, [SchemaDoseSchedule]),
-        'drug': convertToJsonLd(drug, [SchemaDrug]),
+        'contraindication': convertToJsonLd(contraindication,
+            (v) => v is SchemaMedicalContraindication || v is String),
+        'duplicateTherapy': convertToJsonLd(duplicateTherapy),
+        'seriousAdverseOutcome': convertToJsonLd(seriousAdverseOutcome),
+        'adverseOutcome': convertToJsonLd(adverseOutcome),
+        'doseSchedule': convertToJsonLd(doseSchedule),
+        'drug': convertToJsonLd(drug),
       });
 }

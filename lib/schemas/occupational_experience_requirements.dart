@@ -41,6 +41,6 @@ class SchemaOccupationalExperienceRequirements extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'OccupationalExperienceRequirements',
-        'monthsOfExperience': convertToJsonLd(monthsOfExperience, [num]),
+        'monthsOfExperience': convertToJsonLd(monthsOfExperience),
       });
 }

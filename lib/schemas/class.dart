@@ -12,7 +12,7 @@ import 'package:schema_org/schemas/intangible.dart';
 import 'package:schema_org/schemas/enumeration.dart';
 import 'package:schema_org/schemas/property.dart';
 
-/// Class.
+/// A class, also often called a 'Type'; equivalent to rdfs:Class.
 /// See https://schema.org/Class
 class SchemaClass extends SchemaIntangible {
   /// Relates a term (i.e. a property, class or enumeration) to one that
@@ -45,6 +45,10 @@ class SchemaClass extends SchemaIntangible {
         ...super.toJsonLd(),
         '@type': 'Class',
         'supersededBy': convertToJsonLd(
-            supersededBy, [SchemaClass, SchemaEnumeration, SchemaProperty]),
+            supersededBy,
+            (v) =>
+                v is SchemaClass ||
+                v is SchemaEnumeration ||
+                v is SchemaProperty),
       });
 }

@@ -185,10 +185,9 @@ class SchemaClaim extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Claim',
-        'appearance': convertToJsonLd(appearance, [SchemaCreativeWork]),
-        'claimInterpreter': convertToJsonLd(
-            claimInterpreter, [SchemaOrganization, SchemaPerson]),
-        'firstAppearance':
-            convertToJsonLd(firstAppearance, [SchemaCreativeWork]),
+        'appearance': convertToJsonLd(appearance),
+        'claimInterpreter': convertToJsonLd(claimInterpreter,
+            (v) => v is SchemaOrganization || v is SchemaPerson),
+        'firstAppearance': convertToJsonLd(firstAppearance),
       });
 }

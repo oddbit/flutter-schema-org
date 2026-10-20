@@ -64,7 +64,12 @@ class SchemaShippingConditions extends SchemaStructuredValue {
   /// Supported types: [SchemaMonetaryAmount], [SchemaShippingRateSettings]
   dynamic shippingRate;
 
-  /// minValue, maxValue, unitCode (d for DAY).
+  /// The typical delay the order has been sent for delivery and the goods
+  /// reach the final customer.
+  ///
+  /// In the context of [SchemaShippingDeliveryTime], use the
+  /// [SchemaQuantitativeValue]. Typical properties: minValue, maxValue,
+  /// unitCode (d for DAY).
   ///
   /// In the context of [SchemaShippingConditions], use the
   /// [SchemaServicePeriod]. It has a duration (as a [SchemaQuantitativeValue])
@@ -117,26 +122,25 @@ class SchemaShippingConditions extends SchemaStructuredValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ShippingConditions',
-        'depth':
-            convertToJsonLd(depth, [SchemaDistance, SchemaQuantitativeValue]),
-        'doesNotShip': convertToJsonLd(doesNotShip, [bool]),
-        'height':
-            convertToJsonLd(height, [SchemaDistance, SchemaQuantitativeValue]),
-        'numItems': convertToJsonLd(numItems, [SchemaQuantitativeValue]),
-        'orderValue': convertToJsonLd(orderValue, [SchemaMonetaryAmount]),
-        'seasonalOverride': convertToJsonLd(
-            seasonalOverride, [SchemaOpeningHoursSpecification]),
-        'shippingDestination':
-            convertToJsonLd(shippingDestination, [SchemaDefinedRegion]),
-        'shippingOrigin':
-            convertToJsonLd(shippingOrigin, [SchemaDefinedRegion]),
+        'depth': convertToJsonLd(
+            depth, (v) => v is SchemaDistance || v is SchemaQuantitativeValue),
+        'doesNotShip': convertToJsonLd(doesNotShip),
+        'height': convertToJsonLd(
+            height, (v) => v is SchemaDistance || v is SchemaQuantitativeValue),
+        'numItems': convertToJsonLd(numItems),
+        'orderValue': convertToJsonLd(orderValue),
+        'seasonalOverride': convertToJsonLd(seasonalOverride),
+        'shippingDestination': convertToJsonLd(shippingDestination),
+        'shippingOrigin': convertToJsonLd(shippingOrigin),
         'shippingRate': convertToJsonLd(
-            shippingRate, [SchemaMonetaryAmount, SchemaShippingRateSettings]),
-        'transitTime': convertToJsonLd(
-            transitTime, [SchemaQuantitativeValue, SchemaServicePeriod]),
-        'weight':
-            convertToJsonLd(weight, [SchemaMass, SchemaQuantitativeValue]),
-        'width':
-            convertToJsonLd(width, [SchemaDistance, SchemaQuantitativeValue]),
+            shippingRate,
+            (v) =>
+                v is SchemaMonetaryAmount || v is SchemaShippingRateSettings),
+        'transitTime': convertToJsonLd(transitTime,
+            (v) => v is SchemaQuantitativeValue || v is SchemaServicePeriod),
+        'weight': convertToJsonLd(
+            weight, (v) => v is SchemaMass || v is SchemaQuantitativeValue),
+        'width': convertToJsonLd(
+            width, (v) => v is SchemaDistance || v is SchemaQuantitativeValue),
       });
 }

@@ -50,6 +50,6 @@ class SchemaMedicalRiskScore extends SchemaMedicalRiskEstimator {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MedicalRiskScore',
-        'algorithm': convertToJsonLd(algorithm, [String]),
+        'algorithm': convertToJsonLd(algorithm),
       });
 }

@@ -236,21 +236,22 @@ class SchemaRadioSeries extends SchemaCreativeWorkSeries {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'RadioSeries',
-        'actor': convertToJsonLd(actor, [SchemaPerformingGroup, SchemaPerson]),
-        'actors': convertToJsonLd(actors, [SchemaPerson]),
-        'containsSeason':
-            convertToJsonLd(containsSeason, [SchemaCreativeWorkSeason]),
-        'director': convertToJsonLd(director, [SchemaPerson]),
-        'directors': convertToJsonLd(directors, [SchemaPerson]),
-        'episode': convertToJsonLd(episode, [SchemaEpisode]),
-        'episodes': convertToJsonLd(episodes, [SchemaEpisode]),
-        'musicBy': convertToJsonLd(musicBy, [SchemaMusicGroup, SchemaPerson]),
-        'numberOfEpisodes': convertToJsonLd(numberOfEpisodes, [int]),
-        'numberOfSeasons': convertToJsonLd(numberOfSeasons, [int]),
-        'productionCompany':
-            convertToJsonLd(productionCompany, [SchemaOrganization]),
-        'season': convertToJsonLd(season, [SchemaCreativeWorkSeason, String]),
-        'seasons': convertToJsonLd(seasons, [SchemaCreativeWorkSeason]),
-        'trailer': convertToJsonLd(trailer, [SchemaVideoObject]),
+        'actor': convertToJsonLd(
+            actor, (v) => v is SchemaPerformingGroup || v is SchemaPerson),
+        'actors': convertToJsonLd(actors),
+        'containsSeason': convertToJsonLd(containsSeason),
+        'director': convertToJsonLd(director),
+        'directors': convertToJsonLd(directors),
+        'episode': convertToJsonLd(episode),
+        'episodes': convertToJsonLd(episodes),
+        'musicBy': convertToJsonLd(
+            musicBy, (v) => v is SchemaMusicGroup || v is SchemaPerson),
+        'numberOfEpisodes': convertToJsonLd(numberOfEpisodes),
+        'numberOfSeasons': convertToJsonLd(numberOfSeasons),
+        'productionCompany': convertToJsonLd(productionCompany),
+        'season': convertToJsonLd(
+            season, (v) => v is SchemaCreativeWorkSeason || v is String),
+        'seasons': convertToJsonLd(seasons),
+        'trailer': convertToJsonLd(trailer),
       });
 }

@@ -17,7 +17,11 @@ import 'package:schema_org/schemas/person.dart';
 /// different media or modes of study or to a specific section of students.
 /// See https://schema.org/CourseInstance
 class SchemaCourseInstance extends SchemaEvent {
-  /// //ceds.ed.gov/element/001311#Asynchronous).
+  /// The medium or means of delivery of the course instance or the mode of
+  /// study, either as a text label (e.g. "online", "onsite" or "blended";
+  /// "synchronous" or "asynchronous"; "full-time" or "part-time") or as a URL
+  /// reference to a term from a controlled vocabulary (e.g.
+  /// https://ceds.ed.gov/element/001311#Asynchronous).
   String? courseMode;
 
   /// Represents the length and pace of a course, expressed as a
@@ -103,9 +107,9 @@ class SchemaCourseInstance extends SchemaEvent {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'CourseInstance',
-        'courseMode': convertToJsonLd(courseMode, [String]),
-        'courseSchedule': convertToJsonLd(courseSchedule, [SchemaSchedule]),
-        'courseWorkload': convertToJsonLd(courseWorkload, [String]),
-        'instructor': convertToJsonLd(instructor, [SchemaPerson]),
+        'courseMode': convertToJsonLd(courseMode),
+        'courseSchedule': convertToJsonLd(courseSchedule),
+        'courseWorkload': convertToJsonLd(courseWorkload),
+        'instructor': convertToJsonLd(instructor),
       });
 }

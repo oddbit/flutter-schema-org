@@ -50,8 +50,7 @@ class SchemaMediaSubscription extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MediaSubscription',
-        'authenticator': convertToJsonLd(authenticator, [SchemaOrganization]),
-        'expectsAcceptanceOf':
-            convertToJsonLd(expectsAcceptanceOf, [SchemaOffer]),
+        'authenticator': convertToJsonLd(authenticator),
+        'expectsAcceptanceOf': convertToJsonLd(expectsAcceptanceOf),
       });
 }

@@ -52,10 +52,15 @@ class SchemaEducationalOccupationalProgram extends SchemaIntangible {
   /// Supported types: [SchemaEducationalOccupationalCredential], [String]
   dynamic educationalCredentialAwarded;
 
-  /// //ceds.ed.gov/element/001311#Asynchronous ).
+  /// Similar to courseMode, the medium or means of delivery of the program as
+  /// a whole. The value may either be a text label (e.g. "online", "onsite" or
+  /// "blended"; "synchronous" or "asynchronous"; "full-time" or "part-time")
+  /// or a URL reference to a term from a controlled vocabulary (e.g.
+  /// https://ceds.ed.gov/element/001311#Asynchronous ).
   String? educationalProgramMode;
 
-  /// //en.wikipedia.org/wiki/ISO_8601)).
+  /// The end date and time of the item (in [ISO 8601 date
+  /// format](http://en.wikipedia.org/wiki/ISO_8601)).
   String? endDate;
 
   /// A financial aid type or program which students may use to pay for tuition
@@ -80,8 +85,14 @@ class SchemaEducationalOccupationalProgram extends SchemaIntangible {
   /// Supported types: [SchemaStructuredValue], [int]
   dynamic numberOfCredits;
 
-  /// for historical reasons, any textual label and formal code provided as a
-  /// literal may be assumed to be from O*NET-SOC.
+  /// A category describing the job, preferably using a term from a taxonomy
+  /// such as [BLS O*NET-SOC](http://www.onetcenter.org/taxonomy.html),
+  /// [ISCO-08](https://www.ilo.org/public/english/bureau/stat/isco/isco08/) or
+  /// similar, with the property repeated for each applicable value. Ideally
+  /// the taxonomy should be identified, and both the textual label and formal
+  /// code for the category should be provided.\n Note: for historical reasons,
+  /// any textual label and formal code provided as a literal may be assumed to
+  /// be from O*NET-SOC.
   ///
   /// Supported types: [SchemaCategoryCode], [String]
   dynamic occupationalCategory;
@@ -127,7 +138,8 @@ class SchemaEducationalOccupationalProgram extends SchemaIntangible {
   /// The expected salary upon completing the training.
   SchemaMonetaryAmountDistribution? salaryUponCompletion;
 
-  /// //en.wikipedia.org/wiki/ISO_8601)).
+  /// The start date and time of the item (in [ISO 8601 date
+  /// format](http://en.wikipedia.org/wiki/ISO_8601)).
   String? startDate;
 
   /// The amount of time in a term as defined by the institution. A term is a
@@ -203,47 +215,46 @@ class SchemaEducationalOccupationalProgram extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'EducationalOccupationalProgram',
-        'applicationDeadline': convertToJsonLd(applicationDeadline, [String]),
-        'applicationStartDate': convertToJsonLd(applicationStartDate, [String]),
-        'dayOfWeek': convertToJsonLd(dayOfWeek, [SchemaDayOfWeek]),
+        'applicationDeadline': convertToJsonLd(applicationDeadline),
+        'applicationStartDate': convertToJsonLd(applicationStartDate),
+        'dayOfWeek': convertToJsonLd(dayOfWeek),
         'educationalCredentialAwarded': convertToJsonLd(
             educationalCredentialAwarded,
-            [SchemaEducationalOccupationalCredential, String]),
-        'educationalProgramMode':
-            convertToJsonLd(educationalProgramMode, [String]),
-        'endDate': convertToJsonLd(endDate, [String]),
-        'financialAidEligible':
-            convertToJsonLd(financialAidEligible, [SchemaDefinedTerm, String]),
-        'hasCourse': convertToJsonLd(hasCourse, [SchemaCourse]),
-        'maximumEnrollment': convertToJsonLd(maximumEnrollment, [int]),
-        'numberOfCredits':
-            convertToJsonLd(numberOfCredits, [SchemaStructuredValue, int]),
-        'occupationalCategory':
-            convertToJsonLd(occupationalCategory, [SchemaCategoryCode, String]),
+            (v) => v is SchemaEducationalOccupationalCredential || v is String),
+        'educationalProgramMode': convertToJsonLd(educationalProgramMode),
+        'endDate': convertToJsonLd(endDate),
+        'financialAidEligible': convertToJsonLd(
+            financialAidEligible, (v) => v is SchemaDefinedTerm || v is String),
+        'hasCourse': convertToJsonLd(hasCourse),
+        'maximumEnrollment': convertToJsonLd(maximumEnrollment),
+        'numberOfCredits': convertToJsonLd(
+            numberOfCredits, (v) => v is SchemaStructuredValue || v is int),
+        'occupationalCategory': convertToJsonLd(occupationalCategory,
+            (v) => v is SchemaCategoryCode || v is String),
         'occupationalCredentialAwarded': convertToJsonLd(
             occupationalCredentialAwarded,
-            [SchemaEducationalOccupationalCredential, String]),
-        'offers': convertToJsonLd(offers, [SchemaDemand, SchemaOffer]),
-        'programPrerequisites': convertToJsonLd(programPrerequisites, [
-          SchemaAlignmentObject,
-          SchemaCourse,
-          SchemaEducationalOccupationalCredential,
-          String
-        ]),
-        'programType':
-            convertToJsonLd(programType, [SchemaDefinedTerm, String]),
-        'provider':
-            convertToJsonLd(provider, [SchemaOrganization, SchemaPerson]),
-        'salaryUponCompletion': convertToJsonLd(
-            salaryUponCompletion, [SchemaMonetaryAmountDistribution]),
-        'startDate': convertToJsonLd(startDate, [String]),
-        'termDuration': convertToJsonLd(termDuration, [SchemaDuration]),
-        'termsPerYear': convertToJsonLd(termsPerYear, [num]),
-        'timeOfDay': convertToJsonLd(timeOfDay, [String]),
-        'timeToComplete': convertToJsonLd(timeToComplete, [SchemaDuration]),
-        'trainingSalary':
-            convertToJsonLd(trainingSalary, [SchemaMonetaryAmountDistribution]),
-        'typicalCreditsPerTerm': convertToJsonLd(
-            typicalCreditsPerTerm, [SchemaStructuredValue, int]),
+            (v) => v is SchemaEducationalOccupationalCredential || v is String),
+        'offers': convertToJsonLd(
+            offers, (v) => v is SchemaDemand || v is SchemaOffer),
+        'programPrerequisites': convertToJsonLd(
+            programPrerequisites,
+            (v) =>
+                v is SchemaAlignmentObject ||
+                v is SchemaCourse ||
+                v is SchemaEducationalOccupationalCredential ||
+                v is String),
+        'programType': convertToJsonLd(
+            programType, (v) => v is SchemaDefinedTerm || v is String),
+        'provider': convertToJsonLd(
+            provider, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'salaryUponCompletion': convertToJsonLd(salaryUponCompletion),
+        'startDate': convertToJsonLd(startDate),
+        'termDuration': convertToJsonLd(termDuration),
+        'termsPerYear': convertToJsonLd(termsPerYear),
+        'timeOfDay': convertToJsonLd(timeOfDay),
+        'timeToComplete': convertToJsonLd(timeToComplete),
+        'trainingSalary': convertToJsonLd(trainingSalary),
+        'typicalCreditsPerTerm': convertToJsonLd(typicalCreditsPerTerm,
+            (v) => v is SchemaStructuredValue || v is int),
       });
 }

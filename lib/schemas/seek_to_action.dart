@@ -58,6 +58,7 @@ class SchemaSeekToAction extends SchemaAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'SeekToAction',
-        'startOffset': convertToJsonLd(startOffset, [SchemaHyperTocEntry, num]),
+        'startOffset': convertToJsonLd(
+            startOffset, (v) => v is SchemaHyperTocEntry || v is num),
       });
 }

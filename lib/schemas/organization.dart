@@ -29,6 +29,7 @@ import 'package:schema_org/schemas/credential.dart';
 import 'package:schema_org/schemas/member_program.dart';
 import 'package:schema_org/schemas/merchant_return_policy.dart';
 import 'package:schema_org/schemas/offer_catalog.dart';
+import 'package:schema_org/schemas/product_return_policy.dart';
 import 'package:schema_org/schemas/shipping_service.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 import 'package:schema_org/schemas/language.dart';
@@ -84,6 +85,12 @@ class SchemaOrganization extends SchemaThing {
   /// [SchemaPlace], [String]
   dynamic areaServed;
 
+  /// An organization or person officially appointed to act on behalf of the
+  /// manufacturer in a specific region or context.
+  ///
+  /// Supported types: [SchemaOrganization], [SchemaPerson]
+  dynamic authorizedRepresentative;
+
   /// An award won by or for this item.
   String? award;
 
@@ -116,7 +123,10 @@ class SchemaOrganization extends SchemaThing {
   /// Supported types: [SchemaCreativeWork], [String]
   dynamic correctionsPolicy;
 
-  /// a store with a pharmacy, or a bakery with a cafe.
+  /// A relationship between an organization and a department of that
+  /// organization, also described as an organization (allowing different urls,
+  /// logos, opening hours). For example: a store with a pharmacy, or a bakery
+  /// with a cafe.
   SchemaOrganization? department;
 
   /// The date that this organization was dissolved.
@@ -198,10 +208,10 @@ class SchemaOrganization extends SchemaThing {
   /// sponsorship for this item. See also [SchemaownershipFundingInfo].
   SchemaGrant? funding;
 
-  /// //www.gs1.org/gln) (GLN, sometimes also referred to as International
-  /// Location Number or ILN) of the respective organization, person, or place.
-  /// The GLN is a 13-digit number used to identify parties and physical
-  /// locations.
+  /// The [Global Location Number](http://www.gs1.org/gln) (GLN, sometimes also
+  /// referred to as International Location Number or ILN) of the respective
+  /// organization, person, or place. The GLN is a 13-digit number used to
+  /// identify parties and physical locations.
   String? globalLocationNumber;
 
   /// Certification information about a product, organization, service, place,
@@ -211,15 +221,21 @@ class SchemaOrganization extends SchemaThing {
   /// A credential awarded to the Person or Organization.
   SchemaCredential? hasCredential;
 
-  /// <ul><li>A Digital Link that contains a serial number (AI <code>21</code>)
-  /// should only be present on instances of
-  /// [SchemaIndividualProduct]</li><li>A Digital Link that contains a lot
-  /// number (AI <code>10</code>) should be annotated as [SchemaSomeProducts]
-  /// if only products from that lot are sold, or [SchemaIndividualProduct] if
-  /// there is only a specific product.</li><li>A Digital Link that contains a
-  /// global model number (AI <code>8013</code>) should be attached to a
-  /// [SchemaProduct] or a [SchemaProductModel].</li></ul> Other item types
-  /// should be adapted similarly.
+  /// The <a href="https://www.gs1.org/standards/gs1-digital-link">GS1 digital
+  /// link</a> associated with the object. This URL should conform to the
+  /// particular requirements of digital links. The link should only contain
+  /// the Application Identifiers (AIs) that are relevant for the entity being
+  /// annotated, for instance a [SchemaProduct] or an [SchemaOrganization], and
+  /// for the correct granularity. In particular, for products:<ul><li>A
+  /// Digital Link that contains a serial number (AI <code>21</code>) should
+  /// only be present on instances of [SchemaIndividualProduct]</li><li>A
+  /// Digital Link that contains a lot number (AI <code>10</code>) should be
+  /// annotated as [SchemaSomeProducts] if only products from that lot are
+  /// sold, or [SchemaIndividualProduct] if there is only a specific
+  /// product.</li><li>A Digital Link that contains a global model number (AI
+  /// <code>8013</code>) should be attached to a [SchemaProduct] or a
+  /// [SchemaProductModel].</li></ul> Other item types should be adapted
+  /// similarly.
   String? hasGS1DigitalLink;
 
   /// MemberProgram offered by an Organization, for example an eCommerce
@@ -236,6 +252,11 @@ class SchemaOrganization extends SchemaThing {
   /// Points-of-Sales operated by the organization or person.
   SchemaPlace? hasPOS;
 
+  /// Indicates a ProductReturnPolicy that may be applicable.
+  @Deprecated(
+      'Use [hasMerchantReturnPolicy]. See https://schema.org/hasProductReturnPolicy')
+  SchemaProductReturnPolicy? hasProductReturnPolicy;
+
   /// Specification of a shipping service offered by the organization.
   SchemaShippingService? hasShippingService;
 
@@ -249,7 +270,22 @@ class SchemaOrganization extends SchemaThing {
   /// business person, or place.
   String? isicV4;
 
-  /// //schema.org/taxID), as ISO identifiers are less ambiguous.
+  /// An organization identifier as defined in [ISO
+  /// 6523(-1)](https://en.wikipedia.org/wiki/ISO/IEC_6523). The identifier
+  /// should be in the `XXXX:YYYYYY:ZZZ` or `XXXX:YYYYYY`format. Where `XXXX`
+  /// is a 4 digit _ICD_ (International Code Designator), `YYYYYY` is an _OID_
+  /// (Organization Identifier) with all formatting characters (dots, dashes,
+  /// spaces) removed with a maximal length of 35 characters, and `ZZZ` is an
+  /// optional OPI (Organization Part Identifier) with a maximum length of 35
+  /// characters. The various components (ICD, OID, OPI) are joined with a
+  /// colon character (ASCII `0x3a`). Note that many existing organization
+  /// identifiers defined as attributes like
+  /// [leiCode](https://schema.org/leiCode) (`0199`),
+  /// [duns](https://schema.org/duns) (`0060`) or
+  /// [GLN](https://schema.org/globalLocationNumber) (`0088`) can be expressed
+  /// using ISO-6523. If possible, ISO-6523 codes should be preferred to
+  /// populating [vatID](https://schema.org/vatID) or
+  /// [taxID](https://schema.org/taxID), as ISO identifiers are less ambiguous.
   String? iso6523Code;
 
   /// Keywords or tags used to describe some item. Multiple textual entries in
@@ -268,7 +304,10 @@ class SchemaOrganization extends SchemaThing {
   /// Supported types: [String], [SchemaThing]
   dynamic knowsAbout;
 
-  /// //tools.ietf.org/html/bcp47).
+  /// Of a [SchemaPerson], and less typically of an [SchemaOrganization], to
+  /// indicate a known language. We do not distinguish skill levels or
+  /// reading/writing/speaking/signing here. Use language codes from the [IETF
+  /// BCP 47 standard](http://tools.ietf.org/html/bcp47).
   ///
   /// Supported types: [SchemaLanguage], [String]
   dynamic knowsLanguage;
@@ -403,7 +442,9 @@ class SchemaOrganization extends SchemaThing {
   /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic sponsor;
 
-  /// the more specific 'department' property.
+  /// A relationship between two organizations where the first includes the
+  /// second, e.g., as a subsidiary. See also: the more specific 'department'
+  /// property.
   SchemaOrganization? subOrganization;
 
   /// The Tax / Fiscal ID of the organization or person, e.g. the TIN in the US
@@ -447,6 +488,7 @@ class SchemaOrganization extends SchemaThing {
     this.aggregateRating,
     this.alumni,
     this.areaServed,
+    this.authorizedRepresentative,
     this.award,
     this.awards,
     this.brand,
@@ -480,6 +522,7 @@ class SchemaOrganization extends SchemaThing {
     this.hasMerchantReturnPolicy,
     this.hasOfferCatalog,
     this.hasPOS,
+    this.hasProductReturnPolicy,
     this.hasShippingService,
     this.interactionStatistic,
     this.isicV4,
@@ -523,112 +566,133 @@ class SchemaOrganization extends SchemaThing {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Organization',
-        'acceptedPaymentMethod': convertToJsonLd(acceptedPaymentMethod,
-            [SchemaLoanOrCredit, SchemaPaymentMethod, String]),
-        'actionableFeedbackPolicy': convertToJsonLd(
-            actionableFeedbackPolicy, [SchemaCreativeWork, String]),
-        'address': convertToJsonLd(address, [SchemaPostalAddress, String]),
-        'agentInteractionStatistic': convertToJsonLd(
-            agentInteractionStatistic, [SchemaInteractionCounter]),
-        'aggregateRating':
-            convertToJsonLd(aggregateRating, [SchemaAggregateRating]),
-        'alumni': convertToJsonLd(alumni, [SchemaPerson]),
-        'areaServed': convertToJsonLd(areaServed,
-            [SchemaAdministrativeArea, SchemaGeoShape, SchemaPlace, String]),
-        'award': convertToJsonLd(award, [String]),
-        'awards': convertToJsonLd(awards, [String]),
-        'brand': convertToJsonLd(brand, [SchemaBrand, SchemaOrganization]),
-        'companyRegistration':
-            convertToJsonLd(companyRegistration, [SchemaCertification]),
-        'contactPoint': convertToJsonLd(contactPoint, [SchemaContactPoint]),
-        'contactPoints': convertToJsonLd(contactPoints, [SchemaContactPoint]),
-        'correctionsPolicy':
-            convertToJsonLd(correctionsPolicy, [SchemaCreativeWork, String]),
-        'department': convertToJsonLd(department, [SchemaOrganization]),
-        'dissolutionDate': convertToJsonLd(dissolutionDate, [String]),
-        'diversityPolicy':
-            convertToJsonLd(diversityPolicy, [SchemaCreativeWork, String]),
-        'diversityStaffingReport':
-            convertToJsonLd(diversityStaffingReport, [SchemaArticle, String]),
-        'duns': convertToJsonLd(duns, [String]),
-        'email': convertToJsonLd(email, [String]),
-        'employee': convertToJsonLd(employee, [SchemaPerson]),
-        'employees': convertToJsonLd(employees, [SchemaPerson]),
-        'ethicsPolicy':
-            convertToJsonLd(ethicsPolicy, [SchemaCreativeWork, String]),
-        'event': convertToJsonLd(event, [SchemaEvent]),
-        'events': convertToJsonLd(events, [SchemaEvent]),
-        'faxNumber': convertToJsonLd(faxNumber, [String]),
-        'founder': convertToJsonLd(founder, [SchemaOrganization, SchemaPerson]),
-        'founders': convertToJsonLd(founders, [SchemaPerson]),
-        'foundingDate': convertToJsonLd(foundingDate, [String]),
-        'foundingLocation': convertToJsonLd(foundingLocation, [SchemaPlace]),
-        'funder': convertToJsonLd(funder, [SchemaOrganization, SchemaPerson]),
-        'funding': convertToJsonLd(funding, [SchemaGrant]),
-        'globalLocationNumber': convertToJsonLd(globalLocationNumber, [String]),
-        'hasCertification':
-            convertToJsonLd(hasCertification, [SchemaCertification]),
-        'hasCredential': convertToJsonLd(hasCredential, [SchemaCredential]),
-        'hasGS1DigitalLink': convertToJsonLd(hasGS1DigitalLink, [String]),
-        'hasMemberProgram':
-            convertToJsonLd(hasMemberProgram, [SchemaMemberProgram]),
-        'hasMerchantReturnPolicy': convertToJsonLd(
-            hasMerchantReturnPolicy, [SchemaMerchantReturnPolicy]),
-        'hasOfferCatalog':
-            convertToJsonLd(hasOfferCatalog, [SchemaOfferCatalog]),
-        'hasPOS': convertToJsonLd(hasPOS, [SchemaPlace]),
-        'hasShippingService':
-            convertToJsonLd(hasShippingService, [SchemaShippingService]),
-        'interactionStatistic':
-            convertToJsonLd(interactionStatistic, [SchemaInteractionCounter]),
-        'isicV4': convertToJsonLd(isicV4, [String]),
-        'iso6523Code': convertToJsonLd(iso6523Code, [String]),
-        'keywords': convertToJsonLd(keywords, [SchemaDefinedTerm, String]),
-        'knowsAbout': convertToJsonLd(knowsAbout, [String, SchemaThing]),
-        'knowsLanguage':
-            convertToJsonLd(knowsLanguage, [SchemaLanguage, String]),
-        'legalAddress': convertToJsonLd(legalAddress, [SchemaPostalAddress]),
-        'legalName': convertToJsonLd(legalName, [String]),
-        'legalRepresentative':
-            convertToJsonLd(legalRepresentative, [SchemaPerson]),
-        'leiCode': convertToJsonLd(leiCode, [String]),
-        'location': convertToJsonLd(location,
-            [SchemaPlace, SchemaPostalAddress, String, SchemaVirtualLocation]),
-        'logo': convertToJsonLd(logo, [SchemaImageObject, String]),
-        'makesOffer': convertToJsonLd(makesOffer, [SchemaOffer]),
-        'member': convertToJsonLd(member, [SchemaOrganization, SchemaPerson]),
-        'memberOf': convertToJsonLd(memberOf, [
-          SchemaMemberProgramTier,
-          SchemaOrganization,
-          SchemaProgramMembership
-        ]),
-        'members': convertToJsonLd(members, [SchemaOrganization, SchemaPerson]),
-        'naics': convertToJsonLd(naics, [String]),
-        'nonprofitStatus':
-            convertToJsonLd(nonprofitStatus, [SchemaNonprofitType]),
-        'numberOfEmployees':
-            convertToJsonLd(numberOfEmployees, [SchemaQuantitativeValue]),
-        'ownershipFundingInfo': convertToJsonLd(ownershipFundingInfo,
-            [SchemaAboutPage, SchemaCreativeWork, String]),
-        'owns': convertToJsonLd(owns, [SchemaThing]),
-        'parentOrganization':
-            convertToJsonLd(parentOrganization, [SchemaOrganization]),
-        'publishingPrinciples':
-            convertToJsonLd(publishingPrinciples, [SchemaCreativeWork, String]),
-        'review': convertToJsonLd(review, [SchemaReview]),
-        'reviews': convertToJsonLd(reviews, [SchemaReview]),
-        'seeks': convertToJsonLd(seeks, [SchemaDemand]),
-        'serviceArea': convertToJsonLd(serviceArea,
-            [SchemaAdministrativeArea, SchemaGeoShape, SchemaPlace]),
-        'skills': convertToJsonLd(skills, [SchemaDefinedTerm, String]),
-        'slogan': convertToJsonLd(slogan, [String]),
-        'sponsor': convertToJsonLd(sponsor, [SchemaOrganization, SchemaPerson]),
-        'subOrganization':
-            convertToJsonLd(subOrganization, [SchemaOrganization]),
-        'taxID': convertToJsonLd(taxID, [String]),
-        'telephone': convertToJsonLd(telephone, [String]),
-        'unnamedSourcesPolicy':
-            convertToJsonLd(unnamedSourcesPolicy, [SchemaCreativeWork, String]),
-        'vatID': convertToJsonLd(vatID, [String]),
+        'acceptedPaymentMethod': convertToJsonLd(
+            acceptedPaymentMethod,
+            (v) =>
+                v is SchemaLoanOrCredit ||
+                v is SchemaPaymentMethod ||
+                v is String),
+        'actionableFeedbackPolicy': convertToJsonLd(actionableFeedbackPolicy,
+            (v) => v is SchemaCreativeWork || v is String),
+        'address': convertToJsonLd(
+            address, (v) => v is SchemaPostalAddress || v is String),
+        'agentInteractionStatistic': convertToJsonLd(agentInteractionStatistic),
+        'aggregateRating': convertToJsonLd(aggregateRating),
+        'alumni': convertToJsonLd(alumni),
+        'areaServed': convertToJsonLd(
+            areaServed,
+            (v) =>
+                v is SchemaAdministrativeArea ||
+                v is SchemaGeoShape ||
+                v is SchemaPlace ||
+                v is String),
+        'authorizedRepresentative': convertToJsonLd(authorizedRepresentative,
+            (v) => v is SchemaOrganization || v is SchemaPerson),
+        'award': convertToJsonLd(award),
+        'awards': convertToJsonLd(awards),
+        'brand': convertToJsonLd(
+            brand, (v) => v is SchemaBrand || v is SchemaOrganization),
+        'companyRegistration': convertToJsonLd(companyRegistration),
+        'contactPoint': convertToJsonLd(contactPoint),
+        'contactPoints': convertToJsonLd(contactPoints),
+        'correctionsPolicy': convertToJsonLd(
+            correctionsPolicy, (v) => v is SchemaCreativeWork || v is String),
+        'department': convertToJsonLd(department),
+        'dissolutionDate': convertToJsonLd(dissolutionDate),
+        'diversityPolicy': convertToJsonLd(
+            diversityPolicy, (v) => v is SchemaCreativeWork || v is String),
+        'diversityStaffingReport': convertToJsonLd(
+            diversityStaffingReport, (v) => v is SchemaArticle || v is String),
+        'duns': convertToJsonLd(duns),
+        'email': convertToJsonLd(email),
+        'employee': convertToJsonLd(employee),
+        'employees': convertToJsonLd(employees),
+        'ethicsPolicy': convertToJsonLd(
+            ethicsPolicy, (v) => v is SchemaCreativeWork || v is String),
+        'event': convertToJsonLd(event),
+        'events': convertToJsonLd(events),
+        'faxNumber': convertToJsonLd(faxNumber),
+        'founder': convertToJsonLd(
+            founder, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'founders': convertToJsonLd(founders),
+        'foundingDate': convertToJsonLd(foundingDate),
+        'foundingLocation': convertToJsonLd(foundingLocation),
+        'funder': convertToJsonLd(
+            funder, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'funding': convertToJsonLd(funding),
+        'globalLocationNumber': convertToJsonLd(globalLocationNumber),
+        'hasCertification': convertToJsonLd(hasCertification),
+        'hasCredential': convertToJsonLd(hasCredential),
+        'hasGS1DigitalLink': convertToJsonLd(hasGS1DigitalLink),
+        'hasMemberProgram': convertToJsonLd(hasMemberProgram),
+        'hasMerchantReturnPolicy': convertToJsonLd(hasMerchantReturnPolicy),
+        'hasOfferCatalog': convertToJsonLd(hasOfferCatalog),
+        'hasPOS': convertToJsonLd(hasPOS),
+        'hasProductReturnPolicy': convertToJsonLd(hasProductReturnPolicy),
+        'hasShippingService': convertToJsonLd(hasShippingService),
+        'interactionStatistic': convertToJsonLd(interactionStatistic),
+        'isicV4': convertToJsonLd(isicV4),
+        'iso6523Code': convertToJsonLd(iso6523Code),
+        'keywords': convertToJsonLd(
+            keywords, (v) => v is SchemaDefinedTerm || v is String),
+        'knowsAbout':
+            convertToJsonLd(knowsAbout, (v) => v is String || v is SchemaThing),
+        'knowsLanguage': convertToJsonLd(
+            knowsLanguage, (v) => v is SchemaLanguage || v is String),
+        'legalAddress': convertToJsonLd(legalAddress),
+        'legalName': convertToJsonLd(legalName),
+        'legalRepresentative': convertToJsonLd(legalRepresentative),
+        'leiCode': convertToJsonLd(leiCode),
+        'location': convertToJsonLd(
+            location,
+            (v) =>
+                v is SchemaPlace ||
+                v is SchemaPostalAddress ||
+                v is String ||
+                v is SchemaVirtualLocation),
+        'logo':
+            convertToJsonLd(logo, (v) => v is SchemaImageObject || v is String),
+        'makesOffer': convertToJsonLd(makesOffer),
+        'member': convertToJsonLd(
+            member, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'memberOf': convertToJsonLd(
+            memberOf,
+            (v) =>
+                v is SchemaMemberProgramTier ||
+                v is SchemaOrganization ||
+                v is SchemaProgramMembership),
+        'members': convertToJsonLd(
+            members, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'naics': convertToJsonLd(naics),
+        'nonprofitStatus': convertToJsonLd(nonprofitStatus),
+        'numberOfEmployees': convertToJsonLd(numberOfEmployees),
+        'ownershipFundingInfo': convertToJsonLd(
+            ownershipFundingInfo,
+            (v) =>
+                v is SchemaAboutPage || v is SchemaCreativeWork || v is String),
+        'owns': convertToJsonLd(owns),
+        'parentOrganization': convertToJsonLd(parentOrganization),
+        'publishingPrinciples': convertToJsonLd(publishingPrinciples,
+            (v) => v is SchemaCreativeWork || v is String),
+        'review': convertToJsonLd(review),
+        'reviews': convertToJsonLd(reviews),
+        'seeks': convertToJsonLd(seeks),
+        'serviceArea': convertToJsonLd(
+            serviceArea,
+            (v) =>
+                v is SchemaAdministrativeArea ||
+                v is SchemaGeoShape ||
+                v is SchemaPlace),
+        'skills': convertToJsonLd(
+            skills, (v) => v is SchemaDefinedTerm || v is String),
+        'slogan': convertToJsonLd(slogan),
+        'sponsor': convertToJsonLd(
+            sponsor, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'subOrganization': convertToJsonLd(subOrganization),
+        'taxID': convertToJsonLd(taxID),
+        'telephone': convertToJsonLd(telephone),
+        'unnamedSourcesPolicy': convertToJsonLd(unnamedSourcesPolicy,
+            (v) => v is SchemaCreativeWork || v is String),
+        'vatID': convertToJsonLd(vatID),
       });
 }

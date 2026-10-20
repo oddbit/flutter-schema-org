@@ -20,7 +20,9 @@ class SchemaTypeAndQuantityNode extends SchemaStructuredValue {
   /// The quantity of the goods included in the offer.
   num? amountOfThisGood;
 
-  /// //purl.org/goodrelations/v1#Sell.
+  /// The business function (e.g. sell, lease, repair, dispose) of the offer or
+  /// component of a bundle (TypeAndQuantityNode). The default is
+  /// http://purl.org/goodrelations/v1#Sell.
   SchemaBusinessFunction? businessFunction;
 
   /// The product that this structured value is referring to.
@@ -64,12 +66,11 @@ class SchemaTypeAndQuantityNode extends SchemaStructuredValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'TypeAndQuantityNode',
-        'amountOfThisGood': convertToJsonLd(amountOfThisGood, [num]),
-        'businessFunction':
-            convertToJsonLd(businessFunction, [SchemaBusinessFunction]),
-        'typeOfGood':
-            convertToJsonLd(typeOfGood, [SchemaProduct, SchemaService]),
-        'unitCode': convertToJsonLd(unitCode, [String]),
-        'unitText': convertToJsonLd(unitText, [String]),
+        'amountOfThisGood': convertToJsonLd(amountOfThisGood),
+        'businessFunction': convertToJsonLd(businessFunction),
+        'typeOfGood': convertToJsonLd(
+            typeOfGood, (v) => v is SchemaProduct || v is SchemaService),
+        'unitCode': convertToJsonLd(unitCode),
+        'unitText': convertToJsonLd(unitText),
       });
 }

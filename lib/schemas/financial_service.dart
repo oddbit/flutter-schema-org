@@ -30,6 +30,7 @@ class SchemaFinancialService extends SchemaLocalBusiness {
     super.alumni,
     super.amenityFeature,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.branchCode,
@@ -85,6 +86,7 @@ class SchemaFinancialService extends SchemaLocalBusiness {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,
@@ -155,6 +157,6 @@ class SchemaFinancialService extends SchemaLocalBusiness {
         ...super.toJsonLd(),
         '@type': 'FinancialService',
         'feesAndCommissionsSpecification':
-            convertToJsonLd(feesAndCommissionsSpecification, [String]),
+            convertToJsonLd(feesAndCommissionsSpecification),
       });
 }

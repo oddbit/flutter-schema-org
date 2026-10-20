@@ -64,13 +64,11 @@ class SchemaRepaymentSpecification extends SchemaStructuredValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'RepaymentSpecification',
-        'downPayment':
-            convertToJsonLd(downPayment, [SchemaMonetaryAmount, num]),
-        'earlyPrepaymentPenalty':
-            convertToJsonLd(earlyPrepaymentPenalty, [SchemaMonetaryAmount]),
-        'loanPaymentAmount':
-            convertToJsonLd(loanPaymentAmount, [SchemaMonetaryAmount]),
-        'loanPaymentFrequency': convertToJsonLd(loanPaymentFrequency, [num]),
-        'numberOfLoanPayments': convertToJsonLd(numberOfLoanPayments, [num]),
+        'downPayment': convertToJsonLd(
+            downPayment, (v) => v is SchemaMonetaryAmount || v is num),
+        'earlyPrepaymentPenalty': convertToJsonLd(earlyPrepaymentPenalty),
+        'loanPaymentAmount': convertToJsonLd(loanPaymentAmount),
+        'loanPaymentFrequency': convertToJsonLd(loanPaymentFrequency),
+        'numberOfLoanPayments': convertToJsonLd(numberOfLoanPayments),
       });
 }

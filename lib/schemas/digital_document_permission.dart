@@ -53,13 +53,13 @@ class SchemaDigitalDocumentPermission extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'DigitalDocumentPermission',
-        'grantee': convertToJsonLd(grantee, [
-          SchemaAudience,
-          SchemaContactPoint,
-          SchemaOrganization,
-          SchemaPerson
-        ]),
-        'permissionType': convertToJsonLd(
-            permissionType, [SchemaDigitalDocumentPermissionType]),
+        'grantee': convertToJsonLd(
+            grantee,
+            (v) =>
+                v is SchemaAudience ||
+                v is SchemaContactPoint ||
+                v is SchemaOrganization ||
+                v is SchemaPerson),
+        'permissionType': convertToJsonLd(permissionType),
       });
 }

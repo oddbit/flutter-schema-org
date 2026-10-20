@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// Visual arts event.
+/// Event type: Visual arts event.
 /// See https://schema.org/VisualArtsEvent
 class SchemaVisualArtsEvent extends SchemaEvent {
   /// Create a new instance of [SchemaVisualArtsEvent]

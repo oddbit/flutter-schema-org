@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// Conference event.
+/// Event type: Conference event.
 /// See https://schema.org/ConferenceEvent
 class SchemaConferenceEvent extends SchemaEvent {
   /// Create a new instance of [SchemaConferenceEvent]

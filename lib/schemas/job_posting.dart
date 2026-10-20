@@ -29,7 +29,10 @@ import 'package:schema_org/schemas/occupation.dart';
 /// A listing that describes a job opening in a certain organization.
 /// See https://schema.org/JobPosting
 class SchemaJobPosting extends SchemaIntangible {
-  /// This should not be used for citizenship or work visa requirements.
+  /// The location(s) applicants can apply from. This is usually used for
+  /// telecommuting jobs where the applicant does not need to be in a physical
+  /// office. Note: This should not be used for citizenship or work visa
+  /// requirements.
   SchemaAdministrativeArea? applicantLocationRequirements;
 
   /// Contact details for further information relevant to this job posting.
@@ -149,8 +152,14 @@ class SchemaJobPosting extends SchemaIntangible {
   /// soon as possible.
   String? jobStartDate;
 
-  /// for historical reasons, any textual label and formal code provided as a
-  /// literal may be assumed to be from O*NET-SOC.
+  /// A category describing the job, preferably using a term from a taxonomy
+  /// such as [BLS O*NET-SOC](http://www.onetcenter.org/taxonomy.html),
+  /// [ISCO-08](https://www.ilo.org/public/english/bureau/stat/isco/isco08/) or
+  /// similar, with the property repeated for each applicable value. Ideally
+  /// the taxonomy should be identified, and both the textual label and formal
+  /// code for the category should be provided.\n Note: for historical reasons,
+  /// any textual label and formal code provided as a literal may be assumed to
+  /// be from O*NET-SOC.
   ///
   /// Supported types: [SchemaCategoryCode], [String]
   dynamic occupationalCategory;
@@ -174,8 +183,9 @@ class SchemaJobPosting extends SchemaIntangible {
   /// Responsibilities associated with this role or Occupation.
   String? responsibilities;
 
-  /// //en.wikipedia.org/wiki/ISO_4217)) used for the main salary information
-  /// in this job posting or for this employee.
+  /// The currency (coded using [ISO
+  /// 4217](http://en.wikipedia.org/wiki/ISO_4217)) used for the main salary
+  /// information in this job posting or for this employee.
   String? salaryCurrency;
 
   /// A description of any security clearance requirements of the job.
@@ -276,60 +286,69 @@ class SchemaJobPosting extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'JobPosting',
-        'applicantLocationRequirements': convertToJsonLd(
-            applicantLocationRequirements, [SchemaAdministrativeArea]),
-        'applicationContact':
-            convertToJsonLd(applicationContact, [SchemaContactPoint]),
+        'applicantLocationRequirements':
+            convertToJsonLd(applicantLocationRequirements),
+        'applicationContact': convertToJsonLd(applicationContact),
         'baseSalary': convertToJsonLd(
-            baseSalary, [SchemaMonetaryAmount, SchemaPriceSpecification, num]),
-        'benefits': convertToJsonLd(benefits, [String]),
-        'datePosted': convertToJsonLd(datePosted, [String]),
-        'directApply': convertToJsonLd(directApply, [bool]),
+            baseSalary,
+            (v) =>
+                v is SchemaMonetaryAmount ||
+                v is SchemaPriceSpecification ||
+                v is num),
+        'benefits': convertToJsonLd(benefits),
+        'datePosted': convertToJsonLd(datePosted),
+        'directApply': convertToJsonLd(directApply),
         'educationRequirements': convertToJsonLd(educationRequirements,
-            [SchemaEducationalOccupationalCredential, String]),
+            (v) => v is SchemaEducationalOccupationalCredential || v is String),
         'eligibilityToWorkRequirement':
-            convertToJsonLd(eligibilityToWorkRequirement, [String]),
-        'employerOverview': convertToJsonLd(employerOverview, [String]),
-        'employmentType': convertToJsonLd(employmentType, [String]),
-        'employmentUnit': convertToJsonLd(employmentUnit, [SchemaOrganization]),
-        'estimatedSalary': convertToJsonLd(estimatedSalary,
-            [SchemaMonetaryAmount, SchemaMonetaryAmountDistribution, num]),
+            convertToJsonLd(eligibilityToWorkRequirement),
+        'employerOverview': convertToJsonLd(employerOverview),
+        'employmentType': convertToJsonLd(employmentType),
+        'employmentUnit': convertToJsonLd(employmentUnit),
+        'estimatedSalary': convertToJsonLd(
+            estimatedSalary,
+            (v) =>
+                v is SchemaMonetaryAmount ||
+                v is SchemaMonetaryAmountDistribution ||
+                v is num),
         'experienceInPlaceOfEducation':
-            convertToJsonLd(experienceInPlaceOfEducation, [bool]),
-        'experienceRequirements': convertToJsonLd(experienceRequirements,
-            [SchemaOccupationalExperienceRequirements, String]),
-        'hiringOrganization': convertToJsonLd(
-            hiringOrganization, [SchemaOrganization, SchemaPerson]),
-        'incentiveCompensation':
-            convertToJsonLd(incentiveCompensation, [String]),
-        'incentives': convertToJsonLd(incentives, [String]),
-        'industry': convertToJsonLd(industry, [SchemaDefinedTerm, String]),
-        'jobBenefits': convertToJsonLd(jobBenefits, [String]),
-        'jobDuration': convertToJsonLd(
-            jobDuration, [SchemaDuration, SchemaQuantitativeValue]),
-        'jobImmediateStart': convertToJsonLd(jobImmediateStart, [bool]),
-        'jobLocation': convertToJsonLd(jobLocation, [SchemaPlace]),
-        'jobLocationType': convertToJsonLd(jobLocationType, [String]),
-        'jobStartDate': convertToJsonLd(jobStartDate, [String]),
-        'occupationalCategory':
-            convertToJsonLd(occupationalCategory, [SchemaCategoryCode, String]),
-        'physicalRequirement':
-            convertToJsonLd(physicalRequirement, [SchemaDefinedTerm, String]),
-        'qualifications':
-            convertToJsonLd(qualifications, [SchemaCredential, String]),
-        'relevantOccupation':
-            convertToJsonLd(relevantOccupation, [SchemaOccupation]),
-        'responsibilities': convertToJsonLd(responsibilities, [String]),
-        'salaryCurrency': convertToJsonLd(salaryCurrency, [String]),
+            convertToJsonLd(experienceInPlaceOfEducation),
+        'experienceRequirements': convertToJsonLd(
+            experienceRequirements,
+            (v) =>
+                v is SchemaOccupationalExperienceRequirements || v is String),
+        'hiringOrganization': convertToJsonLd(hiringOrganization,
+            (v) => v is SchemaOrganization || v is SchemaPerson),
+        'incentiveCompensation': convertToJsonLd(incentiveCompensation),
+        'incentives': convertToJsonLd(incentives),
+        'industry': convertToJsonLd(
+            industry, (v) => v is SchemaDefinedTerm || v is String),
+        'jobBenefits': convertToJsonLd(jobBenefits),
+        'jobDuration': convertToJsonLd(jobDuration,
+            (v) => v is SchemaDuration || v is SchemaQuantitativeValue),
+        'jobImmediateStart': convertToJsonLd(jobImmediateStart),
+        'jobLocation': convertToJsonLd(jobLocation),
+        'jobLocationType': convertToJsonLd(jobLocationType),
+        'jobStartDate': convertToJsonLd(jobStartDate),
+        'occupationalCategory': convertToJsonLd(occupationalCategory,
+            (v) => v is SchemaCategoryCode || v is String),
+        'physicalRequirement': convertToJsonLd(
+            physicalRequirement, (v) => v is SchemaDefinedTerm || v is String),
+        'qualifications': convertToJsonLd(
+            qualifications, (v) => v is SchemaCredential || v is String),
+        'relevantOccupation': convertToJsonLd(relevantOccupation),
+        'responsibilities': convertToJsonLd(responsibilities),
+        'salaryCurrency': convertToJsonLd(salaryCurrency),
         'securityClearanceRequirement':
-            convertToJsonLd(securityClearanceRequirement, [String]),
-        'sensoryRequirement':
-            convertToJsonLd(sensoryRequirement, [SchemaDefinedTerm, String]),
-        'skills': convertToJsonLd(skills, [SchemaDefinedTerm, String]),
-        'specialCommitments': convertToJsonLd(specialCommitments, [String]),
-        'title': convertToJsonLd(title, [String]),
-        'totalJobOpenings': convertToJsonLd(totalJobOpenings, [int]),
-        'validThrough': convertToJsonLd(validThrough, [String]),
-        'workHours': convertToJsonLd(workHours, [String]),
+            convertToJsonLd(securityClearanceRequirement),
+        'sensoryRequirement': convertToJsonLd(
+            sensoryRequirement, (v) => v is SchemaDefinedTerm || v is String),
+        'skills': convertToJsonLd(
+            skills, (v) => v is SchemaDefinedTerm || v is String),
+        'specialCommitments': convertToJsonLd(specialCommitments),
+        'title': convertToJsonLd(title),
+        'totalJobOpenings': convertToJsonLd(totalJobOpenings),
+        'validThrough': convertToJsonLd(validThrough),
+        'workHours': convertToJsonLd(workHours),
       });
 }

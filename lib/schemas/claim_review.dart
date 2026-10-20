@@ -165,6 +165,6 @@ class SchemaClaimReview extends SchemaReview {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ClaimReview',
-        'claimReviewed': convertToJsonLd(claimReviewed, [String]),
+        'claimReviewed': convertToJsonLd(claimReviewed),
       });
 }

@@ -156,6 +156,6 @@ class SchemaThesis extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Thesis',
-        'inSupportOf': convertToJsonLd(inSupportOf, [String]),
+        'inSupportOf': convertToJsonLd(inSupportOf),
       });
 }

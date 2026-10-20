@@ -58,7 +58,7 @@ class SchemaPlayGameAction extends SchemaConsumeAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'PlayGameAction',
-        'gameAvailabilityType': convertToJsonLd(
-            gameAvailabilityType, [SchemaGameAvailabilityEnumeration, String]),
+        'gameAvailabilityType': convertToJsonLd(gameAvailabilityType,
+            (v) => v is SchemaGameAvailabilityEnumeration || v is String),
       });
 }

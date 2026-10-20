@@ -295,43 +295,46 @@ class SchemaExercisePlan extends SchemaCreativeWork
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ExercisePlan',
-        'activityDuration': convertToJsonLd(
-            activityDuration, [SchemaDuration, SchemaQuantitativeValue]),
-        'activityFrequency': convertToJsonLd(
-            activityFrequency, [SchemaQuantitativeValue, String]),
-        'additionalVariable': convertToJsonLd(additionalVariable, [String]),
-        'exerciseType': convertToJsonLd(exerciseType, [String]),
-        'intensity':
-            convertToJsonLd(intensity, [SchemaQuantitativeValue, String]),
-        'repetitions':
-            convertToJsonLd(repetitions, [SchemaQuantitativeValue, num]),
-        'restPeriods':
-            convertToJsonLd(restPeriods, [SchemaQuantitativeValue, String]),
-        'workload':
-            convertToJsonLd(workload, [SchemaEnergy, SchemaQuantitativeValue]),
-        'associatedAnatomy': convertToJsonLd(associatedAnatomy, [
-          SchemaAnatomicalStructure,
-          SchemaAnatomicalSystem,
-          SchemaSuperficialAnatomy
-        ]),
-        'category': convertToJsonLd(category, [
-          SchemaCategoryCode,
-          SchemaPhysicalActivityCategory,
-          String,
-          SchemaThing
-        ]),
-        'epidemiology': convertToJsonLd(epidemiology, [String]),
-        'pathophysiology': convertToJsonLd(pathophysiology, [String]),
-        'code': convertToJsonLd(code, [SchemaMedicalCode]),
-        'guideline': convertToJsonLd(guideline, [SchemaMedicalGuideline]),
-        'legalStatus': convertToJsonLd(legalStatus,
-            [SchemaDrugLegalStatus, SchemaMedicalEnumeration, String]),
-        'medicineSystem':
-            convertToJsonLd(medicineSystem, [SchemaMedicineSystem]),
-        'recognizingAuthority':
-            convertToJsonLd(recognizingAuthority, [SchemaOrganization]),
-        'relevantSpecialty':
-            convertToJsonLd(relevantSpecialty, [SchemaMedicalSpecialty]),
-        'study': convertToJsonLd(study, [SchemaMedicalStudy]),
+        'activityDuration': convertToJsonLd(activityDuration,
+            (v) => v is SchemaDuration || v is SchemaQuantitativeValue),
+        'activityFrequency': convertToJsonLd(activityFrequency,
+            (v) => v is SchemaQuantitativeValue || v is String),
+        'additionalVariable': convertToJsonLd(additionalVariable),
+        'exerciseType': convertToJsonLd(exerciseType),
+        'intensity': convertToJsonLd(
+            intensity, (v) => v is SchemaQuantitativeValue || v is String),
+        'repetitions': convertToJsonLd(
+            repetitions, (v) => v is SchemaQuantitativeValue || v is num),
+        'restPeriods': convertToJsonLd(
+            restPeriods, (v) => v is SchemaQuantitativeValue || v is String),
+        'workload': convertToJsonLd(
+            workload, (v) => v is SchemaEnergy || v is SchemaQuantitativeValue),
+        'associatedAnatomy': convertToJsonLd(
+            associatedAnatomy,
+            (v) =>
+                v is SchemaAnatomicalStructure ||
+                v is SchemaAnatomicalSystem ||
+                v is SchemaSuperficialAnatomy),
+        'category': convertToJsonLd(
+            category,
+            (v) =>
+                v is SchemaCategoryCode ||
+                v is SchemaPhysicalActivityCategory ||
+                v is String ||
+                v is SchemaThing),
+        'epidemiology': convertToJsonLd(epidemiology),
+        'pathophysiology': convertToJsonLd(pathophysiology),
+        'code': convertToJsonLd(code),
+        'guideline': convertToJsonLd(guideline),
+        'legalStatus': convertToJsonLd(
+            legalStatus,
+            (v) =>
+                v is SchemaDrugLegalStatus ||
+                v is SchemaMedicalEnumeration ||
+                v is String),
+        'medicineSystem': convertToJsonLd(medicineSystem),
+        'recognizingAuthority': convertToJsonLd(recognizingAuthority),
+        'relevantSpecialty': convertToJsonLd(relevantSpecialty),
+        'study': convertToJsonLd(study),
       });
 }

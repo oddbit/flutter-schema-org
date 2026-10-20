@@ -13,39 +13,39 @@ import 'package:schema_org/schemas/medical_enumeration.dart';
 /// See https://schema.org/MedicalStudyStatus
 enum SchemaMedicalStudyStatus implements SchemaMedicalEnumeration {
   /// Active, but not recruiting new participants.
-  activeNotRecruiting('https://schema.org/MedicalStudyStatus'),
+  activeNotRecruiting('https://schema.org/ActiveNotRecruiting'),
 
   /// Completed.
-  completed('https://schema.org/MedicalStudyStatus'),
+  completed('https://schema.org/Completed'),
 
   /// Enrolling participants by invitation only.
-  enrollingByInvitation('https://schema.org/MedicalStudyStatus'),
+  enrollingByInvitation('https://schema.org/EnrollingByInvitation'),
 
   /// Not yet recruiting.
-  notYetRecruiting('https://schema.org/MedicalStudyStatus'),
+  notYetRecruiting('https://schema.org/NotYetRecruiting'),
 
   /// Recruiting participants.
-  recruiting('https://schema.org/MedicalStudyStatus'),
+  recruiting('https://schema.org/Recruiting'),
 
   /// Results are available.
-  resultsAvailable('https://schema.org/MedicalStudyStatus'),
+  resultsAvailable('https://schema.org/ResultsAvailable'),
 
   /// Results are not available.
-  resultsNotAvailable('https://schema.org/MedicalStudyStatus'),
+  resultsNotAvailable('https://schema.org/ResultsNotAvailable'),
 
   /// Suspended.
-  suspended('https://schema.org/MedicalStudyStatus'),
+  suspended('https://schema.org/Suspended'),
 
   /// Terminated.
-  terminated('https://schema.org/MedicalStudyStatus'),
+  terminated('https://schema.org/Terminated'),
 
   /// Withdrawn.
-  withdrawn('https://schema.org/MedicalStudyStatus');
+  withdrawn('https://schema.org/Withdrawn');
 
   /// Constructor for [SchemaMedicalStudyStatus]
   const SchemaMedicalStudyStatus(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaMedicalStudyStatus] to JSON-LD

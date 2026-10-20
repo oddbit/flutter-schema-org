@@ -68,7 +68,7 @@ class SchemaWebAPI extends SchemaService {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'WebAPI',
-        'documentation':
-            convertToJsonLd(documentation, [SchemaCreativeWork, String]),
+        'documentation': convertToJsonLd(
+            documentation, (v) => v is SchemaCreativeWork || v is String),
       });
 }

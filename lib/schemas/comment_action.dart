@@ -58,6 +58,6 @@ class SchemaCommentAction extends SchemaCommunicateAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'CommentAction',
-        'resultComment': convertToJsonLd(resultComment, [SchemaComment]),
+        'resultComment': convertToJsonLd(resultComment),
       });
 }

@@ -14,39 +14,43 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// See https://schema.org/PriceTypeEnumeration
 enum SchemaPriceTypeEnumeration implements SchemaSerializable {
   /// Represents the invoice price of an offered product.
-  invoicePrice('https://schema.org/PriceTypeEnumeration'),
+  invoicePrice('https://schema.org/InvoicePrice'),
 
-  /// //schema.org/MSRP).
-  listPrice('https://schema.org/PriceTypeEnumeration'),
+  /// Represents the list price of an offered product. Typically the same
+  /// as the [MSRP](https://schema.org/MSRP).
+  listPrice('https://schema.org/ListPrice'),
 
   /// Represents the manufacturer suggested retail price ("MSRP") of an
   /// offered product.
-  mSRP('https://schema.org/PriceTypeEnumeration'),
+  mSRP('https://schema.org/MSRP'),
+
+  /// The maximum retail price (MRP) of a product sold in India.
+  maximumRetailPrice('https://schema.org/MaximumRetailPrice'),
 
   /// Represents the minimum advertised price ("MAP") (as dictated by the
   /// manufacturer) of an offered product.
-  minimumAdvertisedPrice('https://schema.org/PriceTypeEnumeration'),
+  minimumAdvertisedPrice('https://schema.org/MinimumAdvertisedPrice'),
 
   /// Represents the regular price of an offered product. This is usually
   /// the advertised price before a temporary sale. Once the sale period
   /// ends the advertised price will go back to the regular price.
-  regularPrice('https://schema.org/PriceTypeEnumeration'),
+  regularPrice('https://schema.org/RegularPrice'),
 
   /// Represents the suggested retail price ("SRP") of an offered product.
-  sRP('https://schema.org/PriceTypeEnumeration'),
+  sRP('https://schema.org/SRP'),
 
   /// Represents a sale price (usually active for a limited period) of an
   /// offered product.
-  salePrice('https://schema.org/PriceTypeEnumeration'),
+  salePrice('https://schema.org/SalePrice'),
 
   /// Represents the strikethrough price (the previous advertised price) of
   /// an offered product.
-  strikethroughPrice('https://schema.org/PriceTypeEnumeration');
+  strikethroughPrice('https://schema.org/StrikethroughPrice');
 
   /// Constructor for [SchemaPriceTypeEnumeration]
   const SchemaPriceTypeEnumeration(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaPriceTypeEnumeration] to JSON-LD

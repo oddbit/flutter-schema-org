@@ -53,10 +53,6 @@ class SchemaEnum extends SchemaClass {
   bool get implementsParent =>
       parents.first != 'Enumeration' && implementsValues;
 
-  /// Whether this node is an enum value (not a type) — parented under a
-  /// concrete enumeration and without its own values.
-  bool get isEnumValue => parents.first != 'Enumeration' && values.isEmpty;
-
   /// Declared enumeration values. Populated after construction by the
   /// parser as it encounters `@type: schema:<ThisEnum>` nodes.
   final List<SchemaEnumValue> values = [];
@@ -66,6 +62,7 @@ class SchemaEnum extends SchemaClass {
 class SchemaEnumValue {
   /// Creates a new instance of [SchemaEnumValue].
   SchemaEnumValue({
+    required this.id,
     required this.name,
     required this.description,
     this.supersededBy = const [],
@@ -74,11 +71,16 @@ class SchemaEnumValue {
   /// Creates a new instance of [SchemaEnumValue] from a JSON-LD node.
   factory SchemaEnumValue.fromJson(Map<String, dynamic> json) {
     return SchemaEnumValue(
+      id: (json['@id'] as String).split(':').last,
       name: getPossiblyTranslatedText(json['rdfs:label']),
       description: getPossiblyTranslatedText(json['rdfs:comment']),
       supersededBy: parseRelationship(json['schema:supersededBy']),
     );
   }
+
+  /// Schema.org identifier of this member (e.g. `InStock`), which forms
+  /// its canonical URL `https://schema.org/<id>`.
+  final String id;
 
   /// Enumeration value name — lower-camel-cased to form the Dart member.
   final String name;

@@ -55,8 +55,7 @@ class SchemaSubstance extends SchemaMedicalEntity {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Substance',
-        'activeIngredient': convertToJsonLd(activeIngredient, [String]),
-        'maximumIntake':
-            convertToJsonLd(maximumIntake, [SchemaMaximumDoseSchedule]),
+        'activeIngredient': convertToJsonLd(activeIngredient),
+        'maximumIntake': convertToJsonLd(maximumIntake),
       });
 }

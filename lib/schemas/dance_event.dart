@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// A social dance.
+/// Event type: A social dance.
 /// See https://schema.org/DanceEvent
 class SchemaDanceEvent extends SchemaEvent {
   /// Create a new instance of [SchemaDanceEvent]

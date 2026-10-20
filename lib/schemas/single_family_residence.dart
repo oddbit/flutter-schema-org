@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/house.dart';
 
-/// Single-family home.
+/// Residence type: Single-family home.
 /// See https://schema.org/SingleFamilyResidence
 class SchemaSingleFamilyResidence extends SchemaHouse {
   /// Create a new instance of [SchemaSingleFamilyResidence]

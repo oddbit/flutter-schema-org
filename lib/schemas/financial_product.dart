@@ -29,7 +29,8 @@ class SchemaFinancialProduct extends SchemaService {
   /// class of financial product, or by a financial service organization.
   String? feesAndCommissionsSpecification;
 
-  /// This is different from the calculated annualPercentageRate.
+  /// The interest rate, charged or paid, applicable to the financial product.
+  /// Note: This is different from the calculated annualPercentageRate.
   ///
   /// Supported types: [SchemaQuantitativeValue], [num]
   dynamic interestRate;
@@ -84,11 +85,11 @@ class SchemaFinancialProduct extends SchemaService {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'FinancialProduct',
-        'annualPercentageRate': convertToJsonLd(
-            annualPercentageRate, [SchemaQuantitativeValue, num]),
+        'annualPercentageRate': convertToJsonLd(annualPercentageRate,
+            (v) => v is SchemaQuantitativeValue || v is num),
         'feesAndCommissionsSpecification':
-            convertToJsonLd(feesAndCommissionsSpecification, [String]),
-        'interestRate':
-            convertToJsonLd(interestRate, [SchemaQuantitativeValue, num]),
+            convertToJsonLd(feesAndCommissionsSpecification),
+        'interestRate': convertToJsonLd(
+            interestRate, (v) => v is SchemaQuantitativeValue || v is num),
       });
 }

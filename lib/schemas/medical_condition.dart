@@ -157,40 +157,44 @@ class SchemaMedicalCondition extends SchemaMedicalEntity {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MedicalCondition',
-        'associatedAnatomy': convertToJsonLd(associatedAnatomy, [
-          SchemaAnatomicalStructure,
-          SchemaAnatomicalSystem,
-          SchemaSuperficialAnatomy
-        ]),
-        'cause': convertToJsonLd(cause, [SchemaMedicalCause]),
-        'differentialDiagnosis':
-            convertToJsonLd(differentialDiagnosis, [SchemaDDxElement]),
-        'drug': convertToJsonLd(drug, [SchemaDrug]),
-        'epidemiology': convertToJsonLd(epidemiology, [String]),
-        'expectedPrognosis': convertToJsonLd(expectedPrognosis, [String]),
-        'naturalProgression': convertToJsonLd(naturalProgression, [String]),
-        'pathophysiology': convertToJsonLd(pathophysiology, [String]),
-        'possibleComplication': convertToJsonLd(possibleComplication, [String]),
-        'possibleTreatment': convertToJsonLd(possibleTreatment, [
-          SchemaDrug,
-          SchemaDrugClass,
-          SchemaLifestyleModification,
-          SchemaMedicalTherapy
-        ]),
-        'primaryPrevention':
-            convertToJsonLd(primaryPrevention, [SchemaMedicalTherapy]),
-        'riskFactor': convertToJsonLd(riskFactor, [SchemaMedicalRiskFactor]),
-        'secondaryPrevention': convertToJsonLd(secondaryPrevention, [
-          SchemaDrug,
-          SchemaDrugClass,
-          SchemaLifestyleModification,
-          SchemaMedicalTherapy
-        ]),
-        'signOrSymptom':
-            convertToJsonLd(signOrSymptom, [SchemaMedicalSignOrSymptom]),
-        'stage': convertToJsonLd(stage, [SchemaMedicalConditionStage]),
+        'associatedAnatomy': convertToJsonLd(
+            associatedAnatomy,
+            (v) =>
+                v is SchemaAnatomicalStructure ||
+                v is SchemaAnatomicalSystem ||
+                v is SchemaSuperficialAnatomy),
+        'cause': convertToJsonLd(cause),
+        'differentialDiagnosis': convertToJsonLd(differentialDiagnosis),
+        'drug': convertToJsonLd(drug),
+        'epidemiology': convertToJsonLd(epidemiology),
+        'expectedPrognosis': convertToJsonLd(expectedPrognosis),
+        'naturalProgression': convertToJsonLd(naturalProgression),
+        'pathophysiology': convertToJsonLd(pathophysiology),
+        'possibleComplication': convertToJsonLd(possibleComplication),
+        'possibleTreatment': convertToJsonLd(
+            possibleTreatment,
+            (v) =>
+                v is SchemaDrug ||
+                v is SchemaDrugClass ||
+                v is SchemaLifestyleModification ||
+                v is SchemaMedicalTherapy),
+        'primaryPrevention': convertToJsonLd(primaryPrevention),
+        'riskFactor': convertToJsonLd(riskFactor),
+        'secondaryPrevention': convertToJsonLd(
+            secondaryPrevention,
+            (v) =>
+                v is SchemaDrug ||
+                v is SchemaDrugClass ||
+                v is SchemaLifestyleModification ||
+                v is SchemaMedicalTherapy),
+        'signOrSymptom': convertToJsonLd(signOrSymptom),
+        'stage': convertToJsonLd(stage),
         'status': convertToJsonLd(
-            status, [SchemaEventStatusType, SchemaMedicalStudyStatus, String]),
-        'typicalTest': convertToJsonLd(typicalTest, [SchemaMedicalTest]),
+            status,
+            (v) =>
+                v is SchemaEventStatusType ||
+                v is SchemaMedicalStudyStatus ||
+                v is String),
+        'typicalTest': convertToJsonLd(typicalTest),
       });
 }

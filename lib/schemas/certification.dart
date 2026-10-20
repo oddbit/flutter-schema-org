@@ -17,21 +17,43 @@ import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/image_object.dart';
 import 'package:schema_org/schemas/administrative_area.dart';
 
-/// //www.gs1.org/voc/CertificationDetails) class in the GS1 Web Vocabulary.
+/// A Certification is an official and authoritative statement about a
+/// subject, for example a product, service, person, or organization. A
+/// certification is typically issued by an indendent certification body, for
+/// example a professional organization or government. It formally attests
+/// certain characteristics about the subject, for example Organizations can
+/// be ISO certified, Food products can be certified Organic or Vegan, a
+/// Person can be a certified professional, a Place can be certified for food
+/// processing. There are certifications for many domains: regulatory,
+/// organizational, recycling, food, efficiency, educational, ecological,
+/// etc. A certification is a form of credential, as are accreditations and
+/// licenses. Mapped from the
+/// [gs1:CertificationDetails](https://www.gs1.org/voc/CertificationDetails)
+/// class in the GS1 Web Vocabulary.
 /// See https://schema.org/Certification
 class SchemaCertification extends SchemaCreativeWork {
-  /// //www.gs1.org/voc/certificationAuditDate).
+  /// Date when a certification was last audited. See also
+  /// [gs1:certificationAuditDate](https://www.gs1.org/voc/certificationAuditDate).
   String? auditDate;
 
-  /// //www.gs1.org/voc/certificationIdentification).
+  /// Identifier of a certification instance (as registered with an independent
+  /// certification body). Typically this identifier can be used to consult and
+  /// verify the certification instance. See also
+  /// [gs1:certificationIdentification](https://www.gs1.org/voc/certificationIdentification).
   ///
   /// Supported types: [SchemaDefinedTerm], [String]
   dynamic certificationIdentification;
 
-  /// //www.gs1.org/voc/certificationValue).
+  /// Rating of a certification instance (as defined by an independent
+  /// certification body). Typically this rating can be used to rate the level
+  /// to which the requirements of the certification instance are fulfilled.
+  /// See also
+  /// [gs1:certificationValue](https://www.gs1.org/voc/certificationValue).
   SchemaRating? certificationRating;
 
-  /// //www.gs1.org/voc/certificationStatus).
+  /// Indicates the current status of a certification: active or inactive. See
+  /// also
+  /// [gs1:certificationStatus](https://www.gs1.org/voc/certificationStatus).
   SchemaCertificationStatusEnumeration? certificationStatus;
 
   /// A measurement of an item, For example, the inseam of pants, the wheel
@@ -205,18 +227,17 @@ class SchemaCertification extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Certification',
-        'auditDate': convertToJsonLd(auditDate, [String]),
+        'auditDate': convertToJsonLd(auditDate),
         'certificationIdentification': convertToJsonLd(
-            certificationIdentification, [SchemaDefinedTerm, String]),
-        'certificationRating':
-            convertToJsonLd(certificationRating, [SchemaRating]),
-        'certificationStatus': convertToJsonLd(
-            certificationStatus, [SchemaCertificationStatusEnumeration]),
-        'hasMeasurement':
-            convertToJsonLd(hasMeasurement, [SchemaQuantitativeValue]),
-        'issuedBy': convertToJsonLd(issuedBy, [SchemaOrganization]),
-        'logo': convertToJsonLd(logo, [SchemaImageObject, String]),
-        'validFrom': convertToJsonLd(validFrom, [String]),
-        'validIn': convertToJsonLd(validIn, [SchemaAdministrativeArea]),
+            certificationIdentification,
+            (v) => v is SchemaDefinedTerm || v is String),
+        'certificationRating': convertToJsonLd(certificationRating),
+        'certificationStatus': convertToJsonLd(certificationStatus),
+        'hasMeasurement': convertToJsonLd(hasMeasurement),
+        'issuedBy': convertToJsonLd(issuedBy),
+        'logo':
+            convertToJsonLd(logo, (v) => v is SchemaImageObject || v is String),
+        'validFrom': convertToJsonLd(validFrom),
+        'validIn': convertToJsonLd(validIn),
       });
 }

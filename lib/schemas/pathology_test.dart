@@ -53,6 +53,6 @@ class SchemaPathologyTest extends SchemaMedicalTest {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'PathologyTest',
-        'tissueSample': convertToJsonLd(tissueSample, [String]),
+        'tissueSample': convertToJsonLd(tissueSample),
       });
 }

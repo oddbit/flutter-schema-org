@@ -11,8 +11,22 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/intangible.dart';
 import 'package:schema_org/schemas/payment_method_type.dart';
 
-/// //vocabulary.uncefact.org/PaymentMeans) are recommended or for newer
-/// annotations.
+/// A payment method is a standardized procedure for transferring the
+/// monetary amount for a purchase. Payment methods are characterized by the
+/// legal and technical structures used, and by the organization or group
+/// carrying out the transaction. The following legacy values should be
+/// accepted: \n\n*
+/// http://purl.org/goodrelations/v1#ByBankTransferInAdvance\n*
+/// http://purl.org/goodrelations/v1#ByInvoice\n*
+/// http://purl.org/goodrelations/v1#Cash\n*
+/// http://purl.org/goodrelations/v1#CheckInAdvance\n*
+/// http://purl.org/goodrelations/v1#COD\n*
+/// http://purl.org/goodrelations/v1#DirectDebit\n*
+/// http://purl.org/goodrelations/v1#GoogleCheckout\n*
+/// http://purl.org/goodrelations/v1#PayPal\n*
+/// http://purl.org/goodrelations/v1#PaySwarm\n\nStructured values, or [UNCE
+/// payment means](https://vocabulary.uncefact.org/PaymentMeans) are
+/// recommended or for newer annotations.
 /// See https://schema.org/PaymentMethod
 class SchemaPaymentMethod extends SchemaIntangible {
   /// The type of a payment method.
@@ -41,7 +55,6 @@ class SchemaPaymentMethod extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'PaymentMethod',
-        'paymentMethodType':
-            convertToJsonLd(paymentMethodType, [SchemaPaymentMethodType]),
+        'paymentMethodType': convertToJsonLd(paymentMethodType),
       });
 }

@@ -68,11 +68,10 @@ class SchemaDrugStrength extends SchemaMedicalIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'DrugStrength',
-        'activeIngredient': convertToJsonLd(activeIngredient, [String]),
-        'availableIn': convertToJsonLd(availableIn, [SchemaAdministrativeArea]),
-        'maximumIntake':
-            convertToJsonLd(maximumIntake, [SchemaMaximumDoseSchedule]),
-        'strengthUnit': convertToJsonLd(strengthUnit, [String]),
-        'strengthValue': convertToJsonLd(strengthValue, [num]),
+        'activeIngredient': convertToJsonLd(activeIngredient),
+        'availableIn': convertToJsonLd(availableIn),
+        'maximumIntake': convertToJsonLd(maximumIntake),
+        'strengthUnit': convertToJsonLd(strengthUnit),
+        'strengthValue': convertToJsonLd(strengthValue),
       });
 }

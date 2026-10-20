@@ -33,6 +33,7 @@ class SchemaArchiveOrganization extends SchemaLocalBusiness {
     super.alumni,
     super.amenityFeature,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.branchCode,
@@ -88,6 +89,7 @@ class SchemaArchiveOrganization extends SchemaLocalBusiness {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,
@@ -157,6 +159,6 @@ class SchemaArchiveOrganization extends SchemaLocalBusiness {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ArchiveOrganization',
-        'archiveHeld': convertToJsonLd(archiveHeld, [SchemaArchiveComponent]),
+        'archiveHeld': convertToJsonLd(archiveHeld),
       });
 }

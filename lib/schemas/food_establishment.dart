@@ -57,6 +57,7 @@ class SchemaFoodEstablishment extends SchemaLocalBusiness {
     super.alumni,
     super.amenityFeature,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.branchCode,
@@ -112,6 +113,7 @@ class SchemaFoodEstablishment extends SchemaLocalBusiness {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,
@@ -185,11 +187,12 @@ class SchemaFoodEstablishment extends SchemaLocalBusiness {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'FoodEstablishment',
-        'acceptsReservations':
-            convertToJsonLd(acceptsReservations, [String, bool]),
-        'hasMenu': convertToJsonLd(hasMenu, [SchemaMenu, String]),
-        'menu': convertToJsonLd(menu, [SchemaMenu, String]),
-        'servesCuisine': convertToJsonLd(servesCuisine, [String]),
-        'starRating': convertToJsonLd(starRating, [SchemaRating]),
+        'acceptsReservations': convertToJsonLd(
+            acceptsReservations, (v) => v is String || v is bool),
+        'hasMenu':
+            convertToJsonLd(hasMenu, (v) => v is SchemaMenu || v is String),
+        'menu': convertToJsonLd(menu, (v) => v is SchemaMenu || v is String),
+        'servesCuisine': convertToJsonLd(servesCuisine),
+        'starRating': convertToJsonLd(starRating),
       });
 }

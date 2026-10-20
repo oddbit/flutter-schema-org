@@ -11,8 +11,11 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/find_action.dart';
 import 'package:schema_org/schemas/delivery_method.dart';
 
-/// Unlike SubscribeAction, TrackAction refers to the interest on the
-/// location of innanimate objects.
+/// An agent tracks an object for updates.\n\nRelated actions:\n\n*
+/// [SchemaFollowAction]: Unlike FollowAction, TrackAction refers to the
+/// interest on the location of innanimates objects.\n*
+/// [SchemaSubscribeAction]: Unlike SubscribeAction, TrackAction refers to
+/// the interest on the location of innanimate objects.
 /// See https://schema.org/TrackAction
 class SchemaTrackAction extends SchemaFindAction {
   /// A sub property of instrument. The method of delivery.
@@ -54,7 +57,6 @@ class SchemaTrackAction extends SchemaFindAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'TrackAction',
-        'deliveryMethod':
-            convertToJsonLd(deliveryMethod, [SchemaDeliveryMethod]),
+        'deliveryMethod': convertToJsonLd(deliveryMethod),
       });
 }

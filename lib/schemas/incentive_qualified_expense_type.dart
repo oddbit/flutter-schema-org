@@ -16,24 +16,24 @@ import 'package:schema_org/src/schema_serializable.dart';
 enum SchemaIncentiveQualifiedExpenseType implements SchemaSerializable {
   /// This incentive applies to goods only.
   incentiveQualifiedExpenseTypeGoodsOnly(
-      'https://schema.org/IncentiveQualifiedExpenseType'),
+      'https://schema.org/IncentiveQualifiedExpenseTypeGoodsOnly'),
 
   /// This incentive can apply to either goods or services (or both).
   incentiveQualifiedExpenseTypeGoodsOrServices(
-      'https://schema.org/IncentiveQualifiedExpenseType'),
+      'https://schema.org/IncentiveQualifiedExpenseTypeGoodsOrServices'),
 
   /// This incentive applies to services only.
   incentiveQualifiedExpenseTypeServicesOnly(
-      'https://schema.org/IncentiveQualifiedExpenseType'),
+      'https://schema.org/IncentiveQualifiedExpenseTypeServicesOnly'),
 
   /// This incentive applies to utility bills.
   incentiveQualifiedExpenseTypeUtilityBill(
-      'https://schema.org/IncentiveQualifiedExpenseType');
+      'https://schema.org/IncentiveQualifiedExpenseTypeUtilityBill');
 
   /// Constructor for [SchemaIncentiveQualifiedExpenseType]
   const SchemaIncentiveQualifiedExpenseType(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaIncentiveQualifiedExpenseType] to JSON-LD

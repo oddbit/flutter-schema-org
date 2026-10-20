@@ -94,18 +94,15 @@ class SchemaMedicalAudience extends SchemaAudience
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MedicalAudience',
-        'healthCondition':
-            convertToJsonLd(healthCondition, [SchemaMedicalCondition]),
-        'requiredGender': convertToJsonLd(requiredGender, [String]),
-        'requiredMaxAge': convertToJsonLd(requiredMaxAge, [int]),
-        'requiredMinAge': convertToJsonLd(requiredMinAge, [int]),
-        'suggestedAge':
-            convertToJsonLd(suggestedAge, [SchemaQuantitativeValue]),
-        'suggestedGender':
-            convertToJsonLd(suggestedGender, [SchemaGenderType, String]),
-        'suggestedMaxAge': convertToJsonLd(suggestedMaxAge, [num]),
-        'suggestedMeasurement':
-            convertToJsonLd(suggestedMeasurement, [SchemaQuantitativeValue]),
-        'suggestedMinAge': convertToJsonLd(suggestedMinAge, [num]),
+        'healthCondition': convertToJsonLd(healthCondition),
+        'requiredGender': convertToJsonLd(requiredGender),
+        'requiredMaxAge': convertToJsonLd(requiredMaxAge),
+        'requiredMinAge': convertToJsonLd(requiredMinAge),
+        'suggestedAge': convertToJsonLd(suggestedAge),
+        'suggestedGender': convertToJsonLd(
+            suggestedGender, (v) => v is SchemaGenderType || v is String),
+        'suggestedMaxAge': convertToJsonLd(suggestedMaxAge),
+        'suggestedMeasurement': convertToJsonLd(suggestedMeasurement),
+        'suggestedMinAge': convertToJsonLd(suggestedMinAge),
       });
 }

@@ -24,10 +24,21 @@ class SchemaShippingDeliveryTime extends SchemaStructuredValue {
   /// Supported types: [SchemaDayOfWeek], [SchemaOpeningHoursSpecification]
   dynamic businessDays;
 
-  /// 30 pm Eastern Standard Time (EST) which is 5 hours behind Coordinated
+  /// Order cutoff time allows merchants to describe the time after which they
+  /// will no longer process orders received on that day. For orders processed
+  /// after cutoff time, one day gets added to the delivery time estimate. This
+  /// property is expected to be most typically used via the
+  /// [SchemaShippingRateSettings] publication pattern. The time is indicated
+  /// using the ISO-8601 Time format, e.g. "23:30:00-05:00" would represent
+  /// 6:30 pm Eastern Standard Time (EST) which is 5 hours behind Coordinated
   /// Universal Time (UTC).
   String? cutoffTime;
 
+  /// The typical delay between the receipt of the order and the goods either
+  /// leaving the warehouse or being prepared for pickup, in case the delivery
+  /// method is on site pickup.
+  ///
+  /// In the context of [SchemaShippingDeliveryTime], Typical properties:
   /// minValue, maxValue, unitCode (d for DAY). This is by common convention
   /// assumed to mean business days (if a unitCode is used, coded as "d"), i.e.
   /// only counting days when the business normally operates.
@@ -39,7 +50,12 @@ class SchemaShippingDeliveryTime extends SchemaStructuredValue {
   /// Supported types: [SchemaQuantitativeValue], [SchemaServicePeriod]
   dynamic handlingTime;
 
-  /// minValue, maxValue, unitCode (d for DAY).
+  /// The typical delay the order has been sent for delivery and the goods
+  /// reach the final customer.
+  ///
+  /// In the context of [SchemaShippingDeliveryTime], use the
+  /// [SchemaQuantitativeValue]. Typical properties: minValue, maxValue,
+  /// unitCode (d for DAY).
   ///
   /// In the context of [SchemaShippingConditions], use the
   /// [SchemaServicePeriod]. It has a duration (as a [SchemaQuantitativeValue])
@@ -75,11 +91,13 @@ class SchemaShippingDeliveryTime extends SchemaStructuredValue {
         ...super.toJsonLd(),
         '@type': 'ShippingDeliveryTime',
         'businessDays': convertToJsonLd(
-            businessDays, [SchemaDayOfWeek, SchemaOpeningHoursSpecification]),
-        'cutoffTime': convertToJsonLd(cutoffTime, [String]),
-        'handlingTime': convertToJsonLd(
-            handlingTime, [SchemaQuantitativeValue, SchemaServicePeriod]),
-        'transitTime': convertToJsonLd(
-            transitTime, [SchemaQuantitativeValue, SchemaServicePeriod]),
+            businessDays,
+            (v) =>
+                v is SchemaDayOfWeek || v is SchemaOpeningHoursSpecification),
+        'cutoffTime': convertToJsonLd(cutoffTime),
+        'handlingTime': convertToJsonLd(handlingTime,
+            (v) => v is SchemaQuantitativeValue || v is SchemaServicePeriod),
+        'transitTime': convertToJsonLd(transitTime,
+            (v) => v is SchemaQuantitativeValue || v is SchemaServicePeriod),
       });
 }

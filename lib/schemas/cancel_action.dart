@@ -10,7 +10,9 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/plan_action.dart';
 
-/// The antonym of CancelAction.
+/// The act of asserting that a future event/action is no longer going to
+/// happen.\n\nRelated actions:\n\n* [SchemaConfirmAction]: The antonym of
+/// CancelAction.
 /// See https://schema.org/CancelAction
 class SchemaCancelAction extends SchemaPlanAction {
   /// Create a new instance of [SchemaCancelAction]

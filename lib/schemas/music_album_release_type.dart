@@ -9,25 +9,25 @@
 
 import 'package:schema_org/src/schema_serializable.dart';
 
-/// single, EP or album.
+/// The kind of release which this album is: single, EP or album.
 /// See https://schema.org/MusicAlbumReleaseType
 enum SchemaMusicAlbumReleaseType implements SchemaSerializable {
   /// AlbumRelease.
-  albumRelease('https://schema.org/MusicAlbumReleaseType'),
+  albumRelease('https://schema.org/AlbumRelease'),
 
   /// BroadcastRelease.
-  broadcastRelease('https://schema.org/MusicAlbumReleaseType'),
+  broadcastRelease('https://schema.org/BroadcastRelease'),
 
   /// EPRelease.
-  ePRelease('https://schema.org/MusicAlbumReleaseType'),
+  ePRelease('https://schema.org/EPRelease'),
 
   /// SingleRelease.
-  singleRelease('https://schema.org/MusicAlbumReleaseType');
+  singleRelease('https://schema.org/SingleRelease');
 
   /// Constructor for [SchemaMusicAlbumReleaseType]
   const SchemaMusicAlbumReleaseType(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaMusicAlbumReleaseType] to JSON-LD

@@ -9,93 +9,151 @@
 
 import 'package:schema_org/schemas/media_enumeration.dart';
 
-/// //cv.iptc.org/newscodes/digitalsourcetype/">detailed definitions</a> of
-/// all terms.
+/// <a href="https://www.iptc.org/">IPTC</a> "Digital Source" codes for use
+/// with the [SchemadigitalSourceType] property, providing information about
+/// the source for a digital media object. In general these codes are not
+/// declared here to be mutually exclusive, although some combinations would
+/// be contradictory if applied simultaneously, or might be considered
+/// mutually incompatible by upstream maintainers of the definitions. See the
+/// IPTC <a
+/// href="https://www.iptc.org/std/photometadata/documentation/userguide/">documentation</a>
+/// for <a href="https://cv.iptc.org/newscodes/digitalsourcetype/">detailed
+/// definitions</a> of all terms.
 /// See https://schema.org/IPTCDigitalSourceEnumeration
 enum SchemaIPTCDigitalSourceEnumeration implements SchemaMediaEnumeration {
-  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
-  /// vocabulary.
+  /// Content coded as '<a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/algorithmicMedia">algorithmic
+  /// media</a>' using the IPTC <a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital
+  /// source type</a> vocabulary.
   algorithmicMediaDigitalSource(
-      'https://schema.org/IPTCDigitalSourceEnumeration'),
+      'https://schema.org/AlgorithmicMediaDigitalSource'),
 
-  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
-  /// vocabulary.
+  /// Content coded as '<a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/algorithmicallyEnhanced">algorithmically
+  /// enhanced</a>' using the IPTC <a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital
+  /// source type</a> vocabulary.
   algorithmicallyEnhancedDigitalSource(
-      'https://schema.org/IPTCDigitalSourceEnumeration'),
+      'https://schema.org/AlgorithmicallyEnhancedDigitalSource'),
 
-  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
-  /// vocabulary.
+  /// Content coded as '<a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/compositeCapture">composite
+  /// capture</a>' using the IPTC <a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital
+  /// source type</a> vocabulary.
   compositeCaptureDigitalSource(
-      'https://schema.org/IPTCDigitalSourceEnumeration'),
+      'https://schema.org/CompositeCaptureDigitalSource'),
 
-  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
-  /// vocabulary.
-  compositeDigitalSource('https://schema.org/IPTCDigitalSourceEnumeration'),
+  /// Content coded as '<a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/algorithmicMedia">algorithmic
+  /// media</a>' using the IPTC <a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital
+  /// source type</a> vocabulary.
+  compositeDigitalSource('https://schema.org/CompositeDigitalSource'),
 
-  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
-  /// vocabulary.
+  /// Content coded as '<a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/compositeSynthetic">composite
+  /// synthetic</a>' using the IPTC <a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital
+  /// source type</a> vocabulary.
   compositeSyntheticDigitalSource(
-      'https://schema.org/IPTCDigitalSourceEnumeration'),
+      'https://schema.org/CompositeSyntheticDigitalSource'),
 
-  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
-  /// vocabulary.
+  /// Content coded as '<a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/compositeWithTrainedAlgorithmicMedia">composite
+  /// with trained algorithmic media</a>' using the IPTC <a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital
+  /// source type</a> vocabulary.
   compositeWithTrainedAlgorithmicMediaDigitalSource(
-      'https://schema.org/IPTCDigitalSourceEnumeration'),
+      'https://schema.org/CompositeWithTrainedAlgorithmicMediaDigitalSource'),
 
-  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
-  /// vocabulary.
+  /// Content coded as '<a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/dataDrivenMedia">data
+  /// driven media</a>' using the IPTC <a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital
+  /// source type</a> vocabulary.
   dataDrivenMediaDigitalSource(
-      'https://schema.org/IPTCDigitalSourceEnumeration'),
+      'https://schema.org/DataDrivenMediaDigitalSource'),
 
-  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
-  /// vocabulary.
-  digitalArtDigitalSource('https://schema.org/IPTCDigitalSourceEnumeration'),
+  /// Content coded as '<a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/digitalArt">digital
+  /// art</a>' using the IPTC <a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital
+  /// source type</a> vocabulary.
+  digitalArtDigitalSource('https://schema.org/DigitalArtDigitalSource'),
 
-  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
-  /// vocabulary.
-  digitalCaptureDigitalSource(
-      'https://schema.org/IPTCDigitalSourceEnumeration'),
+  /// Content coded as '<a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/digitalCapture">digital
+  /// capture</a></a>' using the IPTC <a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital
+  /// source type</a> vocabulary.
+  digitalCaptureDigitalSource('https://schema.org/DigitalCaptureDigitalSource'),
 
-  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
-  /// vocabulary.
+  /// Content coded as '<a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/minorHumanEdits">minor
+  /// human edits</a>' using the IPTC <a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital
+  /// source type</a> vocabulary.
   minorHumanEditsDigitalSource(
-      'https://schema.org/IPTCDigitalSourceEnumeration'),
+      'https://schema.org/MinorHumanEditsDigitalSource'),
 
-  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
-  /// vocabulary.
+  /// Content coded as '<a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/algorithmicMedia">algorithmic
+  /// media</a>' using the IPTC <a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital
+  /// source type</a> vocabulary.
   multiFrameComputationalCaptureDigitalSource(
-      'https://schema.org/IPTCDigitalSourceEnumeration'),
+      'https://schema.org/MultiFrameComputationalCaptureDigitalSource'),
 
-  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
-  /// vocabulary.
-  negativeFilmDigitalSource('https://schema.org/IPTCDigitalSourceEnumeration'),
+  /// Content coded as '<a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/negativeFilm">negative
+  /// film</a></a>' using the IPTC <a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital
+  /// source type</a> vocabulary.
+  negativeFilmDigitalSource('https://schema.org/NegativeFilmDigitalSource'),
 
-  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
-  /// vocabulary.
-  positiveFilmDigitalSource('https://schema.org/IPTCDigitalSourceEnumeration'),
+  /// Content coded as '<a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/positiveFilm">positive
+  /// film</a>' using the IPTC <a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital
+  /// source type</a> vocabulary.
+  positiveFilmDigitalSource('https://schema.org/PositiveFilmDigitalSource'),
 
-  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
-  /// vocabulary.
-  printDigitalSource('https://schema.org/IPTCDigitalSourceEnumeration'),
+  /// Content coded as '<a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/print">print</a>'
+  /// using the IPTC <a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital
+  /// source type</a> vocabulary.
+  printDigitalSource('https://schema.org/PrintDigitalSource'),
 
-  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
-  /// vocabulary.
-  screenCaptureDigitalSource('https://schema.org/IPTCDigitalSourceEnumeration'),
+  /// Content coded as '<a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/algorithmicMedia">algorithmic
+  /// media</a>' using the IPTC <a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital
+  /// source type</a> vocabulary.
+  screenCaptureDigitalSource('https://schema.org/ScreenCaptureDigitalSource'),
 
-  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
-  /// vocabulary.
+  /// Content coded as '<a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia">trained
+  /// algorithmic media</a>' using the IPTC <a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital
+  /// source type</a> vocabulary.
   trainedAlgorithmicMediaDigitalSource(
-      'https://schema.org/IPTCDigitalSourceEnumeration'),
+      'https://schema.org/TrainedAlgorithmicMediaDigitalSource'),
 
-  /// //cv.iptc.org/newscodes/digitalsourcetype/">digital source type</a>
-  /// vocabulary.
+  /// Content coded as '<a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/virtualRecording">virtual
+  /// recording</a>' using the IPTC <a
+  /// href="https://cv.iptc.org/newscodes/digitalsourcetype/">digital
+  /// source type</a> vocabulary.
   virtualRecordingDigitalSource(
-      'https://schema.org/IPTCDigitalSourceEnumeration');
+      'https://schema.org/VirtualRecordingDigitalSource');
 
   /// Constructor for [SchemaIPTCDigitalSourceEnumeration]
   const SchemaIPTCDigitalSourceEnumeration(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaIPTCDigitalSourceEnumeration] to JSON-LD

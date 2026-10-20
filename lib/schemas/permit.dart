@@ -71,12 +71,12 @@ class SchemaPermit extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Permit',
-        'issuedBy': convertToJsonLd(issuedBy, [SchemaOrganization]),
-        'issuedThrough': convertToJsonLd(issuedThrough, [SchemaService]),
-        'permitAudience': convertToJsonLd(permitAudience, [SchemaAudience]),
-        'validFor': convertToJsonLd(validFor, [SchemaDuration]),
-        'validFrom': convertToJsonLd(validFrom, [String]),
-        'validIn': convertToJsonLd(validIn, [SchemaAdministrativeArea]),
-        'validUntil': convertToJsonLd(validUntil, [String]),
+        'issuedBy': convertToJsonLd(issuedBy),
+        'issuedThrough': convertToJsonLd(issuedThrough),
+        'permitAudience': convertToJsonLd(permitAudience),
+        'validFor': convertToJsonLd(validFor),
+        'validFrom': convertToJsonLd(validFrom),
+        'validIn': convertToJsonLd(validIn),
+        'validUntil': convertToJsonLd(validUntil),
       });
 }

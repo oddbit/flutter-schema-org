@@ -20,7 +20,9 @@ import 'package:schema_org/schemas/postal_address.dart';
 /// site, or phone number.
 /// See https://schema.org/ServiceChannel
 class SchemaServiceChannel extends SchemaIntangible {
-  /// //tools.ietf.org/html/bcp47). See also [SchemainLanguage].
+  /// A language someone may use with or at the item, service or place. Please
+  /// use one of the language codes from the [IETF BCP 47
+  /// standard](http://tools.ietf.org/html/bcp47). See also [SchemainLanguage].
   ///
   /// Supported types: [SchemaLanguage], [String]
   dynamic availableLanguage;
@@ -77,16 +79,14 @@ class SchemaServiceChannel extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ServiceChannel',
-        'availableLanguage':
-            convertToJsonLd(availableLanguage, [SchemaLanguage, String]),
-        'processingTime': convertToJsonLd(processingTime, [SchemaDuration]),
-        'providesService': convertToJsonLd(providesService, [SchemaService]),
-        'serviceLocation': convertToJsonLd(serviceLocation, [SchemaPlace]),
-        'servicePhone': convertToJsonLd(servicePhone, [SchemaContactPoint]),
-        'servicePostalAddress':
-            convertToJsonLd(servicePostalAddress, [SchemaPostalAddress]),
-        'serviceSmsNumber':
-            convertToJsonLd(serviceSmsNumber, [SchemaContactPoint]),
-        'serviceUrl': convertToJsonLd(serviceUrl, [String]),
+        'availableLanguage': convertToJsonLd(
+            availableLanguage, (v) => v is SchemaLanguage || v is String),
+        'processingTime': convertToJsonLd(processingTime),
+        'providesService': convertToJsonLd(providesService),
+        'serviceLocation': convertToJsonLd(serviceLocation),
+        'servicePhone': convertToJsonLd(servicePhone),
+        'servicePostalAddress': convertToJsonLd(servicePostalAddress),
+        'serviceSmsNumber': convertToJsonLd(serviceSmsNumber),
+        'serviceUrl': convertToJsonLd(serviceUrl),
       });
 }

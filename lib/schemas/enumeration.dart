@@ -46,6 +46,10 @@ class SchemaEnumeration extends SchemaIntangible {
         ...super.toJsonLd(),
         '@type': 'Enumeration',
         'supersededBy': convertToJsonLd(
-            supersededBy, [SchemaClass, SchemaEnumeration, SchemaProperty]),
+            supersededBy,
+            (v) =>
+                v is SchemaClass ||
+                v is SchemaEnumeration ||
+                v is SchemaProperty),
       });
 }

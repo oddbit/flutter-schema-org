@@ -10,8 +10,10 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/plan_action.dart';
 
-/// Unlike ReserveAction, ScheduleAction allocates future actions (e.g. an
-/// event, a task, etc) towards a time slot / spatial allocation.
+/// Scheduling future actions, events, or tasks.\n\nRelated actions:\n\n*
+/// [SchemaReserveAction]: Unlike ReserveAction, ScheduleAction allocates
+/// future actions (e.g. an event, a task, etc) towards a time slot / spatial
+/// allocation.
 /// See https://schema.org/ScheduleAction
 class SchemaScheduleAction extends SchemaPlanAction {
   /// Create a new instance of [SchemaScheduleAction]

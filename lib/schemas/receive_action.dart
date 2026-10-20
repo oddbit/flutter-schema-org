@@ -14,9 +14,12 @@ import 'package:schema_org/schemas/audience.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 
-/// Unlike TakeAction, ReceiveAction does not imply that the ownership has
-/// been transferred (e.g. I can receive a package, but it does not mean the
-/// package is now mine).
+/// The act of physically/electronically taking delivery of an object that
+/// has been transferred from an origin to a destination. Reciprocal of
+/// SendAction.\n\nRelated actions:\n\n* [SchemaSendAction]: The reciprocal
+/// of ReceiveAction.\n* [SchemaTakeAction]: Unlike TakeAction, ReceiveAction
+/// does not imply that the ownership has been transferred (e.g. I can
+/// receive a package, but it does not mean the package is now mine).
 /// See https://schema.org/ReceiveAction
 class SchemaReceiveAction extends SchemaTransferAction {
   /// A sub property of instrument. The method of delivery.
@@ -67,9 +70,12 @@ class SchemaReceiveAction extends SchemaTransferAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ReceiveAction',
-        'deliveryMethod':
-            convertToJsonLd(deliveryMethod, [SchemaDeliveryMethod]),
+        'deliveryMethod': convertToJsonLd(deliveryMethod),
         'sender': convertToJsonLd(
-            sender, [SchemaAudience, SchemaOrganization, SchemaPerson]),
+            sender,
+            (v) =>
+                v is SchemaAudience ||
+                v is SchemaOrganization ||
+                v is SchemaPerson),
       });
 }

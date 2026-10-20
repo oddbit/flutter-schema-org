@@ -158,6 +158,6 @@ class SchemaDefinedTermSet extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'DefinedTermSet',
-        'hasDefinedTerm': convertToJsonLd(hasDefinedTerm, [SchemaDefinedTerm]),
+        'hasDefinedTerm': convertToJsonLd(hasDefinedTerm),
       });
 }

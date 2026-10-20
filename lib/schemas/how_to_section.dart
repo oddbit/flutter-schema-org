@@ -31,9 +31,15 @@ class SchemaHowToSection extends SchemaCreativeWork
   @override
   SchemaThing? aggregateElement;
 
-  /// The order of elements in your mark-up is not sufficient for indicating
-  /// the order or elements. Use ListItem with a 'position' property in such
-  /// cases.
+  /// For itemListElement values, you can use simple strings (e.g. "Peter",
+  /// "Paul", "Mary"), existing entities, or use ListItem.\n\nText values are
+  /// best if the elements in the list are plain strings. Existing entities are
+  /// best for a simple, unordered list of existing things in your data.
+  /// ListItem is used with ordered lists when you want to provide additional
+  /// context about the element in that list or when the same item might be in
+  /// different places in different lists.\n\nNote: The order of elements in
+  /// your mark-up is not sufficient for indicating the order or elements. Use
+  /// ListItem with a 'position' property in such cases.
   ///
   /// Supported types: [SchemaListItem], [String], [SchemaThing]
   @override
@@ -211,15 +217,17 @@ class SchemaHowToSection extends SchemaCreativeWork
         ...super.toJsonLd(),
         '@type': 'HowToSection',
         'steps': convertToJsonLd(
-            steps, [SchemaCreativeWork, SchemaItemList, String]),
-        'aggregateElement': convertToJsonLd(aggregateElement, [SchemaThing]),
-        'itemListElement': convertToJsonLd(
-            itemListElement, [SchemaListItem, String, SchemaThing]),
-        'itemListOrder':
-            convertToJsonLd(itemListOrder, [SchemaItemListOrderType, String]),
-        'numberOfItems': convertToJsonLd(numberOfItems, [int]),
-        'item': convertToJsonLd(item, [SchemaThing]),
-        'nextItem': convertToJsonLd(nextItem, [SchemaListItem]),
-        'previousItem': convertToJsonLd(previousItem, [SchemaListItem]),
+            steps,
+            (v) =>
+                v is SchemaCreativeWork || v is SchemaItemList || v is String),
+        'aggregateElement': convertToJsonLd(aggregateElement),
+        'itemListElement': convertToJsonLd(itemListElement,
+            (v) => v is SchemaListItem || v is String || v is SchemaThing),
+        'itemListOrder': convertToJsonLd(
+            itemListOrder, (v) => v is SchemaItemListOrderType || v is String),
+        'numberOfItems': convertToJsonLd(numberOfItems),
+        'item': convertToJsonLd(item),
+        'nextItem': convertToJsonLd(nextItem),
+        'previousItem': convertToJsonLd(previousItem),
       });
 }

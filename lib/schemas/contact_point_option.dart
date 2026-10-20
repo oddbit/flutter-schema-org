@@ -13,15 +13,15 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// See https://schema.org/ContactPointOption
 enum SchemaContactPointOption implements SchemaSerializable {
   /// Uses devices to support users with hearing impairments.
-  hearingImpairedSupported('https://schema.org/ContactPointOption'),
+  hearingImpairedSupported('https://schema.org/HearingImpairedSupported'),
 
   /// The associated telephone number is toll free.
-  tollFree('https://schema.org/ContactPointOption');
+  tollFree('https://schema.org/TollFree');
 
   /// Constructor for [SchemaContactPointOption]
   const SchemaContactPointOption(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaContactPointOption] to JSON-LD

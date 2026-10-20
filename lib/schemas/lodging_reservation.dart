@@ -12,9 +12,9 @@ import 'package:schema_org/schemas/reservation.dart';
 import 'package:schema_org/schemas/qualitative_value.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 
-/// This type is for information about actual reservations, e.g. in
-/// confirmation emails or HTML pages with individual confirmations of
-/// reservations.
+/// A reservation for lodging at a hotel, motel, inn, etc.\n\nNote: This type
+/// is for information about actual reservations, e.g. in confirmation emails
+/// or HTML pages with individual confirmations of reservations.
 /// See https://schema.org/LodgingReservation
 class SchemaLodgingReservation extends SchemaReservation {
   /// The earliest someone may check into a lodging establishment.
@@ -83,14 +83,14 @@ class SchemaLodgingReservation extends SchemaReservation {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'LodgingReservation',
-        'checkinTime': convertToJsonLd(checkinTime, [String]),
-        'checkoutTime': convertToJsonLd(checkoutTime, [String]),
-        'lodgingUnitDescription':
-            convertToJsonLd(lodgingUnitDescription, [String]),
-        'lodgingUnitType':
-            convertToJsonLd(lodgingUnitType, [SchemaQualitativeValue, String]),
-        'numAdults': convertToJsonLd(numAdults, [SchemaQuantitativeValue, int]),
-        'numChildren':
-            convertToJsonLd(numChildren, [SchemaQuantitativeValue, int]),
+        'checkinTime': convertToJsonLd(checkinTime),
+        'checkoutTime': convertToJsonLd(checkoutTime),
+        'lodgingUnitDescription': convertToJsonLd(lodgingUnitDescription),
+        'lodgingUnitType': convertToJsonLd(
+            lodgingUnitType, (v) => v is SchemaQualitativeValue || v is String),
+        'numAdults': convertToJsonLd(
+            numAdults, (v) => v is SchemaQuantitativeValue || v is int),
+        'numChildren': convertToJsonLd(
+            numChildren, (v) => v is SchemaQuantitativeValue || v is int),
       });
 }

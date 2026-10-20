@@ -15,33 +15,33 @@ import 'package:schema_org/src/schema_serializable.dart';
 enum SchemaPriceComponentTypeEnumeration implements SchemaSerializable {
   /// Represents the activation fee part of the total price for an offered
   /// product, for example a cellphone contract.
-  activationFee('https://schema.org/PriceComponentTypeEnumeration'),
+  activationFee('https://schema.org/ActivationFee'),
 
   /// Represents the cleaning fee part of the total price for an offered
   /// product, for example a vacation rental.
-  cleaningFee('https://schema.org/PriceComponentTypeEnumeration'),
+  cleaningFee('https://schema.org/CleaningFee'),
 
   /// Represents the distance fee (e.g., price per km or mile) part of the
   /// total price for an offered product, for example a car rental.
-  distanceFee('https://schema.org/PriceComponentTypeEnumeration'),
+  distanceFee('https://schema.org/DistanceFee'),
 
   /// Represents the downpayment (up-front payment) price component of the
   /// total price for an offered product that has additional installment
   /// payments.
-  downpayment('https://schema.org/PriceComponentTypeEnumeration'),
+  downpayment('https://schema.org/Downpayment'),
 
   /// Represents the installment pricing component of the total price for
   /// an offered product.
-  installment('https://schema.org/PriceComponentTypeEnumeration'),
+  installment('https://schema.org/Installment'),
 
   /// Represents the subscription pricing component of the total price for
   /// an offered product.
-  subscription('https://schema.org/PriceComponentTypeEnumeration');
+  subscription('https://schema.org/Subscription');
 
   /// Constructor for [SchemaPriceComponentTypeEnumeration]
   const SchemaPriceComponentTypeEnumeration(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaPriceComponentTypeEnumeration] to JSON-LD

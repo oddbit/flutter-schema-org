@@ -62,9 +62,12 @@ class SchemaTaxon extends SchemaThing {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Taxon',
-        'childTaxon': convertToJsonLd(childTaxon, [String, SchemaTaxon]),
-        'hasDefinedTerm': convertToJsonLd(hasDefinedTerm, [SchemaDefinedTerm]),
-        'parentTaxon': convertToJsonLd(parentTaxon, [String, SchemaTaxon]),
-        'taxonRank': convertToJsonLd(taxonRank, [SchemaPropertyValue, String]),
+        'childTaxon':
+            convertToJsonLd(childTaxon, (v) => v is String || v is SchemaTaxon),
+        'hasDefinedTerm': convertToJsonLd(hasDefinedTerm),
+        'parentTaxon': convertToJsonLd(
+            parentTaxon, (v) => v is String || v is SchemaTaxon),
+        'taxonRank': convertToJsonLd(
+            taxonRank, (v) => v is SchemaPropertyValue || v is String),
       });
 }

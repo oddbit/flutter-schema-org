@@ -10,7 +10,9 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/lodging_business.dart';
 
-/// //en.wikipedia.org/wiki/Hotel). <br /><br /> See also the <a
+/// A hotel is an establishment that provides lodging paid on a short-term
+/// basis (source: Wikipedia, the free encyclopedia, see
+/// http://en.wikipedia.org/wiki/Hotel). <br /><br /> See also the <a
 /// href="/docs/hotels.html">dedicated document on the use of schema.org for
 /// marking up hotels and other forms of accommodations</a>.
 /// See https://schema.org/Hotel
@@ -29,6 +31,7 @@ class SchemaHotel extends SchemaLodgingBusiness {
     super.amenityFeature,
     super.areaServed,
     super.audience,
+    super.authorizedRepresentative,
     super.availableLanguage,
     super.award,
     super.awards,
@@ -87,6 +90,7 @@ class SchemaHotel extends SchemaLodgingBusiness {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,

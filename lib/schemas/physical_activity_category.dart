@@ -16,37 +16,37 @@ enum SchemaPhysicalActivityCategory implements SchemaSerializable {
   /// on the aerobic energy-generating process; during activity, the
   /// aerobic metabolism uses oxygen to adequately meet energy demands
   /// during exercise.
-  aerobicActivity('https://schema.org/PhysicalActivityCategory'),
+  aerobicActivity('https://schema.org/AerobicActivity'),
 
   /// Physical activity that is of high-intensity which utilizes the
   /// anaerobic metabolism of the body.
-  anaerobicActivity('https://schema.org/PhysicalActivityCategory'),
+  anaerobicActivity('https://schema.org/AnaerobicActivity'),
 
   /// Physical activity that is engaged to help maintain posture and
   /// balance.
-  balance('https://schema.org/PhysicalActivityCategory'),
+  balance('https://schema.org/Balance'),
 
   /// Physical activity that is engaged in to improve joint and muscle
   /// flexibility.
-  flexibility('https://schema.org/PhysicalActivityCategory'),
+  flexibility('https://schema.org/Flexibility'),
 
   /// Any physical activity engaged in for recreational purposes. Examples
   /// may include ballroom dancing, roller skating, canoeing, fishing, etc.
-  leisureTimeActivity('https://schema.org/PhysicalActivityCategory'),
+  leisureTimeActivity('https://schema.org/LeisureTimeActivity'),
 
   /// Any physical activity engaged in for job-related purposes. Examples
   /// may include waiting tables, maid service, carrying a mailbag, picking
   /// fruits or vegetables, construction work, etc.
-  occupationalActivity('https://schema.org/PhysicalActivityCategory'),
+  occupationalActivity('https://schema.org/OccupationalActivity'),
 
   /// Physical activity that is engaged in to improve muscle and bone
   /// strength. Also referred to as resistance training.
-  strengthTraining('https://schema.org/PhysicalActivityCategory');
+  strengthTraining('https://schema.org/StrengthTraining');
 
   /// Constructor for [SchemaPhysicalActivityCategory]
   const SchemaPhysicalActivityCategory(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaPhysicalActivityCategory] to JSON-LD

@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// Theater performance.
+/// Event type: Theater performance.
 /// See https://schema.org/TheaterEvent
 class SchemaTheaterEvent extends SchemaEvent {
   /// Create a new instance of [SchemaTheaterEvent]

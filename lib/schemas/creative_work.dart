@@ -54,27 +54,39 @@ class SchemaCreativeWork extends SchemaThing {
   /// [SchemaCreativeWork].
   String? abstract;
 
-  /// //www.w3.org/2021/a11y-discov-vocab/latest/#accessMode-vocabulary).
+  /// The human sensory perceptual system or cognitive faculty through which a
+  /// person may process or perceive the intellectual content of a resource,
+  /// not including any adaptations of the content (e.g., text alternatives for
+  /// images). Values should be drawn from the [approved
+  /// vocabulary](https://www.w3.org/2021/a11y-discov-vocab/latest/#accessMode-vocabulary).
   String? accessMode;
 
-  ///
-  /// //www.w3.org/2021/a11y-discov-vocab/latest/#accessModeSufficient-vocabulary).
+  /// A list of single or combined access modes that are sufficient to
+  /// understand all the intellectual content of a resource, including any
+  /// adaptations. Values should be drawn from the [approved
+  /// vocabulary](https://www.w3.org/2021/a11y-discov-vocab/latest/#accessModeSufficient-vocabulary).
   SchemaItemList? accessModeSufficient;
 
-  ///
-  /// //www.w3.org/2021/a11y-discov-vocab/latest/#accessibilityAPI-vocabulary).
+  /// Indicates that the resource is compatible with the referenced
+  /// accessibility API. Values should be drawn from the [approved
+  /// vocabulary](https://www.w3.org/2021/a11y-discov-vocab/latest/#accessibilityAPI-vocabulary).
   String? accessibilityAPI;
 
-  ///
-  /// //www.w3.org/2021/a11y-discov-vocab/latest/#accessibilityControl-vocabulary).
+  /// Identifies input methods that are sufficient to fully control the
+  /// described resource. Values should be drawn from the [approved
+  /// vocabulary](https://www.w3.org/2021/a11y-discov-vocab/latest/#accessibilityControl-vocabulary).
   String? accessibilityControl;
 
-  ///
-  /// //www.w3.org/2021/a11y-discov-vocab/latest/#accessibilityFeature-vocabulary).
+  /// Content features of the resource, such as accessible media, alternatives
+  /// and supported enhancements for accessibility. Values should be drawn from
+  /// the [approved
+  /// vocabulary](https://www.w3.org/2021/a11y-discov-vocab/latest/#accessibilityFeature-vocabulary).
   String? accessibilityFeature;
 
-  ///
-  /// //www.w3.org/2021/a11y-discov-vocab/latest/#accessibilityHazard-vocabulary).
+  /// A characteristic of the described resource that is physiologically
+  /// dangerous to some users. Related to WCAG 2.0 guideline 2.3. Values should
+  /// be drawn from the [approved
+  /// vocabulary](https://www.w3.org/2021/a11y-discov-vocab/latest/#accessibilityHazard-vocabulary).
   String? accessibilityHazard;
 
   /// A human-readable summary of specific accessibility features or
@@ -260,8 +272,9 @@ class SchemaCreativeWork extends SchemaThing {
   /// The location at which an item can be viewed or experienced in-person.
   SchemaPlace? displayLocation;
 
-  /// //eidr.org/) (Entertainment Identifier Registry) [Schemaidentifier]
-  /// representing a specific edit / edition for a work of film or television.
+  /// An [EIDR](https://eidr.org/) (Entertainment Identifier Registry)
+  /// [Schemaidentifier] representing a specific edit / edition for a work of
+  /// film or television.
   ///
   /// For example, the motion picture known as "Ghostbusters" whose
   /// [SchematitleEIDR] is "10.5240/7EC7-228A-510A-053E-CBB8-J" has several
@@ -301,7 +314,10 @@ class SchemaCreativeWork extends SchemaThing {
   /// for associatedMedia.
   SchemaMediaObject? encoding;
 
-  /// //developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)),
+  /// Media type typically expressed using a MIME format (see [IANA
+  /// site](http://www.iana.org/assignments/media-types/media-types.xhtml) and
+  /// [MDN
+  /// reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)),
   /// e.g. application/zip for a SoftwareApplication binary, audio/mpeg for
   /// .mp3 etc.
   ///
@@ -331,13 +347,14 @@ class SchemaCreativeWork extends SchemaThing {
   /// has expired.
   String? expires;
 
-  /// //www.iana.org/assignments/media-types/media-types.xhtml)) of the
-  /// content, e.g. application/zip of a SoftwareApplication binary. In cases
-  /// where a CreativeWork has several media type representations, 'encoding'
-  /// can be used to indicate each MediaObject alongside particular fileFormat
-  /// information. Unregistered or niche file formats can be indicated instead
-  /// via the most appropriate URL, e.g. defining Web page or a Wikipedia
-  /// entry.
+  /// Media type, typically MIME format (see [IANA
+  /// site](http://www.iana.org/assignments/media-types/media-types.xhtml)) of
+  /// the content, e.g. application/zip of a SoftwareApplication binary. In
+  /// cases where a CreativeWork has several media type representations,
+  /// 'encoding' can be used to indicate each MediaObject alongside particular
+  /// fileFormat information. Unregistered or niche file formats can be
+  /// indicated instead via the most appropriate URL, e.g. defining Web page or
+  /// a Wikipedia entry.
   @Deprecated('Use [encodingFormat]. See https://schema.org/fileFormat')
   String? fileFormat;
 
@@ -363,7 +380,10 @@ class SchemaCreativeWork extends SchemaThing {
   /// Headline of the article.
   String? headline;
 
-  /// //tools.ietf.org/html/bcp47). See also [SchemaavailableLanguage].
+  /// The language of the content or performance or used in an action. Please
+  /// use one of the language codes from the [IETF BCP 47
+  /// standard](http://tools.ietf.org/html/bcp47). See also
+  /// [SchemaavailableLanguage].
   ///
   /// Supported types: [SchemaLanguage], [String]
   dynamic inLanguage;
@@ -392,7 +412,9 @@ class SchemaCreativeWork extends SchemaThing {
   /// Supported types: [SchemaCreativeWork], [SchemaProduct], [String]
   dynamic isBasedOn;
 
-  /// //example.com/great-multiplication-intro.html.
+  /// A resource that was used in the creation of this resource. This term can
+  /// be repeated for multiple sources. For example,
+  /// http://example.com/great-multiplication-intro.html.
   ///
   /// Supported types: [SchemaCreativeWork], [SchemaProduct], [String]
   @Deprecated('Use [isBasedOn]. See https://schema.org/isBasedOnUrl')
@@ -545,8 +567,15 @@ class SchemaCreativeWork extends SchemaThing {
   @Deprecated('Use [review]. See https://schema.org/reviews')
   SchemaReview? reviews;
 
-  /// //dublincore.org/specifications/dublin-core/dces/1999-07-02/``` but this
-  /// has not been carefully explored in the community.
+  /// Indicates (by URL or string) a particular version of a schema used in
+  /// some CreativeWork. This property was created primarily to indicate the
+  /// use of a specific schema.org release, e.g. ```10.0``` as a simple string,
+  /// or more explicitly via URL,
+  /// ```https://schema.org/docs/releases.html#v10.0```. There may be
+  /// situations in which other schemas might usefully be referenced this way,
+  /// e.g.
+  /// ```http://dublincore.org/specifications/dublin-core/dces/1999-07-02/```
+  /// but this has not been carefully explored in the community.
   String? schemaVersion;
 
   /// Indicates the date on which the current structured data was generated /
@@ -589,7 +618,12 @@ class SchemaCreativeWork extends SchemaThing {
   /// [SchemacontentLocation]) are not known to be appropriate.
   SchemaPlace? spatial;
 
-  /// the state of New York.
+  /// The spatialCoverage of a CreativeWork indicates the place(s) which are
+  /// the focus of the content. It is a subproperty of contentLocation intended
+  /// primarily for more technical and detailed materials. For example with a
+  /// Dataset, it indicates areas that the dataset describes: a dataset of New
+  /// York weather would have spatialCoverage which was the place: the state of
+  /// New York.
   SchemaPlace? spatialCoverage;
 
   /// A person or organization that supports a thing through a pledge, promise,
@@ -611,14 +645,18 @@ class SchemaCreativeWork extends SchemaThing {
   /// appropriate.
   String? temporal;
 
-  /// //en.wikipedia.org/wiki/ISO_8601#Time_intervals). In the case of a
-  /// Dataset it will typically indicate the relevant time period in a precise
-  /// notation (e.g. for a 2011 census dataset, the year 2011 would be written
-  /// "2011/2012"). Other forms of content, e.g. ScholarlyArticle, Book,
-  /// TVSeries or TVEpisode, may indicate their temporalCoverage in broader
-  /// terms - textually or via well-known URL. Written works such as books may
-  /// sometimes have precise temporal coverage too, e.g. a work set in 1939 -
-  /// 1945 can be indicated in ISO 8601 interval format format via "1939/1945".
+  /// The temporalCoverage of a CreativeWork indicates the period that the
+  /// content applies to, i.e. that it describes, either as a DateTime or as a
+  /// textual string indicating a time period in [ISO 8601 time interval
+  /// format](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals). In the
+  /// case of a Dataset it will typically indicate the relevant time period in
+  /// a precise notation (e.g. for a 2011 census dataset, the year 2011 would
+  /// be written "2011/2012"). Other forms of content, e.g. ScholarlyArticle,
+  /// Book, TVSeries or TVEpisode, may indicate their temporalCoverage in
+  /// broader terms - textually or via well-known URL. Written works such as
+  /// books may sometimes have precise temporal coverage too, e.g. a work set
+  /// in 1939 - 1945 can be indicated in ISO 8601 interval format format via
+  /// "1939/1945".
   ///
   /// Open-ended date ranges can be written with ".." in place of the end date.
   /// For example, "2015-11/.." indicates a range beginning in November 2015
@@ -832,157 +870,174 @@ class SchemaCreativeWork extends SchemaThing {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'CreativeWork',
-        'about': convertToJsonLd(about, [SchemaThing]),
-        'abstract': convertToJsonLd(abstract, [String]),
-        'accessMode': convertToJsonLd(accessMode, [String]),
-        'accessModeSufficient':
-            convertToJsonLd(accessModeSufficient, [SchemaItemList]),
-        'accessibilityAPI': convertToJsonLd(accessibilityAPI, [String]),
-        'accessibilityControl': convertToJsonLd(accessibilityControl, [String]),
-        'accessibilityFeature': convertToJsonLd(accessibilityFeature, [String]),
-        'accessibilityHazard': convertToJsonLd(accessibilityHazard, [String]),
-        'accessibilitySummary': convertToJsonLd(accessibilitySummary, [String]),
-        'accountablePerson': convertToJsonLd(accountablePerson, [SchemaPerson]),
-        'acquireLicensePage':
-            convertToJsonLd(acquireLicensePage, [SchemaCreativeWork, String]),
-        'aggregateRating':
-            convertToJsonLd(aggregateRating, [SchemaAggregateRating]),
-        'alternativeHeadline': convertToJsonLd(alternativeHeadline, [String]),
-        'archivedAt': convertToJsonLd(archivedAt, [String, SchemaWebPage]),
-        'assesses': convertToJsonLd(assesses, [SchemaDefinedTerm, String]),
-        'associatedMedia':
-            convertToJsonLd(associatedMedia, [SchemaMediaObject]),
-        'audience': convertToJsonLd(audience, [SchemaAudience]),
+        'about': convertToJsonLd(about),
+        'abstract': convertToJsonLd(abstract),
+        'accessMode': convertToJsonLd(accessMode),
+        'accessModeSufficient': convertToJsonLd(accessModeSufficient),
+        'accessibilityAPI': convertToJsonLd(accessibilityAPI),
+        'accessibilityControl': convertToJsonLd(accessibilityControl),
+        'accessibilityFeature': convertToJsonLd(accessibilityFeature),
+        'accessibilityHazard': convertToJsonLd(accessibilityHazard),
+        'accessibilitySummary': convertToJsonLd(accessibilitySummary),
+        'accountablePerson': convertToJsonLd(accountablePerson),
+        'acquireLicensePage': convertToJsonLd(
+            acquireLicensePage, (v) => v is SchemaCreativeWork || v is String),
+        'aggregateRating': convertToJsonLd(aggregateRating),
+        'alternativeHeadline': convertToJsonLd(alternativeHeadline),
+        'archivedAt': convertToJsonLd(
+            archivedAt, (v) => v is String || v is SchemaWebPage),
+        'assesses': convertToJsonLd(
+            assesses, (v) => v is SchemaDefinedTerm || v is String),
+        'associatedMedia': convertToJsonLd(associatedMedia),
+        'audience': convertToJsonLd(audience),
         'audio': convertToJsonLd(
-            audio, [SchemaAudioObject, SchemaClip, SchemaMusicRecording]),
-        'author': convertToJsonLd(author, [SchemaOrganization, SchemaPerson]),
-        'award': convertToJsonLd(award, [String]),
-        'awards': convertToJsonLd(awards, [String]),
-        'character': convertToJsonLd(character, [SchemaPerson]),
-        'citation': convertToJsonLd(citation, [SchemaCreativeWork, String]),
-        'comment': convertToJsonLd(comment, [SchemaComment]),
-        'commentCount': convertToJsonLd(commentCount, [int]),
-        'conditionsOfAccess': convertToJsonLd(conditionsOfAccess, [String]),
-        'contentLocation': convertToJsonLd(contentLocation, [SchemaPlace]),
-        'contentRating': convertToJsonLd(contentRating, [SchemaRating, String]),
-        'contentReferenceTime': convertToJsonLd(contentReferenceTime, [String]),
-        'contributor':
-            convertToJsonLd(contributor, [SchemaOrganization, SchemaPerson]),
-        'copyrightHolder': convertToJsonLd(
-            copyrightHolder, [SchemaOrganization, SchemaPerson]),
-        'copyrightNotice': convertToJsonLd(copyrightNotice, [String]),
-        'copyrightYear': convertToJsonLd(copyrightYear, [num]),
-        'correction':
-            convertToJsonLd(correction, [SchemaCorrectionComment, String]),
-        'countryOfOrigin': convertToJsonLd(countryOfOrigin, [SchemaCountry]),
-        'creativeWorkStatus':
-            convertToJsonLd(creativeWorkStatus, [SchemaDefinedTerm, String]),
-        'creator': convertToJsonLd(creator, [SchemaOrganization, SchemaPerson]),
-        'creditText': convertToJsonLd(creditText, [String]),
-        'dateCreated': convertToJsonLd(dateCreated, [String]),
-        'dateModified': convertToJsonLd(dateModified, [String]),
-        'datePublished': convertToJsonLd(datePublished, [String]),
-        'digitalSourceType': convertToJsonLd(
-            digitalSourceType, [SchemaIPTCDigitalSourceEnumeration]),
-        'discussionUrl': convertToJsonLd(discussionUrl, [String]),
-        'displayLocation': convertToJsonLd(displayLocation, [SchemaPlace]),
-        'editEIDR': convertToJsonLd(editEIDR, [String]),
-        'editor': convertToJsonLd(editor, [SchemaPerson]),
-        'educationalAlignment':
-            convertToJsonLd(educationalAlignment, [SchemaAlignmentObject]),
-        'educationalLevel':
-            convertToJsonLd(educationalLevel, [SchemaDefinedTerm, String]),
-        'educationalUse':
-            convertToJsonLd(educationalUse, [SchemaDefinedTerm, String]),
-        'encoding': convertToJsonLd(encoding, [SchemaMediaObject]),
-        'encodingFormat': convertToJsonLd(encodingFormat, [String]),
-        'encodings': convertToJsonLd(encodings, [SchemaMediaObject]),
-        'exampleOfWork': convertToJsonLd(exampleOfWork, [SchemaCreativeWork]),
-        'expires': convertToJsonLd(expires, [String]),
-        'fileFormat': convertToJsonLd(fileFormat, [String]),
-        'funder': convertToJsonLd(funder, [SchemaOrganization, SchemaPerson]),
-        'funding': convertToJsonLd(funding, [SchemaGrant]),
-        'genre': convertToJsonLd(genre, [SchemaDefinedTerm, String]),
-        'hasPart': convertToJsonLd(hasPart, [SchemaCreativeWork]),
-        'headline': convertToJsonLd(headline, [String]),
-        'inLanguage': convertToJsonLd(inLanguage, [SchemaLanguage, String]),
-        'interactionStatistic':
-            convertToJsonLd(interactionStatistic, [SchemaInteractionCounter]),
-        'interactivityType': convertToJsonLd(interactivityType, [String]),
-        'interpretedAsClaim':
-            convertToJsonLd(interpretedAsClaim, [SchemaClaim]),
-        'isAccessibleForFree': convertToJsonLd(isAccessibleForFree, [bool]),
+            audio,
+            (v) =>
+                v is SchemaAudioObject ||
+                v is SchemaClip ||
+                v is SchemaMusicRecording),
+        'author': convertToJsonLd(
+            author, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'award': convertToJsonLd(award),
+        'awards': convertToJsonLd(awards),
+        'character': convertToJsonLd(character),
+        'citation': convertToJsonLd(
+            citation, (v) => v is SchemaCreativeWork || v is String),
+        'comment': convertToJsonLd(comment),
+        'commentCount': convertToJsonLd(commentCount),
+        'conditionsOfAccess': convertToJsonLd(conditionsOfAccess),
+        'contentLocation': convertToJsonLd(contentLocation),
+        'contentRating': convertToJsonLd(
+            contentRating, (v) => v is SchemaRating || v is String),
+        'contentReferenceTime': convertToJsonLd(contentReferenceTime),
+        'contributor': convertToJsonLd(
+            contributor, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'copyrightHolder': convertToJsonLd(copyrightHolder,
+            (v) => v is SchemaOrganization || v is SchemaPerson),
+        'copyrightNotice': convertToJsonLd(copyrightNotice),
+        'copyrightYear': convertToJsonLd(copyrightYear),
+        'correction': convertToJsonLd(
+            correction, (v) => v is SchemaCorrectionComment || v is String),
+        'countryOfOrigin': convertToJsonLd(countryOfOrigin),
+        'creativeWorkStatus': convertToJsonLd(
+            creativeWorkStatus, (v) => v is SchemaDefinedTerm || v is String),
+        'creator': convertToJsonLd(
+            creator, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'creditText': convertToJsonLd(creditText),
+        'dateCreated': convertToJsonLd(dateCreated),
+        'dateModified': convertToJsonLd(dateModified),
+        'datePublished': convertToJsonLd(datePublished),
+        'digitalSourceType': convertToJsonLd(digitalSourceType),
+        'discussionUrl': convertToJsonLd(discussionUrl),
+        'displayLocation': convertToJsonLd(displayLocation),
+        'editEIDR': convertToJsonLd(editEIDR),
+        'editor': convertToJsonLd(editor),
+        'educationalAlignment': convertToJsonLd(educationalAlignment),
+        'educationalLevel': convertToJsonLd(
+            educationalLevel, (v) => v is SchemaDefinedTerm || v is String),
+        'educationalUse': convertToJsonLd(
+            educationalUse, (v) => v is SchemaDefinedTerm || v is String),
+        'encoding': convertToJsonLd(encoding),
+        'encodingFormat': convertToJsonLd(encodingFormat),
+        'encodings': convertToJsonLd(encodings),
+        'exampleOfWork': convertToJsonLd(exampleOfWork),
+        'expires': convertToJsonLd(expires),
+        'fileFormat': convertToJsonLd(fileFormat),
+        'funder': convertToJsonLd(
+            funder, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'funding': convertToJsonLd(funding),
+        'genre': convertToJsonLd(
+            genre, (v) => v is SchemaDefinedTerm || v is String),
+        'hasPart': convertToJsonLd(hasPart),
+        'headline': convertToJsonLd(headline),
+        'inLanguage': convertToJsonLd(
+            inLanguage, (v) => v is SchemaLanguage || v is String),
+        'interactionStatistic': convertToJsonLd(interactionStatistic),
+        'interactivityType': convertToJsonLd(interactivityType),
+        'interpretedAsClaim': convertToJsonLd(interpretedAsClaim),
+        'isAccessibleForFree': convertToJsonLd(isAccessibleForFree),
         'isBasedOn': convertToJsonLd(
-            isBasedOn, [SchemaCreativeWork, SchemaProduct, String]),
+            isBasedOn,
+            (v) =>
+                v is SchemaCreativeWork || v is SchemaProduct || v is String),
         'isBasedOnUrl': convertToJsonLd(
-            isBasedOnUrl, [SchemaCreativeWork, SchemaProduct, String]),
-        'isFamilyFriendly': convertToJsonLd(isFamilyFriendly, [bool]),
-        'isPartOf': convertToJsonLd(isPartOf, [SchemaCreativeWork, String]),
-        'keywords': convertToJsonLd(keywords, [SchemaDefinedTerm, String]),
-        'learningResourceType':
-            convertToJsonLd(learningResourceType, [SchemaDefinedTerm, String]),
-        'license': convertToJsonLd(license, [SchemaCreativeWork, String]),
-        'locationCreated': convertToJsonLd(locationCreated, [SchemaPlace]),
-        'mainEntity': convertToJsonLd(mainEntity, [SchemaThing]),
-        'maintainer':
-            convertToJsonLd(maintainer, [SchemaOrganization, SchemaPerson]),
-        'material': convertToJsonLd(material, [SchemaProduct, String]),
-        'materialExtent':
-            convertToJsonLd(materialExtent, [SchemaQuantitativeValue, String]),
-        'mentions': convertToJsonLd(mentions, [SchemaThing]),
-        'offers': convertToJsonLd(offers, [SchemaDemand, SchemaOffer]),
-        'pattern': convertToJsonLd(pattern, [SchemaDefinedTerm, String]),
-        'position': convertToJsonLd(position, [String, int]),
-        'producer':
-            convertToJsonLd(producer, [SchemaOrganization, SchemaPerson]),
-        'provider':
-            convertToJsonLd(provider, [SchemaOrganization, SchemaPerson]),
-        'publication': convertToJsonLd(publication, [SchemaPublicationEvent]),
-        'publisher':
-            convertToJsonLd(publisher, [SchemaOrganization, SchemaPerson]),
-        'publisherImprint':
-            convertToJsonLd(publisherImprint, [SchemaOrganization]),
-        'publishingPrinciples':
-            convertToJsonLd(publishingPrinciples, [SchemaCreativeWork, String]),
-        'recordedAt': convertToJsonLd(recordedAt, [SchemaEvent]),
-        'releasedEvent':
-            convertToJsonLd(releasedEvent, [SchemaPublicationEvent]),
-        'review': convertToJsonLd(review, [SchemaReview]),
-        'reviews': convertToJsonLd(reviews, [SchemaReview]),
-        'schemaVersion': convertToJsonLd(schemaVersion, [String]),
-        'sdDatePublished': convertToJsonLd(sdDatePublished, [String]),
-        'sdLicense': convertToJsonLd(sdLicense, [SchemaCreativeWork, String]),
-        'sdPublisher':
-            convertToJsonLd(sdPublisher, [SchemaOrganization, SchemaPerson]),
-        'size': convertToJsonLd(size, [
-          SchemaDefinedTerm,
-          SchemaQuantitativeValue,
-          SchemaSizeSpecification,
-          String
-        ]),
-        'sourceOrganization':
-            convertToJsonLd(sourceOrganization, [SchemaOrganization]),
-        'spatial': convertToJsonLd(spatial, [SchemaPlace]),
-        'spatialCoverage': convertToJsonLd(spatialCoverage, [SchemaPlace]),
-        'sponsor': convertToJsonLd(sponsor, [SchemaOrganization, SchemaPerson]),
-        'teaches': convertToJsonLd(teaches, [SchemaDefinedTerm, String]),
-        'temporal': convertToJsonLd(temporal, [String]),
-        'temporalCoverage': convertToJsonLd(temporalCoverage, [String]),
-        'text': convertToJsonLd(text, [String]),
-        'thumbnail': convertToJsonLd(thumbnail, [SchemaImageObject]),
-        'thumbnailUrl': convertToJsonLd(thumbnailUrl, [String]),
-        'timeRequired': convertToJsonLd(timeRequired, [SchemaDuration]),
-        'translationOfWork':
-            convertToJsonLd(translationOfWork, [SchemaCreativeWork]),
-        'translator':
-            convertToJsonLd(translator, [SchemaOrganization, SchemaPerson]),
-        'typicalAgeRange': convertToJsonLd(typicalAgeRange, [String]),
-        'usageInfo': convertToJsonLd(usageInfo, [SchemaCreativeWork, String]),
-        'version': convertToJsonLd(version, [String, num]),
-        'video': convertToJsonLd(video, [SchemaClip, SchemaVideoObject]),
-        'wordCount': convertToJsonLd(wordCount, [int]),
-        'workExample': convertToJsonLd(workExample, [SchemaCreativeWork]),
-        'workTranslation':
-            convertToJsonLd(workTranslation, [SchemaCreativeWork]),
+            isBasedOnUrl,
+            (v) =>
+                v is SchemaCreativeWork || v is SchemaProduct || v is String),
+        'isFamilyFriendly': convertToJsonLd(isFamilyFriendly),
+        'isPartOf': convertToJsonLd(
+            isPartOf, (v) => v is SchemaCreativeWork || v is String),
+        'keywords': convertToJsonLd(
+            keywords, (v) => v is SchemaDefinedTerm || v is String),
+        'learningResourceType': convertToJsonLd(
+            learningResourceType, (v) => v is SchemaDefinedTerm || v is String),
+        'license': convertToJsonLd(
+            license, (v) => v is SchemaCreativeWork || v is String),
+        'locationCreated': convertToJsonLd(locationCreated),
+        'mainEntity': convertToJsonLd(mainEntity),
+        'maintainer': convertToJsonLd(
+            maintainer, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'material':
+            convertToJsonLd(material, (v) => v is SchemaProduct || v is String),
+        'materialExtent': convertToJsonLd(
+            materialExtent, (v) => v is SchemaQuantitativeValue || v is String),
+        'mentions': convertToJsonLd(mentions),
+        'offers': convertToJsonLd(
+            offers, (v) => v is SchemaDemand || v is SchemaOffer),
+        'pattern': convertToJsonLd(
+            pattern, (v) => v is SchemaDefinedTerm || v is String),
+        'position': convertToJsonLd(position, (v) => v is String || v is int),
+        'producer': convertToJsonLd(
+            producer, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'provider': convertToJsonLd(
+            provider, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'publication': convertToJsonLd(publication),
+        'publisher': convertToJsonLd(
+            publisher, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'publisherImprint': convertToJsonLd(publisherImprint),
+        'publishingPrinciples': convertToJsonLd(publishingPrinciples,
+            (v) => v is SchemaCreativeWork || v is String),
+        'recordedAt': convertToJsonLd(recordedAt),
+        'releasedEvent': convertToJsonLd(releasedEvent),
+        'review': convertToJsonLd(review),
+        'reviews': convertToJsonLd(reviews),
+        'schemaVersion': convertToJsonLd(schemaVersion),
+        'sdDatePublished': convertToJsonLd(sdDatePublished),
+        'sdLicense': convertToJsonLd(
+            sdLicense, (v) => v is SchemaCreativeWork || v is String),
+        'sdPublisher': convertToJsonLd(
+            sdPublisher, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'size': convertToJsonLd(
+            size,
+            (v) =>
+                v is SchemaDefinedTerm ||
+                v is SchemaQuantitativeValue ||
+                v is SchemaSizeSpecification ||
+                v is String),
+        'sourceOrganization': convertToJsonLd(sourceOrganization),
+        'spatial': convertToJsonLd(spatial),
+        'spatialCoverage': convertToJsonLd(spatialCoverage),
+        'sponsor': convertToJsonLd(
+            sponsor, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'teaches': convertToJsonLd(
+            teaches, (v) => v is SchemaDefinedTerm || v is String),
+        'temporal': convertToJsonLd(temporal),
+        'temporalCoverage': convertToJsonLd(temporalCoverage),
+        'text': convertToJsonLd(text),
+        'thumbnail': convertToJsonLd(thumbnail),
+        'thumbnailUrl': convertToJsonLd(thumbnailUrl),
+        'timeRequired': convertToJsonLd(timeRequired),
+        'translationOfWork': convertToJsonLd(translationOfWork),
+        'translator': convertToJsonLd(
+            translator, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'typicalAgeRange': convertToJsonLd(typicalAgeRange),
+        'usageInfo': convertToJsonLd(
+            usageInfo, (v) => v is SchemaCreativeWork || v is String),
+        'version': convertToJsonLd(version, (v) => v is String || v is num),
+        'video': convertToJsonLd(
+            video, (v) => v is SchemaClip || v is SchemaVideoObject),
+        'wordCount': convertToJsonLd(wordCount),
+        'workExample': convertToJsonLd(workExample),
+        'workTranslation': convertToJsonLd(workTranslation),
       });
 }

@@ -14,15 +14,15 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// See https://schema.org/CertificationStatusEnumeration
 enum SchemaCertificationStatusEnumeration implements SchemaSerializable {
   /// Specifies that a certification is active.
-  certificationActive('https://schema.org/CertificationStatusEnumeration'),
+  certificationActive('https://schema.org/CertificationActive'),
 
   /// Specifies that a certification is inactive (no longer in effect).
-  certificationInactive('https://schema.org/CertificationStatusEnumeration');
+  certificationInactive('https://schema.org/CertificationInactive');
 
   /// Constructor for [SchemaCertificationStatusEnumeration]
   const SchemaCertificationStatusEnumeration(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaCertificationStatusEnumeration] to JSON-LD

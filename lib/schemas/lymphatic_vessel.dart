@@ -69,9 +69,11 @@ class SchemaLymphaticVessel extends SchemaVessel {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'LymphaticVessel',
-        'originatesFrom': convertToJsonLd(originatesFrom, [SchemaVessel]),
+        'originatesFrom': convertToJsonLd(originatesFrom),
         'regionDrained': convertToJsonLd(
-            regionDrained, [SchemaAnatomicalStructure, SchemaAnatomicalSystem]),
-        'runsTo': convertToJsonLd(runsTo, [SchemaVessel]),
+            regionDrained,
+            (v) =>
+                v is SchemaAnatomicalStructure || v is SchemaAnatomicalSystem),
+        'runsTo': convertToJsonLd(runsTo),
       });
 }

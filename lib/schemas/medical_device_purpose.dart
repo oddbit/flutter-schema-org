@@ -14,15 +14,15 @@ import 'package:schema_org/schemas/medical_enumeration.dart';
 /// See https://schema.org/MedicalDevicePurpose
 enum SchemaMedicalDevicePurpose implements SchemaMedicalEnumeration {
   /// A medical device used for diagnostic purposes.
-  diagnostic('https://schema.org/MedicalDevicePurpose'),
+  diagnostic('https://schema.org/Diagnostic'),
 
   /// A medical device used for therapeutic purposes.
-  therapeutic('https://schema.org/MedicalDevicePurpose');
+  therapeutic('https://schema.org/Therapeutic');
 
   /// Constructor for [SchemaMedicalDevicePurpose]
   const SchemaMedicalDevicePurpose(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaMedicalDevicePurpose] to JSON-LD

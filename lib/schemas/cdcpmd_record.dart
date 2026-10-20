@@ -31,53 +31,60 @@ class SchemaCDCPMDRecord extends SchemaStructuredValue {
   /// [SchemaHospital] entry.
   String? cvdFacilityId;
 
-  /// Inpatient beds, including all staffed, licensed, and overflow (surge)
-  /// beds used for inpatients.
+  /// numbeds - HOSPITAL INPATIENT BEDS: Inpatient beds, including all staffed,
+  /// licensed, and overflow (surge) beds used for inpatients.
   num? cvdNumBeds;
 
-  /// Total number of staffed inpatient beds that are occupied.
+  /// numbedsocc - HOSPITAL INPATIENT BED OCCUPANCY: Total number of staffed
+  /// inpatient beds that are occupied.
   num? cvdNumBedsOcc;
 
-  /// Patients with suspected or confirmed COVID-19 who died in the hospital,
-  /// ED, or any overflow location.
+  /// numc19died - DEATHS: Patients with suspected or confirmed COVID-19 who
+  /// died in the hospital, ED, or any overflow location.
   num? cvdNumC19Died;
 
-  /// Patients hospitalized in an NHSN inpatient care location with onset of
-  /// suspected or confirmed COVID-19 14 or more days after hospitalization.
+  /// numc19hopats - HOSPITAL ONSET: Patients hospitalized in an NHSN inpatient
+  /// care location with onset of suspected or confirmed COVID-19 14 or more
+  /// days after hospitalization.
   num? cvdNumC19HOPats;
 
-  /// Patients currently hospitalized in an inpatient care location who have
-  /// suspected or confirmed COVID-19.
+  /// numc19hosppats - HOSPITALIZED: Patients currently hospitalized in an
+  /// inpatient care location who have suspected or confirmed COVID-19.
   num? cvdNumC19HospPats;
 
-  /// Patients hospitalized in an NHSN inpatient care location who have
-  /// suspected or confirmed COVID-19 and are on a mechanical ventilator.
+  /// numc19mechventpats - HOSPITALIZED and VENTILATED: Patients hospitalized
+  /// in an NHSN inpatient care location who have suspected or confirmed
+  /// COVID-19 and are on a mechanical ventilator.
   num? cvdNumC19MechVentPats;
 
-  /// Patients with suspected or confirmed COVID-19 who are in the ED or any
-  /// overflow location awaiting an inpatient bed and on a mechanical
-  /// ventilator.
+  /// numc19ofmechventpats - ED/OVERFLOW and VENTILATED: Patients with
+  /// suspected or confirmed COVID-19 who are in the ED or any overflow
+  /// location awaiting an inpatient bed and on a mechanical ventilator.
   num? cvdNumC19OFMechVentPats;
 
-  /// Patients with suspected or confirmed COVID-19 who are in the ED or any
-  /// overflow location awaiting an inpatient bed.
+  /// numc19overflowpats - ED/OVERFLOW: Patients with suspected or confirmed
+  /// COVID-19 who are in the ED or any overflow location awaiting an inpatient
+  /// bed.
   num? cvdNumC19OverflowPats;
 
-  /// Total number of staffed inpatient intensive care unit (ICU) beds.
+  /// numicubeds - ICU BEDS: Total number of staffed inpatient intensive care
+  /// unit (ICU) beds.
   num? cvdNumICUBeds;
 
-  /// Total number of staffed inpatient ICU beds that are occupied.
+  /// numicubedsocc - ICU BED OCCUPANCY: Total number of staffed inpatient ICU
+  /// beds that are occupied.
   num? cvdNumICUBedsOcc;
 
-  /// Total number of all inpatient and outpatient beds, including all staffed,
-  /// ICU, licensed, and overflow (surge) beds used for inpatients or
-  /// outpatients.
+  /// numtotbeds - ALL HOSPITAL BEDS: Total number of all inpatient and
+  /// outpatient beds, including all staffed, ICU, licensed, and overflow
+  /// (surge) beds used for inpatients or outpatients.
   num? cvdNumTotBeds;
 
-  /// Total number of ventilators available.
+  /// numvent - MECHANICAL VENTILATORS: Total number of ventilators available.
   num? cvdNumVent;
 
-  /// Total number of ventilators in use.
+  /// numventuse - MECHANICAL VENTILATORS IN USE: Total number of ventilators
+  /// in use.
   num? cvdNumVentUse;
 
   /// Publication date of an online listing.
@@ -122,23 +129,22 @@ class SchemaCDCPMDRecord extends SchemaStructuredValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'CDCPMDRecord',
-        'cvdCollectionDate': convertToJsonLd(cvdCollectionDate, [String]),
-        'cvdFacilityCounty': convertToJsonLd(cvdFacilityCounty, [String]),
-        'cvdFacilityId': convertToJsonLd(cvdFacilityId, [String]),
-        'cvdNumBeds': convertToJsonLd(cvdNumBeds, [num]),
-        'cvdNumBedsOcc': convertToJsonLd(cvdNumBedsOcc, [num]),
-        'cvdNumC19Died': convertToJsonLd(cvdNumC19Died, [num]),
-        'cvdNumC19HOPats': convertToJsonLd(cvdNumC19HOPats, [num]),
-        'cvdNumC19HospPats': convertToJsonLd(cvdNumC19HospPats, [num]),
-        'cvdNumC19MechVentPats': convertToJsonLd(cvdNumC19MechVentPats, [num]),
-        'cvdNumC19OFMechVentPats':
-            convertToJsonLd(cvdNumC19OFMechVentPats, [num]),
-        'cvdNumC19OverflowPats': convertToJsonLd(cvdNumC19OverflowPats, [num]),
-        'cvdNumICUBeds': convertToJsonLd(cvdNumICUBeds, [num]),
-        'cvdNumICUBedsOcc': convertToJsonLd(cvdNumICUBedsOcc, [num]),
-        'cvdNumTotBeds': convertToJsonLd(cvdNumTotBeds, [num]),
-        'cvdNumVent': convertToJsonLd(cvdNumVent, [num]),
-        'cvdNumVentUse': convertToJsonLd(cvdNumVentUse, [num]),
-        'datePosted': convertToJsonLd(datePosted, [String]),
+        'cvdCollectionDate': convertToJsonLd(cvdCollectionDate),
+        'cvdFacilityCounty': convertToJsonLd(cvdFacilityCounty),
+        'cvdFacilityId': convertToJsonLd(cvdFacilityId),
+        'cvdNumBeds': convertToJsonLd(cvdNumBeds),
+        'cvdNumBedsOcc': convertToJsonLd(cvdNumBedsOcc),
+        'cvdNumC19Died': convertToJsonLd(cvdNumC19Died),
+        'cvdNumC19HOPats': convertToJsonLd(cvdNumC19HOPats),
+        'cvdNumC19HospPats': convertToJsonLd(cvdNumC19HospPats),
+        'cvdNumC19MechVentPats': convertToJsonLd(cvdNumC19MechVentPats),
+        'cvdNumC19OFMechVentPats': convertToJsonLd(cvdNumC19OFMechVentPats),
+        'cvdNumC19OverflowPats': convertToJsonLd(cvdNumC19OverflowPats),
+        'cvdNumICUBeds': convertToJsonLd(cvdNumICUBeds),
+        'cvdNumICUBedsOcc': convertToJsonLd(cvdNumICUBedsOcc),
+        'cvdNumTotBeds': convertToJsonLd(cvdNumTotBeds),
+        'cvdNumVent': convertToJsonLd(cvdNumVent),
+        'cvdNumVentUse': convertToJsonLd(cvdNumVentUse),
+        'datePosted': convertToJsonLd(datePosted),
       });
 }

@@ -26,6 +26,8 @@ class SchemaQuestion extends SchemaComment {
   /// The number of answers this question has received.
   int? answerCount;
 
+  /// For questions that are part of learning resources (e.g. Quiz),
+  /// eduQuestionType indicates the format of question being given. Example:
   /// "Multiple choice", "Open ended", "Flashcard".
   String? eduQuestionType;
 
@@ -181,11 +183,11 @@ class SchemaQuestion extends SchemaComment {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Question',
-        'acceptedAnswer':
-            convertToJsonLd(acceptedAnswer, [SchemaAnswer, SchemaItemList]),
-        'answerCount': convertToJsonLd(answerCount, [int]),
-        'eduQuestionType': convertToJsonLd(eduQuestionType, [String]),
-        'suggestedAnswer':
-            convertToJsonLd(suggestedAnswer, [SchemaAnswer, SchemaItemList]),
+        'acceptedAnswer': convertToJsonLd(
+            acceptedAnswer, (v) => v is SchemaAnswer || v is SchemaItemList),
+        'answerCount': convertToJsonLd(answerCount),
+        'eduQuestionType': convertToJsonLd(eduQuestionType),
+        'suggestedAnswer': convertToJsonLd(
+            suggestedAnswer, (v) => v is SchemaAnswer || v is SchemaItemList),
       });
 }

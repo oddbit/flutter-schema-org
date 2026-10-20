@@ -80,13 +80,17 @@ class SchemaDeliveryChargeSpecification extends SchemaPriceSpecification {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'DeliveryChargeSpecification',
-        'appliesToDeliveryMethod':
-            convertToJsonLd(appliesToDeliveryMethod, [SchemaDeliveryMethod]),
-        'areaServed': convertToJsonLd(areaServed,
-            [SchemaAdministrativeArea, SchemaGeoShape, SchemaPlace, String]),
-        'eligibleRegion': convertToJsonLd(
-            eligibleRegion, [SchemaGeoShape, SchemaPlace, String]),
-        'ineligibleRegion': convertToJsonLd(
-            ineligibleRegion, [SchemaGeoShape, SchemaPlace, String]),
+        'appliesToDeliveryMethod': convertToJsonLd(appliesToDeliveryMethod),
+        'areaServed': convertToJsonLd(
+            areaServed,
+            (v) =>
+                v is SchemaAdministrativeArea ||
+                v is SchemaGeoShape ||
+                v is SchemaPlace ||
+                v is String),
+        'eligibleRegion': convertToJsonLd(eligibleRegion,
+            (v) => v is SchemaGeoShape || v is SchemaPlace || v is String),
+        'ineligibleRegion': convertToJsonLd(ineligibleRegion,
+            (v) => v is SchemaGeoShape || v is SchemaPlace || v is String),
       });
 }

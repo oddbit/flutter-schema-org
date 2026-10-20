@@ -31,7 +31,8 @@ class SchemaCreativeWorkSeason extends SchemaCreativeWork {
   /// series, episode, clip.
   SchemaPerson? director;
 
-  /// //en.wikipedia.org/wiki/ISO_8601)).
+  /// The end date and time of the item (in [ISO 8601 date
+  /// format](http://en.wikipedia.org/wiki/ISO_8601)).
   String? endDate;
 
   /// An episode of a TV, radio or game media within a series or season.
@@ -56,7 +57,8 @@ class SchemaCreativeWorkSeason extends SchemaCreativeWork {
   /// Supported types: [String], [int]
   dynamic seasonNumber;
 
-  /// //en.wikipedia.org/wiki/ISO_8601)).
+  /// The start date and time of the item (in [ISO 8601 date
+  /// format](http://en.wikipedia.org/wiki/ISO_8601)).
   String? startDate;
 
   /// The trailer of a movie or TV/radio series, season, episode, etc.
@@ -211,18 +213,18 @@ class SchemaCreativeWorkSeason extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'CreativeWorkSeason',
-        'actor': convertToJsonLd(actor, [SchemaPerformingGroup, SchemaPerson]),
-        'director': convertToJsonLd(director, [SchemaPerson]),
-        'endDate': convertToJsonLd(endDate, [String]),
-        'episode': convertToJsonLd(episode, [SchemaEpisode]),
-        'episodes': convertToJsonLd(episodes, [SchemaEpisode]),
-        'numberOfEpisodes': convertToJsonLd(numberOfEpisodes, [int]),
-        'partOfSeries':
-            convertToJsonLd(partOfSeries, [SchemaCreativeWorkSeries]),
-        'productionCompany':
-            convertToJsonLd(productionCompany, [SchemaOrganization]),
-        'seasonNumber': convertToJsonLd(seasonNumber, [String, int]),
-        'startDate': convertToJsonLd(startDate, [String]),
-        'trailer': convertToJsonLd(trailer, [SchemaVideoObject]),
+        'actor': convertToJsonLd(
+            actor, (v) => v is SchemaPerformingGroup || v is SchemaPerson),
+        'director': convertToJsonLd(director),
+        'endDate': convertToJsonLd(endDate),
+        'episode': convertToJsonLd(episode),
+        'episodes': convertToJsonLd(episodes),
+        'numberOfEpisodes': convertToJsonLd(numberOfEpisodes),
+        'partOfSeries': convertToJsonLd(partOfSeries),
+        'productionCompany': convertToJsonLd(productionCompany),
+        'seasonNumber':
+            convertToJsonLd(seasonNumber, (v) => v is String || v is int),
+        'startDate': convertToJsonLd(startDate),
+        'trailer': convertToJsonLd(trailer),
       });
 }

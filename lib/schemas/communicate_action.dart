@@ -23,7 +23,10 @@ class SchemaCommunicateAction extends SchemaInteractAction {
   /// The subject matter of an object.
   SchemaThing? about;
 
-  /// //tools.ietf.org/html/bcp47). See also [SchemaavailableLanguage].
+  /// The language of the content or performance or used in an action. Please
+  /// use one of the language codes from the [IETF BCP 47
+  /// standard](http://tools.ietf.org/html/bcp47). See also
+  /// [SchemaavailableLanguage].
   ///
   /// Supported types: [SchemaLanguage], [String]
   dynamic inLanguage;
@@ -78,14 +81,16 @@ class SchemaCommunicateAction extends SchemaInteractAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'CommunicateAction',
-        'about': convertToJsonLd(about, [SchemaThing]),
-        'inLanguage': convertToJsonLd(inLanguage, [SchemaLanguage, String]),
-        'language': convertToJsonLd(language, [SchemaLanguage]),
-        'recipient': convertToJsonLd(recipient, [
-          SchemaAudience,
-          SchemaContactPoint,
-          SchemaOrganization,
-          SchemaPerson
-        ]),
+        'about': convertToJsonLd(about),
+        'inLanguage': convertToJsonLd(
+            inLanguage, (v) => v is SchemaLanguage || v is String),
+        'language': convertToJsonLd(language),
+        'recipient': convertToJsonLd(
+            recipient,
+            (v) =>
+                v is SchemaAudience ||
+                v is SchemaContactPoint ||
+                v is SchemaOrganization ||
+                v is SchemaPerson),
       });
 }

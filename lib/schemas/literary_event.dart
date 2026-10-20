@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// Literary event.
+/// Event type: Literary event.
 /// See https://schema.org/LiteraryEvent
 class SchemaLiteraryEvent extends SchemaEvent {
   /// Create a new instance of [SchemaLiteraryEvent]

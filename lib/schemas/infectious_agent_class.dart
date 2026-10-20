@@ -14,28 +14,28 @@ import 'package:schema_org/schemas/medical_enumeration.dart';
 /// See https://schema.org/InfectiousAgentClass
 enum SchemaInfectiousAgentClass implements SchemaMedicalEnumeration {
   /// Pathogenic bacteria that cause bacterial infection.
-  bacteria('https://schema.org/InfectiousAgentClass'),
+  bacteria('https://schema.org/Bacteria'),
 
   /// Pathogenic fungus.
-  fungus('https://schema.org/InfectiousAgentClass'),
+  fungus('https://schema.org/Fungus'),
 
   /// Multicellular parasite that causes an infection.
-  multicellularParasite('https://schema.org/InfectiousAgentClass'),
+  multicellularParasite('https://schema.org/MulticellularParasite'),
 
   /// A prion is an infectious agent composed of protein in a misfolded
   /// form.
-  prion('https://schema.org/InfectiousAgentClass'),
+  prion('https://schema.org/Prion'),
 
   /// Single-celled organism that causes an infection.
-  protozoa('https://schema.org/InfectiousAgentClass'),
+  protozoa('https://schema.org/Protozoa'),
 
   /// Pathogenic virus that causes viral infection.
-  virus('https://schema.org/InfectiousAgentClass');
+  virus('https://schema.org/Virus');
 
   /// Constructor for [SchemaInfectiousAgentClass]
   const SchemaInfectiousAgentClass(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaInfectiousAgentClass] to JSON-LD

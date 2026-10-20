@@ -83,12 +83,14 @@ class SchemaEvent extends SchemaThing {
   /// The time admission will commence.
   String? doorTime;
 
-  /// //en.wikipedia.org/wiki/ISO_8601).
+  /// The duration of the item (movie, audio recording, event, etc.) in [ISO
+  /// 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).
   ///
   /// Supported types: [SchemaDuration], [SchemaQuantitativeValue]
   dynamic duration;
 
-  /// //en.wikipedia.org/wiki/ISO_8601)).
+  /// The end date and time of the item (in [ISO 8601 date
+  /// format](http://en.wikipedia.org/wiki/ISO_8601)).
   String? endDate;
 
   /// The eventAttendanceMode of an event indicates whether it occurs online,
@@ -131,7 +133,10 @@ class SchemaEvent extends SchemaThing {
   /// Sponsorship Opportunities, or Sponsor Packages.
   SchemaOffer? hasSponsorshipOffer;
 
-  /// //tools.ietf.org/html/bcp47). See also [SchemaavailableLanguage].
+  /// The language of the content or performance or used in an action. Please
+  /// use one of the language codes from the [IETF BCP 47
+  /// standard](http://tools.ietf.org/html/bcp47). See also
+  /// [SchemaavailableLanguage].
   ///
   /// Supported types: [SchemaLanguage], [String]
   dynamic inLanguage;
@@ -219,7 +224,8 @@ class SchemaEvent extends SchemaThing {
   /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic sponsor;
 
-  /// //en.wikipedia.org/wiki/ISO_8601)).
+  /// The start date and time of the item (in [ISO 8601 date
+  /// format](http://en.wikipedia.org/wiki/ISO_8601)).
   String? startDate;
 
   /// An Event that is part of this event. For example, a conference event
@@ -321,66 +327,71 @@ class SchemaEvent extends SchemaThing {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Event',
-        'about': convertToJsonLd(about, [SchemaThing]),
-        'actor': convertToJsonLd(actor, [SchemaPerformingGroup, SchemaPerson]),
-        'aggregateRating':
-            convertToJsonLd(aggregateRating, [SchemaAggregateRating]),
-        'attendee':
-            convertToJsonLd(attendee, [SchemaOrganization, SchemaPerson]),
-        'attendees':
-            convertToJsonLd(attendees, [SchemaOrganization, SchemaPerson]),
-        'audience': convertToJsonLd(audience, [SchemaAudience]),
-        'composer':
-            convertToJsonLd(composer, [SchemaOrganization, SchemaPerson]),
-        'contributor':
-            convertToJsonLd(contributor, [SchemaOrganization, SchemaPerson]),
-        'director': convertToJsonLd(director, [SchemaPerson]),
-        'doorTime': convertToJsonLd(doorTime, [String]),
-        'duration': convertToJsonLd(
-            duration, [SchemaDuration, SchemaQuantitativeValue]),
-        'endDate': convertToJsonLd(endDate, [String]),
-        'eventAttendanceMode': convertToJsonLd(
-            eventAttendanceMode, [SchemaEventAttendanceModeEnumeration]),
-        'eventSchedule': convertToJsonLd(eventSchedule, [SchemaSchedule]),
-        'eventStatus': convertToJsonLd(eventStatus, [SchemaEventStatusType]),
-        'funder': convertToJsonLd(funder, [SchemaOrganization, SchemaPerson]),
-        'funding': convertToJsonLd(funding, [SchemaGrant]),
-        'hasParticipationOffer':
-            convertToJsonLd(hasParticipationOffer, [SchemaOffer]),
-        'hasSponsorshipOffer':
-            convertToJsonLd(hasSponsorshipOffer, [SchemaOffer]),
-        'inLanguage': convertToJsonLd(inLanguage, [SchemaLanguage, String]),
-        'isAccessibleForFree': convertToJsonLd(isAccessibleForFree, [bool]),
-        'keywords': convertToJsonLd(keywords, [SchemaDefinedTerm, String]),
-        'location': convertToJsonLd(location,
-            [SchemaPlace, SchemaPostalAddress, String, SchemaVirtualLocation]),
-        'maximumAttendeeCapacity':
-            convertToJsonLd(maximumAttendeeCapacity, [int]),
+        'about': convertToJsonLd(about),
+        'actor': convertToJsonLd(
+            actor, (v) => v is SchemaPerformingGroup || v is SchemaPerson),
+        'aggregateRating': convertToJsonLd(aggregateRating),
+        'attendee': convertToJsonLd(
+            attendee, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'attendees': convertToJsonLd(
+            attendees, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'audience': convertToJsonLd(audience),
+        'composer': convertToJsonLd(
+            composer, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'contributor': convertToJsonLd(
+            contributor, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'director': convertToJsonLd(director),
+        'doorTime': convertToJsonLd(doorTime),
+        'duration': convertToJsonLd(duration,
+            (v) => v is SchemaDuration || v is SchemaQuantitativeValue),
+        'endDate': convertToJsonLd(endDate),
+        'eventAttendanceMode': convertToJsonLd(eventAttendanceMode),
+        'eventSchedule': convertToJsonLd(eventSchedule),
+        'eventStatus': convertToJsonLd(eventStatus),
+        'funder': convertToJsonLd(
+            funder, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'funding': convertToJsonLd(funding),
+        'hasParticipationOffer': convertToJsonLd(hasParticipationOffer),
+        'hasSponsorshipOffer': convertToJsonLd(hasSponsorshipOffer),
+        'inLanguage': convertToJsonLd(
+            inLanguage, (v) => v is SchemaLanguage || v is String),
+        'isAccessibleForFree': convertToJsonLd(isAccessibleForFree),
+        'keywords': convertToJsonLd(
+            keywords, (v) => v is SchemaDefinedTerm || v is String),
+        'location': convertToJsonLd(
+            location,
+            (v) =>
+                v is SchemaPlace ||
+                v is SchemaPostalAddress ||
+                v is String ||
+                v is SchemaVirtualLocation),
+        'maximumAttendeeCapacity': convertToJsonLd(maximumAttendeeCapacity),
         'maximumPhysicalAttendeeCapacity':
-            convertToJsonLd(maximumPhysicalAttendeeCapacity, [int]),
+            convertToJsonLd(maximumPhysicalAttendeeCapacity),
         'maximumVirtualAttendeeCapacity':
-            convertToJsonLd(maximumVirtualAttendeeCapacity, [int]),
-        'offers': convertToJsonLd(offers, [SchemaDemand, SchemaOffer]),
-        'organizer':
-            convertToJsonLd(organizer, [SchemaOrganization, SchemaPerson]),
-        'performer':
-            convertToJsonLd(performer, [SchemaOrganization, SchemaPerson]),
-        'performers':
-            convertToJsonLd(performers, [SchemaOrganization, SchemaPerson]),
-        'previousStartDate': convertToJsonLd(previousStartDate, [String]),
-        'recordedIn': convertToJsonLd(recordedIn, [SchemaCreativeWork]),
-        'remainingAttendeeCapacity':
-            convertToJsonLd(remainingAttendeeCapacity, [int]),
-        'review': convertToJsonLd(review, [SchemaReview]),
-        'sponsor': convertToJsonLd(sponsor, [SchemaOrganization, SchemaPerson]),
-        'startDate': convertToJsonLd(startDate, [String]),
-        'subEvent': convertToJsonLd(subEvent, [SchemaEvent]),
-        'subEvents': convertToJsonLd(subEvents, [SchemaEvent]),
-        'superEvent': convertToJsonLd(superEvent, [SchemaEvent]),
-        'translator':
-            convertToJsonLd(translator, [SchemaOrganization, SchemaPerson]),
-        'typicalAgeRange': convertToJsonLd(typicalAgeRange, [String]),
-        'workFeatured': convertToJsonLd(workFeatured, [SchemaCreativeWork]),
-        'workPerformed': convertToJsonLd(workPerformed, [SchemaCreativeWork]),
+            convertToJsonLd(maximumVirtualAttendeeCapacity),
+        'offers': convertToJsonLd(
+            offers, (v) => v is SchemaDemand || v is SchemaOffer),
+        'organizer': convertToJsonLd(
+            organizer, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'performer': convertToJsonLd(
+            performer, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'performers': convertToJsonLd(
+            performers, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'previousStartDate': convertToJsonLd(previousStartDate),
+        'recordedIn': convertToJsonLd(recordedIn),
+        'remainingAttendeeCapacity': convertToJsonLd(remainingAttendeeCapacity),
+        'review': convertToJsonLd(review),
+        'sponsor': convertToJsonLd(
+            sponsor, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'startDate': convertToJsonLd(startDate),
+        'subEvent': convertToJsonLd(subEvent),
+        'subEvents': convertToJsonLd(subEvents),
+        'superEvent': convertToJsonLd(superEvent),
+        'translator': convertToJsonLd(
+            translator, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'typicalAgeRange': convertToJsonLd(typicalAgeRange),
+        'workFeatured': convertToJsonLd(workFeatured),
+        'workPerformed': convertToJsonLd(workPerformed),
       });
 }

@@ -136,32 +136,34 @@ class SchemaInvoice extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Invoice',
-        'accountId': convertToJsonLd(accountId, [String]),
-        'billingPeriod': convertToJsonLd(billingPeriod, [SchemaDuration]),
-        'broker': convertToJsonLd(broker, [SchemaOrganization, SchemaPerson]),
-        'category': convertToJsonLd(category, [
-          SchemaCategoryCode,
-          SchemaPhysicalActivityCategory,
-          String,
-          SchemaThing
-        ]),
-        'confirmationNumber': convertToJsonLd(confirmationNumber, [String]),
-        'customer':
-            convertToJsonLd(customer, [SchemaOrganization, SchemaPerson]),
+        'accountId': convertToJsonLd(accountId),
+        'billingPeriod': convertToJsonLd(billingPeriod),
+        'broker': convertToJsonLd(
+            broker, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'category': convertToJsonLd(
+            category,
+            (v) =>
+                v is SchemaCategoryCode ||
+                v is SchemaPhysicalActivityCategory ||
+                v is String ||
+                v is SchemaThing),
+        'confirmationNumber': convertToJsonLd(confirmationNumber),
+        'customer': convertToJsonLd(
+            customer, (v) => v is SchemaOrganization || v is SchemaPerson),
         'minimumPaymentDue': convertToJsonLd(minimumPaymentDue,
-            [SchemaMonetaryAmount, SchemaPriceSpecification]),
-        'paymentDue': convertToJsonLd(paymentDue, [String]),
-        'paymentDueDate': convertToJsonLd(paymentDueDate, [String]),
-        'paymentMethod':
-            convertToJsonLd(paymentMethod, [SchemaPaymentMethod, String]),
-        'paymentMethodId': convertToJsonLd(paymentMethodId, [String]),
-        'paymentStatus':
-            convertToJsonLd(paymentStatus, [SchemaPaymentStatusType, String]),
-        'provider':
-            convertToJsonLd(provider, [SchemaOrganization, SchemaPerson]),
-        'referencesOrder': convertToJsonLd(referencesOrder, [SchemaOrder]),
-        'scheduledPaymentDate': convertToJsonLd(scheduledPaymentDate, [String]),
-        'totalPaymentDue': convertToJsonLd(
-            totalPaymentDue, [SchemaMonetaryAmount, SchemaPriceSpecification]),
+            (v) => v is SchemaMonetaryAmount || v is SchemaPriceSpecification),
+        'paymentDue': convertToJsonLd(paymentDue),
+        'paymentDueDate': convertToJsonLd(paymentDueDate),
+        'paymentMethod': convertToJsonLd(
+            paymentMethod, (v) => v is SchemaPaymentMethod || v is String),
+        'paymentMethodId': convertToJsonLd(paymentMethodId),
+        'paymentStatus': convertToJsonLd(
+            paymentStatus, (v) => v is SchemaPaymentStatusType || v is String),
+        'provider': convertToJsonLd(
+            provider, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'referencesOrder': convertToJsonLd(referencesOrder),
+        'scheduledPaymentDate': convertToJsonLd(scheduledPaymentDate),
+        'totalPaymentDue': convertToJsonLd(totalPaymentDue,
+            (v) => v is SchemaMonetaryAmount || v is SchemaPriceSpecification),
       });
 }

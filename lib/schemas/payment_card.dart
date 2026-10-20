@@ -97,12 +97,12 @@ class SchemaPaymentCard extends SchemaFinancialProduct
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'PaymentCard',
-        'cashBack': convertToJsonLd(cashBack, [bool, num]),
-        'contactlessPayment': convertToJsonLd(contactlessPayment, [bool]),
-        'floorLimit': convertToJsonLd(floorLimit, [SchemaMonetaryAmount]),
+        'cashBack': convertToJsonLd(cashBack, (v) => v is bool || v is num),
+        'contactlessPayment': convertToJsonLd(contactlessPayment),
+        'floorLimit': convertToJsonLd(floorLimit),
         'monthlyMinimumRepaymentAmount': convertToJsonLd(
-            monthlyMinimumRepaymentAmount, [SchemaMonetaryAmount, num]),
-        'paymentMethodType':
-            convertToJsonLd(paymentMethodType, [SchemaPaymentMethodType]),
+            monthlyMinimumRepaymentAmount,
+            (v) => v is SchemaMonetaryAmount || v is num),
+        'paymentMethodType': convertToJsonLd(paymentMethodType),
       });
 }

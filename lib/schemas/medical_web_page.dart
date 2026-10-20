@@ -176,8 +176,10 @@ class SchemaMedicalWebPage extends SchemaWebPage {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MedicalWebPage',
-        'aspect': convertToJsonLd(aspect, [String]),
-        'medicalAudience': convertToJsonLd(medicalAudience,
-            [SchemaMedicalAudience, SchemaMedicalAudienceType]),
+        'aspect': convertToJsonLd(aspect),
+        'medicalAudience': convertToJsonLd(
+            medicalAudience,
+            (v) =>
+                v is SchemaMedicalAudience || v is SchemaMedicalAudienceType),
       });
 }

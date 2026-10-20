@@ -57,9 +57,9 @@ class SchemaDefinedTerm extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'DefinedTerm',
-        'about': convertToJsonLd(about, [SchemaThing]),
-        'inDefinedTermSet':
-            convertToJsonLd(inDefinedTermSet, [SchemaDefinedTermSet, String]),
-        'termCode': convertToJsonLd(termCode, [String]),
+        'about': convertToJsonLd(about),
+        'inDefinedTermSet': convertToJsonLd(
+            inDefinedTermSet, (v) => v is SchemaDefinedTermSet || v is String),
+        'termCode': convertToJsonLd(termCode),
       });
 }

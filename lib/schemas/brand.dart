@@ -58,10 +58,10 @@ class SchemaBrand extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Brand',
-        'aggregateRating':
-            convertToJsonLd(aggregateRating, [SchemaAggregateRating]),
-        'logo': convertToJsonLd(logo, [SchemaImageObject, String]),
-        'review': convertToJsonLd(review, [SchemaReview]),
-        'slogan': convertToJsonLd(slogan, [String]),
+        'aggregateRating': convertToJsonLd(aggregateRating),
+        'logo':
+            convertToJsonLd(logo, (v) => v is SchemaImageObject || v is String),
+        'review': convertToJsonLd(review),
+        'slogan': convertToJsonLd(slogan),
       });
 }

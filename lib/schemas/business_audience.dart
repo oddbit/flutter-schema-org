@@ -51,11 +51,8 @@ class SchemaBusinessAudience extends SchemaAudience {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'BusinessAudience',
-        'numberOfEmployees':
-            convertToJsonLd(numberOfEmployees, [SchemaQuantitativeValue]),
-        'yearlyRevenue':
-            convertToJsonLd(yearlyRevenue, [SchemaQuantitativeValue]),
-        'yearsInOperation':
-            convertToJsonLd(yearsInOperation, [SchemaQuantitativeValue]),
+        'numberOfEmployees': convertToJsonLd(numberOfEmployees),
+        'yearlyRevenue': convertToJsonLd(yearlyRevenue),
+        'yearsInOperation': convertToJsonLd(yearsInOperation),
       });
 }

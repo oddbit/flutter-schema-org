@@ -124,23 +124,24 @@ class SchemaFlight extends SchemaTrip {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Flight',
-        'aircraft': convertToJsonLd(aircraft, [String, SchemaVehicle]),
-        'arrivalAirport': convertToJsonLd(arrivalAirport, [SchemaAirport]),
-        'arrivalGate': convertToJsonLd(arrivalGate, [String]),
-        'arrivalTerminal': convertToJsonLd(arrivalTerminal, [String]),
-        'boardingPolicy':
-            convertToJsonLd(boardingPolicy, [SchemaBoardingPolicyType]),
-        'carrier': convertToJsonLd(carrier, [SchemaOrganization]),
-        'departureAirport': convertToJsonLd(departureAirport, [SchemaAirport]),
-        'departureGate': convertToJsonLd(departureGate, [String]),
-        'departureTerminal': convertToJsonLd(departureTerminal, [String]),
-        'estimatedFlightDuration':
-            convertToJsonLd(estimatedFlightDuration, [SchemaDuration, String]),
-        'flightDistance':
-            convertToJsonLd(flightDistance, [SchemaDistance, String]),
-        'flightNumber': convertToJsonLd(flightNumber, [String]),
-        'mealService': convertToJsonLd(mealService, [String]),
-        'seller': convertToJsonLd(seller, [SchemaOrganization, SchemaPerson]),
-        'webCheckinTime': convertToJsonLd(webCheckinTime, [String]),
+        'aircraft':
+            convertToJsonLd(aircraft, (v) => v is String || v is SchemaVehicle),
+        'arrivalAirport': convertToJsonLd(arrivalAirport),
+        'arrivalGate': convertToJsonLd(arrivalGate),
+        'arrivalTerminal': convertToJsonLd(arrivalTerminal),
+        'boardingPolicy': convertToJsonLd(boardingPolicy),
+        'carrier': convertToJsonLd(carrier),
+        'departureAirport': convertToJsonLd(departureAirport),
+        'departureGate': convertToJsonLd(departureGate),
+        'departureTerminal': convertToJsonLd(departureTerminal),
+        'estimatedFlightDuration': convertToJsonLd(
+            estimatedFlightDuration, (v) => v is SchemaDuration || v is String),
+        'flightDistance': convertToJsonLd(
+            flightDistance, (v) => v is SchemaDistance || v is String),
+        'flightNumber': convertToJsonLd(flightNumber),
+        'mealService': convertToJsonLd(mealService),
+        'seller': convertToJsonLd(
+            seller, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'webCheckinTime': convertToJsonLd(webCheckinTime),
       });
 }

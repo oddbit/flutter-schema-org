@@ -19,7 +19,10 @@ import 'package:schema_org/schemas/language.dart';
 /// feeds.
 /// See https://schema.org/LinkRole
 class SchemaLinkRole extends SchemaRole {
-  /// //tools.ietf.org/html/bcp47). See also [SchemaavailableLanguage].
+  /// The language of the content or performance or used in an action. Please
+  /// use one of the language codes from the [IETF BCP 47
+  /// standard](http://tools.ietf.org/html/bcp47). See also
+  /// [SchemaavailableLanguage].
   ///
   /// Supported types: [SchemaLanguage], [String]
   dynamic inLanguage;
@@ -55,7 +58,8 @@ class SchemaLinkRole extends SchemaRole {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'LinkRole',
-        'inLanguage': convertToJsonLd(inLanguage, [SchemaLanguage, String]),
-        'linkRelationship': convertToJsonLd(linkRelationship, [String]),
+        'inLanguage': convertToJsonLd(
+            inLanguage, (v) => v is SchemaLanguage || v is String),
+        'linkRelationship': convertToJsonLd(linkRelationship),
       });
 }

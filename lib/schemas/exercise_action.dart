@@ -117,20 +117,18 @@ class SchemaExerciseAction extends SchemaPlayAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ExerciseAction',
-        'course': convertToJsonLd(course, [SchemaPlace]),
-        'diet': convertToJsonLd(diet, [SchemaDiet]),
-        'distance': convertToJsonLd(distance, [SchemaDistance]),
-        'exerciseCourse': convertToJsonLd(exerciseCourse, [SchemaPlace]),
-        'exercisePlan': convertToJsonLd(exercisePlan, [SchemaExercisePlan]),
-        'exerciseRelatedDiet':
-            convertToJsonLd(exerciseRelatedDiet, [SchemaDiet]),
-        'exerciseType': convertToJsonLd(exerciseType, [String]),
-        'fromLocation': convertToJsonLd(fromLocation, [SchemaPlace]),
-        'opponent': convertToJsonLd(opponent, [SchemaPerson]),
-        'sportsActivityLocation': convertToJsonLd(
-            sportsActivityLocation, [SchemaSportsActivityLocation]),
-        'sportsEvent': convertToJsonLd(sportsEvent, [SchemaSportsEvent]),
-        'sportsTeam': convertToJsonLd(sportsTeam, [SchemaSportsTeam]),
-        'toLocation': convertToJsonLd(toLocation, [SchemaPlace]),
+        'course': convertToJsonLd(course),
+        'diet': convertToJsonLd(diet),
+        'distance': convertToJsonLd(distance),
+        'exerciseCourse': convertToJsonLd(exerciseCourse),
+        'exercisePlan': convertToJsonLd(exercisePlan),
+        'exerciseRelatedDiet': convertToJsonLd(exerciseRelatedDiet),
+        'exerciseType': convertToJsonLd(exerciseType),
+        'fromLocation': convertToJsonLd(fromLocation),
+        'opponent': convertToJsonLd(opponent),
+        'sportsActivityLocation': convertToJsonLd(sportsActivityLocation),
+        'sportsEvent': convertToJsonLd(sportsEvent),
+        'sportsTeam': convertToJsonLd(sportsTeam),
+        'toLocation': convertToJsonLd(toLocation),
       });
 }

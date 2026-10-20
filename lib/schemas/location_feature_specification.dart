@@ -49,6 +49,7 @@ class SchemaLocationFeatureSpecification extends SchemaPropertyValue {
     super.unitText,
     super.url,
     super.value,
+    super.valueGroup,
     super.valueReference,
     this.hoursAvailable,
     this.validFrom,
@@ -60,9 +61,8 @@ class SchemaLocationFeatureSpecification extends SchemaPropertyValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'LocationFeatureSpecification',
-        'hoursAvailable':
-            convertToJsonLd(hoursAvailable, [SchemaOpeningHoursSpecification]),
-        'validFrom': convertToJsonLd(validFrom, [String]),
-        'validThrough': convertToJsonLd(validThrough, [String]),
+        'hoursAvailable': convertToJsonLd(hoursAvailable),
+        'validFrom': convertToJsonLd(validFrom),
+        'validThrough': convertToJsonLd(validThrough),
       });
 }

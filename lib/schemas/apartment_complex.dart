@@ -11,7 +11,7 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/residence.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 
-/// Apartment complex.
+/// Residence type: Apartment complex.
 /// See https://schema.org/ApartmentComplex
 class SchemaApartmentComplex extends SchemaResidence {
   /// Indicates the total (available plus unavailable) number of accommodation
@@ -114,12 +114,13 @@ class SchemaApartmentComplex extends SchemaResidence {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ApartmentComplex',
-        'numberOfAccommodationUnits': convertToJsonLd(
-            numberOfAccommodationUnits, [SchemaQuantitativeValue]),
-        'numberOfAvailableAccommodationUnits': convertToJsonLd(
-            numberOfAvailableAccommodationUnits, [SchemaQuantitativeValue]),
-        'numberOfBedrooms':
-            convertToJsonLd(numberOfBedrooms, [SchemaQuantitativeValue, num]),
-        'petsAllowed': convertToJsonLd(petsAllowed, [String, bool]),
+        'numberOfAccommodationUnits':
+            convertToJsonLd(numberOfAccommodationUnits),
+        'numberOfAvailableAccommodationUnits':
+            convertToJsonLd(numberOfAvailableAccommodationUnits),
+        'numberOfBedrooms': convertToJsonLd(
+            numberOfBedrooms, (v) => v is SchemaQuantitativeValue || v is num),
+        'petsAllowed':
+            convertToJsonLd(petsAllowed, (v) => v is String || v is bool),
       });
 }

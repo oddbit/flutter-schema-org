@@ -42,6 +42,7 @@ class SchemaPharmacy extends SchemaMedicalBusiness
     super.alumni,
     super.amenityFeature,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.branchCode,
@@ -97,6 +98,7 @@ class SchemaPharmacy extends SchemaMedicalBusiness
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,
@@ -168,10 +170,8 @@ class SchemaPharmacy extends SchemaMedicalBusiness
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Pharmacy',
-        'healthPlanNetworkId': convertToJsonLd(healthPlanNetworkId, [String]),
-        'isAcceptingNewPatients':
-            convertToJsonLd(isAcceptingNewPatients, [bool]),
-        'medicalSpecialty':
-            convertToJsonLd(medicalSpecialty, [SchemaMedicalSpecialty]),
+        'healthPlanNetworkId': convertToJsonLd(healthPlanNetworkId),
+        'isAcceptingNewPatients': convertToJsonLd(isAcceptingNewPatients),
+        'medicalSpecialty': convertToJsonLd(medicalSpecialty),
       });
 }

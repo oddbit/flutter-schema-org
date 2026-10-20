@@ -76,9 +76,8 @@ class SchemaGovernmentService extends SchemaService {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'GovernmentService',
-        'jurisdiction':
-            convertToJsonLd(jurisdiction, [SchemaAdministrativeArea, String]),
-        'serviceOperator':
-            convertToJsonLd(serviceOperator, [SchemaOrganization]),
+        'jurisdiction': convertToJsonLd(
+            jurisdiction, (v) => v is SchemaAdministrativeArea || v is String),
+        'serviceOperator': convertToJsonLd(serviceOperator),
       });
 }

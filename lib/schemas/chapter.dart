@@ -169,8 +169,8 @@ class SchemaChapter extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Chapter',
-        'pageEnd': convertToJsonLd(pageEnd, [String, int]),
-        'pageStart': convertToJsonLd(pageStart, [String, int]),
-        'pagination': convertToJsonLd(pagination, [String]),
+        'pageEnd': convertToJsonLd(pageEnd, (v) => v is String || v is int),
+        'pageStart': convertToJsonLd(pageStart, (v) => v is String || v is int),
+        'pagination': convertToJsonLd(pagination),
       });
 }

@@ -56,6 +56,6 @@ class SchemaInsertAction extends SchemaAddAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'InsertAction',
-        'toLocation': convertToJsonLd(toLocation, [SchemaPlace]),
+        'toLocation': convertToJsonLd(toLocation),
       });
 }

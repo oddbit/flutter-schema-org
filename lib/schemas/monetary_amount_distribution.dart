@@ -14,8 +14,14 @@ import 'package:schema_org/schemas/quantitative_value_distribution.dart';
 /// See https://schema.org/MonetaryAmountDistribution
 class SchemaMonetaryAmountDistribution
     extends SchemaQuantitativeValueDistribution {
-  /// //en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other
-  /// currency types, e.g. "Ithaca HOUR".
+  /// The currency in which the monetary amount is expressed.\n\nUse standard
+  /// formats: [ISO 4217 currency
+  /// format](http://en.wikipedia.org/wiki/ISO_4217), e.g. "USD"; [Ticker
+  /// symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for
+  /// cryptocurrencies, e.g. "BTC"; well known names for [Local Exchange
+  /// Trading
+  /// Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system)
+  /// (LETS) and other currency types, e.g. "Ithaca HOUR".
   String? currency;
 
   /// Create a new instance of [SchemaMonetaryAmountDistribution]
@@ -47,6 +53,6 @@ class SchemaMonetaryAmountDistribution
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MonetaryAmountDistribution',
-        'currency': convertToJsonLd(currency, [String]),
+        'currency': convertToJsonLd(currency),
       });
 }

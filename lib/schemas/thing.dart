@@ -21,7 +21,15 @@ import 'package:schema_org/schemas/event.dart';
 /// The most generic type of item.
 /// See https://schema.org/Thing
 class SchemaThing implements SchemaSerializable {
-  /// //schema.org/docs/styleguide.html">style guide</a>.
+  /// An additional type for the item, typically used for adding more specific
+  /// types from external vocabularies in microdata syntax. This is a
+  /// relationship between something and a class that the thing is in.
+  /// Typically the value is a URI-identified RDF class, and in this case
+  /// corresponds to the use of rdf:type in RDF. Text values can be used
+  /// sparingly, for cases where useful information can be added without their
+  /// being an appropriate schema to reference. In the case of text values, the
+  /// class label should follow the schema.org <a
+  /// href="https://schema.org/docs/styleguide.html">style guide</a>.
   String? additionalType;
 
   /// An alias for the item.
@@ -107,22 +115,24 @@ class SchemaThing implements SchemaSerializable {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         '@context': 'https://schema.org',
         '@type': 'Thing',
-        'additionalType': convertToJsonLd(additionalType, [String]),
-        'alternateName': convertToJsonLd(alternateName, [String]),
-        'description': convertToJsonLd(description, [String, SchemaTextObject]),
-        'disambiguatingDescription':
-            convertToJsonLd(disambiguatingDescription, [String]),
-        'identifier':
-            convertToJsonLd(identifier, [SchemaPropertyValue, String]),
-        'image': convertToJsonLd(image, [SchemaImageObject, String]),
-        'mainEntityOfPage':
-            convertToJsonLd(mainEntityOfPage, [SchemaCreativeWork, String]),
-        'name': convertToJsonLd(name, [String]),
-        'owner': convertToJsonLd(owner, [SchemaOrganization, SchemaPerson]),
-        'potentialAction': convertToJsonLd(potentialAction, [SchemaAction]),
-        'sameAs': convertToJsonLd(sameAs, [String]),
-        'subjectOf':
-            convertToJsonLd(subjectOf, [SchemaCreativeWork, SchemaEvent]),
-        'url': convertToJsonLd(url, [String]),
+        'additionalType': convertToJsonLd(additionalType),
+        'alternateName': convertToJsonLd(alternateName),
+        'description': convertToJsonLd(
+            description, (v) => v is String || v is SchemaTextObject),
+        'disambiguatingDescription': convertToJsonLd(disambiguatingDescription),
+        'identifier': convertToJsonLd(
+            identifier, (v) => v is SchemaPropertyValue || v is String),
+        'image': convertToJsonLd(
+            image, (v) => v is SchemaImageObject || v is String),
+        'mainEntityOfPage': convertToJsonLd(
+            mainEntityOfPage, (v) => v is SchemaCreativeWork || v is String),
+        'name': convertToJsonLd(name),
+        'owner': convertToJsonLd(
+            owner, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'potentialAction': convertToJsonLd(potentialAction),
+        'sameAs': convertToJsonLd(sameAs),
+        'subjectOf': convertToJsonLd(
+            subjectOf, (v) => v is SchemaCreativeWork || v is SchemaEvent),
+        'url': convertToJsonLd(url),
       });
 }

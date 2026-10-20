@@ -15,8 +15,12 @@ import 'package:schema_org/schemas/administrative_area.dart';
 /// The mailing address.
 /// See https://schema.org/PostalAddress
 class SchemaPostalAddress extends SchemaContactPoint {
-  /// //en.wikipedia.org/wiki/ISO_3166-1_alpha-3) country code such as "SGP" or
-  /// a full country name such as "Singapore" can also be used.
+  /// The country. Recommended to be in 2-letter [ISO 3166-1
+  /// alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1) format, for example
+  /// "US". For backward compatibility, a 3-letter [ISO 3166-1
+  /// alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) country code
+  /// such as "SGP" or a full country name such as "Singapore" can also be
+  /// used.
   ///
   /// Supported types: [SchemaCountry], [String]
   dynamic addressCountry;
@@ -25,8 +29,10 @@ class SchemaPostalAddress extends SchemaContactPoint {
   /// For example, Mountain View.
   String? addressLocality;
 
-  /// //en.wikipedia.org/wiki/List_of_administrative_divisions_by_country) such
-  /// as the Province in Italy or Region in Germany.
+  /// The region in which the locality is, and which is in the country. For
+  /// example, California or another appropriate first-level [Administrative
+  /// division](https://en.wikipedia.org/wiki/List_of_administrative_divisions_by_country)
+  /// such as the Province in Italy or Region in Germany.
   ///
   /// Supported types: [SchemaAdministrativeArea], [String]
   dynamic addressRegion;
@@ -83,14 +89,14 @@ class SchemaPostalAddress extends SchemaContactPoint {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'PostalAddress',
-        'addressCountry':
-            convertToJsonLd(addressCountry, [SchemaCountry, String]),
-        'addressLocality': convertToJsonLd(addressLocality, [String]),
-        'addressRegion':
-            convertToJsonLd(addressRegion, [SchemaAdministrativeArea, String]),
-        'extendedAddress': convertToJsonLd(extendedAddress, [String]),
-        'postOfficeBoxNumber': convertToJsonLd(postOfficeBoxNumber, [String]),
-        'postalCode': convertToJsonLd(postalCode, [String]),
-        'streetAddress': convertToJsonLd(streetAddress, [String]),
+        'addressCountry': convertToJsonLd(
+            addressCountry, (v) => v is SchemaCountry || v is String),
+        'addressLocality': convertToJsonLd(addressLocality),
+        'addressRegion': convertToJsonLd(
+            addressRegion, (v) => v is SchemaAdministrativeArea || v is String),
+        'extendedAddress': convertToJsonLd(extendedAddress),
+        'postOfficeBoxNumber': convertToJsonLd(postOfficeBoxNumber),
+        'postalCode': convertToJsonLd(postalCode),
+        'streetAddress': convertToJsonLd(streetAddress),
       });
 }

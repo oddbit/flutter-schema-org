@@ -11,7 +11,12 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/interact_action.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// Unlike FollowAction, JoinAction does not imply that you'll be polling for
+/// An agent joins an event/group with participants/friends at a
+/// location.\n\nRelated actions:\n\n* [SchemaRegisterAction]: Unlike
+/// RegisterAction, JoinAction refers to joining a group/team of people.\n*
+/// [SchemaSubscribeAction]: Unlike SubscribeAction, JoinAction does not
+/// imply that you'll be receiving updates.\n* [SchemaFollowAction]: Unlike
+/// FollowAction, JoinAction does not imply that you'll be polling for
 /// updates.
 /// See https://schema.org/JoinAction
 class SchemaJoinAction extends SchemaInteractAction {
@@ -55,6 +60,6 @@ class SchemaJoinAction extends SchemaInteractAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'JoinAction',
-        'event': convertToJsonLd(event, [SchemaEvent]),
+        'event': convertToJsonLd(event),
       });
 }

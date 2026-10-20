@@ -60,7 +60,7 @@ class SchemaTransferAction extends SchemaAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'TransferAction',
-        'fromLocation': convertToJsonLd(fromLocation, [SchemaPlace]),
-        'toLocation': convertToJsonLd(toLocation, [SchemaPlace]),
+        'fromLocation': convertToJsonLd(fromLocation),
+        'toLocation': convertToJsonLd(toLocation),
       });
 }

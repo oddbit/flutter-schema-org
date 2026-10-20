@@ -233,23 +233,24 @@ class SchemaVisualArtwork extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'VisualArtwork',
-        'artEdition': convertToJsonLd(artEdition, [String, int]),
-        'artMedium': convertToJsonLd(artMedium, [String]),
-        'artform': convertToJsonLd(artform, [String]),
-        'artist': convertToJsonLd(artist, [SchemaPerson]),
-        'artworkSurface': convertToJsonLd(artworkSurface, [String]),
-        'colorist': convertToJsonLd(colorist, [SchemaPerson]),
-        'depth':
-            convertToJsonLd(depth, [SchemaDistance, SchemaQuantitativeValue]),
-        'height':
-            convertToJsonLd(height, [SchemaDistance, SchemaQuantitativeValue]),
-        'inker': convertToJsonLd(inker, [SchemaPerson]),
-        'letterer': convertToJsonLd(letterer, [SchemaPerson]),
-        'penciler': convertToJsonLd(penciler, [SchemaPerson]),
-        'surface': convertToJsonLd(surface, [String]),
-        'weight':
-            convertToJsonLd(weight, [SchemaMass, SchemaQuantitativeValue]),
-        'width':
-            convertToJsonLd(width, [SchemaDistance, SchemaQuantitativeValue]),
+        'artEdition':
+            convertToJsonLd(artEdition, (v) => v is String || v is int),
+        'artMedium': convertToJsonLd(artMedium),
+        'artform': convertToJsonLd(artform),
+        'artist': convertToJsonLd(artist),
+        'artworkSurface': convertToJsonLd(artworkSurface),
+        'colorist': convertToJsonLd(colorist),
+        'depth': convertToJsonLd(
+            depth, (v) => v is SchemaDistance || v is SchemaQuantitativeValue),
+        'height': convertToJsonLd(
+            height, (v) => v is SchemaDistance || v is SchemaQuantitativeValue),
+        'inker': convertToJsonLd(inker),
+        'letterer': convertToJsonLd(letterer),
+        'penciler': convertToJsonLd(penciler),
+        'surface': convertToJsonLd(surface),
+        'weight': convertToJsonLd(
+            weight, (v) => v is SchemaMass || v is SchemaQuantitativeValue),
+        'width': convertToJsonLd(
+            width, (v) => v is SchemaDistance || v is SchemaQuantitativeValue),
       });
 }

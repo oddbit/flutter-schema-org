@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// Children's event.
+/// Event type: Children's event.
 /// See https://schema.org/ChildrensEvent
 class SchemaChildrensEvent extends SchemaEvent {
   /// Create a new instance of [SchemaChildrensEvent]

@@ -98,9 +98,9 @@ class SchemaPublicationEvent extends SchemaEvent {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'PublicationEvent',
-        'free': convertToJsonLd(free, [bool]),
-        'publishedBy':
-            convertToJsonLd(publishedBy, [SchemaOrganization, SchemaPerson]),
-        'publishedOn': convertToJsonLd(publishedOn, [SchemaBroadcastService]),
+        'free': convertToJsonLd(free),
+        'publishedBy': convertToJsonLd(
+            publishedBy, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'publishedOn': convertToJsonLd(publishedOn),
       });
 }

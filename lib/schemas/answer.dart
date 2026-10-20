@@ -165,7 +165,7 @@ class SchemaAnswer extends SchemaComment {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Answer',
-        'answerExplanation': convertToJsonLd(
-            answerExplanation, [SchemaComment, SchemaWebContent]),
+        'answerExplanation': convertToJsonLd(answerExplanation,
+            (v) => v is SchemaComment || v is SchemaWebContent),
       });
 }

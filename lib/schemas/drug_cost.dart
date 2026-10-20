@@ -28,7 +28,8 @@ class SchemaDrugCost extends SchemaMedicalEntity {
   /// The category of cost, such as wholesale, retail, reimbursement cap, etc.
   SchemaDrugCostCategory? costCategory;
 
-  /// //en.wikipedia.org/wiki/ISO_4217.
+  /// The currency (in 3-letter) of the drug cost. See:
+  /// http://en.wikipedia.org/wiki/ISO_4217.
   String? costCurrency;
 
   /// Additional details to capture the origin of the cost data. For example,
@@ -79,13 +80,12 @@ class SchemaDrugCost extends SchemaMedicalEntity {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'DrugCost',
-        'applicableLocation':
-            convertToJsonLd(applicableLocation, [SchemaAdministrativeArea]),
-        'costCategory': convertToJsonLd(costCategory, [SchemaDrugCostCategory]),
-        'costCurrency': convertToJsonLd(costCurrency, [String]),
-        'costOrigin': convertToJsonLd(costOrigin, [String]),
-        'costPerUnit':
-            convertToJsonLd(costPerUnit, [SchemaQualitativeValue, String, num]),
-        'drugUnit': convertToJsonLd(drugUnit, [String]),
+        'applicableLocation': convertToJsonLd(applicableLocation),
+        'costCategory': convertToJsonLd(costCategory),
+        'costCurrency': convertToJsonLd(costCurrency),
+        'costOrigin': convertToJsonLd(costOrigin),
+        'costPerUnit': convertToJsonLd(costPerUnit,
+            (v) => v is SchemaQualitativeValue || v is String || v is num),
+        'drugUnit': convertToJsonLd(drugUnit),
       });
 }

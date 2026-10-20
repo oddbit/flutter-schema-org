@@ -187,8 +187,9 @@ class SchemaAudioObject extends SchemaMediaObject {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'AudioObject',
-        'caption': convertToJsonLd(caption, [SchemaMediaObject, String]),
-        'embeddedTextCaption': convertToJsonLd(embeddedTextCaption, [String]),
-        'transcript': convertToJsonLd(transcript, [String]),
+        'caption': convertToJsonLd(
+            caption, (v) => v is SchemaMediaObject || v is String),
+        'embeddedTextCaption': convertToJsonLd(embeddedTextCaption),
+        'transcript': convertToJsonLd(transcript),
       });
 }

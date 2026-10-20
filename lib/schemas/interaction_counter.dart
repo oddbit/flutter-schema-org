@@ -90,13 +90,18 @@ class SchemaInteractionCounter extends SchemaStructuredValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'InteractionCounter',
-        'endTime': convertToJsonLd(endTime, [String]),
-        'interactionService': convertToJsonLd(
-            interactionService, [SchemaSoftwareApplication, SchemaWebSite]),
-        'interactionType': convertToJsonLd(interactionType, [SchemaAction]),
-        'location': convertToJsonLd(location,
-            [SchemaPlace, SchemaPostalAddress, String, SchemaVirtualLocation]),
-        'startTime': convertToJsonLd(startTime, [String]),
-        'userInteractionCount': convertToJsonLd(userInteractionCount, [int]),
+        'endTime': convertToJsonLd(endTime),
+        'interactionService': convertToJsonLd(interactionService,
+            (v) => v is SchemaSoftwareApplication || v is SchemaWebSite),
+        'interactionType': convertToJsonLd(interactionType),
+        'location': convertToJsonLd(
+            location,
+            (v) =>
+                v is SchemaPlace ||
+                v is SchemaPostalAddress ||
+                v is String ||
+                v is SchemaVirtualLocation),
+        'startTime': convertToJsonLd(startTime),
+        'userInteractionCount': convertToJsonLd(userInteractionCount),
       });
 }

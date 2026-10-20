@@ -10,7 +10,9 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/action.dart';
 
-/// SearchAction generally leads to a FindAction, but not necessarily.
+/// The act of searching for an object.\n\nRelated actions:\n\n*
+/// [SchemaFindAction]: SearchAction generally leads to a FindAction, but not
+/// necessarily.
 /// See https://schema.org/SearchAction
 class SchemaSearchAction extends SchemaAction {
   /// A sub property of instrument. The query used on this action.
@@ -52,6 +54,6 @@ class SchemaSearchAction extends SchemaAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'SearchAction',
-        'query': convertToJsonLd(query, [String]),
+        'query': convertToJsonLd(query),
       });
 }

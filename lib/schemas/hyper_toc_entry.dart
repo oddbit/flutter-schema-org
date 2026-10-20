@@ -172,8 +172,7 @@ class SchemaHyperTocEntry extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'HyperTocEntry',
-        'tocContinuation':
-            convertToJsonLd(tocContinuation, [SchemaHyperTocEntry]),
-        'utterances': convertToJsonLd(utterances, [String]),
+        'tocContinuation': convertToJsonLd(tocContinuation),
+        'utterances': convertToJsonLd(utterances),
       });
 }

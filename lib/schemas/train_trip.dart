@@ -68,12 +68,11 @@ class SchemaTrainTrip extends SchemaTrip {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'TrainTrip',
-        'arrivalPlatform': convertToJsonLd(arrivalPlatform, [String]),
-        'arrivalStation': convertToJsonLd(arrivalStation, [SchemaTrainStation]),
-        'departurePlatform': convertToJsonLd(departurePlatform, [String]),
-        'departureStation':
-            convertToJsonLd(departureStation, [SchemaTrainStation]),
-        'trainName': convertToJsonLd(trainName, [String]),
-        'trainNumber': convertToJsonLd(trainNumber, [String]),
+        'arrivalPlatform': convertToJsonLd(arrivalPlatform),
+        'arrivalStation': convertToJsonLd(arrivalStation),
+        'departurePlatform': convertToJsonLd(departurePlatform),
+        'departureStation': convertToJsonLd(departureStation),
+        'trainName': convertToJsonLd(trainName),
+        'trainNumber': convertToJsonLd(trainNumber),
       });
 }

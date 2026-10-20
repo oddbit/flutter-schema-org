@@ -68,9 +68,8 @@ class SchemaCompoundPriceSpecification extends SchemaPriceSpecification {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'CompoundPriceSpecification',
-        'priceComponent':
-            convertToJsonLd(priceComponent, [SchemaPriceSpecification]),
-        'priceType':
-            convertToJsonLd(priceType, [SchemaPriceTypeEnumeration, String]),
+        'priceComponent': convertToJsonLd(priceComponent),
+        'priceType': convertToJsonLd(
+            priceType, (v) => v is SchemaPriceTypeEnumeration || v is String),
       });
 }

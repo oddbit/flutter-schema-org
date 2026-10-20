@@ -230,15 +230,18 @@ class SchemaVideoObject extends SchemaMediaObject {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'VideoObject',
-        'actor': convertToJsonLd(actor, [SchemaPerformingGroup, SchemaPerson]),
-        'actors': convertToJsonLd(actors, [SchemaPerson]),
-        'caption': convertToJsonLd(caption, [SchemaMediaObject, String]),
-        'director': convertToJsonLd(director, [SchemaPerson]),
-        'directors': convertToJsonLd(directors, [SchemaPerson]),
-        'embeddedTextCaption': convertToJsonLd(embeddedTextCaption, [String]),
-        'musicBy': convertToJsonLd(musicBy, [SchemaMusicGroup, SchemaPerson]),
-        'transcript': convertToJsonLd(transcript, [String]),
-        'videoFrameSize': convertToJsonLd(videoFrameSize, [String]),
-        'videoQuality': convertToJsonLd(videoQuality, [String]),
+        'actor': convertToJsonLd(
+            actor, (v) => v is SchemaPerformingGroup || v is SchemaPerson),
+        'actors': convertToJsonLd(actors),
+        'caption': convertToJsonLd(
+            caption, (v) => v is SchemaMediaObject || v is String),
+        'director': convertToJsonLd(director),
+        'directors': convertToJsonLd(directors),
+        'embeddedTextCaption': convertToJsonLd(embeddedTextCaption),
+        'musicBy': convertToJsonLd(
+            musicBy, (v) => v is SchemaMusicGroup || v is SchemaPerson),
+        'transcript': convertToJsonLd(transcript),
+        'videoFrameSize': convertToJsonLd(videoFrameSize),
+        'videoQuality': convertToJsonLd(videoQuality),
       });
 }

@@ -13,7 +13,9 @@ import 'package:schema_org/schemas/scholarly_article.dart';
 /// A scholarly article in the medical domain.
 /// See https://schema.org/MedicalScholarlyArticle
 class SchemaMedicalScholarlyArticle extends SchemaScholarlyArticle {
-  /// //www.nlm.nih.gov/mesh/pubtypes.html).
+  /// The type of the medical article, taken from the US NLM MeSH publication
+  /// type catalog. See also [MeSH
+  /// documentation](http://www.nlm.nih.gov/mesh/pubtypes.html).
   String? publicationType;
 
   /// Create a new instance of [SchemaMedicalScholarlyArticle]
@@ -162,6 +164,6 @@ class SchemaMedicalScholarlyArticle extends SchemaScholarlyArticle {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MedicalScholarlyArticle',
-        'publicationType': convertToJsonLd(publicationType, [String]),
+        'publicationType': convertToJsonLd(publicationType),
       });
 }

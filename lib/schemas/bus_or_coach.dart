@@ -21,8 +21,13 @@ class SchemaBusOrCoach extends SchemaVehicle {
   /// Rental Industry Systems and Standards.
   String? acrissCode;
 
-  /// Note that you can use [SchemaminValue] and [SchemamaxValue] to indicate
-  /// ranges.
+  /// The permitted total weight of cargo and installations (e.g. a roof rack)
+  /// on top of the vehicle.\n\nTypical unit code(s): KGM for kilogram, LBR for
+  /// pound\n\n* Note 1: You can indicate additional information in the
+  /// [Schemaname] of the [SchemaQuantitativeValue] node.\n* Note 2: You may
+  /// also link to a [SchemaQualitativeValue] node that provides additional
+  /// information using [SchemavalueReference]\n* Note 3: Note that you can use
+  /// [SchemaminValue] and [SchemamaxValue] to indicate ranges.
   SchemaQuantitativeValue? roofLoad;
 
   /// Create a new instance of [SchemaBusOrCoach]
@@ -34,6 +39,7 @@ class SchemaBusOrCoach extends SchemaVehicle {
     super.alternateName,
     super.asin,
     super.audience,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.bodyType,
@@ -43,6 +49,7 @@ class SchemaBusOrCoach extends SchemaVehicle {
     super.category,
     super.color,
     super.colorSwatch,
+    super.consumerNotice,
     super.countryOfAssembly,
     super.countryOfLastProcessing,
     super.countryOfOrigin,
@@ -65,17 +72,21 @@ class SchemaBusOrCoach extends SchemaVehicle {
     super.gtin8,
     super.hasAdultConsideration,
     super.hasCertification,
+    super.hasDigitalProductPassport,
     super.hasEnergyConsumptionDetails,
     super.hasGS1DigitalLink,
     super.hasMeasurement,
     super.hasMerchantReturnPolicy,
+    super.hasProductReturnPolicy,
     super.height,
     super.identifier,
     super.image,
+    super.importer,
     super.inProductGroupWithID,
     super.isAccessoryOrSparePartFor,
     super.isConsumableFor,
     super.isFamilyFriendly,
+    super.isOftenBoughtWith,
     super.isRelatedTo,
     super.isSimilarTo,
     super.isVariantOf,
@@ -109,6 +120,7 @@ class SchemaBusOrCoach extends SchemaVehicle {
     super.productID,
     super.productionDate,
     super.purchaseDate,
+    super.recycledContentPercentage,
     super.releaseDate,
     super.review,
     super.reviews,
@@ -117,9 +129,11 @@ class SchemaBusOrCoach extends SchemaVehicle {
     super.size,
     super.sku,
     super.slogan,
+    super.specification,
     super.speed,
     super.steeringPosition,
     super.subjectOf,
+    super.substanceOfConcern,
     super.tongueWeight,
     super.trailerWeight,
     super.url,
@@ -145,7 +159,7 @@ class SchemaBusOrCoach extends SchemaVehicle {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'BusOrCoach',
-        'acrissCode': convertToJsonLd(acrissCode, [String]),
-        'roofLoad': convertToJsonLd(roofLoad, [SchemaQuantitativeValue]),
+        'acrissCode': convertToJsonLd(acrissCode),
+        'roofLoad': convertToJsonLd(roofLoad),
       });
 }

@@ -14,12 +14,13 @@ import 'package:schema_org/src/schema_serializable.dart';
 enum SchemaMeasurementMethodEnum implements SchemaSerializable {
   /// An example [SchemaMeasurementMethodEnum] (to remove when real enums
   /// are added).
-  exampleMeasurementMethodEnum('https://schema.org/MeasurementMethodEnum');
+  exampleMeasurementMethodEnum(
+      'https://schema.org/ExampleMeasurementMethodEnum');
 
   /// Constructor for [SchemaMeasurementMethodEnum]
   const SchemaMeasurementMethodEnum(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaMeasurementMethodEnum] to JSON-LD

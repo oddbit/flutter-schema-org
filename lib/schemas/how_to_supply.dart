@@ -49,7 +49,7 @@ class SchemaHowToSupply extends SchemaHowToItem {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'HowToSupply',
-        'estimatedCost':
-            convertToJsonLd(estimatedCost, [SchemaMonetaryAmount, String]),
+        'estimatedCost': convertToJsonLd(
+            estimatedCost, (v) => v is SchemaMonetaryAmount || v is String),
       });
 }

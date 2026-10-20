@@ -58,6 +58,6 @@ class SchemaInviteAction extends SchemaCommunicateAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'InviteAction',
-        'event': convertToJsonLd(event, [SchemaEvent]),
+        'event': convertToJsonLd(event),
       });
 }

@@ -53,6 +53,7 @@ class SchemaMedicalClinic extends SchemaMedicalBusiness
     super.alumni,
     super.amenityFeature,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.branchCode,
@@ -108,6 +109,7 @@ class SchemaMedicalClinic extends SchemaMedicalBusiness
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,
@@ -180,12 +182,14 @@ class SchemaMedicalClinic extends SchemaMedicalBusiness
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MedicalClinic',
-        'availableService': convertToJsonLd(availableService,
-            [SchemaMedicalProcedure, SchemaMedicalTest, SchemaMedicalTherapy]),
-        'medicalSpecialty':
-            convertToJsonLd(medicalSpecialty, [SchemaMedicalSpecialty]),
-        'healthPlanNetworkId': convertToJsonLd(healthPlanNetworkId, [String]),
-        'isAcceptingNewPatients':
-            convertToJsonLd(isAcceptingNewPatients, [bool]),
+        'availableService': convertToJsonLd(
+            availableService,
+            (v) =>
+                v is SchemaMedicalProcedure ||
+                v is SchemaMedicalTest ||
+                v is SchemaMedicalTherapy),
+        'medicalSpecialty': convertToJsonLd(medicalSpecialty),
+        'healthPlanNetworkId': convertToJsonLd(healthPlanNetworkId),
+        'isAcceptingNewPatients': convertToJsonLd(isAcceptingNewPatients),
       });
 }

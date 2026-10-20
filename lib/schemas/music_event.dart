@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// Music event.
+/// Event type: Music event.
 /// See https://schema.org/MusicEvent
 class SchemaMusicEvent extends SchemaEvent {
   /// Create a new instance of [SchemaMusicEvent]

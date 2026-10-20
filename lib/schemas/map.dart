@@ -156,6 +156,6 @@ class SchemaMap extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Map',
-        'mapType': convertToJsonLd(mapType, [SchemaMapCategoryType]),
+        'mapType': convertToJsonLd(mapType),
       });
 }

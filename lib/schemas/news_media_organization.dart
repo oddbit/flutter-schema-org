@@ -51,6 +51,7 @@ class SchemaNewsMediaOrganization extends SchemaOrganization {
     super.alternateName,
     super.alumni,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.brand,
@@ -86,6 +87,7 @@ class SchemaNewsMediaOrganization extends SchemaOrganization {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,
@@ -142,12 +144,15 @@ class SchemaNewsMediaOrganization extends SchemaOrganization {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'NewsMediaOrganization',
-        'masthead': convertToJsonLd(masthead, [SchemaCreativeWork, String]),
+        'masthead': convertToJsonLd(
+            masthead, (v) => v is SchemaCreativeWork || v is String),
         'missionCoveragePrioritiesPolicy': convertToJsonLd(
-            missionCoveragePrioritiesPolicy, [SchemaCreativeWork, String]),
-        'noBylinesPolicy':
-            convertToJsonLd(noBylinesPolicy, [SchemaCreativeWork, String]),
+            missionCoveragePrioritiesPolicy,
+            (v) => v is SchemaCreativeWork || v is String),
+        'noBylinesPolicy': convertToJsonLd(
+            noBylinesPolicy, (v) => v is SchemaCreativeWork || v is String),
         'verificationFactCheckingPolicy': convertToJsonLd(
-            verificationFactCheckingPolicy, [SchemaCreativeWork, String]),
+            verificationFactCheckingPolicy,
+            (v) => v is SchemaCreativeWork || v is String),
       });
 }

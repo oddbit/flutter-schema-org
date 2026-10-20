@@ -11,9 +11,9 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/reservation.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 
-/// This type is for information about actual reservations, e.g. in
-/// confirmation emails or HTML pages with individual confirmations of
-/// reservations.
+/// A reservation to dine at a food-related business.\n\nNote: This type is
+/// for information about actual reservations, e.g. in confirmation emails or
+/// HTML pages with individual confirmations of reservations.
 /// See https://schema.org/FoodEstablishmentReservation
 class SchemaFoodEstablishmentReservation extends SchemaReservation {
   /// The endTime of something. For a reserved event or service (e.g.
@@ -79,8 +79,9 @@ class SchemaFoodEstablishmentReservation extends SchemaReservation {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'FoodEstablishmentReservation',
-        'endTime': convertToJsonLd(endTime, [String]),
-        'partySize': convertToJsonLd(partySize, [SchemaQuantitativeValue, int]),
-        'startTime': convertToJsonLd(startTime, [String]),
+        'endTime': convertToJsonLd(endTime),
+        'partySize': convertToJsonLd(
+            partySize, (v) => v is SchemaQuantitativeValue || v is int),
+        'startTime': convertToJsonLd(startTime),
       });
 }

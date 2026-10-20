@@ -84,14 +84,12 @@ class SchemaMedicalDevice extends SchemaMedicalEntity {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MedicalDevice',
-        'adverseOutcome':
-            convertToJsonLd(adverseOutcome, [SchemaMedicalEntity]),
-        'contraindication': convertToJsonLd(
-            contraindication, [SchemaMedicalContraindication, String]),
-        'postOp': convertToJsonLd(postOp, [String]),
-        'preOp': convertToJsonLd(preOp, [String]),
-        'procedure': convertToJsonLd(procedure, [String]),
-        'seriousAdverseOutcome':
-            convertToJsonLd(seriousAdverseOutcome, [SchemaMedicalEntity]),
+        'adverseOutcome': convertToJsonLd(adverseOutcome),
+        'contraindication': convertToJsonLd(contraindication,
+            (v) => v is SchemaMedicalContraindication || v is String),
+        'postOp': convertToJsonLd(postOp),
+        'preOp': convertToJsonLd(preOp),
+        'procedure': convertToJsonLd(procedure),
+        'seriousAdverseOutcome': convertToJsonLd(seriousAdverseOutcome),
       });
 }

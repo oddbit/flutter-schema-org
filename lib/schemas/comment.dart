@@ -177,10 +177,10 @@ class SchemaComment extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Comment',
-        'downvoteCount': convertToJsonLd(downvoteCount, [int]),
-        'parentItem':
-            convertToJsonLd(parentItem, [SchemaComment, SchemaCreativeWork]),
-        'sharedContent': convertToJsonLd(sharedContent, [SchemaCreativeWork]),
-        'upvoteCount': convertToJsonLd(upvoteCount, [int]),
+        'downvoteCount': convertToJsonLd(downvoteCount),
+        'parentItem': convertToJsonLd(
+            parentItem, (v) => v is SchemaComment || v is SchemaCreativeWork),
+        'sharedContent': convertToJsonLd(sharedContent),
+        'upvoteCount': convertToJsonLd(upvoteCount),
       });
 }

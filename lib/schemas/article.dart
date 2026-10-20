@@ -11,8 +11,10 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/speakable_specification.dart';
 
-///
-/// //blog.schema.org/2014/09/02/schema-org-support-for-bibliographic-relationships-and-periodicals/).
+/// An article, such as a news article or piece of investigative report.
+/// Newspapers and magazines have articles of many different types and this
+/// is intended to cover them all.\n\nSee also [blog
+/// post](https://blog.schema.org/2014/09/02/schema-org-support-for-bibliographic-relationships-and-periodicals/).
 /// See https://schema.org/Article
 class SchemaArticle extends SchemaCreativeWork {
   /// The actual body of the article.
@@ -45,6 +47,15 @@ class SchemaArticle extends SchemaCreativeWork {
   /// pageEnd; for example, "1-6, 9, 55" or "10-12, 46-49".
   String? pagination;
 
+  /// Indicates sections of a Web page that are particularly 'speakable' in the
+  /// sense of being highlighted as being especially appropriate for
+  /// text-to-speech conversion. Other sections of a page may also be usefully
+  /// spoken in particular circumstances; the 'speakable' property serves to
+  /// indicate the parts most likely to be generally useful for speech.
+  ///
+  /// The *speakable* property can be repeated an arbitrary number of times,
+  /// with three kinds of possible 'content-locator' values:
+  ///
   /// 1.) *id-value* URL references - uses *id-value* of an element in the page
   /// being annotated. The simplest use of *speakable* has (potentially
   /// relative) URL values, referencing identified sections of the document
@@ -210,13 +221,14 @@ class SchemaArticle extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Article',
-        'articleBody': convertToJsonLd(articleBody, [String]),
-        'articleSection': convertToJsonLd(articleSection, [String]),
-        'backstory': convertToJsonLd(backstory, [SchemaCreativeWork, String]),
-        'pageEnd': convertToJsonLd(pageEnd, [String, int]),
-        'pageStart': convertToJsonLd(pageStart, [String, int]),
-        'pagination': convertToJsonLd(pagination, [String]),
-        'speakable':
-            convertToJsonLd(speakable, [SchemaSpeakableSpecification, String]),
+        'articleBody': convertToJsonLd(articleBody),
+        'articleSection': convertToJsonLd(articleSection),
+        'backstory': convertToJsonLd(
+            backstory, (v) => v is SchemaCreativeWork || v is String),
+        'pageEnd': convertToJsonLd(pageEnd, (v) => v is String || v is int),
+        'pageStart': convertToJsonLd(pageStart, (v) => v is String || v is int),
+        'pagination': convertToJsonLd(pagination),
+        'speakable': convertToJsonLd(
+            speakable, (v) => v is SchemaSpeakableSpecification || v is String),
       });
 }

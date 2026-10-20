@@ -13,28 +13,29 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// See https://schema.org/ReturnFeesEnumeration
 enum SchemaReturnFeesEnumeration implements SchemaSerializable {
   /// Specifies that product returns are free of charge for the customer.
-  freeReturn('https://schema.org/ReturnFeesEnumeration'),
+  freeReturn('https://schema.org/FreeReturn'),
 
   /// Specifies that the customer must pay the original shipping costs when
   /// returning a product.
-  originalShippingFees('https://schema.org/ReturnFeesEnumeration'),
+  originalShippingFees('https://schema.org/OriginalShippingFees'),
 
   /// Specifies that the customer must pay a restocking fee when returning
   /// a product.
-  restockingFees('https://schema.org/ReturnFeesEnumeration'),
+  restockingFees('https://schema.org/RestockingFees'),
 
   /// Specifies that product returns must be paid for, and are the
   /// responsibility of, the customer.
-  returnFeesCustomerResponsibility('https://schema.org/ReturnFeesEnumeration'),
+  returnFeesCustomerResponsibility(
+      'https://schema.org/ReturnFeesCustomerResponsibility'),
 
   /// Specifies that the customer must pay the return shipping costs when
   /// returning a product.
-  returnShippingFees('https://schema.org/ReturnFeesEnumeration');
+  returnShippingFees('https://schema.org/ReturnShippingFees');
 
   /// Constructor for [SchemaReturnFeesEnumeration]
   const SchemaReturnFeesEnumeration(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaReturnFeesEnumeration] to JSON-LD

@@ -52,9 +52,7 @@ class SchemaBoatTrip extends SchemaTrip {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'BoatTrip',
-        'arrivalBoatTerminal':
-            convertToJsonLd(arrivalBoatTerminal, [SchemaBoatTerminal]),
-        'departureBoatTerminal':
-            convertToJsonLd(departureBoatTerminal, [SchemaBoatTerminal]),
+        'arrivalBoatTerminal': convertToJsonLd(arrivalBoatTerminal),
+        'departureBoatTerminal': convertToJsonLd(departureBoatTerminal),
       });
 }

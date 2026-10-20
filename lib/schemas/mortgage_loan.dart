@@ -84,8 +84,7 @@ class SchemaMortgageLoan extends SchemaLoanOrCredit {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MortgageLoan',
-        'domiciledMortgage': convertToJsonLd(domiciledMortgage, [bool]),
-        'loanMortgageMandateAmount':
-            convertToJsonLd(loanMortgageMandateAmount, [SchemaMonetaryAmount]),
+        'domiciledMortgage': convertToJsonLd(domiciledMortgage),
+        'loanMortgageMandateAmount': convertToJsonLd(loanMortgageMandateAmount),
       });
 }

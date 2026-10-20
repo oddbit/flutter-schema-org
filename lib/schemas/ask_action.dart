@@ -11,7 +11,8 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/communicate_action.dart';
 import 'package:schema_org/schemas/question.dart';
 
-/// Appears generally as a response to AskAction.
+/// The act of posing a question / favor to someone.\n\nRelated actions:\n\n*
+/// [SchemaReplyAction]: Appears generally as a response to AskAction.
 /// See https://schema.org/AskAction
 class SchemaAskAction extends SchemaCommunicateAction {
   /// A sub property of object. A question.
@@ -57,6 +58,6 @@ class SchemaAskAction extends SchemaCommunicateAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'AskAction',
-        'question': convertToJsonLd(question, [SchemaQuestion]),
+        'question': convertToJsonLd(question),
       });
 }

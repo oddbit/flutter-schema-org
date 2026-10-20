@@ -167,7 +167,7 @@ class SchemaEducationalOccupationalCredential extends SchemaCredential {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'EducationalOccupationalCredential',
-        'competencyRequired':
-            convertToJsonLd(competencyRequired, [SchemaDefinedTerm, String]),
+        'competencyRequired': convertToJsonLd(
+            competencyRequired, (v) => v is SchemaDefinedTerm || v is String),
       });
 }

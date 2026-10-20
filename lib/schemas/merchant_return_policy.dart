@@ -26,9 +26,14 @@ import 'package:schema_org/schemas/member_program_tier.dart';
 /// [SchemaOffer].
 /// See https://schema.org/MerchantReturnPolicy
 class SchemaMerchantReturnPolicy extends SchemaIntangible {
-  /// //schema.org/gtin13, ...) will typically expect such data to be provided
-  /// using those properties, rather than using the generic property/value
-  /// mechanism.
+  /// A property-value pair representing an additional characteristic of the
+  /// entity, e.g. a product feature or another characteristic for which there
+  /// is no matching property in schema.org.\n\nNote: Publishers should be
+  /// aware that applications designed to use specific schema.org properties
+  /// (e.g. https://schema.org/width, https://schema.org/color,
+  /// https://schema.org/gtin13, ...) will typically expect such data to be
+  /// provided using those properties, rather than using the generic
+  /// property/value mechanism.
   SchemaPropertyValue? additionalProperty;
 
   /// A country where a particular merchant return policy applies to, for
@@ -105,8 +110,12 @@ class SchemaMerchantReturnPolicy extends SchemaIntangible {
   /// Specifies an applicable return policy (from an enumeration).
   SchemaMerchantReturnEnumeration? returnPolicyCategory;
 
-  /// //en.wikipedia.org/wiki/ISO_3166-1). Note that this can be different from
-  /// the country where the product was originally shipped from or sent to.
+  /// The country where the product has to be sent to for returns, for example
+  /// "Ireland" using the [Schemaname] property of [SchemaCountry]. You can
+  /// also provide the two-letter [ISO 3166-1 alpha-2 country
+  /// code](http://en.wikipedia.org/wiki/ISO_3166-1). Note that this can be
+  /// different from the country where the product was originally shipped from
+  /// or sent to.
   ///
   /// Supported types: [SchemaCountry], [String]
   dynamic returnPolicyCountry;
@@ -167,49 +176,36 @@ class SchemaMerchantReturnPolicy extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MerchantReturnPolicy',
-        'additionalProperty':
-            convertToJsonLd(additionalProperty, [SchemaPropertyValue]),
-        'applicableCountry':
-            convertToJsonLd(applicableCountry, [SchemaCountry, String]),
-        'customerRemorseReturnFees': convertToJsonLd(
-            customerRemorseReturnFees, [SchemaReturnFeesEnumeration]),
-        'customerRemorseReturnLabelSource': convertToJsonLd(
-            customerRemorseReturnLabelSource,
-            [SchemaReturnLabelSourceEnumeration]),
-        'customerRemorseReturnShippingFeesAmount': convertToJsonLd(
-            customerRemorseReturnShippingFeesAmount, [SchemaMonetaryAmount]),
-        'inStoreReturnsOffered': convertToJsonLd(inStoreReturnsOffered, [bool]),
-        'itemCondition':
-            convertToJsonLd(itemCondition, [SchemaOfferItemCondition]),
-        'itemDefectReturnFees': convertToJsonLd(
-            itemDefectReturnFees, [SchemaReturnFeesEnumeration]),
-        'itemDefectReturnLabelSource': convertToJsonLd(
-            itemDefectReturnLabelSource, [SchemaReturnLabelSourceEnumeration]),
-        'itemDefectReturnShippingFeesAmount': convertToJsonLd(
-            itemDefectReturnShippingFeesAmount, [SchemaMonetaryAmount]),
+        'additionalProperty': convertToJsonLd(additionalProperty),
+        'applicableCountry': convertToJsonLd(
+            applicableCountry, (v) => v is SchemaCountry || v is String),
+        'customerRemorseReturnFees': convertToJsonLd(customerRemorseReturnFees),
+        'customerRemorseReturnLabelSource':
+            convertToJsonLd(customerRemorseReturnLabelSource),
+        'customerRemorseReturnShippingFeesAmount':
+            convertToJsonLd(customerRemorseReturnShippingFeesAmount),
+        'inStoreReturnsOffered': convertToJsonLd(inStoreReturnsOffered),
+        'itemCondition': convertToJsonLd(itemCondition),
+        'itemDefectReturnFees': convertToJsonLd(itemDefectReturnFees),
+        'itemDefectReturnLabelSource':
+            convertToJsonLd(itemDefectReturnLabelSource),
+        'itemDefectReturnShippingFeesAmount':
+            convertToJsonLd(itemDefectReturnShippingFeesAmount),
         'merchantReturnDays':
-            convertToJsonLd(merchantReturnDays, [String, int]),
-        'merchantReturnLink': convertToJsonLd(merchantReturnLink, [String]),
-        'refundType':
-            convertToJsonLd(refundType, [SchemaRefundTypeEnumeration]),
-        'restockingFee':
-            convertToJsonLd(restockingFee, [SchemaMonetaryAmount, num]),
-        'returnFees':
-            convertToJsonLd(returnFees, [SchemaReturnFeesEnumeration]),
-        'returnLabelSource': convertToJsonLd(
-            returnLabelSource, [SchemaReturnLabelSourceEnumeration]),
-        'returnMethod':
-            convertToJsonLd(returnMethod, [SchemaReturnMethodEnumeration]),
-        'returnPolicyCategory': convertToJsonLd(
-            returnPolicyCategory, [SchemaMerchantReturnEnumeration]),
-        'returnPolicyCountry':
-            convertToJsonLd(returnPolicyCountry, [SchemaCountry, String]),
-        'returnPolicySeasonalOverride': convertToJsonLd(
-            returnPolicySeasonalOverride,
-            [SchemaMerchantReturnPolicySeasonalOverride]),
-        'returnShippingFeesAmount':
-            convertToJsonLd(returnShippingFeesAmount, [SchemaMonetaryAmount]),
-        'validForMemberTier':
-            convertToJsonLd(validForMemberTier, [SchemaMemberProgramTier]),
+            convertToJsonLd(merchantReturnDays, (v) => v is String || v is int),
+        'merchantReturnLink': convertToJsonLd(merchantReturnLink),
+        'refundType': convertToJsonLd(refundType),
+        'restockingFee': convertToJsonLd(
+            restockingFee, (v) => v is SchemaMonetaryAmount || v is num),
+        'returnFees': convertToJsonLd(returnFees),
+        'returnLabelSource': convertToJsonLd(returnLabelSource),
+        'returnMethod': convertToJsonLd(returnMethod),
+        'returnPolicyCategory': convertToJsonLd(returnPolicyCategory),
+        'returnPolicyCountry': convertToJsonLd(
+            returnPolicyCountry, (v) => v is SchemaCountry || v is String),
+        'returnPolicySeasonalOverride':
+            convertToJsonLd(returnPolicySeasonalOverride),
+        'returnShippingFeesAmount': convertToJsonLd(returnShippingFeesAmount),
+        'validForMemberTier': convertToJsonLd(validForMemberTier),
       });
 }

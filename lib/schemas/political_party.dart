@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/organization.dart';
 
-/// Political Party.
+/// Organization: Political Party.
 /// See https://schema.org/PoliticalParty
 class SchemaPoliticalParty extends SchemaOrganization {
   /// Create a new instance of [SchemaPoliticalParty]
@@ -24,6 +24,7 @@ class SchemaPoliticalParty extends SchemaOrganization {
     super.alternateName,
     super.alumni,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.brand,
@@ -59,6 +60,7 @@ class SchemaPoliticalParty extends SchemaOrganization {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,

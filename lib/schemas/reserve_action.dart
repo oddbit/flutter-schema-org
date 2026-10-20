@@ -10,8 +10,10 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/plan_action.dart';
 
-/// Unlike ScheduleAction, ReserveAction reserves concrete objects (e.g. a
-/// table, a hotel) towards a time slot / spatial allocation.
+/// Reserving a concrete object.\n\nRelated actions:\n\n*
+/// [SchemaScheduleAction]: Unlike ScheduleAction, ReserveAction reserves
+/// concrete objects (e.g. a table, a hotel) towards a time slot / spatial
+/// allocation.
 /// See https://schema.org/ReserveAction
 class SchemaReserveAction extends SchemaPlanAction {
   /// Create a new instance of [SchemaReserveAction]

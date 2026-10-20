@@ -32,6 +32,7 @@ class SchemaAirline extends SchemaOrganization {
     super.alternateName,
     super.alumni,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.brand,
@@ -67,6 +68,7 @@ class SchemaAirline extends SchemaOrganization {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,
@@ -121,8 +123,7 @@ class SchemaAirline extends SchemaOrganization {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Airline',
-        'boardingPolicy':
-            convertToJsonLd(boardingPolicy, [SchemaBoardingPolicyType]),
-        'iataCode': convertToJsonLd(iataCode, [String]),
+        'boardingPolicy': convertToJsonLd(boardingPolicy),
+        'iataCode': convertToJsonLd(iataCode),
       });
 }

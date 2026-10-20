@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/web_page.dart';
 
-/// Contact page.
+/// Web page type: Contact page.
 /// See https://schema.org/ContactPage
 class SchemaContactPage extends SchemaWebPage {
   /// Create a new instance of [SchemaContactPage]

@@ -182,13 +182,11 @@ class SchemaGame extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Game',
-        'characterAttribute':
-            convertToJsonLd(characterAttribute, [SchemaThing]),
-        'gameItem': convertToJsonLd(gameItem, [SchemaThing]),
-        'gameLocation': convertToJsonLd(
-            gameLocation, [SchemaPlace, SchemaPostalAddress, String]),
-        'numberOfPlayers':
-            convertToJsonLd(numberOfPlayers, [SchemaQuantitativeValue]),
-        'quest': convertToJsonLd(quest, [SchemaThing]),
+        'characterAttribute': convertToJsonLd(characterAttribute),
+        'gameItem': convertToJsonLd(gameItem),
+        'gameLocation': convertToJsonLd(gameLocation,
+            (v) => v is SchemaPlace || v is SchemaPostalAddress || v is String),
+        'numberOfPlayers': convertToJsonLd(numberOfPlayers),
+        'quest': convertToJsonLd(quest),
       });
 }

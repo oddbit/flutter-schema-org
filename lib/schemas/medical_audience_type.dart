@@ -14,15 +14,15 @@ import 'package:schema_org/schemas/medical_enumeration.dart';
 enum SchemaMedicalAudienceType implements SchemaMedicalEnumeration {
   /// Medical clinicians, including practicing physicians and other medical
   /// professionals involved in clinical practice.
-  clinician('https://schema.org/MedicalAudienceType'),
+  clinician('https://schema.org/Clinician'),
 
   /// Medical researchers.
-  medicalResearcher('https://schema.org/MedicalAudienceType');
+  medicalResearcher('https://schema.org/MedicalResearcher');
 
   /// Constructor for [SchemaMedicalAudienceType]
   const SchemaMedicalAudienceType(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaMedicalAudienceType] to JSON-LD

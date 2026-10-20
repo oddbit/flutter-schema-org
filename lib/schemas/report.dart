@@ -163,6 +163,6 @@ class SchemaReport extends SchemaArticle {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Report',
-        'reportNumber': convertToJsonLd(reportNumber, [String]),
+        'reportNumber': convertToJsonLd(reportNumber),
       });
 }

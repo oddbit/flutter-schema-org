@@ -85,20 +85,17 @@ class SchemaNutritionInformation extends SchemaStructuredValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'NutritionInformation',
-        'calories': convertToJsonLd(calories, [SchemaEnergy]),
-        'carbohydrateContent':
-            convertToJsonLd(carbohydrateContent, [SchemaMass]),
-        'cholesterolContent': convertToJsonLd(cholesterolContent, [SchemaMass]),
-        'fatContent': convertToJsonLd(fatContent, [SchemaMass]),
-        'fiberContent': convertToJsonLd(fiberContent, [SchemaMass]),
-        'proteinContent': convertToJsonLd(proteinContent, [SchemaMass]),
-        'saturatedFatContent':
-            convertToJsonLd(saturatedFatContent, [SchemaMass]),
-        'servingSize': convertToJsonLd(servingSize, [String]),
-        'sodiumContent': convertToJsonLd(sodiumContent, [SchemaMass]),
-        'sugarContent': convertToJsonLd(sugarContent, [SchemaMass]),
-        'transFatContent': convertToJsonLd(transFatContent, [SchemaMass]),
-        'unsaturatedFatContent':
-            convertToJsonLd(unsaturatedFatContent, [SchemaMass]),
+        'calories': convertToJsonLd(calories),
+        'carbohydrateContent': convertToJsonLd(carbohydrateContent),
+        'cholesterolContent': convertToJsonLd(cholesterolContent),
+        'fatContent': convertToJsonLd(fatContent),
+        'fiberContent': convertToJsonLd(fiberContent),
+        'proteinContent': convertToJsonLd(proteinContent),
+        'saturatedFatContent': convertToJsonLd(saturatedFatContent),
+        'servingSize': convertToJsonLd(servingSize),
+        'sodiumContent': convertToJsonLd(sodiumContent),
+        'sugarContent': convertToJsonLd(sugarContent),
+        'transFatContent': convertToJsonLd(transFatContent),
+        'unsaturatedFatContent': convertToJsonLd(unsaturatedFatContent),
       });
 }

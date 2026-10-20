@@ -14,18 +14,18 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// See https://schema.org/DigitalDocumentPermissionType
 enum SchemaDigitalDocumentPermissionType implements SchemaSerializable {
   /// Permission to add comments to the document.
-  commentPermission('https://schema.org/DigitalDocumentPermissionType'),
+  commentPermission('https://schema.org/CommentPermission'),
 
   /// Permission to read or view the document.
-  readPermission('https://schema.org/DigitalDocumentPermissionType'),
+  readPermission('https://schema.org/ReadPermission'),
 
   /// Permission to write or edit the document.
-  writePermission('https://schema.org/DigitalDocumentPermissionType');
+  writePermission('https://schema.org/WritePermission');
 
   /// Constructor for [SchemaDigitalDocumentPermissionType]
   const SchemaDigitalDocumentPermissionType(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaDigitalDocumentPermissionType] to JSON-LD

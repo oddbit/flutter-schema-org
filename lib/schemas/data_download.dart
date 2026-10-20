@@ -23,10 +23,29 @@ class SchemaDataDownload extends SchemaMediaObject {
   /// [String]
   dynamic measurementMethod;
 
-  /// "mass spectrometry" or "nmr spectroscopy" or "colorimetry" or
-  /// "immunofluorescence". If the [SchemavariableMeasured] is "depression
-  /// rating", the [SchemameasurementTechnique] could be "Zung Scale" or
-  /// "HAM-D" or "Beck Depression Inventory".
+  /// A technique, method or technology used in an [SchemaObservation],
+  /// [SchemaStatisticalVariable] or [SchemaDataset] (or [SchemaDataDownload],
+  /// [SchemaDataCatalog]), corresponding to the method used for measuring the
+  /// corresponding variable(s) (for datasets, described using
+  /// [SchemavariableMeasured]; for [SchemaObservation], a
+  /// [SchemaStatisticalVariable]). Often but not necessarily each
+  /// [SchemavariableMeasured] will have an explicit representation as (or
+  /// mapping to) an property such as those defined in Schema.org, or other RDF
+  /// vocabularies and "knowledge graphs". In that case the subproperty of
+  /// [SchemavariableMeasured] called [SchemameasuredProperty] is applicable.
+  /// The [SchemameasurementTechnique] property helps when extra clarification
+  /// is needed about how a [SchemameasuredProperty] was measured. This is
+  /// oriented towards scientific and scholarly dataset publication but may
+  /// have broader applicability; it is not intended as a full representation
+  /// of measurement, but can often serve as a high level summary for dataset
+  /// discovery.
+  ///
+  /// For example, if [SchemavariableMeasured] is: molecule concentration,
+  /// [SchemameasurementTechnique] could be: "mass spectrometry" or "nmr
+  /// spectroscopy" or "colorimetry" or "immunofluorescence". If the
+  /// [SchemavariableMeasured] is "depression rating", the
+  /// [SchemameasurementTechnique] could be "Zung Scale" or "HAM-D" or "Beck
+  /// Depression Inventory".
   ///
   /// If there are several [SchemavariableMeasured] properties recorded for
   /// some given data object, use a [SchemaPropertyValue] for each
@@ -196,9 +215,17 @@ class SchemaDataDownload extends SchemaMediaObject {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'DataDownload',
-        'measurementMethod': convertToJsonLd(measurementMethod,
-            [SchemaDefinedTerm, SchemaMeasurementMethodEnum, String]),
-        'measurementTechnique': convertToJsonLd(measurementTechnique,
-            [SchemaDefinedTerm, SchemaMeasurementMethodEnum, String]),
+        'measurementMethod': convertToJsonLd(
+            measurementMethod,
+            (v) =>
+                v is SchemaDefinedTerm ||
+                v is SchemaMeasurementMethodEnum ||
+                v is String),
+        'measurementTechnique': convertToJsonLd(
+            measurementTechnique,
+            (v) =>
+                v is SchemaDefinedTerm ||
+                v is SchemaMeasurementMethodEnum ||
+                v is String),
       });
 }

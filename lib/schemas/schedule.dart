@@ -45,12 +45,14 @@ class SchemaSchedule extends SchemaIntangible {
   /// third Mondays of a month.
   int? byMonthWeek;
 
-  /// //en.wikipedia.org/wiki/ISO_8601).
+  /// The duration of the item (movie, audio recording, event, etc.) in [ISO
+  /// 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).
   ///
   /// Supported types: [SchemaDuration], [SchemaQuantitativeValue]
   dynamic duration;
 
-  /// //en.wikipedia.org/wiki/ISO_8601)).
+  /// The end date and time of the item (in [ISO 8601 date
+  /// format](http://en.wikipedia.org/wiki/ISO_8601)).
   String? endDate;
 
   /// The endTime of something. For a reserved event or service (e.g.
@@ -89,7 +91,8 @@ class SchemaSchedule extends SchemaIntangible {
   /// listed in the IANA Time Zone Database.
   String? scheduleTimezone;
 
-  /// //en.wikipedia.org/wiki/ISO_8601)).
+  /// The start date and time of the item (in [ISO 8601 date
+  /// format](http://en.wikipedia.org/wiki/ISO_8601)).
   String? startDate;
 
   /// The startTime of something. For a reserved event or service (e.g.
@@ -137,20 +140,21 @@ class SchemaSchedule extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Schedule',
-        'byDay': convertToJsonLd(byDay, [SchemaDayOfWeek, String]),
-        'byMonth': convertToJsonLd(byMonth, [int]),
-        'byMonthDay': convertToJsonLd(byMonthDay, [int]),
-        'byMonthWeek': convertToJsonLd(byMonthWeek, [int]),
-        'duration': convertToJsonLd(
-            duration, [SchemaDuration, SchemaQuantitativeValue]),
-        'endDate': convertToJsonLd(endDate, [String]),
-        'endTime': convertToJsonLd(endTime, [String]),
-        'exceptDate': convertToJsonLd(exceptDate, [String]),
-        'repeatCount': convertToJsonLd(repeatCount, [int]),
-        'repeatFrequency':
-            convertToJsonLd(repeatFrequency, [SchemaDuration, String]),
-        'scheduleTimezone': convertToJsonLd(scheduleTimezone, [String]),
-        'startDate': convertToJsonLd(startDate, [String]),
-        'startTime': convertToJsonLd(startTime, [String]),
+        'byDay':
+            convertToJsonLd(byDay, (v) => v is SchemaDayOfWeek || v is String),
+        'byMonth': convertToJsonLd(byMonth),
+        'byMonthDay': convertToJsonLd(byMonthDay),
+        'byMonthWeek': convertToJsonLd(byMonthWeek),
+        'duration': convertToJsonLd(duration,
+            (v) => v is SchemaDuration || v is SchemaQuantitativeValue),
+        'endDate': convertToJsonLd(endDate),
+        'endTime': convertToJsonLd(endTime),
+        'exceptDate': convertToJsonLd(exceptDate),
+        'repeatCount': convertToJsonLd(repeatCount),
+        'repeatFrequency': convertToJsonLd(
+            repeatFrequency, (v) => v is SchemaDuration || v is String),
+        'scheduleTimezone': convertToJsonLd(scheduleTimezone),
+        'startDate': convertToJsonLd(startDate),
+        'startTime': convertToJsonLd(startTime),
       });
 }

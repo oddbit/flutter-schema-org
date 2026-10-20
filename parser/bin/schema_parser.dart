@@ -69,10 +69,8 @@ void main(List<String> arguments) {
   // whose Schema.org parent is itself a value-carrying enum therefore
   // have to fall back to `implements SchemaSerializable`, which the
   // generator decides from this set.
-  final abstractEnumNames = enums
-      .where((e) => e.values.isEmpty)
-      .map((e) => e.name)
-      .toSet();
+  final abstractEnumNames =
+      enums.where((e) => e.values.isEmpty).map((e) => e.name).toSet();
 
   // Write code for all enums
   for (final schemaEnum in enums) {
@@ -80,8 +78,7 @@ void main(List<String> arguments) {
     if (schemaEnum.values.isEmpty) {
       generateAbstractEnumCode(sb, schemaEnum);
     } else {
-      generateEnumCode(sb, schemaEnum,
-          abstractEnumNames: abstractEnumNames);
+      generateEnumCode(sb, schemaEnum, abstractEnumNames: abstractEnumNames);
     }
     writeToFile(sb, schemaEnum.name);
   }

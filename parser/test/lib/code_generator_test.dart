@@ -55,11 +55,33 @@ void main() {
       expect(code, contains("'@type': 'Thing',"));
     });
 
+    test('guards only union fields, with subtype-friendly `is` checks', () {
+      final thing = _type('Thing', properties: [
+        _property('name'),
+        _property('subjectOf', schemaTypes: ['Event', 'Thing']),
+      ]);
+      final sb = StringBuffer();
+      generateClassCode(sb, thing, [thing]);
+
+      final code = sb.toString();
+      expect(code, contains("'name': convertToJsonLd(name),"));
+      expect(
+        code,
+        contains("convertToJsonLd(subjectOf, (v) => v is SchemaEvent || "
+            'v is SchemaThing)'),
+      );
+      // A recursive range must not make the file import itself.
+      expect(code, contains("import 'package:schema_org/schemas/event.dart';"));
+      expect(code.contains('schemas/thing.dart'), isFalse);
+    });
+
     test('single-parent classes extend the parent and use super params', () {
       final thing = _type('Thing', properties: [_property('name')]);
       // `familyTree` is normally populated by the parser's graph walk;
       // set it by hand here so the code generator can resolve ancestry.
-      final person = _type('Person', parents: ['Thing'], properties: [
+      final person = _type('Person', parents: [
+        'Thing'
+      ], properties: [
         _property('givenName'),
       ]);
       person.grandParents.addAll([]);
@@ -80,15 +102,19 @@ void main() {
       expect(code.contains("'@context': 'https://schema.org',"), isFalse);
     });
 
-    test('multi-parent classes extend the first parent and implement the '
+    test(
+        'multi-parent classes extend the first parent and implement the '
         'rest, pulling in fields the extends chain does not cover', () {
       final thing = _type('Thing', properties: [_property('name')]);
-      final place = _type('Place', parents: ['Thing'], properties: [
+      final place = _type('Place', parents: [
+        'Thing'
+      ], properties: [
         _property('address'),
       ]);
       place.grandParents.addAll(['Thing']);
-      final organization =
-          _type('Organization', parents: ['Thing'], properties: [
+      final organization = _type('Organization', parents: [
+        'Thing'
+      ], properties: [
         _property('legalName'),
       ]);
       organization.grandParents.addAll(['Thing']);
@@ -124,7 +150,8 @@ void main() {
       expect(code, contains('String? priceRange;'));
     });
 
-    test('emits @Deprecated on classes, properties and uses Schema-prefixed '
+    test(
+        'emits @Deprecated on classes, properties and uses Schema-prefixed '
         'replacements', () {
       final thing = _type('Thing', properties: [_property('name')]);
       final legacy = _type(
@@ -153,8 +180,7 @@ void main() {
       // names aren't Dart classes.
       expect(
         code,
-        contains(
-            "@Deprecated('Use [name]. See https://schema.org/oldField')"),
+        contains("@Deprecated('Use [name]. See https://schema.org/oldField')"),
       );
     });
   });
@@ -167,8 +193,13 @@ void main() {
         parents: ['Enumeration'],
       );
       e.values.addAll([
-        SchemaEnumValue(name: 'ActiveValue', description: 'active'),
         SchemaEnumValue(
+          id: 'ActiveValue',
+          name: 'ActiveValue',
+          description: 'active',
+        ),
+        SchemaEnumValue(
+          id: 'LegacyValue',
           name: 'LegacyValue',
           description: 'legacy',
           supersededBy: ['ActiveValue'],
@@ -188,8 +219,10 @@ void main() {
       expect(
         code,
         contains(
-            "@Deprecated('Use [ActiveValue]. See https://schema.org/SampleEnum')"),
+            "@Deprecated('Use [ActiveValue]. See https://schema.org/LegacyValue')"),
       );
+      // Each member serializes to its own canonical URL, not the enum's.
+      expect(code, contains("activeValue('https://schema.org/ActiveValue')"));
       // Ensure the annotation sits above the legacy value specifically.
       expect(
         code.substring(0, legacyIdx),

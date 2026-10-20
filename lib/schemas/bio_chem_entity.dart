@@ -16,7 +16,8 @@ import 'package:schema_org/schemas/grant.dart';
 import 'package:schema_org/schemas/gene.dart';
 import 'package:schema_org/schemas/taxon.dart';
 
-/// a protein; a gene; a chemical; a synthetic chemical.
+/// Any biological, chemical, or biochemical thing. For example: a protein; a
+/// gene; a chemical; a synthetic chemical.
 /// See https://schema.org/BioChemEntity
 class SchemaBioChemEntity extends SchemaThing {
   /// Disease associated to this BioChemEntity. Such disease can be a
@@ -117,31 +118,40 @@ class SchemaBioChemEntity extends SchemaThing {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'BioChemEntity',
-        'associatedDisease': convertToJsonLd(associatedDisease,
-            [SchemaMedicalCondition, SchemaPropertyValue, String]),
-        'bioChemInteraction':
-            convertToJsonLd(bioChemInteraction, [SchemaBioChemEntity]),
-        'bioChemSimilarity':
-            convertToJsonLd(bioChemSimilarity, [SchemaBioChemEntity]),
-        'biologicalRole': convertToJsonLd(biologicalRole, [SchemaDefinedTerm]),
-        'funding': convertToJsonLd(funding, [SchemaGrant]),
-        'hasBioChemEntityPart':
-            convertToJsonLd(hasBioChemEntityPart, [SchemaBioChemEntity]),
-        'hasMolecularFunction': convertToJsonLd(hasMolecularFunction,
-            [SchemaDefinedTerm, SchemaPropertyValue, String]),
-        'hasRepresentation':
-            convertToJsonLd(hasRepresentation, [SchemaPropertyValue, String]),
-        'isEncodedByBioChemEntity':
-            convertToJsonLd(isEncodedByBioChemEntity, [SchemaGene]),
+        'associatedDisease': convertToJsonLd(
+            associatedDisease,
+            (v) =>
+                v is SchemaMedicalCondition ||
+                v is SchemaPropertyValue ||
+                v is String),
+        'bioChemInteraction': convertToJsonLd(bioChemInteraction),
+        'bioChemSimilarity': convertToJsonLd(bioChemSimilarity),
+        'biologicalRole': convertToJsonLd(biologicalRole),
+        'funding': convertToJsonLd(funding),
+        'hasBioChemEntityPart': convertToJsonLd(hasBioChemEntityPart),
+        'hasMolecularFunction': convertToJsonLd(
+            hasMolecularFunction,
+            (v) =>
+                v is SchemaDefinedTerm ||
+                v is SchemaPropertyValue ||
+                v is String),
+        'hasRepresentation': convertToJsonLd(
+            hasRepresentation, (v) => v is SchemaPropertyValue || v is String),
+        'isEncodedByBioChemEntity': convertToJsonLd(isEncodedByBioChemEntity),
         'isInvolvedInBiologicalProcess': convertToJsonLd(
             isInvolvedInBiologicalProcess,
-            [SchemaDefinedTerm, SchemaPropertyValue, String]),
+            (v) =>
+                v is SchemaDefinedTerm ||
+                v is SchemaPropertyValue ||
+                v is String),
         'isLocatedInSubcellularLocation': convertToJsonLd(
             isLocatedInSubcellularLocation,
-            [SchemaDefinedTerm, SchemaPropertyValue, String]),
-        'isPartOfBioChemEntity':
-            convertToJsonLd(isPartOfBioChemEntity, [SchemaBioChemEntity]),
-        'taxonomicRange': convertToJsonLd(
-            taxonomicRange, [SchemaDefinedTerm, String, SchemaTaxon]),
+            (v) =>
+                v is SchemaDefinedTerm ||
+                v is SchemaPropertyValue ||
+                v is String),
+        'isPartOfBioChemEntity': convertToJsonLd(isPartOfBioChemEntity),
+        'taxonomicRange': convertToJsonLd(taxonomicRange,
+            (v) => v is SchemaDefinedTerm || v is String || v is SchemaTaxon),
       });
 }

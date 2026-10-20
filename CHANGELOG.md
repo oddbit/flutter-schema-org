@@ -1,3 +1,40 @@
+## 2.1.0
+
+### Fixes
+
+- **Enum members serialize to their own URL.** Every member of a
+  generated enum previously serialized to the enumeration's URL (e.g.
+  `SchemaItemAvailability.inStock` → `https://schema.org/ItemAvailability`),
+  which search engines reject. Members now emit their canonical URL
+  (`https://schema.org/InStock`).
+- **Subtypes are accepted.** Values were validated with an exact
+  `runtimeType` match, so a `SchemaCorporation` as `founder` or a
+  `SchemaPatient` as `alumni` threw `UnsupportedTypeException` even though
+  they compile and are valid Schema.org. Union-typed fields are now checked
+  with `is`; single-typed fields rely on the Dart type system.
+- **Web writer works when compiled to WebAssembly.** The platform switch
+  used `dart.library.html`, which is false under Wasm, so `writeJsonLd`
+  silently did nothing there. It now uses `dart.library.js_interop`, as the
+  Dart `package:web` migration guide recommends.
+- **Doc comments are no longer truncated.** The parser cut descriptions at
+  the last `:`, mangling 454 doc comments (e.g. `Organization.department`).
+- **Deprecated enum members link to their own Schema.org page.**
+
+### Changes
+
+- **`@context` only on the root node.** Nested objects no longer repeat
+  `"@context": "https://schema.org"`, matching Schema.org and Google
+  examples. Nested objects with nothing but `@type` are dropped.
+- **Vocabulary updated to Schema.org v30.1.** Adds `DeclarationOfConformity`,
+  `DeliveryTimeSettings`, `DigitalProductPassport`,
+  `EnvironmentalProductDeclaration`, `ProductReturnEnumeration`,
+  `ProductReturnPolicy` and new properties such as
+  `authorizedRepresentative`.
+- **Leaner generated code.** Serialization no longer re-walks nested maps
+  at every inheritance level, generated files no longer import themselves,
+  and `SchemaOrg` is a single class backed by a small platform-specific
+  script writer.
+
 ## 2.0.0
 
 **Breaking release.** The web writer has been rebuilt on top of modern

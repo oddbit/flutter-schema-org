@@ -66,9 +66,9 @@ class SchemaJoint extends SchemaAnatomicalStructure {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Joint',
-        'biomechnicalClass': convertToJsonLd(biomechnicalClass, [String]),
-        'functionalClass':
-            convertToJsonLd(functionalClass, [SchemaMedicalEntity, String]),
-        'structuralClass': convertToJsonLd(structuralClass, [String]),
+        'biomechnicalClass': convertToJsonLd(biomechnicalClass),
+        'functionalClass': convertToJsonLd(
+            functionalClass, (v) => v is SchemaMedicalEntity || v is String),
+        'structuralClass': convertToJsonLd(structuralClass),
       });
 }

@@ -62,10 +62,10 @@ class SchemaOpeningHoursSpecification extends SchemaStructuredValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'OpeningHoursSpecification',
-        'closes': convertToJsonLd(closes, [String]),
-        'dayOfWeek': convertToJsonLd(dayOfWeek, [SchemaDayOfWeek]),
-        'opens': convertToJsonLd(opens, [String]),
-        'validFrom': convertToJsonLd(validFrom, [String]),
-        'validThrough': convertToJsonLd(validThrough, [String]),
+        'closes': convertToJsonLd(closes),
+        'dayOfWeek': convertToJsonLd(dayOfWeek),
+        'opens': convertToJsonLd(opens),
+        'validFrom': convertToJsonLd(validFrom),
+        'validThrough': convertToJsonLd(validThrough),
       });
 }

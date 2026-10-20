@@ -14,50 +14,57 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// See https://schema.org/AdultOrientedEnumeration
 enum SchemaAdultOrientedEnumeration implements SchemaSerializable {
   /// Item contains alcohol or promotes alcohol consumption.
-  alcoholConsideration('https://schema.org/AdultOrientedEnumeration'),
+  alcoholConsideration('https://schema.org/AlcoholConsideration'),
 
-  ///
-  /// //unece.org/DAM/trans/danger/publi/unrec/rev17/English/02EREv17_Part2.pdf)
+  /// The item is dangerous and requires careful handling and/or special
+  /// training of the user. See also the [UN Model
+  /// Classification](https://unece.org/DAM/trans/danger/publi/unrec/rev17/English/02EREv17_Part2.pdf)
   /// defining the 9 classes of dangerous goods such as explosives, gases,
   /// flammables, and more.
-  dangerousGoodConsideration('https://schema.org/AdultOrientedEnumeration'),
+  dangerousGoodConsideration('https://schema.org/DangerousGoodConsideration'),
 
   /// Item is a pharmaceutical (e.g., a prescription or OTC drug) or a
   /// restricted medical device.
-  healthcareConsideration('https://schema.org/AdultOrientedEnumeration'),
+  healthcareConsideration('https://schema.org/HealthcareConsideration'),
 
-  /// //www.incb.org/incb/en/narcotic-drugs/Yellowlist/yellow-list.html),
+  /// Item is a narcotic as defined by the [1961 UN
+  /// convention](https://www.incb.org/incb/en/narcotic-drugs/Yellowlist/yellow-list.html),
   /// for example marijuana or heroin.
-  narcoticConsideration('https://schema.org/AdultOrientedEnumeration'),
+  narcoticConsideration('https://schema.org/NarcoticConsideration'),
 
   /// A general code for cases where relevance to children is reduced, e.g.
   /// adult education, mortgages, retirement-related products, etc.
   reducedRelevanceForChildrenConsideration(
-      'https://schema.org/AdultOrientedEnumeration'),
+      'https://schema.org/ReducedRelevanceForChildrenConsideration'),
 
-  /// Erotic videos or magazine, sexual enhancement devices, sex toys.
-  sexualContentConsideration('https://schema.org/AdultOrientedEnumeration'),
+  /// The item contains sexually oriented content such as nudity,
+  /// suggestive or explicit material, or related online services, or is
+  /// intended to enhance sexual activity. Examples: Erotic videos or
+  /// magazine, sexual enhancement devices, sex toys.
+  sexualContentConsideration('https://schema.org/SexualContentConsideration'),
 
   /// Item contains tobacco and/or nicotine, for example cigars,
   /// cigarettes, chewing tobacco, e-cigarettes, or hookahs.
-  tobaccoNicotineConsideration('https://schema.org/AdultOrientedEnumeration'),
+  tobaccoNicotineConsideration(
+      'https://schema.org/TobaccoNicotineConsideration'),
 
   /// The item is suitable only for adults, without indicating why. Due to
   /// widespread use of "adult" as a euphemism for "sexual", many such
   /// items are likely suited also for the SexualContentConsideration code.
-  unclassifiedAdultConsideration('https://schema.org/AdultOrientedEnumeration'),
+  unclassifiedAdultConsideration(
+      'https://schema.org/UnclassifiedAdultConsideration'),
 
   /// Item shows or promotes violence.
-  violenceConsideration('https://schema.org/AdultOrientedEnumeration'),
+  violenceConsideration('https://schema.org/ViolenceConsideration'),
 
   /// The item is intended to induce bodily harm, for example guns, mace,
   /// combat knives, brass knuckles, nail or other bombs, and spears.
-  weaponConsideration('https://schema.org/AdultOrientedEnumeration');
+  weaponConsideration('https://schema.org/WeaponConsideration');
 
   /// Constructor for [SchemaAdultOrientedEnumeration]
   const SchemaAdultOrientedEnumeration(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaAdultOrientedEnumeration] to JSON-LD

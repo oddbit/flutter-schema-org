@@ -50,8 +50,7 @@ class SchemaMemberProgram extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MemberProgram',
-        'hasTiers': convertToJsonLd(hasTiers, [SchemaMemberProgramTier]),
-        'hostingOrganization':
-            convertToJsonLd(hostingOrganization, [SchemaOrganization]),
+        'hasTiers': convertToJsonLd(hasTiers),
+        'hostingOrganization': convertToJsonLd(hostingOrganization),
       });
 }

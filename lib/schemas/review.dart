@@ -238,19 +238,27 @@ class SchemaReview extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Review',
-        'associatedClaimReview':
-            convertToJsonLd(associatedClaimReview, [SchemaReview]),
-        'associatedMediaReview':
-            convertToJsonLd(associatedMediaReview, [SchemaReview]),
-        'associatedReview': convertToJsonLd(associatedReview, [SchemaReview]),
-        'itemReviewed': convertToJsonLd(itemReviewed, [SchemaThing]),
-        'negativeNotes': convertToJsonLd(negativeNotes,
-            [SchemaItemList, SchemaListItem, String, SchemaWebContent]),
-        'positiveNotes': convertToJsonLd(positiveNotes,
-            [SchemaItemList, SchemaListItem, String, SchemaWebContent]),
-        'reviewAspect':
-            convertToJsonLd(reviewAspect, [String, SchemaStructuredValue]),
-        'reviewBody': convertToJsonLd(reviewBody, [String]),
-        'reviewRating': convertToJsonLd(reviewRating, [SchemaRating]),
+        'associatedClaimReview': convertToJsonLd(associatedClaimReview),
+        'associatedMediaReview': convertToJsonLd(associatedMediaReview),
+        'associatedReview': convertToJsonLd(associatedReview),
+        'itemReviewed': convertToJsonLd(itemReviewed),
+        'negativeNotes': convertToJsonLd(
+            negativeNotes,
+            (v) =>
+                v is SchemaItemList ||
+                v is SchemaListItem ||
+                v is String ||
+                v is SchemaWebContent),
+        'positiveNotes': convertToJsonLd(
+            positiveNotes,
+            (v) =>
+                v is SchemaItemList ||
+                v is SchemaListItem ||
+                v is String ||
+                v is SchemaWebContent),
+        'reviewAspect': convertToJsonLd(
+            reviewAspect, (v) => v is String || v is SchemaStructuredValue),
+        'reviewBody': convertToJsonLd(reviewBody),
+        'reviewRating': convertToJsonLd(reviewRating),
       });
 }

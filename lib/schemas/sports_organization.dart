@@ -28,6 +28,7 @@ class SchemaSportsOrganization extends SchemaOrganization {
     super.alternateName,
     super.alumni,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.brand,
@@ -63,6 +64,7 @@ class SchemaSportsOrganization extends SchemaOrganization {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,
@@ -116,6 +118,6 @@ class SchemaSportsOrganization extends SchemaOrganization {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'SportsOrganization',
-        'sport': convertToJsonLd(sport, [String]),
+        'sport': convertToJsonLd(sport),
       });
 }

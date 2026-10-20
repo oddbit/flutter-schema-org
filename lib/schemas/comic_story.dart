@@ -11,7 +11,9 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/person.dart';
 
-/// a cover (ComicCoverArt) and an interior story.
+/// The term "story" is any indivisible, re-printable unit of a comic,
+/// including the interior stories, covers, and backmatter. Most comics have
+/// at least two stories: a cover (ComicCoverArt) and an interior story.
 /// See https://schema.org/ComicStory
 class SchemaComicStory extends SchemaCreativeWork {
   /// The primary artist for a work in a medium other than pencils or digital
@@ -176,10 +178,10 @@ class SchemaComicStory extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ComicStory',
-        'artist': convertToJsonLd(artist, [SchemaPerson]),
-        'colorist': convertToJsonLd(colorist, [SchemaPerson]),
-        'inker': convertToJsonLd(inker, [SchemaPerson]),
-        'letterer': convertToJsonLd(letterer, [SchemaPerson]),
-        'penciler': convertToJsonLd(penciler, [SchemaPerson]),
+        'artist': convertToJsonLd(artist),
+        'colorist': convertToJsonLd(colorist),
+        'inker': convertToJsonLd(inker),
+        'letterer': convertToJsonLd(letterer),
+        'penciler': convertToJsonLd(penciler),
       });
 }

@@ -14,8 +14,15 @@ import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/accommodation.dart';
 import 'package:schema_org/schemas/image_object.dart';
 
-/// //en.wikipedia.org/wiki/Floor_plan)) can be indicated using
-/// [Schemaimage].
+/// A FloorPlan is an explicit representation of a collection of similar
+/// accommodations, allowing the provision of common information (room
+/// counts, sizes, layout diagrams) and offers for rental or sale. In typical
+/// use, some [SchemaApartmentComplex] has an [SchemaaccommodationFloorPlan]
+/// which is a [SchemaFloorPlan]. A FloorPlan is always in the context of a
+/// particular place, either a larger [SchemaApartmentComplex] or a single
+/// [SchemaApartment]. The visual/spatial aspects of a floor plan (i.e. room
+/// layout, [see wikipedia](https://en.wikipedia.org/wiki/Floor_plan)) can be
+/// indicated using [Schemaimage].
 /// See https://schema.org/FloorPlan
 class SchemaFloorPlan extends SchemaIntangible {
   /// An amenity feature (e.g. a characteristic or service) of the
@@ -24,7 +31,9 @@ class SchemaFloorPlan extends SchemaIntangible {
   /// available at extra costs.
   SchemaLocationFeatureSpecification? amenityFeature;
 
-  /// MTK for square meter, FTK for square foot, or YDK for square yard.
+  /// The size of the accommodation, e.g. in square meter or squarefoot.
+  /// Typical unit code(s): MTK for square meter, FTK for square foot, or YDK
+  /// for square yard.
   SchemaQuantitativeValue? floorSize;
 
   /// Indicates some accommodation that this floor plan describes.
@@ -48,6 +57,9 @@ class SchemaFloorPlan extends SchemaIntangible {
   /// [SchemaApartmentComplex]). See also [SchemanumberOfAccommodationUnits].
   SchemaQuantitativeValue? numberOfAvailableAccommodationUnits;
 
+  /// The total integer number of bathrooms in some [SchemaAccommodation],
+  /// following real estate conventions as [documented in
+  /// RESO](https://ddwiki.reso.org/display/DDW17/BathroomsTotalInteger+Field):
   /// "The simple sum of the number of bathrooms. For example for a property
   /// with two Full Bathrooms and one Half Bathroom, the Bathrooms Total
   /// Integer will be 3.". See also [SchemanumberOfRooms].
@@ -59,14 +71,20 @@ class SchemaFloorPlan extends SchemaIntangible {
   /// Supported types: [SchemaQuantitativeValue], [num]
   dynamic numberOfBedrooms;
 
-  /// //ddwiki.reso.org/display/DDW17/BathroomsFull+Field).
+  /// Number of full bathrooms - The total number of full and ¾ bathrooms in an
+  /// [SchemaAccommodation]. This corresponds to the [BathroomsFull field in
+  /// RESO](https://ddwiki.reso.org/display/DDW17/BathroomsFull+Field).
   num? numberOfFullBathrooms;
 
-  /// //ddwiki.reso.org/display/DDW17/BathroomsPartial+Field).
+  /// Number of partial bathrooms - The total number of half and ¼ bathrooms in
+  /// an [SchemaAccommodation]. This corresponds to the [BathroomsPartial field
+  /// in RESO](https://ddwiki.reso.org/display/DDW17/BathroomsPartial+Field).
   num? numberOfPartialBathrooms;
 
-  /// ROM for room or C62 for no unit. The type of room can be put in the
-  /// unitText property of the QuantitativeValue.
+  /// The number of rooms (excluding bathrooms and closets) of the
+  /// accommodation or lodging business. Typical unit code(s): ROM for room or
+  /// C62 for no unit. The type of room can be put in the unitText property of
+  /// the QuantitativeValue.
   ///
   /// Supported types: [SchemaQuantitativeValue], [num]
   dynamic numberOfRooms;
@@ -111,26 +129,23 @@ class SchemaFloorPlan extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'FloorPlan',
-        'amenityFeature': convertToJsonLd(
-            amenityFeature, [SchemaLocationFeatureSpecification]),
-        'floorSize': convertToJsonLd(floorSize, [SchemaQuantitativeValue]),
-        'isPlanForApartment':
-            convertToJsonLd(isPlanForApartment, [SchemaAccommodation]),
-        'layoutImage':
-            convertToJsonLd(layoutImage, [SchemaImageObject, String]),
-        'numberOfAccommodationUnits': convertToJsonLd(
-            numberOfAccommodationUnits, [SchemaQuantitativeValue]),
-        'numberOfAvailableAccommodationUnits': convertToJsonLd(
-            numberOfAvailableAccommodationUnits, [SchemaQuantitativeValue]),
-        'numberOfBathroomsTotal':
-            convertToJsonLd(numberOfBathroomsTotal, [int]),
-        'numberOfBedrooms':
-            convertToJsonLd(numberOfBedrooms, [SchemaQuantitativeValue, num]),
-        'numberOfFullBathrooms': convertToJsonLd(numberOfFullBathrooms, [num]),
-        'numberOfPartialBathrooms':
-            convertToJsonLd(numberOfPartialBathrooms, [num]),
-        'numberOfRooms':
-            convertToJsonLd(numberOfRooms, [SchemaQuantitativeValue, num]),
-        'petsAllowed': convertToJsonLd(petsAllowed, [String, bool]),
+        'amenityFeature': convertToJsonLd(amenityFeature),
+        'floorSize': convertToJsonLd(floorSize),
+        'isPlanForApartment': convertToJsonLd(isPlanForApartment),
+        'layoutImage': convertToJsonLd(
+            layoutImage, (v) => v is SchemaImageObject || v is String),
+        'numberOfAccommodationUnits':
+            convertToJsonLd(numberOfAccommodationUnits),
+        'numberOfAvailableAccommodationUnits':
+            convertToJsonLd(numberOfAvailableAccommodationUnits),
+        'numberOfBathroomsTotal': convertToJsonLd(numberOfBathroomsTotal),
+        'numberOfBedrooms': convertToJsonLd(
+            numberOfBedrooms, (v) => v is SchemaQuantitativeValue || v is num),
+        'numberOfFullBathrooms': convertToJsonLd(numberOfFullBathrooms),
+        'numberOfPartialBathrooms': convertToJsonLd(numberOfPartialBathrooms),
+        'numberOfRooms': convertToJsonLd(
+            numberOfRooms, (v) => v is SchemaQuantitativeValue || v is num),
+        'petsAllowed':
+            convertToJsonLd(petsAllowed, (v) => v is String || v is bool),
       });
 }

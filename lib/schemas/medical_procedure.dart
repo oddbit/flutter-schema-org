@@ -79,14 +79,17 @@ class SchemaMedicalProcedure extends SchemaMedicalEntity {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MedicalProcedure',
-        'bodyLocation': convertToJsonLd(bodyLocation, [String]),
-        'followup': convertToJsonLd(followup, [String]),
-        'howPerformed': convertToJsonLd(howPerformed, [String]),
-        'preparation':
-            convertToJsonLd(preparation, [SchemaMedicalEntity, String]),
-        'procedureType':
-            convertToJsonLd(procedureType, [SchemaMedicalProcedureType]),
+        'bodyLocation': convertToJsonLd(bodyLocation),
+        'followup': convertToJsonLd(followup),
+        'howPerformed': convertToJsonLd(howPerformed),
+        'preparation': convertToJsonLd(
+            preparation, (v) => v is SchemaMedicalEntity || v is String),
+        'procedureType': convertToJsonLd(procedureType),
         'status': convertToJsonLd(
-            status, [SchemaEventStatusType, SchemaMedicalStudyStatus, String]),
+            status,
+            (v) =>
+                v is SchemaEventStatusType ||
+                v is SchemaMedicalStudyStatus ||
+                v is String),
       });
 }

@@ -52,7 +52,6 @@ class SchemaMedicalGuidelineRecommendation extends SchemaMedicalGuideline {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MedicalGuidelineRecommendation',
-        'recommendationStrength':
-            convertToJsonLd(recommendationStrength, [String]),
+        'recommendationStrength': convertToJsonLd(recommendationStrength),
       });
 }

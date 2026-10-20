@@ -62,9 +62,8 @@ class SchemaConsumeAction extends SchemaAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ConsumeAction',
-        'actionAccessibilityRequirement': convertToJsonLd(
-            actionAccessibilityRequirement, [SchemaActionAccessSpecification]),
-        'expectsAcceptanceOf':
-            convertToJsonLd(expectsAcceptanceOf, [SchemaOffer]),
+        'actionAccessibilityRequirement':
+            convertToJsonLd(actionAccessibilityRequirement),
+        'expectsAcceptanceOf': convertToJsonLd(expectsAcceptanceOf),
       });
 }

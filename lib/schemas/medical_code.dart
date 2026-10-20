@@ -102,18 +102,19 @@ class SchemaMedicalCode extends SchemaCategoryCode
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MedicalCode',
-        'codingSystem': convertToJsonLd(codingSystem, [String]),
-        'code': convertToJsonLd(code, [SchemaMedicalCode]),
-        'funding': convertToJsonLd(funding, [SchemaGrant]),
-        'guideline': convertToJsonLd(guideline, [SchemaMedicalGuideline]),
-        'legalStatus': convertToJsonLd(legalStatus,
-            [SchemaDrugLegalStatus, SchemaMedicalEnumeration, String]),
-        'medicineSystem':
-            convertToJsonLd(medicineSystem, [SchemaMedicineSystem]),
-        'recognizingAuthority':
-            convertToJsonLd(recognizingAuthority, [SchemaOrganization]),
-        'relevantSpecialty':
-            convertToJsonLd(relevantSpecialty, [SchemaMedicalSpecialty]),
-        'study': convertToJsonLd(study, [SchemaMedicalStudy]),
+        'codingSystem': convertToJsonLd(codingSystem),
+        'code': convertToJsonLd(code),
+        'funding': convertToJsonLd(funding),
+        'guideline': convertToJsonLd(guideline),
+        'legalStatus': convertToJsonLd(
+            legalStatus,
+            (v) =>
+                v is SchemaDrugLegalStatus ||
+                v is SchemaMedicalEnumeration ||
+                v is String),
+        'medicineSystem': convertToJsonLd(medicineSystem),
+        'recognizingAuthority': convertToJsonLd(recognizingAuthority),
+        'relevantSpecialty': convertToJsonLd(relevantSpecialty),
+        'study': convertToJsonLd(study),
       });
 }

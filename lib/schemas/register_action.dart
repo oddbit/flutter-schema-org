@@ -10,8 +10,14 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/interact_action.dart';
 
-/// Unlike SubscribeAction, RegisterAction doesn't imply that the agent is
-/// expecting updates from the object.
+/// The act of registering to be a user of a service, product or web
+/// page.\n\nRelated actions:\n\n* [SchemaJoinAction]: Unlike JoinAction,
+/// RegisterAction implies you are registering to be a user of a service,
+/// *not* a group/team of people.\n* [SchemaFollowAction]: Unlike
+/// FollowAction, RegisterAction doesn't imply that the agent is expecting to
+/// poll for updates from the object.\n* [SchemaSubscribeAction]: Unlike
+/// SubscribeAction, RegisterAction doesn't imply that the agent is expecting
+/// updates from the object.
 /// See https://schema.org/RegisterAction
 class SchemaRegisterAction extends SchemaInteractAction {
   /// Create a new instance of [SchemaRegisterAction]

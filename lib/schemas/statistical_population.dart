@@ -59,6 +59,6 @@ class SchemaStatisticalPopulation extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'StatisticalPopulation',
-        'populationType': convertToJsonLd(populationType, [SchemaClass]),
+        'populationType': convertToJsonLd(populationType),
       });
 }

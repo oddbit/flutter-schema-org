@@ -12,7 +12,7 @@ import 'package:schema_org/schemas/event.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/sports_team.dart';
 
-/// Sports event.
+/// Event type: Sports event.
 /// See https://schema.org/SportsEvent
 class SchemaSportsEvent extends SchemaEvent {
   /// The away team in a sports event.
@@ -109,11 +109,13 @@ class SchemaSportsEvent extends SchemaEvent {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'SportsEvent',
-        'awayTeam': convertToJsonLd(awayTeam, [SchemaPerson, SchemaSportsTeam]),
-        'competitor':
-            convertToJsonLd(competitor, [SchemaPerson, SchemaSportsTeam]),
-        'homeTeam': convertToJsonLd(homeTeam, [SchemaPerson, SchemaSportsTeam]),
-        'referee': convertToJsonLd(referee, [SchemaPerson]),
-        'sport': convertToJsonLd(sport, [String]),
+        'awayTeam': convertToJsonLd(
+            awayTeam, (v) => v is SchemaPerson || v is SchemaSportsTeam),
+        'competitor': convertToJsonLd(
+            competitor, (v) => v is SchemaPerson || v is SchemaSportsTeam),
+        'homeTeam': convertToJsonLd(
+            homeTeam, (v) => v is SchemaPerson || v is SchemaSportsTeam),
+        'referee': convertToJsonLd(referee),
+        'sport': convertToJsonLd(sport),
       });
 }

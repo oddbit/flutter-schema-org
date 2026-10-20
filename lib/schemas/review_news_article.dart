@@ -19,8 +19,21 @@ import 'package:schema_org/schemas/speakable_specification.dart';
 /// See https://schema.org/ReviewNewsArticle
 class SchemaReviewNewsArticle extends SchemaCriticReview
     implements SchemaNewsArticle {
-  /// 43AM Reporting from Washington", "Beijing/Moscow", "QUEZON CITY,
-  /// Philippines".
+  /// A [dateline](https://en.wikipedia.org/wiki/Dateline) is a brief piece of
+  /// text included in news articles that describes where and when the story
+  /// was written or filed though the date is often omitted. Sometimes only a
+  /// placename is provided.
+  ///
+  /// Structured representations of dateline-related information can also be
+  /// expressed more explicitly using [SchemalocationCreated] (which represents
+  /// where a work was created, e.g. where a news report was written). For
+  /// location depicted or described in the content, use
+  /// [SchemacontentLocation].
+  ///
+  /// Dateline summaries are oriented more towards human readers than towards
+  /// automated processing, and can vary substantially. Some examples: "BEIRUT,
+  /// Lebanon, June 2.", "Paris, France", "December 19, 2017 11:43AM Reporting
+  /// from Washington", "Beijing/Moscow", "QUEZON CITY, Philippines".
   @override
   String? dateline;
 
@@ -80,6 +93,15 @@ class SchemaReviewNewsArticle extends SchemaCriticReview
   @override
   String? pagination;
 
+  /// Indicates sections of a Web page that are particularly 'speakable' in the
+  /// sense of being highlighted as being especially appropriate for
+  /// text-to-speech conversion. Other sections of a page may also be usefully
+  /// spoken in particular circumstances; the 'speakable' property serves to
+  /// indicate the parts most likely to be generally useful for speech.
+  ///
+  /// The *speakable* property can be repeated an arbitrary number of times,
+  /// with three kinds of possible 'content-locator' values:
+  ///
   /// 1.) *id-value* URL references - uses *id-value* of an element in the page
   /// being annotated. The simplest use of *speakable* has (potentially
   /// relative) URL values, referencing identified sections of the document
@@ -260,18 +282,19 @@ class SchemaReviewNewsArticle extends SchemaCriticReview
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ReviewNewsArticle',
-        'dateline': convertToJsonLd(dateline, [String]),
-        'printColumn': convertToJsonLd(printColumn, [String]),
-        'printEdition': convertToJsonLd(printEdition, [String]),
-        'printPage': convertToJsonLd(printPage, [String]),
-        'printSection': convertToJsonLd(printSection, [String]),
-        'articleBody': convertToJsonLd(articleBody, [String]),
-        'articleSection': convertToJsonLd(articleSection, [String]),
-        'backstory': convertToJsonLd(backstory, [SchemaCreativeWork, String]),
-        'pageEnd': convertToJsonLd(pageEnd, [String, int]),
-        'pageStart': convertToJsonLd(pageStart, [String, int]),
-        'pagination': convertToJsonLd(pagination, [String]),
-        'speakable':
-            convertToJsonLd(speakable, [SchemaSpeakableSpecification, String]),
+        'dateline': convertToJsonLd(dateline),
+        'printColumn': convertToJsonLd(printColumn),
+        'printEdition': convertToJsonLd(printEdition),
+        'printPage': convertToJsonLd(printPage),
+        'printSection': convertToJsonLd(printSection),
+        'articleBody': convertToJsonLd(articleBody),
+        'articleSection': convertToJsonLd(articleSection),
+        'backstory': convertToJsonLd(
+            backstory, (v) => v is SchemaCreativeWork || v is String),
+        'pageEnd': convertToJsonLd(pageEnd, (v) => v is String || v is int),
+        'pageStart': convertToJsonLd(pageStart, (v) => v is String || v is int),
+        'pagination': convertToJsonLd(pagination),
+        'speakable': convertToJsonLd(
+            speakable, (v) => v is SchemaSpeakableSpecification || v is String),
       });
 }

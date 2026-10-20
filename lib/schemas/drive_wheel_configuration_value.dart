@@ -14,27 +14,25 @@ import 'package:schema_org/schemas/qualitative_value.dart';
 enum SchemaDriveWheelConfigurationValue implements SchemaQualitativeValue {
   /// All-wheel Drive is a transmission layout where the engine drives all
   /// four wheels.
-  allWheelDriveConfiguration('https://schema.org/DriveWheelConfigurationValue'),
+  allWheelDriveConfiguration('https://schema.org/AllWheelDriveConfiguration'),
 
   /// Four-wheel drive is a transmission layout where the engine primarily
   /// drives two wheels with a part-time four-wheel drive capability.
-  fourWheelDriveConfiguration(
-      'https://schema.org/DriveWheelConfigurationValue'),
+  fourWheelDriveConfiguration('https://schema.org/FourWheelDriveConfiguration'),
 
   /// Front-wheel drive is a transmission layout where the engine drives
   /// the front wheels.
   frontWheelDriveConfiguration(
-      'https://schema.org/DriveWheelConfigurationValue'),
+      'https://schema.org/FrontWheelDriveConfiguration'),
 
   /// Real-wheel drive is a transmission layout where the engine drives the
   /// rear wheels.
-  rearWheelDriveConfiguration(
-      'https://schema.org/DriveWheelConfigurationValue');
+  rearWheelDriveConfiguration('https://schema.org/RearWheelDriveConfiguration');
 
   /// Constructor for [SchemaDriveWheelConfigurationValue]
   const SchemaDriveWheelConfigurationValue(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaDriveWheelConfigurationValue] to JSON-LD

@@ -78,18 +78,20 @@ class SchemaPhysicalActivity extends SchemaLifestyleModification {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'PhysicalActivity',
-        'associatedAnatomy': convertToJsonLd(associatedAnatomy, [
-          SchemaAnatomicalStructure,
-          SchemaAnatomicalSystem,
-          SchemaSuperficialAnatomy
-        ]),
-        'category': convertToJsonLd(category, [
-          SchemaCategoryCode,
-          SchemaPhysicalActivityCategory,
-          String,
-          SchemaThing
-        ]),
-        'epidemiology': convertToJsonLd(epidemiology, [String]),
-        'pathophysiology': convertToJsonLd(pathophysiology, [String]),
+        'associatedAnatomy': convertToJsonLd(
+            associatedAnatomy,
+            (v) =>
+                v is SchemaAnatomicalStructure ||
+                v is SchemaAnatomicalSystem ||
+                v is SchemaSuperficialAnatomy),
+        'category': convertToJsonLd(
+            category,
+            (v) =>
+                v is SchemaCategoryCode ||
+                v is SchemaPhysicalActivityCategory ||
+                v is String ||
+                v is SchemaThing),
+        'epidemiology': convertToJsonLd(epidemiology),
+        'pathophysiology': convertToJsonLd(pathophysiology),
       });
 }

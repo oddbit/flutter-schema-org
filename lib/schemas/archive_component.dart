@@ -166,9 +166,8 @@ class SchemaArchiveComponent extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ArchiveComponent',
-        'holdingArchive':
-            convertToJsonLd(holdingArchive, [SchemaArchiveOrganization]),
-        'itemLocation': convertToJsonLd(
-            itemLocation, [SchemaPlace, SchemaPostalAddress, String]),
+        'holdingArchive': convertToJsonLd(holdingArchive),
+        'itemLocation': convertToJsonLd(itemLocation,
+            (v) => v is SchemaPlace || v is SchemaPostalAddress || v is String),
       });
 }

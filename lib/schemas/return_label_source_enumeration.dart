@@ -15,21 +15,20 @@ enum SchemaReturnLabelSourceEnumeration implements SchemaSerializable {
   /// Indicated that creating a return label is the responsibility of the
   /// customer.
   returnLabelCustomerResponsibility(
-      'https://schema.org/ReturnLabelSourceEnumeration'),
+      'https://schema.org/ReturnLabelCustomerResponsibility'),
 
   /// Indicated that a return label must be downloaded and printed by the
   /// customer.
-  returnLabelDownloadAndPrint(
-      'https://schema.org/ReturnLabelSourceEnumeration'),
+  returnLabelDownloadAndPrint('https://schema.org/ReturnLabelDownloadAndPrint'),
 
   /// Specifies that a return label will be provided by the seller in the
   /// shipping box.
-  returnLabelInBox('https://schema.org/ReturnLabelSourceEnumeration');
+  returnLabelInBox('https://schema.org/ReturnLabelInBox');
 
   /// Constructor for [SchemaReturnLabelSourceEnumeration]
   const SchemaReturnLabelSourceEnumeration(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaReturnLabelSourceEnumeration] to JSON-LD

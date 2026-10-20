@@ -13,25 +13,25 @@ import 'package:schema_org/schemas/status_enumeration.dart';
 /// See https://schema.org/PaymentStatusType
 enum SchemaPaymentStatusType implements SchemaStatusEnumeration {
   /// An automatic payment system is in place and will be used.
-  paymentAutomaticallyApplied('https://schema.org/PaymentStatusType'),
+  paymentAutomaticallyApplied('https://schema.org/PaymentAutomaticallyApplied'),
 
   /// The payment has been received and processed.
-  paymentComplete('https://schema.org/PaymentStatusType'),
+  paymentComplete('https://schema.org/PaymentComplete'),
 
   /// The payee received the payment, but it was declined for some reason.
-  paymentDeclined('https://schema.org/PaymentStatusType'),
+  paymentDeclined('https://schema.org/PaymentDeclined'),
 
   /// The payment is due, but still within an acceptable time to be
   /// received.
-  paymentDue('https://schema.org/PaymentStatusType'),
+  paymentDue('https://schema.org/PaymentDue'),
 
   /// The payment is due and considered late.
-  paymentPastDue('https://schema.org/PaymentStatusType');
+  paymentPastDue('https://schema.org/PaymentPastDue');
 
   /// Constructor for [SchemaPaymentStatusType]
   const SchemaPaymentStatusType(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaPaymentStatusType] to JSON-LD

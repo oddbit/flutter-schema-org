@@ -14,7 +14,8 @@ import 'package:schema_org/schemas/price_specification.dart';
 /// A description of costs to the patient under a given network or formulary.
 /// See https://schema.org/HealthPlanCostSharingSpecification
 class SchemaHealthPlanCostSharingSpecification extends SchemaIntangible {
-  /// Is this a closed set?
+  /// Whether the coinsurance applies before or after deductible, etc. TODO: Is
+  /// this a closed set?
   String? healthPlanCoinsuranceOption;
 
   /// The rate of coinsurance expressed as a number between 0.0 and 1.0.
@@ -23,7 +24,8 @@ class SchemaHealthPlanCostSharingSpecification extends SchemaIntangible {
   /// The copay amount.
   SchemaPriceSpecification? healthPlanCopay;
 
-  /// Is this a closed set?
+  /// Whether the copay is before or after deductible, etc. TODO: Is this a
+  /// closed set?
   String? healthPlanCopayOption;
 
   /// The category or type of pharmacy associated with this cost sharing.
@@ -57,14 +59,11 @@ class SchemaHealthPlanCostSharingSpecification extends SchemaIntangible {
         ...super.toJsonLd(),
         '@type': 'HealthPlanCostSharingSpecification',
         'healthPlanCoinsuranceOption':
-            convertToJsonLd(healthPlanCoinsuranceOption, [String]),
-        'healthPlanCoinsuranceRate':
-            convertToJsonLd(healthPlanCoinsuranceRate, [num]),
-        'healthPlanCopay':
-            convertToJsonLd(healthPlanCopay, [SchemaPriceSpecification]),
-        'healthPlanCopayOption':
-            convertToJsonLd(healthPlanCopayOption, [String]),
+            convertToJsonLd(healthPlanCoinsuranceOption),
+        'healthPlanCoinsuranceRate': convertToJsonLd(healthPlanCoinsuranceRate),
+        'healthPlanCopay': convertToJsonLd(healthPlanCopay),
+        'healthPlanCopayOption': convertToJsonLd(healthPlanCopayOption),
         'healthPlanPharmacyCategory':
-            convertToJsonLd(healthPlanPharmacyCategory, [String]),
+            convertToJsonLd(healthPlanPharmacyCategory),
       });
 }

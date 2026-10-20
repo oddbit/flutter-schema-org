@@ -92,21 +92,21 @@ class SchemaActionAccessSpecification extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ActionAccessSpecification',
-        'availabilityEnds': convertToJsonLd(availabilityEnds, [String]),
-        'availabilityStarts': convertToJsonLd(availabilityStarts, [String]),
-        'category': convertToJsonLd(category, [
-          SchemaCategoryCode,
-          SchemaPhysicalActivityCategory,
-          String,
-          SchemaThing
-        ]),
-        'eligibleRegion': convertToJsonLd(
-            eligibleRegion, [SchemaGeoShape, SchemaPlace, String]),
-        'expectsAcceptanceOf':
-            convertToJsonLd(expectsAcceptanceOf, [SchemaOffer]),
-        'ineligibleRegion': convertToJsonLd(
-            ineligibleRegion, [SchemaGeoShape, SchemaPlace, String]),
-        'requiresSubscription': convertToJsonLd(
-            requiresSubscription, [SchemaMediaSubscription, bool]),
+        'availabilityEnds': convertToJsonLd(availabilityEnds),
+        'availabilityStarts': convertToJsonLd(availabilityStarts),
+        'category': convertToJsonLd(
+            category,
+            (v) =>
+                v is SchemaCategoryCode ||
+                v is SchemaPhysicalActivityCategory ||
+                v is String ||
+                v is SchemaThing),
+        'eligibleRegion': convertToJsonLd(eligibleRegion,
+            (v) => v is SchemaGeoShape || v is SchemaPlace || v is String),
+        'expectsAcceptanceOf': convertToJsonLd(expectsAcceptanceOf),
+        'ineligibleRegion': convertToJsonLd(ineligibleRegion,
+            (v) => v is SchemaGeoShape || v is SchemaPlace || v is String),
+        'requiresSubscription': convertToJsonLd(requiresSubscription,
+            (v) => v is SchemaMediaSubscription || v is bool),
       });
 }

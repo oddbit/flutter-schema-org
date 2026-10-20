@@ -56,7 +56,6 @@ class SchemaPerformAction extends SchemaPlayAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'PerformAction',
-        'entertainmentBusiness': convertToJsonLd(
-            entertainmentBusiness, [SchemaEntertainmentBusiness]),
+        'entertainmentBusiness': convertToJsonLd(entertainmentBusiness),
       });
 }

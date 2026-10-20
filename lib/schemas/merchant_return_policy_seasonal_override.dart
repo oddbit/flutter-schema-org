@@ -18,7 +18,8 @@ import 'package:schema_org/schemas/merchant_return_enumeration.dart';
 /// A seasonal override of a return policy, for example used for holidays.
 /// See https://schema.org/MerchantReturnPolicySeasonalOverride
 class SchemaMerchantReturnPolicySeasonalOverride extends SchemaIntangible {
-  /// //en.wikipedia.org/wiki/ISO_8601)).
+  /// The end date and time of the item (in [ISO 8601 date
+  /// format](http://en.wikipedia.org/wiki/ISO_8601)).
   String? endDate;
 
   /// Specifies either a fixed return date or the number of days (from the
@@ -52,7 +53,8 @@ class SchemaMerchantReturnPolicySeasonalOverride extends SchemaIntangible {
   /// when property [SchemareturnFees] equals [SchemaReturnShippingFees].
   SchemaMonetaryAmount? returnShippingFeesAmount;
 
-  /// //en.wikipedia.org/wiki/ISO_8601)).
+  /// The start date and time of the item (in [ISO 8601 date
+  /// format](http://en.wikipedia.org/wiki/ISO_8601)).
   String? startDate;
 
   /// Create a new instance of [SchemaMerchantReturnPolicySeasonalOverride]
@@ -86,21 +88,16 @@ class SchemaMerchantReturnPolicySeasonalOverride extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MerchantReturnPolicySeasonalOverride',
-        'endDate': convertToJsonLd(endDate, [String]),
+        'endDate': convertToJsonLd(endDate),
         'merchantReturnDays':
-            convertToJsonLd(merchantReturnDays, [String, int]),
-        'refundType':
-            convertToJsonLd(refundType, [SchemaRefundTypeEnumeration]),
-        'restockingFee':
-            convertToJsonLd(restockingFee, [SchemaMonetaryAmount, num]),
-        'returnFees':
-            convertToJsonLd(returnFees, [SchemaReturnFeesEnumeration]),
-        'returnMethod':
-            convertToJsonLd(returnMethod, [SchemaReturnMethodEnumeration]),
-        'returnPolicyCategory': convertToJsonLd(
-            returnPolicyCategory, [SchemaMerchantReturnEnumeration]),
-        'returnShippingFeesAmount':
-            convertToJsonLd(returnShippingFeesAmount, [SchemaMonetaryAmount]),
-        'startDate': convertToJsonLd(startDate, [String]),
+            convertToJsonLd(merchantReturnDays, (v) => v is String || v is int),
+        'refundType': convertToJsonLd(refundType),
+        'restockingFee': convertToJsonLd(
+            restockingFee, (v) => v is SchemaMonetaryAmount || v is num),
+        'returnFees': convertToJsonLd(returnFees),
+        'returnMethod': convertToJsonLd(returnMethod),
+        'returnPolicyCategory': convertToJsonLd(returnPolicyCategory),
+        'returnShippingFeesAmount': convertToJsonLd(returnShippingFeesAmount),
+        'startDate': convertToJsonLd(startDate),
       });
 }

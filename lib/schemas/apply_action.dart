@@ -10,8 +10,10 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/organize_action.dart';
 
-/// Unlike RegisterAction, ApplyAction has no guarantees that the application
-/// will be accepted.
+/// The act of registering to an organization/service without the guarantee
+/// to receive it.\n\nRelated actions:\n\n* [SchemaRegisterAction]: Unlike
+/// RegisterAction, ApplyAction has no guarantees that the application will
+/// be accepted.
 /// See https://schema.org/ApplyAction
 class SchemaApplyAction extends SchemaOrganizeAction {
   /// Create a new instance of [SchemaApplyAction]

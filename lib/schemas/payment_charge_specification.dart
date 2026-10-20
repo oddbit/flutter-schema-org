@@ -57,9 +57,7 @@ class SchemaPaymentChargeSpecification extends SchemaPriceSpecification {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'PaymentChargeSpecification',
-        'appliesToDeliveryMethod':
-            convertToJsonLd(appliesToDeliveryMethod, [SchemaDeliveryMethod]),
-        'appliesToPaymentMethod':
-            convertToJsonLd(appliesToPaymentMethod, [SchemaPaymentMethod]),
+        'appliesToDeliveryMethod': convertToJsonLd(appliesToDeliveryMethod),
+        'appliesToPaymentMethod': convertToJsonLd(appliesToPaymentMethod),
       });
 }

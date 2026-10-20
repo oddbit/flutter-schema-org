@@ -61,8 +61,7 @@ class SchemaArtery extends SchemaVessel {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Artery',
-        'arterialBranch':
-            convertToJsonLd(arterialBranch, [SchemaAnatomicalStructure]),
-        'supplyTo': convertToJsonLd(supplyTo, [SchemaAnatomicalStructure]),
+        'arterialBranch': convertToJsonLd(arterialBranch),
+        'supplyTo': convertToJsonLd(supplyTo),
       });
 }

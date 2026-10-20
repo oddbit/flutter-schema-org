@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// Comedy event.
+/// Event type: Comedy event.
 /// See https://schema.org/ComedyEvent
 class SchemaComedyEvent extends SchemaEvent {
   /// Create a new instance of [SchemaComedyEvent]

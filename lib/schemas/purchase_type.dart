@@ -13,21 +13,21 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// See https://schema.org/PurchaseType
 enum SchemaPurchaseType implements SchemaSerializable {
   /// This is a lease of an item.
-  purchaseTypeLease('https://schema.org/PurchaseType'),
+  purchaseTypeLease('https://schema.org/PurchaseTypeLease'),
 
   /// This is a purchase of a new item.
-  purchaseTypeNewPurchase('https://schema.org/PurchaseType'),
+  purchaseTypeNewPurchase('https://schema.org/PurchaseTypeNewPurchase'),
 
   /// This is a trade-in for an item.
-  purchaseTypeTradeIn('https://schema.org/PurchaseType'),
+  purchaseTypeTradeIn('https://schema.org/PurchaseTypeTradeIn'),
 
   /// This is a purchase of a used item.
-  purchaseTypeUsedPurchase('https://schema.org/PurchaseType');
+  purchaseTypeUsedPurchase('https://schema.org/PurchaseTypeUsedPurchase');
 
   /// Constructor for [SchemaPurchaseType]
   const SchemaPurchaseType(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaPurchaseType] to JSON-LD

@@ -175,8 +175,8 @@ class SchemaLiveBlogPosting extends SchemaBlogPosting {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'LiveBlogPosting',
-        'coverageEndTime': convertToJsonLd(coverageEndTime, [String]),
-        'coverageStartTime': convertToJsonLd(coverageStartTime, [String]),
-        'liveBlogUpdate': convertToJsonLd(liveBlogUpdate, [SchemaBlogPosting]),
+        'coverageEndTime': convertToJsonLd(coverageEndTime),
+        'coverageStartTime': convertToJsonLd(coverageStartTime),
+        'liveBlogUpdate': convertToJsonLd(liveBlogUpdate),
       });
 }

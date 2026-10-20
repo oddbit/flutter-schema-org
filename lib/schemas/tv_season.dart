@@ -26,9 +26,9 @@ class SchemaTVSeason extends SchemaCreativeWork
   @Deprecated('Use [partOfSeries]. See https://schema.org/partOfTVSeries')
   SchemaTVSeries? partOfTVSeries;
 
-  /// //eidr.org/) (Entertainment Identifier Registry) [Schemaidentifier]
-  /// representing at the most general/abstract level, a work of film or
-  /// television.
+  /// An [EIDR](https://eidr.org/) (Entertainment Identifier Registry)
+  /// [Schemaidentifier] representing at the most general/abstract level, a
+  /// work of film or television.
   ///
   /// For example, the motion picture known as "Ghostbusters" has a titleEIDR
   /// of "10.5240/7EC7-228A-510A-053E-CBB8-J". This title (or work) may have
@@ -55,7 +55,8 @@ class SchemaTVSeason extends SchemaCreativeWork
   @override
   SchemaPerson? director;
 
-  /// //en.wikipedia.org/wiki/ISO_8601)).
+  /// The end date and time of the item (in [ISO 8601 date
+  /// format](http://en.wikipedia.org/wiki/ISO_8601)).
   @override
   String? endDate;
 
@@ -87,7 +88,8 @@ class SchemaTVSeason extends SchemaCreativeWork
   @override
   dynamic seasonNumber;
 
-  /// //en.wikipedia.org/wiki/ISO_8601)).
+  /// The start date and time of the item (in [ISO 8601 date
+  /// format](http://en.wikipedia.org/wiki/ISO_8601)).
   @override
   String? startDate;
 
@@ -246,20 +248,20 @@ class SchemaTVSeason extends SchemaCreativeWork
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'TVSeason',
-        'partOfTVSeries': convertToJsonLd(partOfTVSeries, [SchemaTVSeries]),
-        'titleEIDR': convertToJsonLd(titleEIDR, [String]),
-        'actor': convertToJsonLd(actor, [SchemaPerformingGroup, SchemaPerson]),
-        'director': convertToJsonLd(director, [SchemaPerson]),
-        'endDate': convertToJsonLd(endDate, [String]),
-        'episode': convertToJsonLd(episode, [SchemaEpisode]),
-        'episodes': convertToJsonLd(episodes, [SchemaEpisode]),
-        'numberOfEpisodes': convertToJsonLd(numberOfEpisodes, [int]),
-        'partOfSeries':
-            convertToJsonLd(partOfSeries, [SchemaCreativeWorkSeries]),
-        'productionCompany':
-            convertToJsonLd(productionCompany, [SchemaOrganization]),
-        'seasonNumber': convertToJsonLd(seasonNumber, [String, int]),
-        'startDate': convertToJsonLd(startDate, [String]),
-        'trailer': convertToJsonLd(trailer, [SchemaVideoObject]),
+        'partOfTVSeries': convertToJsonLd(partOfTVSeries),
+        'titleEIDR': convertToJsonLd(titleEIDR),
+        'actor': convertToJsonLd(
+            actor, (v) => v is SchemaPerformingGroup || v is SchemaPerson),
+        'director': convertToJsonLd(director),
+        'endDate': convertToJsonLd(endDate),
+        'episode': convertToJsonLd(episode),
+        'episodes': convertToJsonLd(episodes),
+        'numberOfEpisodes': convertToJsonLd(numberOfEpisodes),
+        'partOfSeries': convertToJsonLd(partOfSeries),
+        'productionCompany': convertToJsonLd(productionCompany),
+        'seasonNumber':
+            convertToJsonLd(seasonNumber, (v) => v is String || v is int),
+        'startDate': convertToJsonLd(startDate),
+        'trailer': convertToJsonLd(trailer),
       });
 }

@@ -20,11 +20,79 @@ import 'package:schema_org/schemas/observation.dart';
 import 'package:schema_org/schemas/government_service.dart';
 import 'package:schema_org/schemas/data_feed.dart';
 
-/// //en.wikipedia.org/wiki/Atom_(Web_standard)) feed. For publishers without
-/// such feeds, basic feed-like information can be shared by posting
-/// [SchemaSpecialAnnouncement] updates in a page, e.g. using JSON-LD. For
-/// sites with Atom/RSS functionality, you can point to a feed with the
-/// [SchemawebFeed] property. This can be a simple URL, or an inline
+/// A SpecialAnnouncement combines a simple date-stamped textual information
+/// update with contextualized Web links and other structured data. It
+/// represents an information update made by a locally-oriented organization,
+/// for example schools, pharmacies, healthcare providers, community groups,
+/// police, local government.
+///
+/// For work in progress guidelines on Coronavirus-related markup see [this
+/// doc](https://docs.google.com/document/d/14ikaGCKxo50rRM7nvKSlbUpjyIk2WMQd3IkB1lItlrM/edit#).
+///
+/// The motivating scenario for SpecialAnnouncement is the [Coronavirus
+/// pandemic](https://en.wikipedia.org/wiki/2019%E2%80%9320_coronavirus_pandemic),
+/// and the initial vocabulary is oriented to this urgent situation.
+/// Schema.org expect to improve the markup iteratively as it is deployed and
+/// as feedback emerges from use. In addition to our usual [Github
+/// entry](https://github.com/schemaorg/schemaorg/issues/2490), feedback
+/// comments can also be provided in [this
+/// document](https://docs.google.com/document/d/1fpdFFxk8s87CWwACs53SGkYv3aafSxz_DTtOQxMrBJQ/edit#).
+///
+/// While this schema is designed to communicate urgent crisis-related
+/// information, it is not the same as an emergency warning technology like
+/// [CAP](https://en.wikipedia.org/wiki/Common_Alerting_Protocol), although
+/// there may be overlaps. The intent is to cover the kinds of everyday
+/// practical information being posted to existing websites during an
+/// emergency situation.
+///
+/// Several kinds of information can be provided:
+///
+/// We encourage the provision of "name", "text", "datePosted", "expires" (if
+/// appropriate), "category" and "url" as a simple baseline. It is important
+/// to provide a value for "category" where possible, most ideally as a well
+/// known URL from Wikipedia or Wikidata. In the case of the 2019-2020
+/// Coronavirus pandemic, this should be
+/// "https://en.wikipedia.org/w/index.php?title=2019-20\_coronavirus\_pandemic"
+/// or "https://www.wikidata.org/wiki/Q81068910".
+///
+/// For many of the possible properties, values can either be simple links or
+/// an inline description, depending on whether a summary is available. For a
+/// link, provide just the URL of the appropriate page as the property's
+/// value. For an inline description, use a [SchemaWebContent] type, and
+/// provide the url as a property of that, alongside at least a simple
+/// "[Schematext]" summary of the page. It is unlikely that a single
+/// SpecialAnnouncement will need all of the possible properties
+/// simultaneously.
+///
+/// We expect that in many cases the page referenced might contain more
+/// specialized structured data, e.g. contact info, [SchemaopeningHours],
+/// [SchemaEvent], [SchemaFAQPage] etc. By linking to those pages from a
+/// [SchemaSpecialAnnouncement] you can help make it clearer that the events
+/// are related to the situation (e.g. Coronavirus) indicated by the
+/// [Schemacategory] property of the [SchemaSpecialAnnouncement].
+///
+/// Many [SchemaSpecialAnnouncement]s will relate to particular regions and
+/// to identifiable local organizations. Use [SchemaspatialCoverage] for the
+/// region, and [SchemaannouncementLocation] to indicate specific
+/// [SchemaLocalBusiness]es and [SchemaCivicStructure]s. If the announcement
+/// affects both a particular region and a specific location (for example, a
+/// library closure that serves an entire region), use both
+/// [SchemaspatialCoverage] and [SchemaannouncementLocation].
+///
+/// The [Schemaabout] property can be used to indicate entities that are the
+/// focus of the announcement. We now recommend using [Schemaabout] only for
+/// representing non-location entities (e.g. a [SchemaCourse] or a
+/// [SchemaRadioStation]). For places, use [SchemaannouncementLocation] and
+/// [SchemaspatialCoverage]. Consumers of this markup should be aware that
+/// the initial design encouraged the use of [Schemaabout] for locations too.
+///
+/// The basic content of [SchemaSpecialAnnouncement] is similar to that of an
+/// [RSS](https://en.wikipedia.org/wiki/RSS) or
+/// [Atom](https://en.wikipedia.org/wiki/Atom_(Web_standard)) feed. For
+/// publishers without such feeds, basic feed-like information can be shared
+/// by posting [SchemaSpecialAnnouncement] updates in a page, e.g. using
+/// JSON-LD. For sites with Atom/RSS functionality, you can point to a feed
+/// with the [SchemawebFeed] property. This can be a simple URL, or an inline
 /// [SchemaDataFeed] object, with [SchemaencodingFormat] providing media type
 /// information, e.g. "application/rss+xml" or "application/atom+xml".
 /// See https://schema.org/SpecialAnnouncement
@@ -256,32 +324,40 @@ class SchemaSpecialAnnouncement extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'SpecialAnnouncement',
-        'announcementLocation': convertToJsonLd(
-            announcementLocation, [SchemaCivicStructure, SchemaLocalBusiness]),
-        'category': convertToJsonLd(category, [
-          SchemaCategoryCode,
-          SchemaPhysicalActivityCategory,
-          String,
-          SchemaThing
-        ]),
-        'datePosted': convertToJsonLd(datePosted, [String]),
-        'diseasePreventionInfo':
-            convertToJsonLd(diseasePreventionInfo, [String, SchemaWebContent]),
-        'diseaseSpreadStatistics': convertToJsonLd(diseaseSpreadStatistics,
-            [SchemaDataset, SchemaObservation, String, SchemaWebContent]),
-        'gettingTestedInfo':
-            convertToJsonLd(gettingTestedInfo, [String, SchemaWebContent]),
-        'governmentBenefitsInfo':
-            convertToJsonLd(governmentBenefitsInfo, [SchemaGovernmentService]),
-        'newsUpdatesAndGuidelines': convertToJsonLd(
-            newsUpdatesAndGuidelines, [String, SchemaWebContent]),
+        'announcementLocation': convertToJsonLd(announcementLocation,
+            (v) => v is SchemaCivicStructure || v is SchemaLocalBusiness),
+        'category': convertToJsonLd(
+            category,
+            (v) =>
+                v is SchemaCategoryCode ||
+                v is SchemaPhysicalActivityCategory ||
+                v is String ||
+                v is SchemaThing),
+        'datePosted': convertToJsonLd(datePosted),
+        'diseasePreventionInfo': convertToJsonLd(
+            diseasePreventionInfo, (v) => v is String || v is SchemaWebContent),
+        'diseaseSpreadStatistics': convertToJsonLd(
+            diseaseSpreadStatistics,
+            (v) =>
+                v is SchemaDataset ||
+                v is SchemaObservation ||
+                v is String ||
+                v is SchemaWebContent),
+        'gettingTestedInfo': convertToJsonLd(
+            gettingTestedInfo, (v) => v is String || v is SchemaWebContent),
+        'governmentBenefitsInfo': convertToJsonLd(governmentBenefitsInfo),
+        'newsUpdatesAndGuidelines': convertToJsonLd(newsUpdatesAndGuidelines,
+            (v) => v is String || v is SchemaWebContent),
         'publicTransportClosuresInfo': convertToJsonLd(
-            publicTransportClosuresInfo, [String, SchemaWebContent]),
-        'quarantineGuidelines':
-            convertToJsonLd(quarantineGuidelines, [String, SchemaWebContent]),
-        'schoolClosuresInfo':
-            convertToJsonLd(schoolClosuresInfo, [String, SchemaWebContent]),
-        'travelBans': convertToJsonLd(travelBans, [String, SchemaWebContent]),
-        'webFeed': convertToJsonLd(webFeed, [SchemaDataFeed, String]),
+            publicTransportClosuresInfo,
+            (v) => v is String || v is SchemaWebContent),
+        'quarantineGuidelines': convertToJsonLd(
+            quarantineGuidelines, (v) => v is String || v is SchemaWebContent),
+        'schoolClosuresInfo': convertToJsonLd(
+            schoolClosuresInfo, (v) => v is String || v is SchemaWebContent),
+        'travelBans': convertToJsonLd(
+            travelBans, (v) => v is String || v is SchemaWebContent),
+        'webFeed':
+            convertToJsonLd(webFeed, (v) => v is SchemaDataFeed || v is String),
       });
 }

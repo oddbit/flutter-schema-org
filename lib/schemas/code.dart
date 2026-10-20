@@ -10,7 +10,8 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 
-/// Full (compile ready) solutions, code snippet samples, scripts, templates.
+/// Computer programming source code. Example: Full (compile ready)
+/// solutions, code snippet samples, scripts, templates.
 /// See https://schema.org/Code
 @Deprecated('Use [SchemaSoftwareSourceCode]. See https://schema.org/Code')
 class SchemaCode extends SchemaCreativeWork {

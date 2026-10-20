@@ -69,9 +69,9 @@ class SchemaCookAction extends SchemaCreateAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'CookAction',
-        'foodEstablishment': convertToJsonLd(
-            foodEstablishment, [SchemaFoodEstablishment, SchemaPlace]),
-        'foodEvent': convertToJsonLd(foodEvent, [SchemaFoodEvent]),
-        'recipe': convertToJsonLd(recipe, [SchemaRecipe]),
+        'foodEstablishment': convertToJsonLd(foodEstablishment,
+            (v) => v is SchemaFoodEstablishment || v is SchemaPlace),
+        'foodEvent': convertToJsonLd(foodEvent),
+        'recipe': convertToJsonLd(recipe),
       });
 }

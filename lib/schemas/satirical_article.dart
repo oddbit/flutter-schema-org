@@ -10,10 +10,11 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/article.dart';
 
-/// //en.wikipedia.org/wiki/Satire) in nature, i.e. unlikely to be literally
-/// true. A satirical article is sometimes but not necessarily also a
-/// [SchemaNewsArticle]. [SchemaScholarlyArticle]s are also sometimes
-/// satirized.
+/// An [SchemaArticle] whose content is primarily
+/// [Schemasatirical](https://en.wikipedia.org/wiki/Satire) in nature, i.e.
+/// unlikely to be literally true. A satirical article is sometimes but not
+/// necessarily also a [SchemaNewsArticle]. [SchemaScholarlyArticle]s are
+/// also sometimes satirized.
 /// See https://schema.org/SatiricalArticle
 class SchemaSatiricalArticle extends SchemaArticle {
   /// Create a new instance of [SchemaSatiricalArticle]

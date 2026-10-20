@@ -155,6 +155,6 @@ class SchemaCollection extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Collection',
-        'collectionSize': convertToJsonLd(collectionSize, [int]),
+        'collectionSize': convertToJsonLd(collectionSize),
       });
 }

@@ -173,7 +173,9 @@ class SchemaPodcastSeries extends SchemaCreativeWorkSeries {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'PodcastSeries',
-        'actor': convertToJsonLd(actor, [SchemaPerformingGroup, SchemaPerson]),
-        'webFeed': convertToJsonLd(webFeed, [SchemaDataFeed, String]),
+        'actor': convertToJsonLd(
+            actor, (v) => v is SchemaPerformingGroup || v is SchemaPerson),
+        'webFeed':
+            convertToJsonLd(webFeed, (v) => v is SchemaDataFeed || v is String),
       });
 }

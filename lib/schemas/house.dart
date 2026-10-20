@@ -10,7 +10,10 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/accommodation.dart';
 
-/// //en.wikipedia.org/wiki/House</a>).
+/// A house is a building or structure that has the ability to be occupied
+/// for habitation by humans or other creatures (source: Wikipedia, the free
+/// encyclopedia, see <a
+/// href="http://en.wikipedia.org/wiki/House">http://en.wikipedia.org/wiki/House</a>).
 /// See https://schema.org/House
 class SchemaHouse extends SchemaAccommodation {
   /// Create a new instance of [SchemaHouse]

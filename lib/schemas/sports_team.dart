@@ -12,7 +12,7 @@ import 'package:schema_org/schemas/sports_organization.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/schemas/gender_type.dart';
 
-/// Sports team.
+/// Organization: Sports team.
 /// See https://schema.org/SportsTeam
 class SchemaSportsTeam extends SchemaSportsOrganization {
   /// A person that acts as performing member of a sports team; a player as
@@ -22,10 +22,12 @@ class SchemaSportsTeam extends SchemaSportsOrganization {
   /// A person that acts in a coaching role for a sports team.
   SchemaPerson? coach;
 
-  /// //schema.org/Female may be used, text strings are also acceptable for
-  /// people who are not a binary gender. The [Schemagender] property can also
-  /// be used in an extended sense to cover e.g. the gender of sports teams. As
-  /// with the gender of individuals, we do not try to enumerate all
+  /// Gender of something, typically a [SchemaPerson], but possibly also
+  /// fictional characters, animals, etc. While https://schema.org/Male and
+  /// https://schema.org/Female may be used, text strings are also acceptable
+  /// for people who are not a binary gender. The [Schemagender] property can
+  /// also be used in an extended sense to cover e.g. the gender of sports
+  /// teams. As with the gender of individuals, we do not try to enumerate all
   /// possibilities. A mixed-gender [SchemaSportsTeam] can be indicated with a
   /// text value of "Mixed".
   ///
@@ -43,6 +45,7 @@ class SchemaSportsTeam extends SchemaSportsOrganization {
     super.alternateName,
     super.alumni,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.brand,
@@ -78,6 +81,7 @@ class SchemaSportsTeam extends SchemaSportsOrganization {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,
@@ -134,8 +138,9 @@ class SchemaSportsTeam extends SchemaSportsOrganization {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'SportsTeam',
-        'athlete': convertToJsonLd(athlete, [SchemaPerson]),
-        'coach': convertToJsonLd(coach, [SchemaPerson]),
-        'gender': convertToJsonLd(gender, [SchemaGenderType, String]),
+        'athlete': convertToJsonLd(athlete),
+        'coach': convertToJsonLd(coach),
+        'gender': convertToJsonLd(
+            gender, (v) => v is SchemaGenderType || v is String),
       });
 }

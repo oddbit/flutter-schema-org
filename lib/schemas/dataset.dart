@@ -30,8 +30,13 @@ class SchemaDataset extends SchemaCreativeWork {
       'Use [temporalCoverage]. See https://schema.org/datasetTimeInterval')
   String? datasetTimeInterval;
 
-  /// Distribution) on this point). Different distributions might include or
-  /// exclude different subsets of the entire dataset, for example.
+  /// A downloadable form of this dataset, at a specific location, in a
+  /// specific format. This property can be repeated if different variations
+  /// are available. There is no expectation that different downloadable
+  /// distributions must contain exactly equivalent information (see also
+  /// [DCAT](https://www.w3.org/TR/vocab-dcat-3/#Class:Distribution) on this
+  /// point). Different distributions might include or exclude different
+  /// subsets of the entire dataset, for example.
   SchemaDataDownload? distribution;
 
   /// A data catalog which contains this dataset (this property was previously
@@ -56,10 +61,29 @@ class SchemaDataset extends SchemaCreativeWork {
   /// [String]
   dynamic measurementMethod;
 
-  /// "mass spectrometry" or "nmr spectroscopy" or "colorimetry" or
-  /// "immunofluorescence". If the [SchemavariableMeasured] is "depression
-  /// rating", the [SchemameasurementTechnique] could be "Zung Scale" or
-  /// "HAM-D" or "Beck Depression Inventory".
+  /// A technique, method or technology used in an [SchemaObservation],
+  /// [SchemaStatisticalVariable] or [SchemaDataset] (or [SchemaDataDownload],
+  /// [SchemaDataCatalog]), corresponding to the method used for measuring the
+  /// corresponding variable(s) (for datasets, described using
+  /// [SchemavariableMeasured]; for [SchemaObservation], a
+  /// [SchemaStatisticalVariable]). Often but not necessarily each
+  /// [SchemavariableMeasured] will have an explicit representation as (or
+  /// mapping to) an property such as those defined in Schema.org, or other RDF
+  /// vocabularies and "knowledge graphs". In that case the subproperty of
+  /// [SchemavariableMeasured] called [SchemameasuredProperty] is applicable.
+  /// The [SchemameasurementTechnique] property helps when extra clarification
+  /// is needed about how a [SchemameasuredProperty] was measured. This is
+  /// oriented towards scientific and scholarly dataset publication but may
+  /// have broader applicability; it is not intended as a full representation
+  /// of measurement, but can often serve as a high level summary for dataset
+  /// discovery.
+  ///
+  /// For example, if [SchemavariableMeasured] is: molecule concentration,
+  /// [SchemameasurementTechnique] could be: "mass spectrometry" or "nmr
+  /// spectroscopy" or "colorimetry" or "immunofluorescence". If the
+  /// [SchemavariableMeasured] is "depression rating", the
+  /// [SchemameasurementTechnique] could be "Zung Scale" or "HAM-D" or "Beck
+  /// Depression Inventory".
   ///
   /// If there are several [SchemavariableMeasured] properties recorded for
   /// some given data object, use a [SchemaPropertyValue] for each
@@ -227,23 +251,30 @@ class SchemaDataset extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Dataset',
-        'catalog': convertToJsonLd(catalog, [SchemaDataCatalog]),
-        'datasetTimeInterval': convertToJsonLd(datasetTimeInterval, [String]),
-        'distribution': convertToJsonLd(distribution, [SchemaDataDownload]),
-        'includedDataCatalog':
-            convertToJsonLd(includedDataCatalog, [SchemaDataCatalog]),
-        'includedInDataCatalog':
-            convertToJsonLd(includedInDataCatalog, [SchemaDataCatalog]),
-        'issn': convertToJsonLd(issn, [String]),
-        'measurementMethod': convertToJsonLd(measurementMethod,
-            [SchemaDefinedTerm, SchemaMeasurementMethodEnum, String]),
-        'measurementTechnique': convertToJsonLd(measurementTechnique,
-            [SchemaDefinedTerm, SchemaMeasurementMethodEnum, String]),
-        'variableMeasured': convertToJsonLd(variableMeasured, [
-          SchemaProperty,
-          SchemaPropertyValue,
-          SchemaStatisticalVariable,
-          String
-        ]),
+        'catalog': convertToJsonLd(catalog),
+        'datasetTimeInterval': convertToJsonLd(datasetTimeInterval),
+        'distribution': convertToJsonLd(distribution),
+        'includedDataCatalog': convertToJsonLd(includedDataCatalog),
+        'includedInDataCatalog': convertToJsonLd(includedInDataCatalog),
+        'issn': convertToJsonLd(issn),
+        'measurementMethod': convertToJsonLd(
+            measurementMethod,
+            (v) =>
+                v is SchemaDefinedTerm ||
+                v is SchemaMeasurementMethodEnum ||
+                v is String),
+        'measurementTechnique': convertToJsonLd(
+            measurementTechnique,
+            (v) =>
+                v is SchemaDefinedTerm ||
+                v is SchemaMeasurementMethodEnum ||
+                v is String),
+        'variableMeasured': convertToJsonLd(
+            variableMeasured,
+            (v) =>
+                v is SchemaProperty ||
+                v is SchemaPropertyValue ||
+                v is SchemaStatisticalVariable ||
+                v is String),
       });
 }

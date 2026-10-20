@@ -56,7 +56,7 @@ class SchemaEndorseAction extends SchemaReactAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'EndorseAction',
-        'endorsee':
-            convertToJsonLd(endorsee, [SchemaOrganization, SchemaPerson]),
+        'endorsee': convertToJsonLd(
+            endorsee, (v) => v is SchemaOrganization || v is SchemaPerson),
       });
 }

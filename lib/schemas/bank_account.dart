@@ -80,10 +80,8 @@ class SchemaBankAccount extends SchemaFinancialProduct {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'BankAccount',
-        'accountMinimumInflow':
-            convertToJsonLd(accountMinimumInflow, [SchemaMonetaryAmount]),
-        'accountOverdraftLimit':
-            convertToJsonLd(accountOverdraftLimit, [SchemaMonetaryAmount]),
-        'bankAccountType': convertToJsonLd(bankAccountType, [String]),
+        'accountMinimumInflow': convertToJsonLd(accountMinimumInflow),
+        'accountOverdraftLimit': convertToJsonLd(accountOverdraftLimit),
+        'bankAccountType': convertToJsonLd(bankAccountType),
       });
 }

@@ -13,15 +13,15 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// See https://schema.org/GenderType
 enum SchemaGenderType implements SchemaSerializable {
   /// The female gender.
-  female('https://schema.org/GenderType'),
+  female('https://schema.org/Female'),
 
   /// The male gender.
-  male('https://schema.org/GenderType');
+  male('https://schema.org/Male');
 
   /// Constructor for [SchemaGenderType]
   const SchemaGenderType(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaGenderType] to JSON-LD

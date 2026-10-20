@@ -13,46 +13,46 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// See https://schema.org/ItemAvailability
 enum SchemaItemAvailability implements SchemaSerializable {
   /// Indicates that the item is available on back order.
-  backOrder('https://schema.org/ItemAvailability'),
+  backOrder('https://schema.org/BackOrder'),
 
   /// Indicates that the item has been discontinued.
-  discontinued('https://schema.org/ItemAvailability'),
+  discontinued('https://schema.org/Discontinued'),
 
   /// Indicates that the item is in stock.
-  inStock('https://schema.org/ItemAvailability'),
+  inStock('https://schema.org/InStock'),
 
   /// Indicates that the item is available only at physical locations.
-  inStoreOnly('https://schema.org/ItemAvailability'),
+  inStoreOnly('https://schema.org/InStoreOnly'),
 
   /// Indicates that the item has limited availability.
-  limitedAvailability('https://schema.org/ItemAvailability'),
+  limitedAvailability('https://schema.org/LimitedAvailability'),
 
   /// Indicates that the item is made to order (custom made).
-  madeToOrder('https://schema.org/ItemAvailability'),
+  madeToOrder('https://schema.org/MadeToOrder'),
 
   /// Indicates that the item is available only online.
-  onlineOnly('https://schema.org/ItemAvailability'),
+  onlineOnly('https://schema.org/OnlineOnly'),
 
   /// Indicates that the item is out of stock.
-  outOfStock('https://schema.org/ItemAvailability'),
+  outOfStock('https://schema.org/OutOfStock'),
 
   /// Indicates that the item is available for pre-order.
-  preOrder('https://schema.org/ItemAvailability'),
+  preOrder('https://schema.org/PreOrder'),
 
   /// Indicates that the item is available for ordering and delivery before
   /// general availability.
-  preSale('https://schema.org/ItemAvailability'),
+  preSale('https://schema.org/PreSale'),
 
   /// Indicates that the item is reserved and therefore not available.
-  reserved('https://schema.org/ItemAvailability'),
+  reserved('https://schema.org/Reserved'),
 
   /// Indicates that the item has sold out.
-  soldOut('https://schema.org/ItemAvailability');
+  soldOut('https://schema.org/SoldOut');
 
   /// Constructor for [SchemaItemAvailability]
   const SchemaItemAvailability(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaItemAvailability] to JSON-LD

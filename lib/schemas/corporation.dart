@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/organization.dart';
 
-/// A business corporation.
+/// Organization: A business corporation.
 /// See https://schema.org/Corporation
 class SchemaCorporation extends SchemaOrganization {
   /// The exchange traded instrument associated with a Corporation object. The
@@ -31,6 +31,7 @@ class SchemaCorporation extends SchemaOrganization {
     super.alternateName,
     super.alumni,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.brand,
@@ -66,6 +67,7 @@ class SchemaCorporation extends SchemaOrganization {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,
@@ -119,6 +121,6 @@ class SchemaCorporation extends SchemaOrganization {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Corporation',
-        'tickerSymbol': convertToJsonLd(tickerSymbol, [String]),
+        'tickerSymbol': convertToJsonLd(tickerSymbol),
       });
 }

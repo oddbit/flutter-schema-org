@@ -11,8 +11,11 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/trip.dart';
 import 'package:schema_org/schemas/audience.dart';
 
-/// //www2.unwto.org/) defines tourism trip as the Trip taken by visitors.
-/// (See examples below.)
+/// A tourist trip. A created itinerary of visits to one or more places of
+/// interest ([SchemaTouristAttraction]/[SchemaTouristDestination]) often
+/// linked by a similar theme, geographic area, or interest to a particular
+/// [SchematouristType]. The [UNWTO](http://www2.unwto.org/) defines tourism
+/// trip as the Trip taken by visitors. (See examples below.)
 /// See https://schema.org/TouristTrip
 class SchemaTouristTrip extends SchemaTrip {
   /// Attraction suitable for type(s) of tourist. E.g. children, visitors from
@@ -52,6 +55,7 @@ class SchemaTouristTrip extends SchemaTrip {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'TouristTrip',
-        'touristType': convertToJsonLd(touristType, [SchemaAudience, String]),
+        'touristType': convertToJsonLd(
+            touristType, (v) => v is SchemaAudience || v is String),
       });
 }

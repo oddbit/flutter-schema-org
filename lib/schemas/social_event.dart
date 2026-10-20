@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// Social event.
+/// Event type: Social event.
 /// See https://schema.org/SocialEvent
 class SchemaSocialEvent extends SchemaEvent {
   /// Create a new instance of [SchemaSocialEvent]

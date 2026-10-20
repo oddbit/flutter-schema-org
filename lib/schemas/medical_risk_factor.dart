@@ -48,7 +48,6 @@ class SchemaMedicalRiskFactor extends SchemaMedicalEntity {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MedicalRiskFactor',
-        'increasesRiskOf':
-            convertToJsonLd(increasesRiskOf, [SchemaMedicalEntity]),
+        'increasesRiskOf': convertToJsonLd(increasesRiskOf),
       });
 }

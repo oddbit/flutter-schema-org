@@ -44,10 +44,12 @@ class SchemaProgramMembership extends SchemaIntangible {
   /// Supported types: [SchemaQuantitativeValue], [num]
   dynamic membershipPointsEarned;
 
-  /// //schema.org/ProgramMembership).
+  /// The [MemberProgram](https://schema.org/MemberProgram) associated with a
+  /// [ProgramMembership](https://schema.org/ProgramMembership).
   SchemaMemberProgram? program;
 
-  /// //schema.org/program) instead.
+  /// The program providing the membership. It is preferable to use
+  /// [:program](https://schema.org/program) instead.
   String? programName;
 
   /// Create a new instance of [SchemaProgramMembership]
@@ -79,14 +81,15 @@ class SchemaProgramMembership extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ProgramMembership',
-        'hostingOrganization':
-            convertToJsonLd(hostingOrganization, [SchemaOrganization]),
-        'member': convertToJsonLd(member, [SchemaOrganization, SchemaPerson]),
-        'members': convertToJsonLd(members, [SchemaOrganization, SchemaPerson]),
-        'membershipNumber': convertToJsonLd(membershipNumber, [String]),
-        'membershipPointsEarned': convertToJsonLd(
-            membershipPointsEarned, [SchemaQuantitativeValue, num]),
-        'program': convertToJsonLd(program, [SchemaMemberProgram]),
-        'programName': convertToJsonLd(programName, [String]),
+        'hostingOrganization': convertToJsonLd(hostingOrganization),
+        'member': convertToJsonLd(
+            member, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'members': convertToJsonLd(
+            members, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'membershipNumber': convertToJsonLd(membershipNumber),
+        'membershipPointsEarned': convertToJsonLd(membershipPointsEarned,
+            (v) => v is SchemaQuantitativeValue || v is num),
+        'program': convertToJsonLd(program),
+        'programName': convertToJsonLd(programName),
       });
 }

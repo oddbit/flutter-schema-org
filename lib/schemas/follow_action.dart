@@ -12,9 +12,20 @@ import 'package:schema_org/schemas/interact_action.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 
-/// Unlike TrackAction, FollowAction refers to the polling of updates of all
-/// aspects of animate objects rather than the location of inanimate objects
-/// (e.g. you track a package, but you don't follow it).
+/// The act of forming a personal connection with someone/something (object)
+/// unidirectionally/asymmetrically to get updates polled from.\n\nRelated
+/// actions:\n\n* [SchemaBefriendAction]: Unlike BefriendAction, FollowAction
+/// implies that the connection is *not* necessarily reciprocal.\n*
+/// [SchemaSubscribeAction]: Unlike SubscribeAction, FollowAction implies
+/// that the follower acts as an active agent constantly/actively polling for
+/// updates.\n* [SchemaRegisterAction]: Unlike RegisterAction, FollowAction
+/// implies that the agent is interested in continuing receiving updates from
+/// the object.\n* [SchemaJoinAction]: Unlike JoinAction, FollowAction
+/// implies that the agent is interested in getting updates from the
+/// object.\n* [SchemaTrackAction]: Unlike TrackAction, FollowAction refers
+/// to the polling of updates of all aspects of animate objects rather than
+/// the location of inanimate objects (e.g. you track a package, but you
+/// don't follow it).
 /// See https://schema.org/FollowAction
 class SchemaFollowAction extends SchemaInteractAction {
   /// A sub property of object. The person or organization being followed.
@@ -58,7 +69,7 @@ class SchemaFollowAction extends SchemaInteractAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'FollowAction',
-        'followee':
-            convertToJsonLd(followee, [SchemaOrganization, SchemaPerson]),
+        'followee': convertToJsonLd(
+            followee, (v) => v is SchemaOrganization || v is SchemaPerson),
       });
 }

@@ -72,14 +72,13 @@ class SchemaBroadcastChannel extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'BroadcastChannel',
-        'broadcastChannelId': convertToJsonLd(broadcastChannelId, [String]),
+        'broadcastChannelId': convertToJsonLd(broadcastChannelId),
         'broadcastFrequency': convertToJsonLd(broadcastFrequency,
-            [SchemaBroadcastFrequencySpecification, String]),
-        'broadcastServiceTier': convertToJsonLd(broadcastServiceTier, [String]),
-        'genre': convertToJsonLd(genre, [SchemaDefinedTerm, String]),
-        'inBroadcastLineup':
-            convertToJsonLd(inBroadcastLineup, [SchemaCableOrSatelliteService]),
-        'providesBroadcastService':
-            convertToJsonLd(providesBroadcastService, [SchemaBroadcastService]),
+            (v) => v is SchemaBroadcastFrequencySpecification || v is String),
+        'broadcastServiceTier': convertToJsonLd(broadcastServiceTier),
+        'genre': convertToJsonLd(
+            genre, (v) => v is SchemaDefinedTerm || v is String),
+        'inBroadcastLineup': convertToJsonLd(inBroadcastLineup),
+        'providesBroadcastService': convertToJsonLd(providesBroadcastService),
       });
 }

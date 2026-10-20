@@ -26,7 +26,9 @@ class SchemaContactPoint extends SchemaStructuredValue {
   /// [SchemaPlace], [String]
   dynamic areaServed;
 
-  /// //tools.ietf.org/html/bcp47). See also [SchemainLanguage].
+  /// A language someone may use with or at the item, service or place. Please
+  /// use one of the language codes from the [IETF BCP 47
+  /// standard](http://tools.ietf.org/html/bcp47). See also [SchemainLanguage].
   ///
   /// Supported types: [SchemaLanguage], [String]
   dynamic availableLanguage;
@@ -99,21 +101,28 @@ class SchemaContactPoint extends SchemaStructuredValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ContactPoint',
-        'areaServed': convertToJsonLd(areaServed,
-            [SchemaAdministrativeArea, SchemaGeoShape, SchemaPlace, String]),
-        'availableLanguage':
-            convertToJsonLd(availableLanguage, [SchemaLanguage, String]),
-        'contactOption':
-            convertToJsonLd(contactOption, [SchemaContactPointOption]),
-        'contactType': convertToJsonLd(contactType, [String]),
-        'email': convertToJsonLd(email, [String]),
-        'faxNumber': convertToJsonLd(faxNumber, [String]),
-        'hoursAvailable':
-            convertToJsonLd(hoursAvailable, [SchemaOpeningHoursSpecification]),
-        'productSupported':
-            convertToJsonLd(productSupported, [SchemaProduct, String]),
-        'serviceArea': convertToJsonLd(serviceArea,
-            [SchemaAdministrativeArea, SchemaGeoShape, SchemaPlace]),
-        'telephone': convertToJsonLd(telephone, [String]),
+        'areaServed': convertToJsonLd(
+            areaServed,
+            (v) =>
+                v is SchemaAdministrativeArea ||
+                v is SchemaGeoShape ||
+                v is SchemaPlace ||
+                v is String),
+        'availableLanguage': convertToJsonLd(
+            availableLanguage, (v) => v is SchemaLanguage || v is String),
+        'contactOption': convertToJsonLd(contactOption),
+        'contactType': convertToJsonLd(contactType),
+        'email': convertToJsonLd(email),
+        'faxNumber': convertToJsonLd(faxNumber),
+        'hoursAvailable': convertToJsonLd(hoursAvailable),
+        'productSupported': convertToJsonLd(
+            productSupported, (v) => v is SchemaProduct || v is String),
+        'serviceArea': convertToJsonLd(
+            serviceArea,
+            (v) =>
+                v is SchemaAdministrativeArea ||
+                v is SchemaGeoShape ||
+                v is SchemaPlace),
+        'telephone': convertToJsonLd(telephone),
       });
 }

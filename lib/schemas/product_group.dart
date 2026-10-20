@@ -10,6 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/product.dart';
 import 'package:schema_org/schemas/defined_term.dart';
+import 'package:schema_org/schemas/property_value.dart';
 
 /// A ProductGroup represents a group of [SchemaProduct]s that vary only in
 /// certain well-described ways, such as by [Schemasize], [Schemacolor],
@@ -36,9 +37,12 @@ class SchemaProductGroup extends SchemaProduct {
   /// Indicates the property or properties by which the variants in a
   /// [SchemaProductGroup] vary, e.g. their size, color etc. Schema.org
   /// properties can be referenced by their short name e.g. "color"; terms
-  /// defined elsewhere can be referenced with their URIs.
+  /// defined elsewhere can be referenced with their URIs. Variant properties
+  /// can be provided using [SchemaPropertyValue] instead of plain
+  /// [SchemaText], to allow specification of the values available for a
+  /// variant property.
   ///
-  /// Supported types: [SchemaDefinedTerm], [String]
+  /// Supported types: [SchemaDefinedTerm], [SchemaPropertyValue], [String]
   dynamic variesBy;
 
   /// Create a new instance of [SchemaProductGroup]
@@ -49,12 +53,14 @@ class SchemaProductGroup extends SchemaProduct {
     super.alternateName,
     super.asin,
     super.audience,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.brand,
     super.category,
     super.color,
     super.colorSwatch,
+    super.consumerNotice,
     super.countryOfAssembly,
     super.countryOfLastProcessing,
     super.countryOfOrigin,
@@ -70,17 +76,21 @@ class SchemaProductGroup extends SchemaProduct {
     super.gtin8,
     super.hasAdultConsideration,
     super.hasCertification,
+    super.hasDigitalProductPassport,
     super.hasEnergyConsumptionDetails,
     super.hasGS1DigitalLink,
     super.hasMeasurement,
     super.hasMerchantReturnPolicy,
+    super.hasProductReturnPolicy,
     super.height,
     super.identifier,
     super.image,
+    super.importer,
     super.inProductGroupWithID,
     super.isAccessoryOrSparePartFor,
     super.isConsumableFor,
     super.isFamilyFriendly,
+    super.isOftenBoughtWith,
     super.isRelatedTo,
     super.isSimilarTo,
     super.isVariantOf,
@@ -104,6 +114,7 @@ class SchemaProductGroup extends SchemaProduct {
     super.productID,
     super.productionDate,
     super.purchaseDate,
+    super.recycledContentPercentage,
     super.releaseDate,
     super.review,
     super.reviews,
@@ -111,7 +122,9 @@ class SchemaProductGroup extends SchemaProduct {
     super.size,
     super.sku,
     super.slogan,
+    super.specification,
     super.subjectOf,
+    super.substanceOfConcern,
     super.url,
     super.weight,
     super.width,
@@ -125,8 +138,13 @@ class SchemaProductGroup extends SchemaProduct {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ProductGroup',
-        'hasVariant': convertToJsonLd(hasVariant, [SchemaProduct]),
-        'productGroupID': convertToJsonLd(productGroupID, [String]),
-        'variesBy': convertToJsonLd(variesBy, [SchemaDefinedTerm, String]),
+        'hasVariant': convertToJsonLd(hasVariant),
+        'productGroupID': convertToJsonLd(productGroupID),
+        'variesBy': convertToJsonLd(
+            variesBy,
+            (v) =>
+                v is SchemaDefinedTerm ||
+                v is SchemaPropertyValue ||
+                v is String),
       });
 }

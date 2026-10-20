@@ -74,7 +74,9 @@ class SchemaVideoGameSeries extends SchemaCreativeWorkSeries {
   /// Supported types: [SchemaPlace], [SchemaPostalAddress], [String]
   dynamic gameLocation;
 
-  /// Video_game_platforms">video games</a>.
+  /// The electronic systems used to play <a
+  /// href="http://en.wikipedia.org/wiki/Category:Video_game_platforms">video
+  /// games</a>.
   ///
   /// Supported types: [String], [SchemaThing]
   dynamic gamePlatform;
@@ -282,32 +284,32 @@ class SchemaVideoGameSeries extends SchemaCreativeWorkSeries {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'VideoGameSeries',
-        'actor': convertToJsonLd(actor, [SchemaPerformingGroup, SchemaPerson]),
-        'actors': convertToJsonLd(actors, [SchemaPerson]),
-        'characterAttribute':
-            convertToJsonLd(characterAttribute, [SchemaThing]),
-        'cheatCode': convertToJsonLd(cheatCode, [SchemaCreativeWork]),
-        'containsSeason':
-            convertToJsonLd(containsSeason, [SchemaCreativeWorkSeason]),
-        'director': convertToJsonLd(director, [SchemaPerson]),
-        'directors': convertToJsonLd(directors, [SchemaPerson]),
-        'episode': convertToJsonLd(episode, [SchemaEpisode]),
-        'episodes': convertToJsonLd(episodes, [SchemaEpisode]),
-        'gameItem': convertToJsonLd(gameItem, [SchemaThing]),
-        'gameLocation': convertToJsonLd(
-            gameLocation, [SchemaPlace, SchemaPostalAddress, String]),
-        'gamePlatform': convertToJsonLd(gamePlatform, [String, SchemaThing]),
-        'musicBy': convertToJsonLd(musicBy, [SchemaMusicGroup, SchemaPerson]),
-        'numberOfEpisodes': convertToJsonLd(numberOfEpisodes, [int]),
-        'numberOfPlayers':
-            convertToJsonLd(numberOfPlayers, [SchemaQuantitativeValue]),
-        'numberOfSeasons': convertToJsonLd(numberOfSeasons, [int]),
-        'playMode': convertToJsonLd(playMode, [SchemaGamePlayMode]),
-        'productionCompany':
-            convertToJsonLd(productionCompany, [SchemaOrganization]),
-        'quest': convertToJsonLd(quest, [SchemaThing]),
-        'season': convertToJsonLd(season, [SchemaCreativeWorkSeason, String]),
-        'seasons': convertToJsonLd(seasons, [SchemaCreativeWorkSeason]),
-        'trailer': convertToJsonLd(trailer, [SchemaVideoObject]),
+        'actor': convertToJsonLd(
+            actor, (v) => v is SchemaPerformingGroup || v is SchemaPerson),
+        'actors': convertToJsonLd(actors),
+        'characterAttribute': convertToJsonLd(characterAttribute),
+        'cheatCode': convertToJsonLd(cheatCode),
+        'containsSeason': convertToJsonLd(containsSeason),
+        'director': convertToJsonLd(director),
+        'directors': convertToJsonLd(directors),
+        'episode': convertToJsonLd(episode),
+        'episodes': convertToJsonLd(episodes),
+        'gameItem': convertToJsonLd(gameItem),
+        'gameLocation': convertToJsonLd(gameLocation,
+            (v) => v is SchemaPlace || v is SchemaPostalAddress || v is String),
+        'gamePlatform': convertToJsonLd(
+            gamePlatform, (v) => v is String || v is SchemaThing),
+        'musicBy': convertToJsonLd(
+            musicBy, (v) => v is SchemaMusicGroup || v is SchemaPerson),
+        'numberOfEpisodes': convertToJsonLd(numberOfEpisodes),
+        'numberOfPlayers': convertToJsonLd(numberOfPlayers),
+        'numberOfSeasons': convertToJsonLd(numberOfSeasons),
+        'playMode': convertToJsonLd(playMode),
+        'productionCompany': convertToJsonLd(productionCompany),
+        'quest': convertToJsonLd(quest),
+        'season': convertToJsonLd(
+            season, (v) => v is SchemaCreativeWorkSeason || v is String),
+        'seasons': convertToJsonLd(seasons),
+        'trailer': convertToJsonLd(trailer),
       });
 }

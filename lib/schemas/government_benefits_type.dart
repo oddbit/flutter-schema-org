@@ -14,34 +14,35 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// all benefits offered.
 /// See https://schema.org/GovernmentBenefitsType
 enum SchemaGovernmentBenefitsType implements SchemaSerializable {
-  /// this is a benefit for basic income.
-  basicIncome('https://schema.org/GovernmentBenefitsType'),
+  /// BasicIncome: this is a benefit for basic income.
+  basicIncome('https://schema.org/BasicIncome'),
 
-  /// this is a benefit for supporting businesses.
-  businessSupport('https://schema.org/GovernmentBenefitsType'),
+  /// BusinessSupport: this is a benefit for supporting businesses.
+  businessSupport('https://schema.org/BusinessSupport'),
 
-  /// this is a benefit for disability support.
-  disabilitySupport('https://schema.org/GovernmentBenefitsType'),
+  /// DisabilitySupport: this is a benefit for disability support.
+  disabilitySupport('https://schema.org/DisabilitySupport'),
 
-  /// this is a benefit for health care.
-  healthCare('https://schema.org/GovernmentBenefitsType'),
+  /// HealthCare: this is a benefit for health care.
+  healthCare('https://schema.org/HealthCare'),
 
-  /// this is a benefit for one-time payments for individuals.
-  oneTimePayments('https://schema.org/GovernmentBenefitsType'),
+  /// OneTimePayments: this is a benefit for one-time payments for
+  /// individuals.
+  oneTimePayments('https://schema.org/OneTimePayments'),
 
-  /// this is a benefit for paid leave.
-  paidLeave('https://schema.org/GovernmentBenefitsType'),
+  /// PaidLeave: this is a benefit for paid leave.
+  paidLeave('https://schema.org/PaidLeave'),
 
-  /// this is a benefit for parental support.
-  parentalSupport('https://schema.org/GovernmentBenefitsType'),
+  /// ParentalSupport: this is a benefit for parental support.
+  parentalSupport('https://schema.org/ParentalSupport'),
 
-  /// this is a benefit for unemployment support.
-  unemploymentSupport('https://schema.org/GovernmentBenefitsType');
+  /// UnemploymentSupport: this is a benefit for unemployment support.
+  unemploymentSupport('https://schema.org/UnemploymentSupport');
 
   /// Constructor for [SchemaGovernmentBenefitsType]
   const SchemaGovernmentBenefitsType(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaGovernmentBenefitsType] to JSON-LD

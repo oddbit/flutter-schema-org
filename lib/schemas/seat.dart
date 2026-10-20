@@ -54,10 +54,10 @@ class SchemaSeat extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Seat',
-        'seatNumber': convertToJsonLd(seatNumber, [String]),
-        'seatRow': convertToJsonLd(seatRow, [String]),
-        'seatSection': convertToJsonLd(seatSection, [String]),
-        'seatingType':
-            convertToJsonLd(seatingType, [SchemaQualitativeValue, String]),
+        'seatNumber': convertToJsonLd(seatNumber),
+        'seatRow': convertToJsonLd(seatRow),
+        'seatSection': convertToJsonLd(seatSection),
+        'seatingType': convertToJsonLd(
+            seatingType, (v) => v is SchemaQualitativeValue || v is String),
       });
 }

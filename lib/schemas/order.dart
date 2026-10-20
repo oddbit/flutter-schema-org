@@ -57,8 +57,13 @@ class SchemaOrder extends SchemaIntangible {
   /// Code used to redeem a discount.
   String? discountCode;
 
-  /// //en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other
-  /// currency types, e.g. "Ithaca HOUR".
+  /// The currency of the discount.\n\nUse standard formats: [ISO 4217 currency
+  /// format](http://en.wikipedia.org/wiki/ISO_4217), e.g. "USD"; [Ticker
+  /// symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for
+  /// cryptocurrencies, e.g. "BTC"; well known names for [Local Exchange
+  /// Trading
+  /// Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system)
+  /// (LETS) and other currency types, e.g. "Ithaca HOUR".
   String? discountCurrency;
 
   /// Indicates whether the offer was accepted as a gift for someone other than
@@ -160,32 +165,37 @@ class SchemaOrder extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Order',
-        'acceptedOffer': convertToJsonLd(acceptedOffer, [SchemaOffer]),
-        'billingAddress':
-            convertToJsonLd(billingAddress, [SchemaPostalAddress]),
-        'broker': convertToJsonLd(broker, [SchemaOrganization, SchemaPerson]),
-        'confirmationNumber': convertToJsonLd(confirmationNumber, [String]),
-        'customer':
-            convertToJsonLd(customer, [SchemaOrganization, SchemaPerson]),
-        'discount': convertToJsonLd(discount, [String, num]),
-        'discountCode': convertToJsonLd(discountCode, [String]),
-        'discountCurrency': convertToJsonLd(discountCurrency, [String]),
-        'isGift': convertToJsonLd(isGift, [bool]),
-        'merchant':
-            convertToJsonLd(merchant, [SchemaOrganization, SchemaPerson]),
-        'orderDate': convertToJsonLd(orderDate, [String]),
-        'orderDelivery': convertToJsonLd(orderDelivery, [SchemaParcelDelivery]),
-        'orderNumber': convertToJsonLd(orderNumber, [String]),
-        'orderStatus': convertToJsonLd(orderStatus, [SchemaOrderStatus]),
+        'acceptedOffer': convertToJsonLd(acceptedOffer),
+        'billingAddress': convertToJsonLd(billingAddress),
+        'broker': convertToJsonLd(
+            broker, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'confirmationNumber': convertToJsonLd(confirmationNumber),
+        'customer': convertToJsonLd(
+            customer, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'discount': convertToJsonLd(discount, (v) => v is String || v is num),
+        'discountCode': convertToJsonLd(discountCode),
+        'discountCurrency': convertToJsonLd(discountCurrency),
+        'isGift': convertToJsonLd(isGift),
+        'merchant': convertToJsonLd(
+            merchant, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'orderDate': convertToJsonLd(orderDate),
+        'orderDelivery': convertToJsonLd(orderDelivery),
+        'orderNumber': convertToJsonLd(orderNumber),
+        'orderStatus': convertToJsonLd(orderStatus),
         'orderedItem': convertToJsonLd(
-            orderedItem, [SchemaOrderItem, SchemaProduct, SchemaService]),
-        'partOfInvoice': convertToJsonLd(partOfInvoice, [SchemaInvoice]),
-        'paymentDue': convertToJsonLd(paymentDue, [String]),
-        'paymentDueDate': convertToJsonLd(paymentDueDate, [String]),
-        'paymentMethod':
-            convertToJsonLd(paymentMethod, [SchemaPaymentMethod, String]),
-        'paymentMethodId': convertToJsonLd(paymentMethodId, [String]),
-        'paymentUrl': convertToJsonLd(paymentUrl, [String]),
-        'seller': convertToJsonLd(seller, [SchemaOrganization, SchemaPerson]),
+            orderedItem,
+            (v) =>
+                v is SchemaOrderItem ||
+                v is SchemaProduct ||
+                v is SchemaService),
+        'partOfInvoice': convertToJsonLd(partOfInvoice),
+        'paymentDue': convertToJsonLd(paymentDue),
+        'paymentDueDate': convertToJsonLd(paymentDueDate),
+        'paymentMethod': convertToJsonLd(
+            paymentMethod, (v) => v is SchemaPaymentMethod || v is String),
+        'paymentMethodId': convertToJsonLd(paymentMethodId),
+        'paymentUrl': convertToJsonLd(paymentUrl),
+        'seller': convertToJsonLd(
+            seller, (v) => v is SchemaOrganization || v is SchemaPerson),
       });
 }

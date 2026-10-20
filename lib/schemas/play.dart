@@ -10,7 +10,9 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 
-/// A performance of a Play would be a [SchemaTheaterEvent] or
+/// A play is a form of literature, usually consisting of dialogue between
+/// characters, intended for theatrical performance rather than just reading.
+/// Note: A performance of a Play would be a [SchemaTheaterEvent] or
 /// [SchemaBroadcastEvent] - the *Play* being the [SchemaworkPerformed].
 /// See https://schema.org/Play
 class SchemaPlay extends SchemaCreativeWork {

@@ -12,9 +12,13 @@ import 'package:schema_org/schemas/action.dart';
 import 'package:schema_org/schemas/audience.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// Unlike WatchAction (which is under ConsumeAction), PlayAction refers to
-/// showing/displaying for an audience or at an event, rather than consuming
-/// visual content.
+/// The act of playing/exercising/training/performing for enjoyment, leisure,
+/// recreation, competition or exercise.\n\nRelated actions:\n\n*
+/// [SchemaListenAction]: Unlike ListenAction (which is under ConsumeAction),
+/// PlayAction refers to performing for an audience or at an event, rather
+/// than consuming music.\n* [SchemaWatchAction]: Unlike WatchAction (which
+/// is under ConsumeAction), PlayAction refers to showing/displaying for an
+/// audience or at an event, rather than consuming visual content.
 /// See https://schema.org/PlayAction
 class SchemaPlayAction extends SchemaAction {
   /// An intended audience, i.e. a group for whom something was created.
@@ -61,7 +65,7 @@ class SchemaPlayAction extends SchemaAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'PlayAction',
-        'audience': convertToJsonLd(audience, [SchemaAudience]),
-        'event': convertToJsonLd(event, [SchemaEvent]),
+        'audience': convertToJsonLd(audience),
+        'event': convertToJsonLd(event),
       });
 }

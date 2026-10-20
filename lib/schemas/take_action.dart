@@ -10,8 +10,10 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/transfer_action.dart';
 
-/// Unlike ReceiveAction, TakeAction implies that ownership has been
-/// transferred.
+/// The act of gaining ownership of an object from an origin. Reciprocal of
+/// GiveAction.\n\nRelated actions:\n\n* [SchemaGiveAction]: The reciprocal
+/// of TakeAction.\n* [SchemaReceiveAction]: Unlike ReceiveAction, TakeAction
+/// implies that ownership has been transferred.
 /// See https://schema.org/TakeAction
 class SchemaTakeAction extends SchemaTransferAction {
   /// Create a new instance of [SchemaTakeAction]

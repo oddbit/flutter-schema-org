@@ -70,9 +70,8 @@ class SchemaTherapeuticProcedure extends SchemaMedicalProcedure {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'TherapeuticProcedure',
-        'adverseOutcome':
-            convertToJsonLd(adverseOutcome, [SchemaMedicalEntity]),
-        'doseSchedule': convertToJsonLd(doseSchedule, [SchemaDoseSchedule]),
-        'drug': convertToJsonLd(drug, [SchemaDrug]),
+        'adverseOutcome': convertToJsonLd(adverseOutcome),
+        'doseSchedule': convertToJsonLd(doseSchedule),
+        'drug': convertToJsonLd(drug),
       });
 }

@@ -13,33 +13,33 @@ import 'package:schema_org/schemas/status_enumeration.dart';
 /// See https://schema.org/OrderStatus
 enum SchemaOrderStatus implements SchemaStatusEnumeration {
   /// OrderStatus representing cancellation of an order.
-  orderCancelled('https://schema.org/OrderStatus'),
+  orderCancelled('https://schema.org/OrderCancelled'),
 
   /// OrderStatus representing successful delivery of an order.
-  orderDelivered('https://schema.org/OrderStatus'),
+  orderDelivered('https://schema.org/OrderDelivered'),
 
   /// OrderStatus representing that an order is in transit.
-  orderInTransit('https://schema.org/OrderStatus'),
+  orderInTransit('https://schema.org/OrderInTransit'),
 
   /// OrderStatus representing that payment is due on an order.
-  orderPaymentDue('https://schema.org/OrderStatus'),
+  orderPaymentDue('https://schema.org/OrderPaymentDue'),
 
   /// OrderStatus representing availability of an order for pickup.
-  orderPickupAvailable('https://schema.org/OrderStatus'),
+  orderPickupAvailable('https://schema.org/OrderPickupAvailable'),
 
   /// OrderStatus representing that there is a problem with the order.
-  orderProblem('https://schema.org/OrderStatus'),
+  orderProblem('https://schema.org/OrderProblem'),
 
   /// OrderStatus representing that an order is being processed.
-  orderProcessing('https://schema.org/OrderStatus'),
+  orderProcessing('https://schema.org/OrderProcessing'),
 
   /// OrderStatus representing that an order has been returned.
-  orderReturned('https://schema.org/OrderStatus');
+  orderReturned('https://schema.org/OrderReturned');
 
   /// Constructor for [SchemaOrderStatus]
   const SchemaOrderStatus(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaOrderStatus] to JSON-LD

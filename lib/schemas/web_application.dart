@@ -181,6 +181,6 @@ class SchemaWebApplication extends SchemaSoftwareApplication {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'WebApplication',
-        'browserRequirements': convertToJsonLd(browserRequirements, [String]),
+        'browserRequirements': convertToJsonLd(browserRequirements),
       });
 }

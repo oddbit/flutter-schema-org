@@ -60,7 +60,6 @@ class SchemaMedicalObservationalStudy extends SchemaMedicalStudy {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MedicalObservationalStudy',
-        'studyDesign': convertToJsonLd(
-            studyDesign, [SchemaMedicalObservationalStudyDesign]),
+        'studyDesign': convertToJsonLd(studyDesign),
       });
 }

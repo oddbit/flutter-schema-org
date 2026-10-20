@@ -47,7 +47,7 @@ class SchemaHowToItem extends SchemaListItem {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'HowToItem',
-        'requiredQuantity': convertToJsonLd(
-            requiredQuantity, [SchemaQuantitativeValue, String, num]),
+        'requiredQuantity': convertToJsonLd(requiredQuantity,
+            (v) => v is SchemaQuantitativeValue || v is String || v is num),
       });
 }

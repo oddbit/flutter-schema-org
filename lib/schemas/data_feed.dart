@@ -169,7 +169,7 @@ class SchemaDataFeed extends SchemaDataset {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'DataFeed',
-        'dataFeedElement': convertToJsonLd(
-            dataFeedElement, [SchemaDataFeedItem, String, SchemaThing]),
+        'dataFeedElement': convertToJsonLd(dataFeedElement,
+            (v) => v is SchemaDataFeedItem || v is String || v is SchemaThing),
       });
 }

@@ -10,8 +10,8 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/legal_service.dart';
 
-/// Attorney. \n\nThis type is deprecated - [SchemaLegalService] is more
-/// inclusive and less ambiguous.
+/// Professional service: Attorney. \n\nThis type is deprecated -
+/// [SchemaLegalService] is more inclusive and less ambiguous.
 /// See https://schema.org/Attorney
 class SchemaAttorney extends SchemaLegalService {
   /// Create a new instance of [SchemaAttorney]
@@ -27,6 +27,7 @@ class SchemaAttorney extends SchemaLegalService {
     super.alumni,
     super.amenityFeature,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.branchCode,
@@ -82,6 +83,7 @@ class SchemaAttorney extends SchemaLegalService {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,

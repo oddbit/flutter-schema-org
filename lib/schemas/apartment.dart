@@ -10,7 +10,11 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/accommodation.dart';
 
-/// //en.wikipedia.org/wiki/Apartment</a>).
+/// An apartment (in American English) or flat (in British English) is a
+/// self-contained housing unit (a type of residential real estate) that
+/// occupies only part of a building (source: Wikipedia, the free
+/// encyclopedia, see <a
+/// href="http://en.wikipedia.org/wiki/Apartment">http://en.wikipedia.org/wiki/Apartment</a>).
 /// See https://schema.org/Apartment
 class SchemaApartment extends SchemaAccommodation {
   /// Create a new instance of [SchemaApartment]

@@ -161,6 +161,6 @@ class SchemaHyperToc extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'HyperToc',
-        'tocEntry': convertToJsonLd(tocEntry, [SchemaHyperTocEntry]),
+        'tocEntry': convertToJsonLd(tocEntry),
       });
 }

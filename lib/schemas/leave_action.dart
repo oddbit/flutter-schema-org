@@ -11,8 +11,10 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/interact_action.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// Unlike UnRegisterAction, LeaveAction implies leaving a group/team of
-/// people rather than a service.
+/// An agent leaves an event / group with participants/friends at a
+/// location.\n\nRelated actions:\n\n* [SchemaJoinAction]: The antonym of
+/// LeaveAction.\n* [SchemaUnRegisterAction]: Unlike UnRegisterAction,
+/// LeaveAction implies leaving a group/team of people rather than a service.
 /// See https://schema.org/LeaveAction
 class SchemaLeaveAction extends SchemaInteractAction {
   /// Upcoming or past event associated with this place, organization, or
@@ -55,6 +57,6 @@ class SchemaLeaveAction extends SchemaInteractAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'LeaveAction',
-        'event': convertToJsonLd(event, [SchemaEvent]),
+        'event': convertToJsonLd(event),
       });
 }

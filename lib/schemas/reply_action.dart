@@ -11,6 +11,8 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/communicate_action.dart';
 import 'package:schema_org/schemas/comment.dart';
 
+/// The act of responding to a question/message asked/sent by the object.
+/// Related to [SchemaAskAction].\n\nRelated actions:\n\n* [SchemaAskAction]:
 /// Appears generally as an origin of a ReplyAction.
 /// See https://schema.org/ReplyAction
 class SchemaReplyAction extends SchemaCommunicateAction {
@@ -58,6 +60,6 @@ class SchemaReplyAction extends SchemaCommunicateAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ReplyAction',
-        'resultComment': convertToJsonLd(resultComment, [SchemaComment]),
+        'resultComment': convertToJsonLd(resultComment),
       });
 }

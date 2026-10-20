@@ -28,6 +28,7 @@ class SchemaDiagnosticLab extends SchemaMedicalOrganization {
     super.alternateName,
     super.alumni,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.brand,
@@ -63,6 +64,7 @@ class SchemaDiagnosticLab extends SchemaMedicalOrganization {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.healthPlanNetworkId,
     super.identifier,
@@ -119,6 +121,6 @@ class SchemaDiagnosticLab extends SchemaMedicalOrganization {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'DiagnosticLab',
-        'availableTest': convertToJsonLd(availableTest, [SchemaMedicalTest]),
+        'availableTest': convertToJsonLd(availableTest),
       });
 }

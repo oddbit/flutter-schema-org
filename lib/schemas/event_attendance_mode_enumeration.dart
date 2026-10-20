@@ -16,22 +16,20 @@ import 'package:schema_org/src/schema_serializable.dart';
 enum SchemaEventAttendanceModeEnumeration implements SchemaSerializable {
   /// MixedEventAttendanceMode - an event that is conducted as a
   /// combination of both offline and online modes.
-  mixedEventAttendanceMode('https://schema.org/EventAttendanceModeEnumeration'),
+  mixedEventAttendanceMode('https://schema.org/MixedEventAttendanceMode'),
 
   /// OfflineEventAttendanceMode - an event that is primarily conducted
   /// offline.
-  offlineEventAttendanceMode(
-      'https://schema.org/EventAttendanceModeEnumeration'),
+  offlineEventAttendanceMode('https://schema.org/OfflineEventAttendanceMode'),
 
   /// OnlineEventAttendanceMode - an event that is primarily conducted
   /// online.
-  onlineEventAttendanceMode(
-      'https://schema.org/EventAttendanceModeEnumeration');
+  onlineEventAttendanceMode('https://schema.org/OnlineEventAttendanceMode');
 
   /// Constructor for [SchemaEventAttendanceModeEnumeration]
   const SchemaEventAttendanceModeEnumeration(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaEventAttendanceModeEnumeration] to JSON-LD

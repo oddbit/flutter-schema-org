@@ -77,6 +77,7 @@ class SchemaDepositAccount extends SchemaBankAccount
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'DepositAccount',
-        'amount': convertToJsonLd(amount, [SchemaMonetaryAmount, num]),
+        'amount': convertToJsonLd(
+            amount, (v) => v is SchemaMonetaryAmount || v is num),
       });
 }

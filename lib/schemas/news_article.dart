@@ -17,8 +17,21 @@ import 'package:schema_org/schemas/article.dart';
 /// also available.
 /// See https://schema.org/NewsArticle
 class SchemaNewsArticle extends SchemaArticle {
-  /// 43AM Reporting from Washington", "Beijing/Moscow", "QUEZON CITY,
-  /// Philippines".
+  /// A [dateline](https://en.wikipedia.org/wiki/Dateline) is a brief piece of
+  /// text included in news articles that describes where and when the story
+  /// was written or filed though the date is often omitted. Sometimes only a
+  /// placename is provided.
+  ///
+  /// Structured representations of dateline-related information can also be
+  /// expressed more explicitly using [SchemalocationCreated] (which represents
+  /// where a work was created, e.g. where a news report was written). For
+  /// location depicted or described in the content, use
+  /// [SchemacontentLocation].
+  ///
+  /// Dateline summaries are oriented more towards human readers than towards
+  /// automated processing, and can vary substantially. Some examples: "BEIRUT,
+  /// Lebanon, June 2.", "Paris, France", "December 19, 2017 11:43AM Reporting
+  /// from Washington", "Beijing/Moscow", "QUEZON CITY, Philippines".
   String? dateline;
 
   /// The number of the column in which the NewsArticle appears in the print
@@ -187,10 +200,10 @@ class SchemaNewsArticle extends SchemaArticle {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'NewsArticle',
-        'dateline': convertToJsonLd(dateline, [String]),
-        'printColumn': convertToJsonLd(printColumn, [String]),
-        'printEdition': convertToJsonLd(printEdition, [String]),
-        'printPage': convertToJsonLd(printPage, [String]),
-        'printSection': convertToJsonLd(printSection, [String]),
+        'dateline': convertToJsonLd(dateline),
+        'printColumn': convertToJsonLd(printColumn),
+        'printEdition': convertToJsonLd(printEdition),
+        'printPage': convertToJsonLd(printPage),
+        'printSection': convertToJsonLd(printSection),
       });
 }

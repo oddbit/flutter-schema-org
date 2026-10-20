@@ -52,9 +52,8 @@ class SchemaHealthPlanNetwork extends SchemaIntangible {
         ...super.toJsonLd(),
         '@type': 'HealthPlanNetwork',
         'healthPlanCostSharing': convertToJsonLd(healthPlanCostSharing,
-            [SchemaHealthPlanCostSharingSpecification, bool]),
-        'healthPlanNetworkId': convertToJsonLd(healthPlanNetworkId, [String]),
-        'healthPlanNetworkTier':
-            convertToJsonLd(healthPlanNetworkTier, [String]),
+            (v) => v is SchemaHealthPlanCostSharingSpecification || v is bool),
+        'healthPlanNetworkId': convertToJsonLd(healthPlanNetworkId),
+        'healthPlanNetworkTier': convertToJsonLd(healthPlanNetworkTier),
       });
 }

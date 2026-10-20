@@ -14,19 +14,19 @@ import 'package:schema_org/schemas/medical_enumeration.dart';
 enum SchemaMedicalEvidenceLevel implements SchemaMedicalEnumeration {
   /// Data derived from multiple randomized clinical trials or
   /// meta-analyses.
-  evidenceLevelA('https://schema.org/MedicalEvidenceLevel'),
+  evidenceLevelA('https://schema.org/EvidenceLevelA'),
 
   /// Data derived from a single randomized trial, or nonrandomized
   /// studies.
-  evidenceLevelB('https://schema.org/MedicalEvidenceLevel'),
+  evidenceLevelB('https://schema.org/EvidenceLevelB'),
 
   /// Only consensus opinion of experts, case studies, or standard-of-care.
-  evidenceLevelC('https://schema.org/MedicalEvidenceLevel');
+  evidenceLevelC('https://schema.org/EvidenceLevelC');
 
   /// Constructor for [SchemaMedicalEvidenceLevel]
   const SchemaMedicalEvidenceLevel(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaMedicalEvidenceLevel] to JSON-LD

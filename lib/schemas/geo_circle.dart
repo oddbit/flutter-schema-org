@@ -60,7 +60,8 @@ class SchemaGeoCircle extends SchemaGeoShape {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'GeoCircle',
-        'geoMidpoint': convertToJsonLd(geoMidpoint, [SchemaGeoCoordinates]),
-        'geoRadius': convertToJsonLd(geoRadius, [SchemaDistance, String, num]),
+        'geoMidpoint': convertToJsonLd(geoMidpoint),
+        'geoRadius': convertToJsonLd(
+            geoRadius, (v) => v is SchemaDistance || v is String || v is num),
       });
 }

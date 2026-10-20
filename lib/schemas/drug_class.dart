@@ -50,6 +50,6 @@ class SchemaDrugClass extends SchemaMedicalEntity {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'DrugClass',
-        'drug': convertToJsonLd(drug, [SchemaDrug]),
+        'drug': convertToJsonLd(drug),
       });
 }

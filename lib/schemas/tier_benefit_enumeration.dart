@@ -14,23 +14,23 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// See https://schema.org/TierBenefitEnumeration
 enum SchemaTierBenefitEnumeration implements SchemaSerializable {
   /// Benefit of the tier is earning of loyalty points.
-  tierBenefitLoyaltyPoints('https://schema.org/TierBenefitEnumeration'),
+  tierBenefitLoyaltyPoints('https://schema.org/TierBenefitLoyaltyPoints'),
 
   /// Benefit of the tier is a members-only price.
-  tierBenefitLoyaltyPrice('https://schema.org/TierBenefitEnumeration'),
+  tierBenefitLoyaltyPrice('https://schema.org/TierBenefitLoyaltyPrice'),
 
   /// Benefit of the tier is members-only returns, for example free
   /// unlimited returns.
-  tierBenefitLoyaltyReturns('https://schema.org/TierBenefitEnumeration'),
+  tierBenefitLoyaltyReturns('https://schema.org/TierBenefitLoyaltyReturns'),
 
   /// Benefit of the tier is a members-only shipping price or speed (for
   /// example free shipping or 1-day shipping).
-  tierBenefitLoyaltyShipping('https://schema.org/TierBenefitEnumeration');
+  tierBenefitLoyaltyShipping('https://schema.org/TierBenefitLoyaltyShipping');
 
   /// Constructor for [SchemaTierBenefitEnumeration]
   const SchemaTierBenefitEnumeration(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaTierBenefitEnumeration] to JSON-LD

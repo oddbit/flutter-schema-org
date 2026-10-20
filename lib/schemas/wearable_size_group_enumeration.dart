@@ -14,61 +14,60 @@ import 'package:schema_org/schemas/size_group_enumeration.dart';
 /// See https://schema.org/WearableSizeGroupEnumeration
 enum SchemaWearableSizeGroupEnumeration implements SchemaSizeGroupEnumeration {
   /// Size group "Big" for wearables.
-  wearableSizeGroupBig('https://schema.org/WearableSizeGroupEnumeration'),
+  wearableSizeGroupBig('https://schema.org/WearableSizeGroupBig'),
 
   /// Size group "Boys" for wearables.
-  wearableSizeGroupBoys('https://schema.org/WearableSizeGroupEnumeration'),
+  wearableSizeGroupBoys('https://schema.org/WearableSizeGroupBoys'),
 
   /// Size group "Extra Short" for wearables.
-  wearableSizeGroupExtraShort(
-      'https://schema.org/WearableSizeGroupEnumeration'),
+  wearableSizeGroupExtraShort('https://schema.org/WearableSizeGroupExtraShort'),
 
   /// Size group "Extra Tall" for wearables.
-  wearableSizeGroupExtraTall('https://schema.org/WearableSizeGroupEnumeration'),
+  wearableSizeGroupExtraTall('https://schema.org/WearableSizeGroupExtraTall'),
 
   /// Size group "Girls" for wearables.
-  wearableSizeGroupGirls('https://schema.org/WearableSizeGroupEnumeration'),
+  wearableSizeGroupGirls('https://schema.org/WearableSizeGroupGirls'),
 
   /// Size group "Husky" (or "Stocky") for wearables.
-  wearableSizeGroupHusky('https://schema.org/WearableSizeGroupEnumeration'),
+  wearableSizeGroupHusky('https://schema.org/WearableSizeGroupHusky'),
 
   /// Size group "Infants" for wearables.
-  wearableSizeGroupInfants('https://schema.org/WearableSizeGroupEnumeration'),
+  wearableSizeGroupInfants('https://schema.org/WearableSizeGroupInfants'),
 
   /// Size group "Juniors" for wearables.
-  wearableSizeGroupJuniors('https://schema.org/WearableSizeGroupEnumeration'),
+  wearableSizeGroupJuniors('https://schema.org/WearableSizeGroupJuniors'),
 
   /// Size group "Maternity" for wearables.
-  wearableSizeGroupMaternity('https://schema.org/WearableSizeGroupEnumeration'),
+  wearableSizeGroupMaternity('https://schema.org/WearableSizeGroupMaternity'),
 
   /// Size group "Mens" for wearables.
-  wearableSizeGroupMens('https://schema.org/WearableSizeGroupEnumeration'),
+  wearableSizeGroupMens('https://schema.org/WearableSizeGroupMens'),
 
   /// Size group "Misses" (also known as "Missy") for wearables.
-  wearableSizeGroupMisses('https://schema.org/WearableSizeGroupEnumeration'),
+  wearableSizeGroupMisses('https://schema.org/WearableSizeGroupMisses'),
 
   /// Size group "Petite" for wearables.
-  wearableSizeGroupPetite('https://schema.org/WearableSizeGroupEnumeration'),
+  wearableSizeGroupPetite('https://schema.org/WearableSizeGroupPetite'),
 
   /// Size group "Plus" for wearables.
-  wearableSizeGroupPlus('https://schema.org/WearableSizeGroupEnumeration'),
+  wearableSizeGroupPlus('https://schema.org/WearableSizeGroupPlus'),
 
   /// Size group "Regular" for wearables.
-  wearableSizeGroupRegular('https://schema.org/WearableSizeGroupEnumeration'),
+  wearableSizeGroupRegular('https://schema.org/WearableSizeGroupRegular'),
 
   /// Size group "Short" for wearables.
-  wearableSizeGroupShort('https://schema.org/WearableSizeGroupEnumeration'),
+  wearableSizeGroupShort('https://schema.org/WearableSizeGroupShort'),
 
   /// Size group "Tall" for wearables.
-  wearableSizeGroupTall('https://schema.org/WearableSizeGroupEnumeration'),
+  wearableSizeGroupTall('https://schema.org/WearableSizeGroupTall'),
 
   /// Size group "Womens" for wearables.
-  wearableSizeGroupWomens('https://schema.org/WearableSizeGroupEnumeration');
+  wearableSizeGroupWomens('https://schema.org/WearableSizeGroupWomens');
 
   /// Constructor for [SchemaWearableSizeGroupEnumeration]
   const SchemaWearableSizeGroupEnumeration(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaWearableSizeGroupEnumeration] to JSON-LD

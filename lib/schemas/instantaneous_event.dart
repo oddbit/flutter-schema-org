@@ -48,8 +48,8 @@ class SchemaInstantaneousEvent extends SchemaStructuredValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'InstantaneousEvent',
-        'data': convertToJsonLd(data, [SchemaThing]),
-        'source': convertToJsonLd(source, [SchemaThing]),
-        'timestamp': convertToJsonLd(timestamp, [String]),
+        'data': convertToJsonLd(data),
+        'source': convertToJsonLd(source),
+        'timestamp': convertToJsonLd(timestamp),
       });
 }

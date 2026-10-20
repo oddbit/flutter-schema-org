@@ -10,7 +10,8 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/quantity.dart';
 
-/// //en.wikipedia.org/wiki/ISO_8601)).
+/// Quantity: Duration (use [ISO 8601 duration
+/// format](http://en.wikipedia.org/wiki/ISO_8601)).
 /// See https://schema.org/Duration
 class SchemaDuration extends SchemaQuantity {
   /// Create a new instance of [SchemaDuration]

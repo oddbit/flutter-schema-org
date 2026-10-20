@@ -21,7 +21,8 @@ class SchemaBroadcastEvent extends SchemaPublicationEvent {
   /// True if the broadcast is of a live event.
   bool? isLiveBroadcast;
 
-  /// //tools.ietf.org/html/bcp47).
+  /// Languages in which subtitles/captions are available, in [IETF BCP 47
+  /// standard format](http://tools.ietf.org/html/bcp47).
   ///
   /// Supported types: [SchemaLanguage], [String]
   dynamic subtitleLanguage;
@@ -102,10 +103,10 @@ class SchemaBroadcastEvent extends SchemaPublicationEvent {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'BroadcastEvent',
-        'broadcastOfEvent': convertToJsonLd(broadcastOfEvent, [SchemaEvent]),
-        'isLiveBroadcast': convertToJsonLd(isLiveBroadcast, [bool]),
-        'subtitleLanguage':
-            convertToJsonLd(subtitleLanguage, [SchemaLanguage, String]),
-        'videoFormat': convertToJsonLd(videoFormat, [String]),
+        'broadcastOfEvent': convertToJsonLd(broadcastOfEvent),
+        'isLiveBroadcast': convertToJsonLd(isLiveBroadcast),
+        'subtitleLanguage': convertToJsonLd(
+            subtitleLanguage, (v) => v is SchemaLanguage || v is String),
+        'videoFormat': convertToJsonLd(videoFormat),
       });
 }

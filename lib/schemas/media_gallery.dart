@@ -10,8 +10,8 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/collection_page.dart';
 
-/// Media gallery page. A mixed-media page that can contain media such as
-/// images, videos, and other multimedia.
+/// Web page type: Media gallery page. A mixed-media page that can contain
+/// media such as images, videos, and other multimedia.
 /// See https://schema.org/MediaGallery
 class SchemaMediaGallery extends SchemaCollectionPage {
   /// Create a new instance of [SchemaMediaGallery]

@@ -34,10 +34,11 @@ class SchemaRating extends SchemaIntangible {
   /// check" markup using [SchemaClaimReview].
   String? ratingExplanation;
 
-  /// \n\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT
-  /// NINE' (U+0039)) rather than superficially similar Unicode symbols.\n* Use
-  /// '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal
-  /// point. Avoid using these symbols as a readability separator.
+  /// The rating for the content.\n\nUsage guidelines:\n\n* Use values from
+  /// 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039))
+  /// rather than superficially similar Unicode symbols.\n* Use '.' (Unicode
+  /// 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid
+  /// using these symbols as a readability separator.
   ///
   /// Supported types: [String], [num]
   dynamic ratingValue;
@@ -81,12 +82,16 @@ class SchemaRating extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Rating',
-        'author': convertToJsonLd(author, [SchemaOrganization, SchemaPerson]),
-        'bestRating': convertToJsonLd(bestRating, [String, num]),
-        'ratingExplanation': convertToJsonLd(ratingExplanation, [String]),
-        'ratingValue': convertToJsonLd(ratingValue, [String, num]),
-        'reviewAspect':
-            convertToJsonLd(reviewAspect, [String, SchemaStructuredValue]),
-        'worstRating': convertToJsonLd(worstRating, [String, num]),
+        'author': convertToJsonLd(
+            author, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'bestRating':
+            convertToJsonLd(bestRating, (v) => v is String || v is num),
+        'ratingExplanation': convertToJsonLd(ratingExplanation),
+        'ratingValue':
+            convertToJsonLd(ratingValue, (v) => v is String || v is num),
+        'reviewAspect': convertToJsonLd(
+            reviewAspect, (v) => v is String || v is SchemaStructuredValue),
+        'worstRating':
+            convertToJsonLd(worstRating, (v) => v is String || v is num),
       });
 }

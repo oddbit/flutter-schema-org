@@ -57,6 +57,7 @@ class SchemaMusicGroup extends SchemaPerformingGroup {
     super.alternateName,
     super.alumni,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.brand,
@@ -92,6 +93,7 @@ class SchemaMusicGroup extends SchemaPerformingGroup {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,
@@ -150,11 +152,13 @@ class SchemaMusicGroup extends SchemaPerformingGroup {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MusicGroup',
-        'album': convertToJsonLd(album, [SchemaMusicAlbum]),
-        'albums': convertToJsonLd(albums, [SchemaMusicAlbum]),
-        'genre': convertToJsonLd(genre, [SchemaDefinedTerm, String]),
-        'musicGroupMember': convertToJsonLd(musicGroupMember, [SchemaPerson]),
-        'track': convertToJsonLd(track, [SchemaItemList, SchemaMusicRecording]),
-        'tracks': convertToJsonLd(tracks, [SchemaMusicRecording]),
+        'album': convertToJsonLd(album),
+        'albums': convertToJsonLd(albums),
+        'genre': convertToJsonLd(
+            genre, (v) => v is SchemaDefinedTerm || v is String),
+        'musicGroupMember': convertToJsonLd(musicGroupMember),
+        'track': convertToJsonLd(
+            track, (v) => v is SchemaItemList || v is SchemaMusicRecording),
+        'tracks': convertToJsonLd(tracks),
       });
 }

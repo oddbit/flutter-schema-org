@@ -10,10 +10,15 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/local_business.dart';
 
-/// [SchemaElectrician], [SchemaGeneralContractor], [SchemaHousePainter],
-/// [SchemaLocksmith], [SchemaPlumber], [SchemaRoofingContractor].
-/// [SchemaLegalService] was introduced as a more inclusive supertype of
-/// [SchemaAttorney].
+/// Original definition: "provider of professional services."\n\nThe general
+/// [SchemaProfessionalService] type for local businesses was deprecated due
+/// to confusion with [SchemaService]. For reference, the types that it
+/// included were: [SchemaDentist], [SchemaAccountingService],
+/// [SchemaAttorney], [SchemaNotary], as well as types for several kinds of
+/// [SchemaHomeAndConstructionBusiness]: [SchemaElectrician],
+/// [SchemaGeneralContractor], [SchemaHousePainter], [SchemaLocksmith],
+/// [SchemaPlumber], [SchemaRoofingContractor]. [SchemaLegalService] was
+/// introduced as a more inclusive supertype of [SchemaAttorney].
 /// See https://schema.org/ProfessionalService
 class SchemaProfessionalService extends SchemaLocalBusiness {
   /// Create a new instance of [SchemaProfessionalService]
@@ -29,6 +34,7 @@ class SchemaProfessionalService extends SchemaLocalBusiness {
     super.alumni,
     super.amenityFeature,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.branchCode,
@@ -84,6 +90,7 @@ class SchemaProfessionalService extends SchemaLocalBusiness {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,

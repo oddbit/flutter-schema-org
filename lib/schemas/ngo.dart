@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/organization.dart';
 
-/// Non-governmental Organization.
+/// Organization: Non-governmental Organization.
 /// See https://schema.org/NGO
 class SchemaNGO extends SchemaOrganization {
   /// Create a new instance of [SchemaNGO]
@@ -24,6 +24,7 @@ class SchemaNGO extends SchemaOrganization {
     super.alternateName,
     super.alumni,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.brand,
@@ -59,6 +60,7 @@ class SchemaNGO extends SchemaOrganization {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,

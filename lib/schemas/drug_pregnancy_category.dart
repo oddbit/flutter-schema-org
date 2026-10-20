@@ -18,26 +18,26 @@ enum SchemaDrugPregnancyCategory implements SchemaMedicalEnumeration {
   /// well-controlled studies have failed to demonstrate a risk to the
   /// fetus in the first trimester of pregnancy (and there is no evidence
   /// of risk in later trimesters).
-  fDAcategoryA('https://schema.org/DrugPregnancyCategory'),
+  fDAcategoryA('https://schema.org/FDAcategoryA'),
 
   /// A designation by the US FDA signifying that animal reproduction
   /// studies have failed to demonstrate a risk to the fetus and there are
   /// no adequate and well-controlled studies in pregnant women.
-  fDAcategoryB('https://schema.org/DrugPregnancyCategory'),
+  fDAcategoryB('https://schema.org/FDAcategoryB'),
 
   /// A designation by the US FDA signifying that animal reproduction
   /// studies have shown an adverse effect on the fetus and there are no
   /// adequate and well-controlled studies in humans, but potential
   /// benefits may warrant use of the drug in pregnant women despite
   /// potential risks.
-  fDAcategoryC('https://schema.org/DrugPregnancyCategory'),
+  fDAcategoryC('https://schema.org/FDAcategoryC'),
 
   /// A designation by the US FDA signifying that there is positive
   /// evidence of human fetal risk based on adverse reaction data from
   /// investigational or marketing experience or studies in humans, but
   /// potential benefits may warrant use of the drug in pregnant women
   /// despite potential risks.
-  fDAcategoryD('https://schema.org/DrugPregnancyCategory'),
+  fDAcategoryD('https://schema.org/FDAcategoryD'),
 
   /// A designation by the US FDA signifying that studies in animals or
   /// humans have demonstrated fetal abnormalities and/or there is positive
@@ -45,16 +45,16 @@ enum SchemaDrugPregnancyCategory implements SchemaMedicalEnumeration {
   /// investigational or marketing experience, and the risks involved in
   /// use of the drug in pregnant women clearly outweigh potential
   /// benefits.
-  fDAcategoryX('https://schema.org/DrugPregnancyCategory'),
+  fDAcategoryX('https://schema.org/FDAcategoryX'),
 
   /// A designation that the drug in question has not been assigned a
   /// pregnancy category designation by the US FDA.
-  fDAnotEvaluated('https://schema.org/DrugPregnancyCategory');
+  fDAnotEvaluated('https://schema.org/FDAnotEvaluated');
 
   /// Constructor for [SchemaDrugPregnancyCategory]
   const SchemaDrugPregnancyCategory(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaDrugPregnancyCategory] to JSON-LD

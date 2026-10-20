@@ -177,11 +177,11 @@ class SchemaBook extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Book',
-        'abridged': convertToJsonLd(abridged, [bool]),
-        'bookEdition': convertToJsonLd(bookEdition, [String]),
-        'bookFormat': convertToJsonLd(bookFormat, [SchemaBookFormatType]),
-        'illustrator': convertToJsonLd(illustrator, [SchemaPerson]),
-        'isbn': convertToJsonLd(isbn, [String]),
-        'numberOfPages': convertToJsonLd(numberOfPages, [int]),
+        'abridged': convertToJsonLd(abridged),
+        'bookEdition': convertToJsonLd(bookEdition),
+        'bookFormat': convertToJsonLd(bookFormat),
+        'illustrator': convertToJsonLd(illustrator),
+        'isbn': convertToJsonLd(isbn),
+        'numberOfPages': convertToJsonLd(numberOfPages),
       });
 }

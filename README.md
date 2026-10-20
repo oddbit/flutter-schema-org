@@ -26,7 +26,7 @@ validators later.
 
 ```yaml
 dependencies:
-  schema_org: ^2.0.0
+  schema_org: ^2.1.0
 ```
 
 ```bash
@@ -37,8 +37,9 @@ flutter pub add schema_org
 
 ### Write to the host document (web)
 
-On Flutter web, `SchemaOrg.writeJsonLd` appends a
-`<script type="application/ld+json">` element to `document.body`:
+On Flutter web (compiled to JavaScript or WebAssembly),
+`SchemaOrg.writeJsonLd` appends a `<script type="application/ld+json">`
+element to `document.body`:
 
 ```dart
 import 'package:schema_org/schema_org.dart';
@@ -83,7 +84,9 @@ final ldJson = SchemaOrg.toJsonLdString(
 Every Schema.org type is a class named with the `Schema` prefix (so
 [`Organization`](https://schema.org/Organization) is `SchemaOrganization`,
 [`Person`](https://schema.org/Person) is `SchemaPerson`, and so on). Nested
-objects work the way you'd expect:
+objects work the way you'd expect, and any subtype is accepted where its
+parent type is expected (a `SchemaCorporation` can be a `founder`). Only
+the root node carries `@context`:
 
 ```dart
 SchemaOrg.writeJsonLd(
@@ -118,7 +121,7 @@ SchemaOrg.writeJsonLd(
 ┌───────────────────────────┐
 │ lib/schemas/*.dart        │  ~920 generated classes & enums
 │ lib/src/*.dart            │  Hand-written runtime helpers:
-│                           │   • html_writer.dart (platform export)
+│                           │   • html_writer.dart (SchemaOrg)
 │                           │   • html_writer_web.dart (package:web)
 │                           │   • html_writer_stub.dart (non-web)
 │                           │   • utils.dart (convertToJsonLd, removeEmpty)
@@ -146,8 +149,8 @@ Dart scalars by the parser:
   whose Schema.org range spans more than one Dart type (e.g.
   `Person.address` is `PostalAddress` *or* `String`) are declared as
   `dynamic`. The allowed set is documented on the field, and values are
-  validated at serialization time — an out-of-set value throws
-  `UnsupportedTypeException`.
+  validated at serialization time with `is` checks (so subtypes pass) —
+  anything else throws `UnsupportedTypeException`.
 - **Inheritance uses real `extends` where possible.** Most classes now
   `extend` their primary Schema.org parent (`SchemaPerson extends
   SchemaThing`), so `is SchemaThing` and shared helpers work at compile
@@ -162,12 +165,12 @@ Dart scalars by the parser:
 - **`writeJsonLd` is web-only.** On non-web targets it is a no-op. Use
   `toJsonLdString` on mobile and desktop (or in unit tests) to obtain
   the payload without DOM side-effects.
-- **Enumerations are Dart `enum`s.** The value they serialize to is the
-  Schema.org URL of the parent enumeration (e.g. all `ActionStatusType`
-  values serialize as `https://schema.org/ActionStatusType`). Dart enums
-  cannot implement other enums, so a concrete enum whose Schema.org
-  parent is itself an enum falls back to `implements
-  SchemaSerializable`.
+- **Enumerations are Dart `enum`s.** Each member serializes to its own
+  canonical URL (e.g. `SchemaItemAvailability.inStock` →
+  `https://schema.org/InStock`), as Schema.org and Google's structured
+  data guidelines expect. Dart enums cannot implement other enums, so a
+  concrete enum whose Schema.org parent is itself an enum falls back to
+  `implements SchemaSerializable`.
 
 ## Regenerating the schemas
 

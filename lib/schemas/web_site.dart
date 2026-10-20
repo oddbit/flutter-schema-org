@@ -158,6 +158,6 @@ class SchemaWebSite extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'WebSite',
-        'issn': convertToJsonLd(issn, [String]),
+        'issn': convertToJsonLd(issn),
       });
 }

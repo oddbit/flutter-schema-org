@@ -24,7 +24,9 @@ class SchemaCredential extends SchemaCreativeWork {
   /// Supported types: [SchemaDefinedTerm], [String]
   dynamic credentialCategory;
 
-  /// recognition may include a process of quality assurance or accreditation.
+  /// An organization that acknowledges the validity, value or utility of a
+  /// credential. Note: recognition may include a process of quality assurance
+  /// or accreditation.
   SchemaOrganization? recognizedBy;
 
   /// The duration of validity of a permit or similar thing.
@@ -177,10 +179,10 @@ class SchemaCredential extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Credential',
-        'credentialCategory':
-            convertToJsonLd(credentialCategory, [SchemaDefinedTerm, String]),
-        'recognizedBy': convertToJsonLd(recognizedBy, [SchemaOrganization]),
-        'validFor': convertToJsonLd(validFor, [SchemaDuration]),
-        'validIn': convertToJsonLd(validIn, [SchemaAdministrativeArea]),
+        'credentialCategory': convertToJsonLd(
+            credentialCategory, (v) => v is SchemaDefinedTerm || v is String),
+        'recognizedBy': convertToJsonLd(recognizedBy),
+        'validFor': convertToJsonLd(validFor),
+        'validIn': convertToJsonLd(validIn),
       });
 }

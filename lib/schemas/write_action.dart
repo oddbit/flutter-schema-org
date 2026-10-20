@@ -14,7 +14,10 @@ import 'package:schema_org/schemas/language.dart';
 /// The act of authoring written creative content.
 /// See https://schema.org/WriteAction
 class SchemaWriteAction extends SchemaCreateAction {
-  /// //tools.ietf.org/html/bcp47). See also [SchemaavailableLanguage].
+  /// The language of the content or performance or used in an action. Please
+  /// use one of the language codes from the [IETF BCP 47
+  /// standard](http://tools.ietf.org/html/bcp47). See also
+  /// [SchemaavailableLanguage].
   ///
   /// Supported types: [SchemaLanguage], [String]
   dynamic inLanguage;
@@ -60,7 +63,8 @@ class SchemaWriteAction extends SchemaCreateAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'WriteAction',
-        'inLanguage': convertToJsonLd(inLanguage, [SchemaLanguage, String]),
-        'language': convertToJsonLd(language, [SchemaLanguage]),
+        'inLanguage': convertToJsonLd(
+            inLanguage, (v) => v is SchemaLanguage || v is String),
+        'language': convertToJsonLd(language),
       });
 }

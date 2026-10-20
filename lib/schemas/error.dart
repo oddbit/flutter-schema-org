@@ -47,7 +47,12 @@ class SchemaError extends SchemaInstantaneousEvent {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Error',
-        'errorCode': convertToJsonLd(errorCode,
-            [SchemaDefinedTerm, SchemaStatusEnumeration, String, int]),
+        'errorCode': convertToJsonLd(
+            errorCode,
+            (v) =>
+                v is SchemaDefinedTerm ||
+                v is SchemaStatusEnumeration ||
+                v is String ||
+                v is int),
       });
 }

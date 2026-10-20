@@ -25,16 +25,15 @@ void main() {
       // `document.body`. `querySelectorAll` returns a `NodeList`; only
       // `Element` carries `remove()`, so go through the parent node to
       // stay type-correct.
-      final scripts = web.document
-          .querySelectorAll('script[type="application/ld+json"]');
+      final scripts =
+          web.document.querySelectorAll('script[type="application/ld+json"]');
       for (var i = 0; i < scripts.length; i++) {
         final node = scripts.item(i);
         node?.parentNode?.removeChild(node);
       }
     });
 
-    test('appends a <script type="application/ld+json"> to document.body',
-        () {
+    test('appends a <script type="application/ld+json"> to document.body', () {
       SchemaOrg.writeJsonLd(SchemaOrganization(
         name: 'Oddbit',
         url: 'https://oddbit.id',
@@ -79,8 +78,8 @@ void main() {
       SchemaOrg.writeJsonLd(SchemaOrganization(name: 'First'));
       SchemaOrg.writeJsonLd(SchemaOrganization(name: 'Second'));
 
-      final scripts = web.document
-          .querySelectorAll('script[type="application/ld+json"]');
+      final scripts =
+          web.document.querySelectorAll('script[type="application/ld+json"]');
       expect(scripts.length, 2);
     });
   });

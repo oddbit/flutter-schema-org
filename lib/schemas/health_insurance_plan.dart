@@ -78,18 +78,15 @@ class SchemaHealthInsurancePlan extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'HealthInsurancePlan',
-        'benefitsSummaryUrl': convertToJsonLd(benefitsSummaryUrl, [String]),
-        'contactPoint': convertToJsonLd(contactPoint, [SchemaContactPoint]),
-        'healthPlanDrugOption': convertToJsonLd(healthPlanDrugOption, [String]),
-        'healthPlanDrugTier': convertToJsonLd(healthPlanDrugTier, [String]),
-        'healthPlanId': convertToJsonLd(healthPlanId, [String]),
-        'healthPlanMarketingUrl':
-            convertToJsonLd(healthPlanMarketingUrl, [String]),
-        'includesHealthPlanFormulary': convertToJsonLd(
-            includesHealthPlanFormulary, [SchemaHealthPlanFormulary]),
-        'includesHealthPlanNetwork': convertToJsonLd(
-            includesHealthPlanNetwork, [SchemaHealthPlanNetwork]),
-        'usesHealthPlanIdStandard':
-            convertToJsonLd(usesHealthPlanIdStandard, [String]),
+        'benefitsSummaryUrl': convertToJsonLd(benefitsSummaryUrl),
+        'contactPoint': convertToJsonLd(contactPoint),
+        'healthPlanDrugOption': convertToJsonLd(healthPlanDrugOption),
+        'healthPlanDrugTier': convertToJsonLd(healthPlanDrugTier),
+        'healthPlanId': convertToJsonLd(healthPlanId),
+        'healthPlanMarketingUrl': convertToJsonLd(healthPlanMarketingUrl),
+        'includesHealthPlanFormulary':
+            convertToJsonLd(includesHealthPlanFormulary),
+        'includesHealthPlanNetwork': convertToJsonLd(includesHealthPlanNetwork),
+        'usesHealthPlanIdStandard': convertToJsonLd(usesHealthPlanIdStandard),
       });
 }

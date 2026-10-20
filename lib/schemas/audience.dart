@@ -46,8 +46,7 @@ class SchemaAudience extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Audience',
-        'audienceType': convertToJsonLd(audienceType, [String]),
-        'geographicArea':
-            convertToJsonLd(geographicArea, [SchemaAdministrativeArea]),
+        'audienceType': convertToJsonLd(audienceType),
+        'geographicArea': convertToJsonLd(geographicArea),
       });
 }

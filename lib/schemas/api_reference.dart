@@ -26,7 +26,7 @@ class SchemaAPIReference extends SchemaTechArticle {
   /// Indicates whether API is managed or unmanaged.
   String? programmingModel;
 
-  /// phone, Metro style, desktop, XBox, etc.
+  /// Type of app development: phone, Metro style, desktop, XBox, etc.
   String? targetPlatform;
 
   /// Create a new instance of [SchemaAPIReference]
@@ -181,11 +181,10 @@ class SchemaAPIReference extends SchemaTechArticle {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'APIReference',
-        'assembly': convertToJsonLd(assembly, [String]),
-        'assemblyVersion': convertToJsonLd(assemblyVersion, [String]),
-        'executableLibraryName':
-            convertToJsonLd(executableLibraryName, [String]),
-        'programmingModel': convertToJsonLd(programmingModel, [String]),
-        'targetPlatform': convertToJsonLd(targetPlatform, [String]),
+        'assembly': convertToJsonLd(assembly),
+        'assemblyVersion': convertToJsonLd(assemblyVersion),
+        'executableLibraryName': convertToJsonLd(executableLibraryName),
+        'programmingModel': convertToJsonLd(programmingModel),
+        'targetPlatform': convertToJsonLd(targetPlatform),
       });
 }

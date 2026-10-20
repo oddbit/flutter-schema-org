@@ -23,7 +23,8 @@ class SchemaMemberProgramTier extends SchemaIntangible {
   /// A member benefit for a particular tier of a loyalty program.
   SchemaTierBenefitEnumeration? hasTierBenefit;
 
-  /// a CreditCard if the tier requires sign up for a credit card, A
+  /// A requirement for a user to join a membership tier, for example: a
+  /// CreditCard if the tier requires sign up for a credit card, A
   /// UnitPriceSpecification if the user is required to pay a (periodic) fee,
   /// or a MonetaryAmount if the user needs to spend a minimum amount to join
   /// the tier. If a tier is free to join then this property does not need to
@@ -69,16 +70,16 @@ class SchemaMemberProgramTier extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MemberProgramTier',
-        'hasTierBenefit':
-            convertToJsonLd(hasTierBenefit, [SchemaTierBenefitEnumeration]),
-        'hasTierRequirement': convertToJsonLd(hasTierRequirement, [
-          SchemaCreditCard,
-          SchemaMonetaryAmount,
-          String,
-          SchemaUnitPriceSpecification
-        ]),
-        'isTierOf': convertToJsonLd(isTierOf, [SchemaMemberProgram]),
-        'membershipPointsEarned': convertToJsonLd(
-            membershipPointsEarned, [SchemaQuantitativeValue, num]),
+        'hasTierBenefit': convertToJsonLd(hasTierBenefit),
+        'hasTierRequirement': convertToJsonLd(
+            hasTierRequirement,
+            (v) =>
+                v is SchemaCreditCard ||
+                v is SchemaMonetaryAmount ||
+                v is String ||
+                v is SchemaUnitPriceSpecification),
+        'isTierOf': convertToJsonLd(isTierOf),
+        'membershipPointsEarned': convertToJsonLd(membershipPointsEarned,
+            (v) => v is SchemaQuantitativeValue || v is num),
       });
 }

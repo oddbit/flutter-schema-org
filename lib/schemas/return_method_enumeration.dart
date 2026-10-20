@@ -14,21 +14,21 @@ import 'package:schema_org/src/schema_serializable.dart';
 enum SchemaReturnMethodEnumeration implements SchemaSerializable {
   /// Specifies that the consumer can keep the product, even when receiving
   /// a refund or store credit.
-  keepProduct('https://schema.org/ReturnMethodEnumeration'),
+  keepProduct('https://schema.org/KeepProduct'),
 
   /// Specifies that product returns must be made at a kiosk.
-  returnAtKiosk('https://schema.org/ReturnMethodEnumeration'),
+  returnAtKiosk('https://schema.org/ReturnAtKiosk'),
 
   /// Specifies that product returns must be done by mail.
-  returnByMail('https://schema.org/ReturnMethodEnumeration'),
+  returnByMail('https://schema.org/ReturnByMail'),
 
   /// Specifies that product returns must be made in a store.
-  returnInStore('https://schema.org/ReturnMethodEnumeration');
+  returnInStore('https://schema.org/ReturnInStore');
 
   /// Constructor for [SchemaReturnMethodEnumeration]
   const SchemaReturnMethodEnumeration(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaReturnMethodEnumeration] to JSON-LD

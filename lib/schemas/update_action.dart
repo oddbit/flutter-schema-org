@@ -58,7 +58,7 @@ class SchemaUpdateAction extends SchemaAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'UpdateAction',
-        'collection': convertToJsonLd(collection, [SchemaThing]),
-        'targetCollection': convertToJsonLd(targetCollection, [SchemaThing]),
+        'collection': convertToJsonLd(collection),
+        'targetCollection': convertToJsonLd(targetCollection),
       });
 }

@@ -55,7 +55,10 @@ class SchemaDemand extends SchemaIntangible {
   /// [SchemaPlace], [String]
   dynamic areaServed;
 
-  /// //en.wikipedia.org/wiki/Amazon_Standard_Identification_Number)'s
+  /// An Amazon Standard Identification Number (ASIN) is a 10-character
+  /// alphanumeric unique identifier assigned by Amazon.com and its partners
+  /// for product identification within the Amazon organization (summary from
+  /// [Wikipedia](https://en.wikipedia.org/wiki/Amazon_Standard_Identification_Number)'s
   /// article).
   ///
   /// Note also that this is a definition for how to include ASINs in
@@ -83,7 +86,9 @@ class SchemaDemand extends SchemaIntangible {
   /// The delivery method(s) available for this offer.
   SchemaDeliveryMethod? availableDeliveryMethod;
 
-  /// //purl.org/goodrelations/v1#Sell.
+  /// The business function (e.g. sell, lease, repair, dispose) of the offer or
+  /// component of a bundle (TypeAndQuantityNode). The default is
+  /// http://purl.org/goodrelations/v1#Sell.
   SchemaBusinessFunction? businessFunction;
 
   /// The typical delay between the receipt of the order and the goods either
@@ -115,25 +120,60 @@ class SchemaDemand extends SchemaIntangible {
   /// acceptance of credit cards to purchases to a certain minimal amount.
   SchemaPriceSpecification? eligibleTransactionVolume;
 
-  /// //www.gs1.org/standards/Digital-Link/) expresses GTINs as URLs (URIs,
-  /// IRIs, etc.). Digital Links should be populated into the
-  /// [SchemahasGS1DigitalLink] attribute.
+  /// A Global Trade Item Number
+  /// ([GTIN](https://www.gs1.org/standards/id-keys/gtin)). GTINs identify
+  /// trade items, including products and services, using numeric
+  /// identification codes.
+  ///
+  /// A correct [Schemagtin] value should be a valid GTIN, which means that it
+  /// should be an all-numeric string of either 8, 12, 13 or 14 digits, or a
+  /// "GS1 Digital Link" URL based on such a string. The numeric component
+  /// should also have a [valid GS1 check
+  /// digit](https://www.gs1.org/services/check-digit-calculator) and meet the
+  /// other rules for valid GTINs. See also [GS1's GTIN
+  /// Summary](http://www.gs1.org/barcodes/technical/idkeys/gtin) and
+  /// [Wikipedia](https://en.wikipedia.org/wiki/Global_Trade_Item_Number) for
+  /// more details. Left-padding of the gtin values is not required or
+  /// encouraged. The [Schemagtin] property generalizes the earlier
+  /// [Schemagtin8], [Schemagtin12], [Schemagtin13], and [Schemagtin14]
+  /// properties.
+  ///
+  /// The GS1 [digital link
+  /// specifications](https://www.gs1.org/standards/Digital-Link/) expresses
+  /// GTINs as URLs (URIs, IRIs, etc.). Digital Links should be populated into
+  /// the [SchemahasGS1DigitalLink] attribute.
   ///
   /// Note also that this is a definition for how to include GTINs in
   /// Schema.org data, and not a definition of GTINs in general - see the GS1
   /// documentation for authoritative details.
   String? gtin;
 
-  /// //www.gs1.org/barcodes/technical/idkeys/gtin) for more details.
+  /// The GTIN-12 code of the product, or the product to which the offer
+  /// refers. The GTIN-12 is the 12-digit GS1 Identification Key composed of a
+  /// U.P.C. Company Prefix, Item Reference, and Check Digit used to identify
+  /// trade items. See [GS1 GTIN
+  /// Summary](http://www.gs1.org/barcodes/technical/idkeys/gtin) for more
+  /// details.
   String? gtin12;
 
-  /// //www.gs1.org/barcodes/technical/idkeys/gtin) for more details.
+  /// The GTIN-13 code of the product, or the product to which the offer
+  /// refers. This is equivalent to 13-digit ISBN codes and EAN UCC-13. Former
+  /// 12-digit UPC codes can be converted into a GTIN-13 code by simply adding
+  /// a preceding zero. See [GS1 GTIN
+  /// Summary](http://www.gs1.org/barcodes/technical/idkeys/gtin) for more
+  /// details.
   String? gtin13;
 
-  /// //www.gs1.org/barcodes/technical/idkeys/gtin) for more details.
+  /// The GTIN-14 code of the product, or the product to which the offer
+  /// refers. See [GS1 GTIN
+  /// Summary](http://www.gs1.org/barcodes/technical/idkeys/gtin) for more
+  /// details.
   String? gtin14;
 
-  /// //www.gs1.org/barcodes/technical/idkeys/gtin) for more details.
+  /// The GTIN-8 code of the product, or the product to which the offer refers.
+  /// This code is also known as EAN/UCC-8 or 8-digit EAN. See [GS1 GTIN
+  /// Summary](http://www.gs1.org/barcodes/technical/idkeys/gtin) for more
+  /// details.
   String? gtin8;
 
   /// This links to a node or nodes indicating the exact quantity of the
@@ -257,63 +297,62 @@ class SchemaDemand extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Demand',
-        'acceptedPaymentMethod': convertToJsonLd(acceptedPaymentMethod,
-            [SchemaLoanOrCredit, SchemaPaymentMethod, String]),
-        'advanceBookingRequirement': convertToJsonLd(
-            advanceBookingRequirement, [SchemaQuantitativeValue]),
-        'areaServed': convertToJsonLd(areaServed,
-            [SchemaAdministrativeArea, SchemaGeoShape, SchemaPlace, String]),
-        'asin': convertToJsonLd(asin, [String]),
-        'availability': convertToJsonLd(availability, [SchemaItemAvailability]),
-        'availabilityEnds': convertToJsonLd(availabilityEnds, [String]),
-        'availabilityStarts': convertToJsonLd(availabilityStarts, [String]),
-        'availableAtOrFrom': convertToJsonLd(availableAtOrFrom, [SchemaPlace]),
-        'availableDeliveryMethod':
-            convertToJsonLd(availableDeliveryMethod, [SchemaDeliveryMethod]),
-        'businessFunction':
-            convertToJsonLd(businessFunction, [SchemaBusinessFunction]),
-        'deliveryLeadTime':
-            convertToJsonLd(deliveryLeadTime, [SchemaQuantitativeValue]),
-        'eligibleCustomerType':
-            convertToJsonLd(eligibleCustomerType, [SchemaBusinessEntityType]),
-        'eligibleDuration':
-            convertToJsonLd(eligibleDuration, [SchemaQuantitativeValue]),
-        'eligibleQuantity':
-            convertToJsonLd(eligibleQuantity, [SchemaQuantitativeValue]),
-        'eligibleRegion': convertToJsonLd(
-            eligibleRegion, [SchemaGeoShape, SchemaPlace, String]),
-        'eligibleTransactionVolume': convertToJsonLd(
-            eligibleTransactionVolume, [SchemaPriceSpecification]),
-        'gtin': convertToJsonLd(gtin, [String]),
-        'gtin12': convertToJsonLd(gtin12, [String]),
-        'gtin13': convertToJsonLd(gtin13, [String]),
-        'gtin14': convertToJsonLd(gtin14, [String]),
-        'gtin8': convertToJsonLd(gtin8, [String]),
-        'includesObject':
-            convertToJsonLd(includesObject, [SchemaTypeAndQuantityNode]),
-        'ineligibleRegion': convertToJsonLd(
-            ineligibleRegion, [SchemaGeoShape, SchemaPlace, String]),
-        'inventoryLevel':
-            convertToJsonLd(inventoryLevel, [SchemaQuantitativeValue]),
-        'itemCondition':
-            convertToJsonLd(itemCondition, [SchemaOfferItemCondition]),
-        'itemOffered': convertToJsonLd(itemOffered, [
-          SchemaAggregateOffer,
-          SchemaCreativeWork,
-          SchemaEvent,
-          SchemaMenuItem,
-          SchemaProduct,
-          SchemaService,
-          SchemaTrip
-        ]),
-        'mpn': convertToJsonLd(mpn, [String]),
-        'priceSpecification':
-            convertToJsonLd(priceSpecification, [SchemaPriceSpecification]),
-        'seller': convertToJsonLd(seller, [SchemaOrganization, SchemaPerson]),
-        'serialNumber': convertToJsonLd(serialNumber, [String]),
-        'sku': convertToJsonLd(sku, [String]),
-        'validFrom': convertToJsonLd(validFrom, [String]),
-        'validThrough': convertToJsonLd(validThrough, [String]),
-        'warranty': convertToJsonLd(warranty, [SchemaWarrantyPromise]),
+        'acceptedPaymentMethod': convertToJsonLd(
+            acceptedPaymentMethod,
+            (v) =>
+                v is SchemaLoanOrCredit ||
+                v is SchemaPaymentMethod ||
+                v is String),
+        'advanceBookingRequirement': convertToJsonLd(advanceBookingRequirement),
+        'areaServed': convertToJsonLd(
+            areaServed,
+            (v) =>
+                v is SchemaAdministrativeArea ||
+                v is SchemaGeoShape ||
+                v is SchemaPlace ||
+                v is String),
+        'asin': convertToJsonLd(asin),
+        'availability': convertToJsonLd(availability),
+        'availabilityEnds': convertToJsonLd(availabilityEnds),
+        'availabilityStarts': convertToJsonLd(availabilityStarts),
+        'availableAtOrFrom': convertToJsonLd(availableAtOrFrom),
+        'availableDeliveryMethod': convertToJsonLd(availableDeliveryMethod),
+        'businessFunction': convertToJsonLd(businessFunction),
+        'deliveryLeadTime': convertToJsonLd(deliveryLeadTime),
+        'eligibleCustomerType': convertToJsonLd(eligibleCustomerType),
+        'eligibleDuration': convertToJsonLd(eligibleDuration),
+        'eligibleQuantity': convertToJsonLd(eligibleQuantity),
+        'eligibleRegion': convertToJsonLd(eligibleRegion,
+            (v) => v is SchemaGeoShape || v is SchemaPlace || v is String),
+        'eligibleTransactionVolume': convertToJsonLd(eligibleTransactionVolume),
+        'gtin': convertToJsonLd(gtin),
+        'gtin12': convertToJsonLd(gtin12),
+        'gtin13': convertToJsonLd(gtin13),
+        'gtin14': convertToJsonLd(gtin14),
+        'gtin8': convertToJsonLd(gtin8),
+        'includesObject': convertToJsonLd(includesObject),
+        'ineligibleRegion': convertToJsonLd(ineligibleRegion,
+            (v) => v is SchemaGeoShape || v is SchemaPlace || v is String),
+        'inventoryLevel': convertToJsonLd(inventoryLevel),
+        'itemCondition': convertToJsonLd(itemCondition),
+        'itemOffered': convertToJsonLd(
+            itemOffered,
+            (v) =>
+                v is SchemaAggregateOffer ||
+                v is SchemaCreativeWork ||
+                v is SchemaEvent ||
+                v is SchemaMenuItem ||
+                v is SchemaProduct ||
+                v is SchemaService ||
+                v is SchemaTrip),
+        'mpn': convertToJsonLd(mpn),
+        'priceSpecification': convertToJsonLd(priceSpecification),
+        'seller': convertToJsonLd(
+            seller, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'serialNumber': convertToJsonLd(serialNumber),
+        'sku': convertToJsonLd(sku),
+        'validFrom': convertToJsonLd(validFrom),
+        'validThrough': convertToJsonLd(validThrough),
+        'warranty': convertToJsonLd(warranty),
       });
 }

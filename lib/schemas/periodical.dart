@@ -10,8 +10,10 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/creative_work_series.dart';
 
-///
-/// //blog.schema.org/2014/09/02/schema-org-support-for-bibliographic-relationships-and-periodicals/).
+/// A publication in any medium issued in successive parts bearing numerical
+/// or chronological designations and intended to continue indefinitely, such
+/// as a magazine, scholarly journal, or newspaper.\n\nSee also [blog
+/// post](https://blog.schema.org/2014/09/02/schema-org-support-for-bibliographic-relationships-and-periodicals/).
 /// See https://schema.org/Periodical
 class SchemaPeriodical extends SchemaCreativeWorkSeries {
   /// Create a new instance of [SchemaPeriodical]

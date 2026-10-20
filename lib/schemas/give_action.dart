@@ -14,9 +14,11 @@ import 'package:schema_org/schemas/contact_point.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 
-/// Unlike SendAction, GiveAction implies that ownership is being transferred
-/// (e.g. I may send my laptop to you, but that doesn't mean I'm giving it to
-/// you).
+/// The act of transferring ownership of an object to a destination.
+/// Reciprocal of TakeAction.\n\nRelated actions:\n\n* [SchemaTakeAction]:
+/// Reciprocal of GiveAction.\n* [SchemaSendAction]: Unlike SendAction,
+/// GiveAction implies that ownership is being transferred (e.g. I may send
+/// my laptop to you, but that doesn't mean I'm giving it to you).
 /// See https://schema.org/GiveAction
 class SchemaGiveAction extends SchemaTransferAction {
   /// A sub property of participant. The participant who is at the receiving
@@ -64,11 +66,12 @@ class SchemaGiveAction extends SchemaTransferAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'GiveAction',
-        'recipient': convertToJsonLd(recipient, [
-          SchemaAudience,
-          SchemaContactPoint,
-          SchemaOrganization,
-          SchemaPerson
-        ]),
+        'recipient': convertToJsonLd(
+            recipient,
+            (v) =>
+                v is SchemaAudience ||
+                v is SchemaContactPoint ||
+                v is SchemaOrganization ||
+                v is SchemaPerson),
       });
 }

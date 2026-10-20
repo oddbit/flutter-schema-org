@@ -76,10 +76,13 @@ class SchemaNerve extends SchemaAnatomicalStructure {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Nerve',
-        'branch': convertToJsonLd(branch, [SchemaAnatomicalStructure]),
-        'nerveMotor': convertToJsonLd(nerveMotor, [SchemaMuscle]),
+        'branch': convertToJsonLd(branch),
+        'nerveMotor': convertToJsonLd(nerveMotor),
         'sensoryUnit': convertToJsonLd(
-            sensoryUnit, [SchemaAnatomicalStructure, SchemaSuperficialAnatomy]),
-        'sourcedFrom': convertToJsonLd(sourcedFrom, [SchemaBrainStructure]),
+            sensoryUnit,
+            (v) =>
+                v is SchemaAnatomicalStructure ||
+                v is SchemaSuperficialAnatomy),
+        'sourcedFrom': convertToJsonLd(sourcedFrom),
       });
 }

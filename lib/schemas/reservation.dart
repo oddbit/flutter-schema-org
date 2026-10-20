@@ -17,10 +17,11 @@ import 'package:schema_org/schemas/reservation_status_type.dart';
 import 'package:schema_org/schemas/ticket.dart';
 import 'package:schema_org/schemas/price_specification.dart';
 
-/// This type is for information about actual reservations, e.g. in
-/// confirmation emails or HTML pages with individual confirmations of
-/// reservations. For offers of tickets, restaurant reservations, flights, or
-/// rental cars, use [SchemaOffer].
+/// Describes a reservation for travel, dining or an event. Some reservations
+/// require tickets. \n\nNote: This type is for information about actual
+/// reservations, e.g. in confirmation emails or HTML pages with individual
+/// confirmations of reservations. For offers of tickets, restaurant
+/// reservations, flights, or rental cars, use [SchemaOffer].
 /// See https://schema.org/Reservation
 class SchemaReservation extends SchemaIntangible {
   /// 'bookingAgent' is an out-dated term indicating a 'broker' that serves as
@@ -44,8 +45,15 @@ class SchemaReservation extends SchemaIntangible {
   /// The date and time the reservation was modified.
   String? modifiedTime;
 
-  /// //en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other
-  /// currency types, e.g. "Ithaca HOUR".
+  /// The currency of the price, or a price component when attached to
+  /// [SchemaPriceSpecification] and its subtypes.\n\nUse standard formats:
+  /// [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217), e.g.
+  /// "USD"; [Ticker
+  /// symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for
+  /// cryptocurrencies, e.g. "BTC"; well known names for [Local Exchange
+  /// Trading
+  /// Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system)
+  /// (LETS) and other currency types, e.g. "Ithaca HOUR".
   String? priceCurrency;
 
   /// Any membership in a frequent flyer, hotel loyalty program, etc. being
@@ -71,10 +79,12 @@ class SchemaReservation extends SchemaIntangible {
   /// A ticket associated with the reservation.
   SchemaTicket? reservedTicket;
 
-  /// \n\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT
-  /// NINE' (U+0039)) rather than superficially similar Unicode symbols.\n* Use
-  /// '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal
-  /// point. Avoid using these symbols as a readability separator.
+  /// The total price for the reservation or ticket, including applicable
+  /// taxes, shipping, etc.\n\nUsage guidelines:\n\n* Use values from
+  /// 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039))
+  /// rather than superficially similar Unicode symbols.\n* Use '.' (Unicode
+  /// 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid
+  /// using these symbols as a readability separator.
   ///
   /// Supported types: [SchemaPriceSpecification], [String], [num]
   dynamic totalPrice;
@@ -119,24 +129,23 @@ class SchemaReservation extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Reservation',
-        'bookingAgent':
-            convertToJsonLd(bookingAgent, [SchemaOrganization, SchemaPerson]),
-        'bookingTime': convertToJsonLd(bookingTime, [String]),
-        'broker': convertToJsonLd(broker, [SchemaOrganization, SchemaPerson]),
-        'modifiedTime': convertToJsonLd(modifiedTime, [String]),
-        'priceCurrency': convertToJsonLd(priceCurrency, [String]),
-        'programMembershipUsed':
-            convertToJsonLd(programMembershipUsed, [SchemaProgramMembership]),
-        'provider':
-            convertToJsonLd(provider, [SchemaOrganization, SchemaPerson]),
-        'reservationFor': convertToJsonLd(reservationFor, [SchemaThing]),
-        'reservationId': convertToJsonLd(reservationId, [String]),
-        'reservationStatus':
-            convertToJsonLd(reservationStatus, [SchemaReservationStatusType]),
-        'reservedTicket': convertToJsonLd(reservedTicket, [SchemaTicket]),
-        'totalPrice': convertToJsonLd(
-            totalPrice, [SchemaPriceSpecification, String, num]),
-        'underName':
-            convertToJsonLd(underName, [SchemaOrganization, SchemaPerson]),
+        'bookingAgent': convertToJsonLd(
+            bookingAgent, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'bookingTime': convertToJsonLd(bookingTime),
+        'broker': convertToJsonLd(
+            broker, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'modifiedTime': convertToJsonLd(modifiedTime),
+        'priceCurrency': convertToJsonLd(priceCurrency),
+        'programMembershipUsed': convertToJsonLd(programMembershipUsed),
+        'provider': convertToJsonLd(
+            provider, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'reservationFor': convertToJsonLd(reservationFor),
+        'reservationId': convertToJsonLd(reservationId),
+        'reservationStatus': convertToJsonLd(reservationStatus),
+        'reservedTicket': convertToJsonLd(reservedTicket),
+        'totalPrice': convertToJsonLd(totalPrice,
+            (v) => v is SchemaPriceSpecification || v is String || v is num),
+        'underName': convertToJsonLd(
+            underName, (v) => v is SchemaOrganization || v is SchemaPerson),
       });
 }

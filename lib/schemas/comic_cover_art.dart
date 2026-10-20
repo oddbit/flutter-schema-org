@@ -223,18 +223,19 @@ class SchemaComicCoverArt extends SchemaComicStory implements SchemaCoverArt {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ComicCoverArt',
-        'artEdition': convertToJsonLd(artEdition, [String, int]),
-        'artMedium': convertToJsonLd(artMedium, [String]),
-        'artform': convertToJsonLd(artform, [String]),
-        'artworkSurface': convertToJsonLd(artworkSurface, [String]),
-        'depth':
-            convertToJsonLd(depth, [SchemaDistance, SchemaQuantitativeValue]),
-        'height':
-            convertToJsonLd(height, [SchemaDistance, SchemaQuantitativeValue]),
-        'surface': convertToJsonLd(surface, [String]),
-        'weight':
-            convertToJsonLd(weight, [SchemaMass, SchemaQuantitativeValue]),
-        'width':
-            convertToJsonLd(width, [SchemaDistance, SchemaQuantitativeValue]),
+        'artEdition':
+            convertToJsonLd(artEdition, (v) => v is String || v is int),
+        'artMedium': convertToJsonLd(artMedium),
+        'artform': convertToJsonLd(artform),
+        'artworkSurface': convertToJsonLd(artworkSurface),
+        'depth': convertToJsonLd(
+            depth, (v) => v is SchemaDistance || v is SchemaQuantitativeValue),
+        'height': convertToJsonLd(
+            height, (v) => v is SchemaDistance || v is SchemaQuantitativeValue),
+        'surface': convertToJsonLd(surface),
+        'weight': convertToJsonLd(
+            weight, (v) => v is SchemaMass || v is SchemaQuantitativeValue),
+        'width': convertToJsonLd(
+            width, (v) => v is SchemaDistance || v is SchemaQuantitativeValue),
       });
 }

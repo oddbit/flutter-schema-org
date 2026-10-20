@@ -12,7 +12,9 @@ import 'package:schema_org/schemas/transfer_action.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 
-/// Reciprocal of BorrowAction.
+/// The act of obtaining an object under an agreement to return it at a later
+/// date. Reciprocal of LendAction.\n\nRelated actions:\n\n*
+/// [SchemaLendAction]: Reciprocal of BorrowAction.
 /// See https://schema.org/BorrowAction
 class SchemaBorrowAction extends SchemaTransferAction {
   /// A sub property of participant. The person that lends the object being
@@ -59,6 +61,7 @@ class SchemaBorrowAction extends SchemaTransferAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'BorrowAction',
-        'lender': convertToJsonLd(lender, [SchemaOrganization, SchemaPerson]),
+        'lender': convertToJsonLd(
+            lender, (v) => v is SchemaOrganization || v is SchemaPerson),
       });
 }

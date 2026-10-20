@@ -59,15 +59,10 @@ String toTypeName(String typeName) {
 /// Reads a Schema.org attribute that may be either a plain string or a
 /// localized map.
 ///
-/// If [value] is a string, the portion after the first `:` is returned so
-/// prefixed identifiers resolve cleanly:
-///
-///  - `"schema:Text"` → `"Text"`
-///  - `"rdfs:label"`  → `"label"`
-///  - `"Foobar"`      → `"Foobar"`
-///
-/// If [value] is a map it is assumed to be a JSON-LD language container and
-/// the `@value` entry is returned, e.g.
+/// Strings are returned verbatim — labels never carry a namespace prefix,
+/// and descriptions routinely contain colons ("For example: …", URLs) that
+/// must survive intact. A map is assumed to be a JSON-LD language container
+/// and its `@value` entry is returned, e.g.
 /// `{"@language": "en", "@value": "itemLocation"}` → `"itemLocation"`.
 String getPossiblyTranslatedText(dynamic value) {
   // Some nodes in the upstream distribution ship without a description or
@@ -76,13 +71,8 @@ String getPossiblyTranslatedText(dynamic value) {
   // generation for one ungraceful property is not.
   if (value == null) return '';
 
-  if (value is String) {
-    return value.split(':').last;
-  }
-
-  if (value is Map) {
-    return (value['@value'] as String?) ?? '';
-  }
+  if (value is String) return value;
+  if (value is Map) return (value['@value'] as String?) ?? '';
 
   throw Exception('Invalid text type: $value');
 }

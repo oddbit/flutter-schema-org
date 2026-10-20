@@ -182,6 +182,6 @@ class SchemaMobileApplication extends SchemaSoftwareApplication {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MobileApplication',
-        'carrierRequirements': convertToJsonLd(carrierRequirements, [String]),
+        'carrierRequirements': convertToJsonLd(carrierRequirements),
       });
 }

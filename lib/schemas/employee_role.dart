@@ -21,8 +21,9 @@ class SchemaEmployeeRole extends SchemaOrganizationRole {
   /// [num]
   dynamic baseSalary;
 
-  /// //en.wikipedia.org/wiki/ISO_4217)) used for the main salary information
-  /// in this job posting or for this employee.
+  /// The currency (coded using [ISO
+  /// 4217](http://en.wikipedia.org/wiki/ISO_4217)) used for the main salary
+  /// information in this job posting or for this employee.
   String? salaryCurrency;
 
   /// Create a new instance of [SchemaEmployeeRole]
@@ -55,7 +56,11 @@ class SchemaEmployeeRole extends SchemaOrganizationRole {
         ...super.toJsonLd(),
         '@type': 'EmployeeRole',
         'baseSalary': convertToJsonLd(
-            baseSalary, [SchemaMonetaryAmount, SchemaPriceSpecification, num]),
-        'salaryCurrency': convertToJsonLd(salaryCurrency, [String]),
+            baseSalary,
+            (v) =>
+                v is SchemaMonetaryAmount ||
+                v is SchemaPriceSpecification ||
+                v is num),
+        'salaryCurrency': convertToJsonLd(salaryCurrency),
       });
 }

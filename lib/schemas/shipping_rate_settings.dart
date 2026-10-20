@@ -11,6 +11,7 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/structured_value.dart';
 import 'package:schema_org/schemas/delivery_charge_specification.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
+import 'package:schema_org/schemas/price_specification.dart';
 import 'package:schema_org/schemas/defined_region.dart';
 
 /// A ShippingRateSettings represents re-usable pieces of shipping
@@ -43,12 +44,25 @@ class SchemaShippingRateSettings extends SchemaStructuredValue {
   /// for use with unlabelled settings.
   bool? isUnlabelledFallback;
 
-  /// 0.10 would mean shipping rate is 10% of the total order value.
+  /// The minimum order value required for this shipping rate to apply.
+  ///
+  /// Supported types: [SchemaMonetaryAmount], [SchemaPriceSpecification],
+  /// [num]
+  dynamic minimumOrderValue;
+
+  /// Value representing the fraction of the value of the order that is charged
+  /// as shipping cost. Example: 0.10 would mean shipping rate is 10% of the
+  /// total order value.
   num? orderPercentage;
 
   /// indicates (possibly multiple) shipping destinations. These can be defined
   /// in several ways, e.g. postalCode ranges.
   SchemaDefinedRegion? shippingDestination;
+
+  /// Label to match an [SchemaOfferShippingDetails] with a
+  /// [SchemaShippingRateSettings] (within the context of a
+  /// [SchemashippingSettingsLink] cross-reference).
+  String? shippingLabel;
 
   /// The shipping rate is the cost of shipping to the specified destination.
   /// Typically, the maxValue and currency values (of the
@@ -57,8 +71,9 @@ class SchemaShippingRateSettings extends SchemaStructuredValue {
   /// Supported types: [SchemaMonetaryAmount], [SchemaShippingRateSettings]
   dynamic shippingRate;
 
-  /// 0.10 and a shipping weight of 15kg would add $1.5 to the order price,
-  /// where the $ is the currency of the order.
+  /// Value representing the fraction of the weight that is used to compute the
+  /// shipping price. Example: 0.10 and a shipping weight of 15kg would add
+  /// $1.5 to the order price, where the $ is the currency of the order.
   num? weightPercentage;
 
   /// Create a new instance of [SchemaShippingRateSettings]
@@ -79,8 +94,10 @@ class SchemaShippingRateSettings extends SchemaStructuredValue {
     this.doesNotShip,
     this.freeShippingThreshold,
     this.isUnlabelledFallback,
+    this.minimumOrderValue,
     this.orderPercentage,
     this.shippingDestination,
+    this.shippingLabel,
     this.shippingRate,
     this.weightPercentage,
   });
@@ -90,15 +107,26 @@ class SchemaShippingRateSettings extends SchemaStructuredValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ShippingRateSettings',
-        'doesNotShip': convertToJsonLd(doesNotShip, [bool]),
-        'freeShippingThreshold': convertToJsonLd(freeShippingThreshold,
-            [SchemaDeliveryChargeSpecification, SchemaMonetaryAmount]),
-        'isUnlabelledFallback': convertToJsonLd(isUnlabelledFallback, [bool]),
-        'orderPercentage': convertToJsonLd(orderPercentage, [num]),
-        'shippingDestination':
-            convertToJsonLd(shippingDestination, [SchemaDefinedRegion]),
+        'doesNotShip': convertToJsonLd(doesNotShip),
+        'freeShippingThreshold': convertToJsonLd(
+            freeShippingThreshold,
+            (v) =>
+                v is SchemaDeliveryChargeSpecification ||
+                v is SchemaMonetaryAmount),
+        'isUnlabelledFallback': convertToJsonLd(isUnlabelledFallback),
+        'minimumOrderValue': convertToJsonLd(
+            minimumOrderValue,
+            (v) =>
+                v is SchemaMonetaryAmount ||
+                v is SchemaPriceSpecification ||
+                v is num),
+        'orderPercentage': convertToJsonLd(orderPercentage),
+        'shippingDestination': convertToJsonLd(shippingDestination),
+        'shippingLabel': convertToJsonLd(shippingLabel),
         'shippingRate': convertToJsonLd(
-            shippingRate, [SchemaMonetaryAmount, SchemaShippingRateSettings]),
-        'weightPercentage': convertToJsonLd(weightPercentage, [num]),
+            shippingRate,
+            (v) =>
+                v is SchemaMonetaryAmount || v is SchemaShippingRateSettings),
+        'weightPercentage': convertToJsonLd(weightPercentage),
       });
 }

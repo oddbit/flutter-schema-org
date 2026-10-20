@@ -72,7 +72,6 @@ class SchemaPaymentService extends SchemaFinancialProduct
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'PaymentService',
-        'paymentMethodType':
-            convertToJsonLd(paymentMethodType, [SchemaPaymentMethodType]),
+        'paymentMethodType': convertToJsonLd(paymentMethodType),
       });
 }

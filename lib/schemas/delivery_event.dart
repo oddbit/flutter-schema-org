@@ -95,10 +95,9 @@ class SchemaDeliveryEvent extends SchemaEvent {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'DeliveryEvent',
-        'accessCode': convertToJsonLd(accessCode, [String]),
-        'availableFrom': convertToJsonLd(availableFrom, [String]),
-        'availableThrough': convertToJsonLd(availableThrough, [String]),
-        'hasDeliveryMethod':
-            convertToJsonLd(hasDeliveryMethod, [SchemaDeliveryMethod]),
+        'accessCode': convertToJsonLd(accessCode),
+        'availableFrom': convertToJsonLd(availableFrom),
+        'availableThrough': convertToJsonLd(availableThrough),
+        'hasDeliveryMethod': convertToJsonLd(hasDeliveryMethod),
       });
 }

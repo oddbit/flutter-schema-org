@@ -63,9 +63,10 @@ class SchemaDoseSchedule extends SchemaMedicalIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'DoseSchedule',
-        'doseUnit': convertToJsonLd(doseUnit, [String]),
-        'doseValue': convertToJsonLd(doseValue, [SchemaQualitativeValue, num]),
-        'frequency': convertToJsonLd(frequency, [String]),
-        'targetPopulation': convertToJsonLd(targetPopulation, [String]),
+        'doseUnit': convertToJsonLd(doseUnit),
+        'doseValue': convertToJsonLd(
+            doseValue, (v) => v is SchemaQualitativeValue || v is num),
+        'frequency': convertToJsonLd(frequency),
+        'targetPopulation': convertToJsonLd(targetPopulation),
       });
 }

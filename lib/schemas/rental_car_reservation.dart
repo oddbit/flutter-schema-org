@@ -11,9 +11,9 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/reservation.dart';
 import 'package:schema_org/schemas/place.dart';
 
-/// This type is for information about actual reservations, e.g. in
-/// confirmation emails or HTML pages with individual confirmations of
-/// reservations.
+/// A reservation for a rental car.\n\nNote: This type is for information
+/// about actual reservations, e.g. in confirmation emails or HTML pages with
+/// individual confirmations of reservations.
 /// See https://schema.org/RentalCarReservation
 class SchemaRentalCarReservation extends SchemaReservation {
   /// Where a rental car can be dropped off.
@@ -67,9 +67,9 @@ class SchemaRentalCarReservation extends SchemaReservation {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'RentalCarReservation',
-        'dropoffLocation': convertToJsonLd(dropoffLocation, [SchemaPlace]),
-        'dropoffTime': convertToJsonLd(dropoffTime, [String]),
-        'pickupLocation': convertToJsonLd(pickupLocation, [SchemaPlace]),
-        'pickupTime': convertToJsonLd(pickupTime, [String]),
+        'dropoffLocation': convertToJsonLd(dropoffLocation),
+        'dropoffTime': convertToJsonLd(dropoffTime),
+        'pickupLocation': convertToJsonLd(pickupLocation),
+        'pickupTime': convertToJsonLd(pickupTime),
       });
 }

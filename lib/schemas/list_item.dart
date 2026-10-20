@@ -55,9 +55,9 @@ class SchemaListItem extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ListItem',
-        'item': convertToJsonLd(item, [SchemaThing]),
-        'nextItem': convertToJsonLd(nextItem, [SchemaListItem]),
-        'position': convertToJsonLd(position, [String, int]),
-        'previousItem': convertToJsonLd(previousItem, [SchemaListItem]),
+        'item': convertToJsonLd(item),
+        'nextItem': convertToJsonLd(nextItem),
+        'position': convertToJsonLd(position, (v) => v is String || v is int),
+        'previousItem': convertToJsonLd(previousItem),
       });
 }

@@ -27,7 +27,9 @@ import 'package:schema_org/schemas/syllabus.dart';
 /// See https://schema.org/Course
 class SchemaCourse extends SchemaCreativeWork
     implements SchemaLearningResource {
-  /// //tools.ietf.org/html/bcp47). See also [SchemainLanguage].
+  /// A language someone may use with or at the item, service or place. Please
+  /// use one of the language codes from the [IETF BCP 47
+  /// standard](http://tools.ietf.org/html/bcp47). See also [SchemainLanguage].
   ///
   /// Supported types: [SchemaLanguage], [String]
   dynamic availableLanguage;
@@ -239,27 +241,27 @@ class SchemaCourse extends SchemaCreativeWork
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Course',
-        'availableLanguage':
-            convertToJsonLd(availableLanguage, [SchemaLanguage, String]),
-        'courseCode': convertToJsonLd(courseCode, [String]),
+        'availableLanguage': convertToJsonLd(
+            availableLanguage, (v) => v is SchemaLanguage || v is String),
+        'courseCode': convertToJsonLd(courseCode),
         'coursePrerequisites': convertToJsonLd(
-            coursePrerequisites, [SchemaAlignmentObject, SchemaCourse, String]),
+            coursePrerequisites,
+            (v) =>
+                v is SchemaAlignmentObject || v is SchemaCourse || v is String),
         'educationalCredentialAwarded': convertToJsonLd(
             educationalCredentialAwarded,
-            [SchemaEducationalOccupationalCredential, String]),
-        'financialAidEligible':
-            convertToJsonLd(financialAidEligible, [SchemaDefinedTerm, String]),
-        'hasCourseInstance':
-            convertToJsonLd(hasCourseInstance, [SchemaCourseInstance]),
-        'numberOfCredits':
-            convertToJsonLd(numberOfCredits, [SchemaStructuredValue, int]),
+            (v) => v is SchemaEducationalOccupationalCredential || v is String),
+        'financialAidEligible': convertToJsonLd(
+            financialAidEligible, (v) => v is SchemaDefinedTerm || v is String),
+        'hasCourseInstance': convertToJsonLd(hasCourseInstance),
+        'numberOfCredits': convertToJsonLd(
+            numberOfCredits, (v) => v is SchemaStructuredValue || v is int),
         'occupationalCredentialAwarded': convertToJsonLd(
             occupationalCredentialAwarded,
-            [SchemaEducationalOccupationalCredential, String]),
-        'syllabusSections': convertToJsonLd(syllabusSections, [SchemaSyllabus]),
-        'totalHistoricalEnrollment':
-            convertToJsonLd(totalHistoricalEnrollment, [int]),
-        'competencyRequired':
-            convertToJsonLd(competencyRequired, [SchemaDefinedTerm, String]),
+            (v) => v is SchemaEducationalOccupationalCredential || v is String),
+        'syllabusSections': convertToJsonLd(syllabusSections),
+        'totalHistoricalEnrollment': convertToJsonLd(totalHistoricalEnrollment),
+        'competencyRequired': convertToJsonLd(
+            competencyRequired, (v) => v is SchemaDefinedTerm || v is String),
       });
 }

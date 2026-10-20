@@ -11,9 +11,10 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/reservation.dart';
 import 'package:schema_org/schemas/qualitative_value.dart';
 
-/// This type is for information about actual reservations, e.g. in
-/// confirmation emails or HTML pages with individual confirmations of
-/// reservations. For offers of tickets, use [SchemaOffer].
+/// A reservation for air travel.\n\nNote: This type is for information about
+/// actual reservations, e.g. in confirmation emails or HTML pages with
+/// individual confirmations of reservations. For offers of tickets, use
+/// [SchemaOffer].
 /// See https://schema.org/FlightReservation
 class SchemaFlightReservation extends SchemaReservation {
   /// The airline-specific indicator of boarding order / preference.
@@ -70,11 +71,10 @@ class SchemaFlightReservation extends SchemaReservation {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'FlightReservation',
-        'boardingGroup': convertToJsonLd(boardingGroup, [String]),
-        'passengerPriorityStatus': convertToJsonLd(
-            passengerPriorityStatus, [SchemaQualitativeValue, String]),
-        'passengerSequenceNumber':
-            convertToJsonLd(passengerSequenceNumber, [String]),
-        'securityScreening': convertToJsonLd(securityScreening, [String]),
+        'boardingGroup': convertToJsonLd(boardingGroup),
+        'passengerPriorityStatus': convertToJsonLd(passengerPriorityStatus,
+            (v) => v is SchemaQualitativeValue || v is String),
+        'passengerSequenceNumber': convertToJsonLd(passengerSequenceNumber),
+        'securityScreening': convertToJsonLd(securityScreening),
       });
 }

@@ -14,21 +14,22 @@ import 'package:schema_org/src/schema_serializable.dart';
 enum SchemaMerchantReturnEnumeration implements SchemaSerializable {
   /// Specifies that there is a finite window for product returns.
   merchantReturnFiniteReturnWindow(
-      'https://schema.org/MerchantReturnEnumeration'),
+      'https://schema.org/MerchantReturnFiniteReturnWindow'),
 
   /// Specifies that product returns are not permitted.
-  merchantReturnNotPermitted('https://schema.org/MerchantReturnEnumeration'),
+  merchantReturnNotPermitted('https://schema.org/MerchantReturnNotPermitted'),
 
   /// Specifies that there is an unlimited window for product returns.
-  merchantReturnUnlimitedWindow('https://schema.org/MerchantReturnEnumeration'),
+  merchantReturnUnlimitedWindow(
+      'https://schema.org/MerchantReturnUnlimitedWindow'),
 
   /// Specifies that a product return policy is not provided.
-  merchantReturnUnspecified('https://schema.org/MerchantReturnEnumeration');
+  merchantReturnUnspecified('https://schema.org/MerchantReturnUnspecified');
 
   /// Constructor for [SchemaMerchantReturnEnumeration]
   const SchemaMerchantReturnEnumeration(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaMerchantReturnEnumeration] to JSON-LD

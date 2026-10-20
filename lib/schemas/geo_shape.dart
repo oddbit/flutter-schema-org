@@ -24,8 +24,12 @@ class SchemaGeoShape extends SchemaStructuredValue {
   /// Supported types: [SchemaPostalAddress], [String]
   dynamic address;
 
-  /// //en.wikipedia.org/wiki/ISO_3166-1_alpha-3) country code such as "SGP" or
-  /// a full country name such as "Singapore" can also be used.
+  /// The country. Recommended to be in 2-letter [ISO 3166-1
+  /// alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1) format, for example
+  /// "US". For backward compatibility, a 3-letter [ISO 3166-1
+  /// alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) country code
+  /// such as "SGP" or a full country name such as "Singapore" can also be
+  /// used.
   ///
   /// Supported types: [SchemaCountry], [String]
   dynamic addressCountry;
@@ -40,9 +44,10 @@ class SchemaGeoShape extends SchemaStructuredValue {
   /// followed by a radius in meters.
   String? circle;
 
-  /// //en.wikipedia.org/wiki/World_Geodetic_System)). Values may be of the
-  /// form 'NUMBER UNIT\_OF\_MEASUREMENT' (e.g., '1,000 m', '3,200 ft') while
-  /// numbers alone should be assumed to be a value in meters.
+  /// The elevation of a location ([WGS
+  /// 84](https://en.wikipedia.org/wiki/World_Geodetic_System)). Values may be
+  /// of the form 'NUMBER UNIT\_OF\_MEASUREMENT' (e.g., '1,000 m', '3,200 ft')
+  /// while numbers alone should be assumed to be a value in meters.
   ///
   /// Supported types: [String], [num]
   dynamic elevation;
@@ -90,14 +95,15 @@ class SchemaGeoShape extends SchemaStructuredValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'GeoShape',
-        'address': convertToJsonLd(address, [SchemaPostalAddress, String]),
-        'addressCountry':
-            convertToJsonLd(addressCountry, [SchemaCountry, String]),
-        'box': convertToJsonLd(box, [String]),
-        'circle': convertToJsonLd(circle, [String]),
-        'elevation': convertToJsonLd(elevation, [String, num]),
-        'line': convertToJsonLd(line, [String]),
-        'polygon': convertToJsonLd(polygon, [String]),
-        'postalCode': convertToJsonLd(postalCode, [String]),
+        'address': convertToJsonLd(
+            address, (v) => v is SchemaPostalAddress || v is String),
+        'addressCountry': convertToJsonLd(
+            addressCountry, (v) => v is SchemaCountry || v is String),
+        'box': convertToJsonLd(box),
+        'circle': convertToJsonLd(circle),
+        'elevation': convertToJsonLd(elevation, (v) => v is String || v is num),
+        'line': convertToJsonLd(line),
+        'polygon': convertToJsonLd(polygon),
+        'postalCode': convertToJsonLd(postalCode),
       });
 }

@@ -10,9 +10,10 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/reservation.dart';
 
-/// This type is for information about actual reservations, e.g. in
-/// confirmation emails or HTML pages with individual confirmations of
-/// reservations. For offers of tickets, use [SchemaOffer].
+/// A reservation for bus travel. \n\nNote: This type is for information
+/// about actual reservations, e.g. in confirmation emails or HTML pages with
+/// individual confirmations of reservations. For offers of tickets, use
+/// [SchemaOffer].
 /// See https://schema.org/BusReservation
 class SchemaBusReservation extends SchemaReservation {
   /// Create a new instance of [SchemaBusReservation]

@@ -15,15 +15,15 @@ import 'package:schema_org/src/schema_serializable.dart';
 enum SchemaGameAvailabilityEnumeration implements SchemaSerializable {
   /// Indicates demo game availability, i.e. a somehow limited
   /// demonstration of the full game.
-  demoGameAvailability('https://schema.org/GameAvailabilityEnumeration'),
+  demoGameAvailability('https://schema.org/DemoGameAvailability'),
 
   /// Indicates full game availability.
-  fullGameAvailability('https://schema.org/GameAvailabilityEnumeration');
+  fullGameAvailability('https://schema.org/FullGameAvailability');
 
   /// Constructor for [SchemaGameAvailabilityEnumeration]
   const SchemaGameAvailabilityEnumeration(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaGameAvailabilityEnumeration] to JSON-LD

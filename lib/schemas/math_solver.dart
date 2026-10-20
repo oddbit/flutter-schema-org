@@ -162,7 +162,7 @@ class SchemaMathSolver extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MathSolver',
-        'mathExpression':
-            convertToJsonLd(mathExpression, [SchemaSolveMathAction, String]),
+        'mathExpression': convertToJsonLd(
+            mathExpression, (v) => v is SchemaSolveMathAction || v is String),
       });
 }

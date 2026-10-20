@@ -10,9 +10,16 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/communicate_action.dart';
 
-/// Unlike ConfirmAction, CheckInAction implies that the agent is
-/// informing/confirming the *start* of a previously reserved service rather
-/// than its validity/existence.
+/// The act of an agent communicating (service provider, social media, etc)
+/// their arrival by registering/confirming for a previously reserved service
+/// (e.g. flight check-in) or at a place (e.g. hotel), possibly resulting in
+/// a result (boarding pass, etc).\n\nRelated actions:\n\n*
+/// [SchemaCheckOutAction]: The antonym of CheckInAction.\n*
+/// [SchemaArriveAction]: Unlike ArriveAction, CheckInAction implies that the
+/// agent is informing/confirming the start of a previously reserved
+/// service.\n* [SchemaConfirmAction]: Unlike ConfirmAction, CheckInAction
+/// implies that the agent is informing/confirming the *start* of a
+/// previously reserved service rather than its validity/existence.
 /// See https://schema.org/CheckInAction
 class SchemaCheckInAction extends SchemaCommunicateAction {
   /// Create a new instance of [SchemaCheckInAction]

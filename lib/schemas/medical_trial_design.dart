@@ -14,40 +14,40 @@ import 'package:schema_org/schemas/medical_enumeration.dart';
 enum SchemaMedicalTrialDesign implements SchemaMedicalEnumeration {
   /// A trial design in which neither the researcher nor the patient knows
   /// the details of the treatment the patient was randomly assigned to.
-  doubleBlindedTrial('https://schema.org/MedicalTrialDesign'),
+  doubleBlindedTrial('https://schema.org/DoubleBlindedTrial'),
 
   /// An international trial.
-  internationalTrial('https://schema.org/MedicalTrialDesign'),
+  internationalTrial('https://schema.org/InternationalTrial'),
 
   /// A trial that takes place at multiple centers.
-  multiCenterTrial('https://schema.org/MedicalTrialDesign'),
+  multiCenterTrial('https://schema.org/MultiCenterTrial'),
 
   /// A trial design in which the researcher knows the full details of the
   /// treatment, and so does the patient.
-  openTrial('https://schema.org/MedicalTrialDesign'),
+  openTrial('https://schema.org/OpenTrial'),
 
   /// A placebo-controlled trial design.
-  placeboControlledTrial('https://schema.org/MedicalTrialDesign'),
+  placeboControlledTrial('https://schema.org/PlaceboControlledTrial'),
 
   /// A randomized trial design.
-  randomizedTrial('https://schema.org/MedicalTrialDesign'),
+  randomizedTrial('https://schema.org/RandomizedTrial'),
 
   /// A trial design in which the researcher knows which treatment the
   /// patient was randomly assigned to but the patient does not.
-  singleBlindedTrial('https://schema.org/MedicalTrialDesign'),
+  singleBlindedTrial('https://schema.org/SingleBlindedTrial'),
 
   /// A trial that takes place at a single center.
-  singleCenterTrial('https://schema.org/MedicalTrialDesign'),
+  singleCenterTrial('https://schema.org/SingleCenterTrial'),
 
   /// A trial design in which neither the researcher, the person
   /// administering the therapy nor the patient knows the details of the
   /// treatment the patient was randomly assigned to.
-  tripleBlindedTrial('https://schema.org/MedicalTrialDesign');
+  tripleBlindedTrial('https://schema.org/TripleBlindedTrial');
 
   /// Constructor for [SchemaMedicalTrialDesign]
   const SchemaMedicalTrialDesign(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaMedicalTrialDesign] to JSON-LD

@@ -41,6 +41,6 @@ class SchemaEducationalAudience extends SchemaAudience {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'EducationalAudience',
-        'educationalRole': convertToJsonLd(educationalRole, [String]),
+        'educationalRole': convertToJsonLd(educationalRole),
       });
 }

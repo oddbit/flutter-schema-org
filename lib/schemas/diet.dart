@@ -230,23 +230,23 @@ class SchemaDiet extends SchemaCreativeWork
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Diet',
-        'dietFeatures': convertToJsonLd(dietFeatures, [String]),
-        'endorsers':
-            convertToJsonLd(endorsers, [SchemaOrganization, SchemaPerson]),
-        'expertConsiderations': convertToJsonLd(expertConsiderations, [String]),
-        'physiologicalBenefits':
-            convertToJsonLd(physiologicalBenefits, [String]),
-        'risks': convertToJsonLd(risks, [String]),
-        'code': convertToJsonLd(code, [SchemaMedicalCode]),
-        'guideline': convertToJsonLd(guideline, [SchemaMedicalGuideline]),
-        'legalStatus': convertToJsonLd(legalStatus,
-            [SchemaDrugLegalStatus, SchemaMedicalEnumeration, String]),
-        'medicineSystem':
-            convertToJsonLd(medicineSystem, [SchemaMedicineSystem]),
-        'recognizingAuthority':
-            convertToJsonLd(recognizingAuthority, [SchemaOrganization]),
-        'relevantSpecialty':
-            convertToJsonLd(relevantSpecialty, [SchemaMedicalSpecialty]),
-        'study': convertToJsonLd(study, [SchemaMedicalStudy]),
+        'dietFeatures': convertToJsonLd(dietFeatures),
+        'endorsers': convertToJsonLd(
+            endorsers, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'expertConsiderations': convertToJsonLd(expertConsiderations),
+        'physiologicalBenefits': convertToJsonLd(physiologicalBenefits),
+        'risks': convertToJsonLd(risks),
+        'code': convertToJsonLd(code),
+        'guideline': convertToJsonLd(guideline),
+        'legalStatus': convertToJsonLd(
+            legalStatus,
+            (v) =>
+                v is SchemaDrugLegalStatus ||
+                v is SchemaMedicalEnumeration ||
+                v is String),
+        'medicineSystem': convertToJsonLd(medicineSystem),
+        'recognizingAuthority': convertToJsonLd(recognizingAuthority),
+        'relevantSpecialty': convertToJsonLd(relevantSpecialty),
+        'study': convertToJsonLd(study),
       });
 }

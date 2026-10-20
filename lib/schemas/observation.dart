@@ -18,9 +18,9 @@ import 'package:schema_org/schemas/enumeration.dart';
 import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/property_value.dart';
+import 'package:schema_org/schemas/qualitative_value.dart';
 import 'package:schema_org/schemas/structured_value.dart';
 import 'package:schema_org/schemas/measurement_type_enumeration.dart';
-import 'package:schema_org/schemas/qualitative_value.dart';
 
 /// Instances of the class [SchemaObservation] are used to specify
 /// observations about an entity at a particular time. The principal
@@ -47,7 +47,12 @@ class SchemaObservation extends SchemaIntangible
   /// A [SchemamarginOfError] for an [SchemaObservation].
   SchemaQuantitativeValue? marginOfError;
 
-  /// //www.gs1.org/voc/?show=properties).
+  /// The measuredProperty of an [SchemaObservation], typically via its
+  /// [SchemaStatisticalVariable]. There are various kinds of applicable
+  /// [SchemaProperty]: a schema.org property, a property from other
+  /// RDF-compatible systems, e.g. W3C RDF Data Cube, Data Commons, Wikidata,
+  /// or schema.org extensions such as
+  /// [GS1's](https://www.gs1.org/voc/?show=properties).
   SchemaProperty? measuredProperty;
 
   /// Identifies the denominator variable when an observation represents a
@@ -66,10 +71,29 @@ class SchemaObservation extends SchemaIntangible
   /// observation measures the Nominal value.
   SchemaEnumeration? measurementQualifier;
 
-  /// "mass spectrometry" or "nmr spectroscopy" or "colorimetry" or
-  /// "immunofluorescence". If the [SchemavariableMeasured] is "depression
-  /// rating", the [SchemameasurementTechnique] could be "Zung Scale" or
-  /// "HAM-D" or "Beck Depression Inventory".
+  /// A technique, method or technology used in an [SchemaObservation],
+  /// [SchemaStatisticalVariable] or [SchemaDataset] (or [SchemaDataDownload],
+  /// [SchemaDataCatalog]), corresponding to the method used for measuring the
+  /// corresponding variable(s) (for datasets, described using
+  /// [SchemavariableMeasured]; for [SchemaObservation], a
+  /// [SchemaStatisticalVariable]). Often but not necessarily each
+  /// [SchemavariableMeasured] will have an explicit representation as (or
+  /// mapping to) an property such as those defined in Schema.org, or other RDF
+  /// vocabularies and "knowledge graphs". In that case the subproperty of
+  /// [SchemavariableMeasured] called [SchemameasuredProperty] is applicable.
+  /// The [SchemameasurementTechnique] property helps when extra clarification
+  /// is needed about how a [SchemameasuredProperty] was measured. This is
+  /// oriented towards scientific and scholarly dataset publication but may
+  /// have broader applicability; it is not intended as a full representation
+  /// of measurement, but can often serve as a high level summary for dataset
+  /// discovery.
+  ///
+  /// For example, if [SchemavariableMeasured] is: molecule concentration,
+  /// [SchemameasurementTechnique] could be: "mass spectrometry" or "nmr
+  /// spectroscopy" or "colorimetry" or "immunofluorescence". If the
+  /// [SchemavariableMeasured] is "depression rating", the
+  /// [SchemameasurementTechnique] could be "Zung Scale" or "HAM-D" or "Beck
+  /// Depression Inventory".
   ///
   /// If there are several [SchemavariableMeasured] properties recorded for
   /// some given data object, use a [SchemaPropertyValue] for each
@@ -104,9 +128,14 @@ class SchemaObservation extends SchemaIntangible
   /// [SchemaStatisticalVariable], [String]
   dynamic variableMeasured;
 
-  /// //schema.org/gtin13, ...) will typically expect such data to be provided
-  /// using those properties, rather than using the generic property/value
-  /// mechanism.
+  /// A property-value pair representing an additional characteristic of the
+  /// entity, e.g. a product feature or another characteristic for which there
+  /// is no matching property in schema.org.\n\nNote: Publishers should be
+  /// aware that applications designed to use specific schema.org properties
+  /// (e.g. https://schema.org/width, https://schema.org/color,
+  /// https://schema.org/gtin13, ...) will typically expect such data to be
+  /// provided using those properties, rather than using the generic
+  /// property/value mechanism.
   @override
   SchemaPropertyValue? additionalProperty;
 
@@ -132,14 +161,15 @@ class SchemaObservation extends SchemaIntangible
   /// The value of a [SchemaQuantitativeValue] (including [SchemaObservation])
   /// or property value node.\n\n* For [SchemaQuantitativeValue] and
   /// [SchemaMonetaryAmount], the recommended type for values is 'Number'.\n*
-  /// For [SchemaPropertyValue], it can be 'Text', 'Number', 'Boolean', or
-  /// 'StructuredValue'.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO'
-  /// (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similar
-  /// Unicode symbols.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than
-  /// ',' to indicate a decimal point. Avoid using these symbols as a
-  /// readability separator.
+  /// For [SchemaPropertyValue], it can be 'Text', 'Number', 'Boolean',
+  /// 'StructuredValue' or 'QualitativeValue'.\n* Use values from 0123456789
+  /// (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than
+  /// superficially similar Unicode symbols.\n* Use '.' (Unicode 'FULL STOP'
+  /// (U+002E)) rather than ',' to indicate a decimal point. Avoid using these
+  /// symbols as a readability separator.
   ///
-  /// Supported types: [String], [SchemaStructuredValue], [bool], [num]
+  /// Supported types: [SchemaQualitativeValue], [String],
+  /// [SchemaStructuredValue], [bool], [num]
   @override
   dynamic value;
 
@@ -192,44 +222,56 @@ class SchemaObservation extends SchemaIntangible
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Observation',
-        'marginOfError':
-            convertToJsonLd(marginOfError, [SchemaQuantitativeValue]),
-        'measuredProperty': convertToJsonLd(measuredProperty, [SchemaProperty]),
-        'measurementDenominator': convertToJsonLd(
-            measurementDenominator, [SchemaStatisticalVariable]),
-        'measurementMethod': convertToJsonLd(measurementMethod,
-            [SchemaDefinedTerm, SchemaMeasurementMethodEnum, String]),
-        'measurementQualifier':
-            convertToJsonLd(measurementQualifier, [SchemaEnumeration]),
-        'measurementTechnique': convertToJsonLd(measurementTechnique,
-            [SchemaDefinedTerm, SchemaMeasurementMethodEnum, String]),
-        'observationAbout':
-            convertToJsonLd(observationAbout, [SchemaPlace, SchemaThing]),
-        'observationDate': convertToJsonLd(observationDate, [String]),
-        'observationPeriod': convertToJsonLd(observationPeriod, [String]),
-        'variableMeasured': convertToJsonLd(variableMeasured, [
-          SchemaProperty,
-          SchemaPropertyValue,
-          SchemaStatisticalVariable,
-          String
-        ]),
-        'additionalProperty':
-            convertToJsonLd(additionalProperty, [SchemaPropertyValue]),
-        'maxValue': convertToJsonLd(maxValue, [num]),
-        'minValue': convertToJsonLd(minValue, [num]),
-        'unitCode': convertToJsonLd(unitCode, [String]),
-        'unitText': convertToJsonLd(unitText, [String]),
-        'value':
-            convertToJsonLd(value, [String, SchemaStructuredValue, bool, num]),
-        'valueReference': convertToJsonLd(valueReference, [
-          SchemaDefinedTerm,
-          SchemaEnumeration,
-          SchemaMeasurementTypeEnumeration,
-          SchemaPropertyValue,
-          SchemaQualitativeValue,
-          SchemaQuantitativeValue,
-          String,
-          SchemaStructuredValue
-        ]),
+        'marginOfError': convertToJsonLd(marginOfError),
+        'measuredProperty': convertToJsonLd(measuredProperty),
+        'measurementDenominator': convertToJsonLd(measurementDenominator),
+        'measurementMethod': convertToJsonLd(
+            measurementMethod,
+            (v) =>
+                v is SchemaDefinedTerm ||
+                v is SchemaMeasurementMethodEnum ||
+                v is String),
+        'measurementQualifier': convertToJsonLd(measurementQualifier),
+        'measurementTechnique': convertToJsonLd(
+            measurementTechnique,
+            (v) =>
+                v is SchemaDefinedTerm ||
+                v is SchemaMeasurementMethodEnum ||
+                v is String),
+        'observationAbout': convertToJsonLd(
+            observationAbout, (v) => v is SchemaPlace || v is SchemaThing),
+        'observationDate': convertToJsonLd(observationDate),
+        'observationPeriod': convertToJsonLd(observationPeriod),
+        'variableMeasured': convertToJsonLd(
+            variableMeasured,
+            (v) =>
+                v is SchemaProperty ||
+                v is SchemaPropertyValue ||
+                v is SchemaStatisticalVariable ||
+                v is String),
+        'additionalProperty': convertToJsonLd(additionalProperty),
+        'maxValue': convertToJsonLd(maxValue),
+        'minValue': convertToJsonLd(minValue),
+        'unitCode': convertToJsonLd(unitCode),
+        'unitText': convertToJsonLd(unitText),
+        'value': convertToJsonLd(
+            value,
+            (v) =>
+                v is SchemaQualitativeValue ||
+                v is String ||
+                v is SchemaStructuredValue ||
+                v is bool ||
+                v is num),
+        'valueReference': convertToJsonLd(
+            valueReference,
+            (v) =>
+                v is SchemaDefinedTerm ||
+                v is SchemaEnumeration ||
+                v is SchemaMeasurementTypeEnumeration ||
+                v is SchemaPropertyValue ||
+                v is SchemaQualitativeValue ||
+                v is SchemaQuantitativeValue ||
+                v is String ||
+                v is SchemaStructuredValue),
       });
 }

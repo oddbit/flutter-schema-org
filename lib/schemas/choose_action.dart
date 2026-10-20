@@ -63,7 +63,9 @@ class SchemaChooseAction extends SchemaAssessAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ChooseAction',
-        'actionOption': convertToJsonLd(actionOption, [String, SchemaThing]),
-        'option': convertToJsonLd(option, [String, SchemaThing]),
+        'actionOption': convertToJsonLd(
+            actionOption, (v) => v is String || v is SchemaThing),
+        'option':
+            convertToJsonLd(option, (v) => v is String || v is SchemaThing),
       });
 }

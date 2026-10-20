@@ -33,16 +33,6 @@ const String _generatedFileHeader = '''
 // ignore_for_file: deprecated_member_use_from_same_package
 ''';
 
-/// Dart built-in types that must not be emitted as `import 'package:...'`.
-const List<String> _excludedImports = [
-  'String',
-  'int',
-  'num',
-  'double',
-  'bool',
-  'dynamic'
-];
-
 /// Output directory for generated schema files.
 ///
 /// Defaults to `../lib/schemas` (relative to the parser working directory,
@@ -65,9 +55,9 @@ void writeToFile(StringBuffer sb, String schemaName) {
 /// via an abstract parent enumeration).
 ///
 /// Schema.org enumerations carry their values as separate nodes (see
-/// `SchemaEnumValue`). For each value we emit a member whose associated
-/// string value is the enumeration URL — this is what the `toJsonLd` getter
-/// emits when the enum participates in serialization.
+/// `SchemaEnumValue`). Each member carries its own canonical URL (e.g.
+/// `https://schema.org/InStock`), which is what `toJsonLd` emits — the form
+/// Schema.org and search engines expect for enumeration-valued properties.
 ///
 /// [abstractEnumNames] is the set of enum names that were emitted as
 /// *abstract classes* (no values of their own). A Dart enum can implement
@@ -83,9 +73,8 @@ void generateEnumCode(
   sb.write(_generatedFileHeader);
   sb.writeln();
 
-  final parentName = schemaEnum.parents.isNotEmpty
-      ? schemaEnum.parents.first
-      : null;
+  final parentName =
+      schemaEnum.parents.isNotEmpty ? schemaEnum.parents.first : null;
   final canImplementParent =
       schemaEnum.implementsParent && abstractEnumNames.contains(parentName);
 
@@ -95,15 +84,7 @@ void generateEnumCode(
     sb.writeln("import 'package:schema_org/src/schema_serializable.dart';");
   }
 
-  String enumCodeName = _toCodeName(schemaEnum.name);
-  if (schemaEnum.values.isEmpty) {
-    stderr.writeln('Enum ${schemaEnum.name} has no values');
-    return;
-  }
-
-  // -----------------------------------------------------------
-  // Write code for the enum
-
+  final enumCodeName = _toCodeName(schemaEnum.name);
   _writeCodeComment(sb, schemaEnum.description);
   sb.writeln('/// See https://schema.org/${schemaEnum.name}');
   if (schemaEnum.isDeprecated) {
@@ -123,27 +104,26 @@ void generateEnumCode(
   // Iterate over values for enum members.
   final lastValue = schemaEnum.values.last;
   for (final value in schemaEnum.values) {
-    String valueName = value.name[0].toLowerCase() + value.name.substring(1);
+    final valueName = value.name[0].toLowerCase() + value.name.substring(1);
     _writeCodeComment(sb, value.description, 1);
     if (value.isDeprecated) {
       // Indent to two spaces so the annotation sits on the enum value,
       // not the enclosing declaration. Enum value replacements are
       // sibling members (not Dart classes), so they stay unprefixed.
       sb.writeln('  ${_deprecationAnnotation(
-        subject: value.name,
+        subject: value.id,
         supersededBy: value.supersededBy,
-        context: schemaEnum.name,
         replacementsAreClasses: false,
       )}');
     }
-    sb.write('  $valueName(\'https://schema.org/${schemaEnum.name}\')');
+    sb.write("  $valueName('https://schema.org/${value.id}')");
     sb.writeln(value == lastValue ? ';' : ',');
     sb.writeln();
   }
   sb.writeln('  /// Constructor for [$enumCodeName]');
   sb.writeln('  const $enumCodeName(this.value);');
   sb.writeln();
-  sb.writeln('  /// Enum value as a string');
+  sb.writeln('  /// Canonical Schema.org URL of this member');
   sb.writeln('  final String value;');
   sb.writeln();
   sb.writeln('  /// Serialize [$enumCodeName] to JSON-LD');
@@ -166,7 +146,7 @@ void generateAbstractEnumCode(StringBuffer sb, SchemaEnum schemaEnum) {
   sb.writeln();
   sb.writeln("import 'package:schema_org/src/schema_serializable.dart';");
 
-  String enumCodeName = _toCodeName(schemaEnum.name);
+  final enumCodeName = _toCodeName(schemaEnum.name);
 
   _writeCodeComment(sb, schemaEnum.description);
   sb.writeln('/// See https://schema.org/${schemaEnum.name}');
@@ -195,7 +175,7 @@ void generateAbstractEnumCode(StringBuffer sb, SchemaEnum schemaEnum) {
 ///
 /// Dart has no union types, so properties with multiple possible
 /// Schema.org ranges are declared as `dynamic` and validated at
-/// serialization time by `convertToJsonLd`.
+/// serialization time by an `is` predicate passed to `convertToJsonLd`.
 void generateClassCode(
   StringBuffer sb,
   SchemaType schemaClass,
@@ -255,17 +235,14 @@ void generateClassCode(
     sb.writeln("import 'package:schema_org/src/schema_serializable.dart';");
   }
   sb.writeln("import 'package:schema_org/src/utils.dart';");
-  if (hasExtends) {
-    _writeImportStatement(extendsParentName, sb);
+  // Parents plus the types of the properties declared here, deduplicated
+  // and without a self-import for recursive ranges (e.g.
+  // `Organization.department`).
+  <String>{
+    ...parents,
+    ...declaredProperties.expand((p) => p.schemaTypes),
   }
-  for (final parent in implementsParentNames) {
-    _writeImportStatement(parent, sb);
-  }
-  // Property type imports — only covering the types we declare here.
-  declaredProperties
-      .expand((p) => p.schemaTypes)
-      .toSet()
-      .where((t) => !_excludedImports.contains(t))
+      .where((t) => t != schemaClass.name)
       .forEach((t) => _writeImportStatement(t, sb));
 
   // ---------------------------------------------------------------
@@ -284,8 +261,7 @@ void generateClassCode(
   if (hasExtends) {
     sb.write(' extends ${_toCodeName(extendsParentName)}');
     if (implementsParentNames.isNotEmpty) {
-      final impls =
-          implementsParentNames.map(_toCodeName).toList()..sort();
+      final impls = implementsParentNames.map(_toCodeName).toList()..sort();
       sb.write(' implements ${impls.join(', ')}');
     }
   } else {
@@ -364,10 +340,13 @@ void generateClassCode(
     sb.writeln('    \'@type\': \'${schemaClass.name}\',');
   }
   for (final property in declaredProperties) {
-    final propertyTypes =
-        property.schemaTypes.map(_toCodeName).toList().join(', ');
+    // Single-typed fields are already checked by the Dart type system;
+    // only `dynamic` unions need a runtime guard.
+    final guard = property.declaredType == 'dynamic'
+        ? ', (v) => ${property.schemaTypes.map((t) => 'v is ${_toCodeName(t)}').join(' || ')}'
+        : '';
     sb.writeln(
-      '    \'${property.name}\': convertToJsonLd(${property.name}, [$propertyTypes]),',
+      "    '${property.name}': convertToJsonLd(${property.name}$guard),",
     );
   }
   sb.writeln('});');
@@ -394,19 +373,13 @@ Iterable<SchemaProperty> _transitiveProperties(
   String className,
   List<SchemaType> classes,
 ) sync* {
-  final seen = <String>{};
-  final start = classes.where((c) => c.name == className).toList();
-  if (start.isEmpty) return;
-  final origin = start.first;
+  final byName = {for (final c in classes) c.name: c};
+  final origin = byName[className];
+  if (origin == null) return;
 
-  for (final p in origin.properties) {
-    if (seen.add(p.name)) yield p;
-  }
-  for (final ancestorName in origin.familyTree) {
-    final ancestor =
-        classes.where((c) => c.name == ancestorName).toList();
-    if (ancestor.isEmpty) continue;
-    for (final p in ancestor.first.properties) {
+  final seen = <String>{};
+  for (final name in [className, ...origin.familyTree]) {
+    for (final p in byName[name]?.properties ?? const <SchemaProperty>[]) {
       if (seen.add(p.name)) yield p;
     }
   }
@@ -418,8 +391,6 @@ Iterable<SchemaProperty> _transitiveProperties(
 /// [subject] is the name of the item being deprecated (a class name,
 /// property name, or enum value name).
 /// [supersededBy] holds the replacement name(s) declared by Schema.org.
-/// [context], when supplied, is the enclosing schema the subject belongs
-/// to (e.g. the parent enum name for enum-value deprecations).
 /// [replacementsAreClasses] controls whether the replacement names are
 /// turned into `SchemaFoo` class references. Class and enum deprecations
 /// point at other classes, so the `Schema` prefix makes navigation work;
@@ -428,7 +399,6 @@ Iterable<SchemaProperty> _transitiveProperties(
 String _deprecationAnnotation({
   required String subject,
   required List<String> supersededBy,
-  String? context,
   bool replacementsAreClasses = true,
 }) {
   final replacements = replacementsAreClasses
@@ -437,8 +407,7 @@ String _deprecationAnnotation({
   final replacementHint = replacements.isEmpty
       ? ''
       : 'Use ${replacements.map((r) => '[$r]').join(', ')}. ';
-  final schemaName = context ?? subject;
-  return "@Deprecated('${replacementHint}See https://schema.org/$schemaName')";
+  return "@Deprecated('${replacementHint}See https://schema.org/$subject')";
 }
 
 /// Split a text into lines of max 80 characters.
@@ -495,7 +464,7 @@ void _writeImportStatement(String typeName, StringBuffer sb) {
       "import 'package:schema_org/schemas/${classToFileName(typeName)}';");
 }
 
-String _toCodeName(name) {
+String _toCodeName(String name) {
   switch (name) {
     case 'String':
     case 'int':

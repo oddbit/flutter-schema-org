@@ -12,9 +12,10 @@ import 'package:schema_org/schemas/reservation.dart';
 import 'package:schema_org/schemas/quantitative_value.dart';
 import 'package:schema_org/schemas/place.dart';
 
-/// This type is for information about actual reservations, e.g. in
-/// confirmation emails or HTML pages with individual confirmations of
-/// reservations. For offers of tickets, use [SchemaOffer].
+/// A reservation for a taxi.\n\nNote: This type is for information about
+/// actual reservations, e.g. in confirmation emails or HTML pages with
+/// individual confirmations of reservations. For offers of tickets, use
+/// [SchemaOffer].
 /// See https://schema.org/TaxiReservation
 class SchemaTaxiReservation extends SchemaReservation {
   /// Number of people the reservation should accommodate.
@@ -66,8 +67,9 @@ class SchemaTaxiReservation extends SchemaReservation {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'TaxiReservation',
-        'partySize': convertToJsonLd(partySize, [SchemaQuantitativeValue, int]),
-        'pickupLocation': convertToJsonLd(pickupLocation, [SchemaPlace]),
-        'pickupTime': convertToJsonLd(pickupTime, [String]),
+        'partySize': convertToJsonLd(
+            partySize, (v) => v is SchemaQuantitativeValue || v is int),
+        'pickupLocation': convertToJsonLd(pickupLocation),
+        'pickupTime': convertToJsonLd(pickupTime),
       });
 }

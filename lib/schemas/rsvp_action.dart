@@ -69,9 +69,8 @@ class SchemaRsvpAction extends SchemaInformAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'RsvpAction',
-        'additionalNumberOfGuests':
-            convertToJsonLd(additionalNumberOfGuests, [num]),
-        'comment': convertToJsonLd(comment, [SchemaComment]),
-        'rsvpResponse': convertToJsonLd(rsvpResponse, [SchemaRsvpResponseType]),
+        'additionalNumberOfGuests': convertToJsonLd(additionalNumberOfGuests),
+        'comment': convertToJsonLd(comment),
+        'rsvpResponse': convertToJsonLd(rsvpResponse),
       });
 }

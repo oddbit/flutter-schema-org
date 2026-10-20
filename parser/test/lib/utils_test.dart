@@ -13,9 +13,12 @@ void main() {
   group('Schema Parser CLI', () {
     group('Utils', () {
       test('should get text from an attribute that could be translated', () {
-        expect(getPossiblyTranslatedText('schema:Text'), 'Text');
-        expect(getPossiblyTranslatedText('rdfs:label'), 'label');
         expect(getPossiblyTranslatedText('Foobar'), 'Foobar');
+        // Descriptions routinely contain colons and must not be truncated.
+        expect(
+          getPossiblyTranslatedText('For example: a store with a pharmacy.'),
+          'For example: a store with a pharmacy.',
+        );
         expect(
           getPossiblyTranslatedText({'@value': 'itemLocation'}),
           'itemLocation',

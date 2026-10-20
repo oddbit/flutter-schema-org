@@ -64,11 +64,12 @@ class SchemaTipAction extends SchemaTradeAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'TipAction',
-        'recipient': convertToJsonLd(recipient, [
-          SchemaAudience,
-          SchemaContactPoint,
-          SchemaOrganization,
-          SchemaPerson
-        ]),
+        'recipient': convertToJsonLd(
+            recipient,
+            (v) =>
+                v is SchemaAudience ||
+                v is SchemaContactPoint ||
+                v is SchemaOrganization ||
+                v is SchemaPerson),
       });
 }

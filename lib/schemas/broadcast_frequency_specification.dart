@@ -54,10 +54,10 @@ class SchemaBroadcastFrequencySpecification extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'BroadcastFrequencySpecification',
-        'broadcastFrequencyValue': convertToJsonLd(
-            broadcastFrequencyValue, [SchemaQuantitativeValue, num]),
-        'broadcastSignalModulation': convertToJsonLd(
-            broadcastSignalModulation, [SchemaQualitativeValue, String]),
-        'broadcastSubChannel': convertToJsonLd(broadcastSubChannel, [String]),
+        'broadcastFrequencyValue': convertToJsonLd(broadcastFrequencyValue,
+            (v) => v is SchemaQuantitativeValue || v is num),
+        'broadcastSignalModulation': convertToJsonLd(broadcastSignalModulation,
+            (v) => v is SchemaQualitativeValue || v is String),
+        'broadcastSubChannel': convertToJsonLd(broadcastSubChannel),
       });
 }

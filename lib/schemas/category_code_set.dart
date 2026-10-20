@@ -157,7 +157,6 @@ class SchemaCategoryCodeSet extends SchemaDefinedTermSet {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'CategoryCodeSet',
-        'hasCategoryCode':
-            convertToJsonLd(hasCategoryCode, [SchemaCategoryCode]),
+        'hasCategoryCode': convertToJsonLd(hasCategoryCode),
       });
 }

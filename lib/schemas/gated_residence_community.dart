@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/residence.dart';
 
-/// Gated community.
+/// Residence type: Gated community.
 /// See https://schema.org/GatedResidenceCommunity
 class SchemaGatedResidenceCommunity extends SchemaResidence {
   /// Create a new instance of [SchemaGatedResidenceCommunity]

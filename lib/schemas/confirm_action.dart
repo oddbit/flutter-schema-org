@@ -10,7 +10,9 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/inform_action.dart';
 
-/// The antonym of ConfirmAction.
+/// The act of notifying someone that a future event/action is going to
+/// happen as expected.\n\nRelated actions:\n\n* [SchemaCancelAction]: The
+/// antonym of ConfirmAction.
 /// See https://schema.org/ConfirmAction
 class SchemaConfirmAction extends SchemaInformAction {
   /// Create a new instance of [SchemaConfirmAction]

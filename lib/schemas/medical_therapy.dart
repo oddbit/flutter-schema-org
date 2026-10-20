@@ -79,11 +79,9 @@ class SchemaMedicalTherapy extends SchemaTherapeuticProcedure {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MedicalTherapy',
-        'contraindication': convertToJsonLd(
-            contraindication, [SchemaMedicalContraindication, String]),
-        'duplicateTherapy':
-            convertToJsonLd(duplicateTherapy, [SchemaMedicalTherapy]),
-        'seriousAdverseOutcome':
-            convertToJsonLd(seriousAdverseOutcome, [SchemaMedicalEntity]),
+        'contraindication': convertToJsonLd(contraindication,
+            (v) => v is SchemaMedicalContraindication || v is String),
+        'duplicateTherapy': convertToJsonLd(duplicateTherapy),
+        'seriousAdverseOutcome': convertToJsonLd(seriousAdverseOutcome),
       });
 }

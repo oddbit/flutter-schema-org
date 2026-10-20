@@ -11,7 +11,7 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/event.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 
-/// Education event.
+/// Event type: Education event.
 /// See https://schema.org/EducationEvent
 class SchemaEducationEvent extends SchemaEvent {
   /// The item being described is intended to assess the competency or learning
@@ -101,9 +101,11 @@ class SchemaEducationEvent extends SchemaEvent {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'EducationEvent',
-        'assesses': convertToJsonLd(assesses, [SchemaDefinedTerm, String]),
-        'educationalLevel':
-            convertToJsonLd(educationalLevel, [SchemaDefinedTerm, String]),
-        'teaches': convertToJsonLd(teaches, [SchemaDefinedTerm, String]),
+        'assesses': convertToJsonLd(
+            assesses, (v) => v is SchemaDefinedTerm || v is String),
+        'educationalLevel': convertToJsonLd(
+            educationalLevel, (v) => v is SchemaDefinedTerm || v is String),
+        'teaches': convertToJsonLd(
+            teaches, (v) => v is SchemaDefinedTerm || v is String),
       });
 }

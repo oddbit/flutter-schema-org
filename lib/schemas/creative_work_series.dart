@@ -31,7 +31,8 @@ import 'package:schema_org/schemas/series.dart';
 /// See https://schema.org/CreativeWorkSeries
 class SchemaCreativeWorkSeries extends SchemaCreativeWork
     implements SchemaSeries {
-  /// //en.wikipedia.org/wiki/ISO_8601)).
+  /// The end date and time of the item (in [ISO 8601 date
+  /// format](http://en.wikipedia.org/wiki/ISO_8601)).
   String? endDate;
 
   /// The International Standard Serial Number (ISSN) that identifies this
@@ -39,7 +40,8 @@ class SchemaCreativeWorkSeries extends SchemaCreativeWork
   /// formats of, or the linking ISSN (ISSN-L) for, this serial publication.
   String? issn;
 
-  /// //en.wikipedia.org/wiki/ISO_8601)).
+  /// The start date and time of the item (in [ISO 8601 date
+  /// format](http://en.wikipedia.org/wiki/ISO_8601)).
   String? startDate;
 
   /// Create a new instance of [SchemaCreativeWorkSeries]
@@ -183,8 +185,8 @@ class SchemaCreativeWorkSeries extends SchemaCreativeWork
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'CreativeWorkSeries',
-        'endDate': convertToJsonLd(endDate, [String]),
-        'issn': convertToJsonLd(issn, [String]),
-        'startDate': convertToJsonLd(startDate, [String]),
+        'endDate': convertToJsonLd(endDate),
+        'issn': convertToJsonLd(issn),
+        'startDate': convertToJsonLd(startDate),
       });
 }

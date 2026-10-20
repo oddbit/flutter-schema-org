@@ -15,8 +15,14 @@ import 'package:schema_org/schemas/monetary_amount.dart';
 /// A structured value representing exchange rate.
 /// See https://schema.org/ExchangeRateSpecification
 class SchemaExchangeRateSpecification extends SchemaStructuredValue {
-  /// //en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other
-  /// currency types, e.g. "Ithaca HOUR".
+  /// The currency in which the monetary amount is expressed.\n\nUse standard
+  /// formats: [ISO 4217 currency
+  /// format](http://en.wikipedia.org/wiki/ISO_4217), e.g. "USD"; [Ticker
+  /// symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for
+  /// cryptocurrencies, e.g. "BTC"; well known names for [Local Exchange
+  /// Trading
+  /// Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system)
+  /// (LETS) and other currency types, e.g. "Ithaca HOUR".
   String? currency;
 
   /// The current price of a currency.
@@ -53,10 +59,9 @@ class SchemaExchangeRateSpecification extends SchemaStructuredValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ExchangeRateSpecification',
-        'currency': convertToJsonLd(currency, [String]),
-        'currentExchangeRate': convertToJsonLd(
-            currentExchangeRate, [SchemaUnitPriceSpecification]),
-        'exchangeRateSpread':
-            convertToJsonLd(exchangeRateSpread, [SchemaMonetaryAmount, num]),
+        'currency': convertToJsonLd(currency),
+        'currentExchangeRate': convertToJsonLd(currentExchangeRate),
+        'exchangeRateSpread': convertToJsonLd(
+            exchangeRateSpread, (v) => v is SchemaMonetaryAmount || v is num),
       });
 }

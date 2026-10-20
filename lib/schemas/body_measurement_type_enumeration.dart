@@ -16,56 +16,56 @@ enum SchemaBodyMeasurementTypeEnumeration
     implements SchemaMeasurementTypeEnumeration {
   /// Arm length (measured between arms/shoulder line intersection and the
   /// prominent wrist bone). Used, for example, to fit shirts.
-  bodyMeasurementArm('https://schema.org/BodyMeasurementTypeEnumeration'),
+  bodyMeasurementArm('https://schema.org/BodyMeasurementArm'),
 
   /// Maximum girth of bust. Used, for example, to fit women's suits.
-  bodyMeasurementBust('https://schema.org/BodyMeasurementTypeEnumeration'),
+  bodyMeasurementBust('https://schema.org/BodyMeasurementBust'),
 
   /// Maximum girth of chest. Used, for example, to fit men's suits.
-  bodyMeasurementChest('https://schema.org/BodyMeasurementTypeEnumeration'),
+  bodyMeasurementChest('https://schema.org/BodyMeasurementChest'),
 
   /// Foot length (measured between end of the most prominent toe and the
   /// most prominent part of the heel). Used, for example, to measure
   /// socks.
-  bodyMeasurementFoot('https://schema.org/BodyMeasurementTypeEnumeration'),
+  bodyMeasurementFoot('https://schema.org/BodyMeasurementFoot'),
 
   /// Maximum hand girth (measured over the knuckles of the open right hand
   /// excluding thumb, fingers together). Used, for example, to fit gloves.
-  bodyMeasurementHand('https://schema.org/BodyMeasurementTypeEnumeration'),
+  bodyMeasurementHand('https://schema.org/BodyMeasurementHand'),
 
   /// Maximum girth of head above the ears. Used, for example, to fit hats.
-  bodyMeasurementHead('https://schema.org/BodyMeasurementTypeEnumeration'),
+  bodyMeasurementHead('https://schema.org/BodyMeasurementHead'),
 
   /// Body height (measured between crown of head and soles of feet). Used,
   /// for example, to fit jackets.
-  bodyMeasurementHeight('https://schema.org/BodyMeasurementTypeEnumeration'),
+  bodyMeasurementHeight('https://schema.org/BodyMeasurementHeight'),
 
   /// Girth of hips (measured around the buttocks). Used, for example, to
   /// fit skirts.
-  bodyMeasurementHips('https://schema.org/BodyMeasurementTypeEnumeration'),
+  bodyMeasurementHips('https://schema.org/BodyMeasurementHips'),
 
   /// Inside leg (measured between crotch and soles of feet). Used, for
   /// example, to fit pants.
-  bodyMeasurementInsideLeg('https://schema.org/BodyMeasurementTypeEnumeration'),
+  bodyMeasurementInsideLeg('https://schema.org/BodyMeasurementInsideLeg'),
 
   /// Girth of neck. Used, for example, to fit shirts.
-  bodyMeasurementNeck('https://schema.org/BodyMeasurementTypeEnumeration'),
+  bodyMeasurementNeck('https://schema.org/BodyMeasurementNeck'),
 
   /// Girth of body just below the bust. Used, for example, to fit women's
   /// swimwear.
-  bodyMeasurementUnderbust('https://schema.org/BodyMeasurementTypeEnumeration'),
+  bodyMeasurementUnderbust('https://schema.org/BodyMeasurementUnderbust'),
 
   /// Girth of natural waistline (between hip bones and lower ribs). Used,
   /// for example, to fit pants.
-  bodyMeasurementWaist('https://schema.org/BodyMeasurementTypeEnumeration'),
+  bodyMeasurementWaist('https://schema.org/BodyMeasurementWaist'),
 
   /// Body weight. Used, for example, to measure pantyhose.
-  bodyMeasurementWeight('https://schema.org/BodyMeasurementTypeEnumeration');
+  bodyMeasurementWeight('https://schema.org/BodyMeasurementWeight');
 
   /// Constructor for [SchemaBodyMeasurementTypeEnumeration]
   const SchemaBodyMeasurementTypeEnumeration(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaBodyMeasurementTypeEnumeration] to JSON-LD

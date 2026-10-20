@@ -163,7 +163,7 @@ class SchemaWebPageElement extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'WebPageElement',
-        'cssSelector': convertToJsonLd(cssSelector, [String]),
-        'xpath': convertToJsonLd(xpath, [String]),
+        'cssSelector': convertToJsonLd(cssSelector),
+        'xpath': convertToJsonLd(xpath),
       });
 }

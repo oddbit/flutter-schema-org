@@ -14,35 +14,42 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// of PaymentMethod.
 /// See https://schema.org/PaymentMethodType
 enum SchemaPaymentMethodType implements SchemaSerializable {
-  /// //purl.org/goodrelations/v1#ByBankTransferInAdvance</code>.
-  byBankTransferInAdvance('https://schema.org/PaymentMethodType'),
+  /// Payment in advance by bank transfer, equivalent to
+  /// <code>http://purl.org/goodrelations/v1#ByBankTransferInAdvance</code>.
+  byBankTransferInAdvance('https://schema.org/ByBankTransferInAdvance'),
 
-  /// //purl.org/goodrelations/v1#ByInvoice</code>.
-  byInvoice('https://schema.org/PaymentMethodType'),
+  /// Payment by invoice, typically after the goods were delivered,
+  /// equivalent to
+  /// <code>http://purl.org/goodrelations/v1#ByInvoice</code>.
+  byInvoice('https://schema.org/ByInvoice'),
 
-  /// //purl.org/goodrelations/v1#COD</code>.
-  cOD('https://schema.org/PaymentMethodType'),
+  /// Cash on Delivery (COD) payment, equivalent to
+  /// <code>http://purl.org/goodrelations/v1#COD</code>.
+  cOD('https://schema.org/COD'),
 
-  /// //purl.org/goodrelations/v1#Cash</code>.
-  cash('https://schema.org/PaymentMethodType'),
+  /// Payment using cash, on premises, equivalent to
+  /// <code>http://purl.org/goodrelations/v1#Cash</code>.
+  cash('https://schema.org/Cash'),
 
-  /// //purl.org/goodrelations/v1#CheckInAdvance</code>.
-  checkInAdvance('https://schema.org/PaymentMethodType'),
+  /// Payment in advance by sending a check, equivalent to
+  /// <code>http://purl.org/goodrelations/v1#CheckInAdvance</code>.
+  checkInAdvance('https://schema.org/CheckInAdvance'),
 
-  /// //purl.org/goodrelations/v1#DirectDebit</code>.
-  directDebit('https://schema.org/PaymentMethodType'),
+  /// Payment in advance by direct debit from the bank, equivalent to
+  /// <code>http://purl.org/goodrelations/v1#DirectDebit</code>.
+  directDebit('https://schema.org/DirectDebit'),
 
   /// Payment in advance in some form of shop or kiosk for goods purchased
   /// online.
-  inStorePrepay('https://schema.org/PaymentMethodType'),
+  inStorePrepay('https://schema.org/InStorePrepay'),
 
   /// Payment by billing via the phone carrier.
-  phoneCarrierPayment('https://schema.org/PaymentMethodType');
+  phoneCarrierPayment('https://schema.org/PhoneCarrierPayment');
 
   /// Constructor for [SchemaPaymentMethodType]
   const SchemaPaymentMethodType(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaPaymentMethodType] to JSON-LD

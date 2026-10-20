@@ -53,6 +53,6 @@ class SchemaPlanAction extends SchemaOrganizeAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'PlanAction',
-        'scheduledTime': convertToJsonLd(scheduledTime, [String]),
+        'scheduledTime': convertToJsonLd(scheduledTime),
       });
 }

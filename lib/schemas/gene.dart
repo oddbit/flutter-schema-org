@@ -13,9 +13,11 @@ import 'package:schema_org/schemas/anatomical_structure.dart';
 import 'package:schema_org/schemas/anatomical_system.dart';
 import 'package:schema_org/schemas/defined_term.dart';
 
-/// //en.wikipedia.org/wiki/Gene)). Examples include FOXP2 (Forkhead box
-/// protein P2), SCARNA21 (small Cajal body-specific RNA 21), A- (agouti
-/// genotype).
+/// A discrete unit of inheritance which affects one or more biological
+/// traits (Source:
+/// [https://en.wikipedia.org/wiki/Gene](https://en.wikipedia.org/wiki/Gene)).
+/// Examples include FOXP2 (Forkhead box protein P2), SCARNA21 (small Cajal
+/// body-specific RNA 21), A- (agouti genotype).
 /// See https://schema.org/Gene
 class SchemaGene extends SchemaBioChemEntity {
   /// Another gene which is a variation of this one.
@@ -74,16 +76,15 @@ class SchemaGene extends SchemaBioChemEntity {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Gene',
-        'alternativeOf': convertToJsonLd(alternativeOf, [SchemaGene]),
-        'encodesBioChemEntity':
-            convertToJsonLd(encodesBioChemEntity, [SchemaBioChemEntity]),
-        'expressedIn': convertToJsonLd(expressedIn, [
-          SchemaAnatomicalStructure,
-          SchemaAnatomicalSystem,
-          SchemaBioChemEntity,
-          SchemaDefinedTerm
-        ]),
-        'hasBioPolymerSequence':
-            convertToJsonLd(hasBioPolymerSequence, [String]),
+        'alternativeOf': convertToJsonLd(alternativeOf),
+        'encodesBioChemEntity': convertToJsonLd(encodesBioChemEntity),
+        'expressedIn': convertToJsonLd(
+            expressedIn,
+            (v) =>
+                v is SchemaAnatomicalStructure ||
+                v is SchemaAnatomicalSystem ||
+                v is SchemaBioChemEntity ||
+                v is SchemaDefinedTerm),
+        'hasBioPolymerSequence': convertToJsonLd(hasBioPolymerSequence),
       });
 }

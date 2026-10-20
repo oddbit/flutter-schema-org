@@ -169,8 +169,9 @@ class SchemaMusicPlaylist extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MusicPlaylist',
-        'numTracks': convertToJsonLd(numTracks, [int]),
-        'track': convertToJsonLd(track, [SchemaItemList, SchemaMusicRecording]),
-        'tracks': convertToJsonLd(tracks, [SchemaMusicRecording]),
+        'numTracks': convertToJsonLd(numTracks),
+        'track': convertToJsonLd(
+            track, (v) => v is SchemaItemList || v is SchemaMusicRecording),
+        'tracks': convertToJsonLd(tracks),
       });
 }

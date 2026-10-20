@@ -49,8 +49,8 @@ class SchemaGameServer extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'GameServer',
-        'game': convertToJsonLd(game, [SchemaVideoGame]),
-        'playersOnline': convertToJsonLd(playersOnline, [int]),
-        'serverStatus': convertToJsonLd(serverStatus, [SchemaGameServerStatus]),
+        'game': convertToJsonLd(game),
+        'playersOnline': convertToJsonLd(playersOnline),
+        'serverStatus': convertToJsonLd(serverStatus),
       });
 }

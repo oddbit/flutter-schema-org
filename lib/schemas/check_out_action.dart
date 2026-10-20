@@ -10,8 +10,15 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/communicate_action.dart';
 
-/// Unlike CancelAction, CheckOutAction implies that the agent is
-/// informing/confirming the end of a previously reserved service.
+/// The act of an agent communicating (service provider, social media, etc)
+/// their departure of a previously reserved service (e.g. flight check-in)
+/// or place (e.g. hotel).\n\nRelated actions:\n\n* [SchemaCheckInAction]:
+/// The antonym of CheckOutAction.\n* [SchemaDepartAction]: Unlike
+/// DepartAction, CheckOutAction implies that the agent is
+/// informing/confirming the end of a previously reserved service.\n*
+/// [SchemaCancelAction]: Unlike CancelAction, CheckOutAction implies that
+/// the agent is informing/confirming the end of a previously reserved
+/// service.
 /// See https://schema.org/CheckOutAction
 class SchemaCheckOutAction extends SchemaCommunicateAction {
   /// Create a new instance of [SchemaCheckOutAction]

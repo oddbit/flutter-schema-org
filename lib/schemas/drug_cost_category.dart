@@ -14,19 +14,19 @@ import 'package:schema_org/schemas/medical_enumeration.dart';
 enum SchemaDrugCostCategory implements SchemaMedicalEnumeration {
   /// The drug's cost represents the maximum reimbursement paid by an
   /// insurer for the drug.
-  reimbursementCap('https://schema.org/DrugCostCategory'),
+  reimbursementCap('https://schema.org/ReimbursementCap'),
 
   /// The drug's cost represents the retail cost of the drug.
-  retail('https://schema.org/DrugCostCategory'),
+  retail('https://schema.org/Retail'),
 
   /// The drug's cost represents the wholesale acquisition cost of the
   /// drug.
-  wholesale('https://schema.org/DrugCostCategory');
+  wholesale('https://schema.org/Wholesale');
 
   /// Constructor for [SchemaDrugCostCategory]
   const SchemaDrugCostCategory(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaDrugCostCategory] to JSON-LD

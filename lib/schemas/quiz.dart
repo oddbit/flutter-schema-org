@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/learning_resource.dart';
 
-/// A test of knowledge, skills and abilities.
+/// Quiz: A test of knowledge, skills and abilities.
 /// See https://schema.org/Quiz
 class SchemaQuiz extends SchemaLearningResource {
   /// Create a new instance of [SchemaQuiz]

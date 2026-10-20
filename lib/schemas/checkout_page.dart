@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/web_page.dart';
 
-/// Checkout page.
+/// Web page type: Checkout page.
 /// See https://schema.org/CheckoutPage
 class SchemaCheckoutPage extends SchemaWebPage {
   /// Create a new instance of [SchemaCheckoutPage]

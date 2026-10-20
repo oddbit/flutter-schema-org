@@ -43,7 +43,8 @@ class SchemaMovie extends SchemaCreativeWork {
   @Deprecated('Use [director]. See https://schema.org/directors')
   SchemaPerson? directors;
 
-  /// //en.wikipedia.org/wiki/ISO_8601).
+  /// The duration of the item (movie, audio recording, event, etc.) in [ISO
+  /// 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).
   ///
   /// Supported types: [SchemaDuration], [SchemaQuantitativeValue]
   dynamic duration;
@@ -57,14 +58,15 @@ class SchemaMovie extends SchemaCreativeWork {
   /// video game, episode etc.
   SchemaOrganization? productionCompany;
 
-  /// //tools.ietf.org/html/bcp47).
+  /// Languages in which subtitles/captions are available, in [IETF BCP 47
+  /// standard format](http://tools.ietf.org/html/bcp47).
   ///
   /// Supported types: [SchemaLanguage], [String]
   dynamic subtitleLanguage;
 
-  /// //eidr.org/) (Entertainment Identifier Registry) [Schemaidentifier]
-  /// representing at the most general/abstract level, a work of film or
-  /// television.
+  /// An [EIDR](https://eidr.org/) (Entertainment Identifier Registry)
+  /// [Schemaidentifier] representing at the most general/abstract level, a
+  /// work of film or television.
   ///
   /// For example, the motion picture known as "Ghostbusters" has a titleEIDR
   /// of "10.5240/7EC7-228A-510A-053E-CBB8-J". This title (or work) may have
@@ -228,18 +230,19 @@ class SchemaMovie extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Movie',
-        'actor': convertToJsonLd(actor, [SchemaPerformingGroup, SchemaPerson]),
-        'actors': convertToJsonLd(actors, [SchemaPerson]),
-        'director': convertToJsonLd(director, [SchemaPerson]),
-        'directors': convertToJsonLd(directors, [SchemaPerson]),
-        'duration': convertToJsonLd(
-            duration, [SchemaDuration, SchemaQuantitativeValue]),
-        'musicBy': convertToJsonLd(musicBy, [SchemaMusicGroup, SchemaPerson]),
-        'productionCompany':
-            convertToJsonLd(productionCompany, [SchemaOrganization]),
-        'subtitleLanguage':
-            convertToJsonLd(subtitleLanguage, [SchemaLanguage, String]),
-        'titleEIDR': convertToJsonLd(titleEIDR, [String]),
-        'trailer': convertToJsonLd(trailer, [SchemaVideoObject]),
+        'actor': convertToJsonLd(
+            actor, (v) => v is SchemaPerformingGroup || v is SchemaPerson),
+        'actors': convertToJsonLd(actors),
+        'director': convertToJsonLd(director),
+        'directors': convertToJsonLd(directors),
+        'duration': convertToJsonLd(duration,
+            (v) => v is SchemaDuration || v is SchemaQuantitativeValue),
+        'musicBy': convertToJsonLd(
+            musicBy, (v) => v is SchemaMusicGroup || v is SchemaPerson),
+        'productionCompany': convertToJsonLd(productionCompany),
+        'subtitleLanguage': convertToJsonLd(
+            subtitleLanguage, (v) => v is SchemaLanguage || v is String),
+        'titleEIDR': convertToJsonLd(titleEIDR),
+        'trailer': convertToJsonLd(trailer),
       });
 }

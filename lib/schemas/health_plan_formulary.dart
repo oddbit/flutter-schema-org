@@ -52,9 +52,8 @@ class SchemaHealthPlanFormulary extends SchemaIntangible {
         ...super.toJsonLd(),
         '@type': 'HealthPlanFormulary',
         'healthPlanCostSharing': convertToJsonLd(healthPlanCostSharing,
-            [SchemaHealthPlanCostSharingSpecification, bool]),
-        'healthPlanDrugTier': convertToJsonLd(healthPlanDrugTier, [String]),
-        'offersPrescriptionByMail':
-            convertToJsonLd(offersPrescriptionByMail, [bool]),
+            (v) => v is SchemaHealthPlanCostSharingSpecification || v is bool),
+        'healthPlanDrugTier': convertToJsonLd(healthPlanDrugTier),
+        'offersPrescriptionByMail': convertToJsonLd(offersPrescriptionByMail),
       });
 }

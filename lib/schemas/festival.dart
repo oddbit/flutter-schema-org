@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// Festival.
+/// Event type: Festival.
 /// See https://schema.org/Festival
 class SchemaFestival extends SchemaEvent {
   /// Create a new instance of [SchemaFestival]

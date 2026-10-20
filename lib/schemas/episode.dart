@@ -45,7 +45,8 @@ class SchemaEpisode extends SchemaCreativeWork {
   @Deprecated('Use [director]. See https://schema.org/directors')
   SchemaPerson? directors;
 
-  /// //en.wikipedia.org/wiki/ISO_8601).
+  /// The duration of the item (movie, audio recording, event, etc.) in [ISO
+  /// 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).
   ///
   /// Supported types: [SchemaDuration], [SchemaQuantitativeValue]
   dynamic duration;
@@ -222,20 +223,20 @@ class SchemaEpisode extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Episode',
-        'actor': convertToJsonLd(actor, [SchemaPerformingGroup, SchemaPerson]),
-        'actors': convertToJsonLd(actors, [SchemaPerson]),
-        'director': convertToJsonLd(director, [SchemaPerson]),
-        'directors': convertToJsonLd(directors, [SchemaPerson]),
-        'duration': convertToJsonLd(
-            duration, [SchemaDuration, SchemaQuantitativeValue]),
-        'episodeNumber': convertToJsonLd(episodeNumber, [String, int]),
-        'musicBy': convertToJsonLd(musicBy, [SchemaMusicGroup, SchemaPerson]),
-        'partOfSeason':
-            convertToJsonLd(partOfSeason, [SchemaCreativeWorkSeason]),
-        'partOfSeries':
-            convertToJsonLd(partOfSeries, [SchemaCreativeWorkSeries]),
-        'productionCompany':
-            convertToJsonLd(productionCompany, [SchemaOrganization]),
-        'trailer': convertToJsonLd(trailer, [SchemaVideoObject]),
+        'actor': convertToJsonLd(
+            actor, (v) => v is SchemaPerformingGroup || v is SchemaPerson),
+        'actors': convertToJsonLd(actors),
+        'director': convertToJsonLd(director),
+        'directors': convertToJsonLd(directors),
+        'duration': convertToJsonLd(duration,
+            (v) => v is SchemaDuration || v is SchemaQuantitativeValue),
+        'episodeNumber':
+            convertToJsonLd(episodeNumber, (v) => v is String || v is int),
+        'musicBy': convertToJsonLd(
+            musicBy, (v) => v is SchemaMusicGroup || v is SchemaPerson),
+        'partOfSeason': convertToJsonLd(partOfSeason),
+        'partOfSeries': convertToJsonLd(partOfSeries),
+        'productionCompany': convertToJsonLd(productionCompany),
+        'trailer': convertToJsonLd(trailer),
       });
 }

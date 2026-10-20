@@ -13,7 +13,15 @@ import 'package:schema_org/schemas/payment_card.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 import 'package:schema_org/schemas/payment_method_type.dart';
 
-/// //purl.org/goodrelations/v1#VISA
+/// A card payment method of a particular brand or name. Used to mark up a
+/// particular payment method and/or the financial product/service that
+/// supplies the card account.\n\nCommonly used values:\n\n*
+/// http://purl.org/goodrelations/v1#AmericanExpress\n*
+/// http://purl.org/goodrelations/v1#DinersClub\n*
+/// http://purl.org/goodrelations/v1#Discover\n*
+/// http://purl.org/goodrelations/v1#JCB\n*
+/// http://purl.org/goodrelations/v1#MasterCard\n*
+/// http://purl.org/goodrelations/v1#VISA
 /// See https://schema.org/CreditCard
 class SchemaCreditCard extends SchemaLoanOrCredit implements SchemaPaymentCard {
   /// A cardholder benefit that pays the cardholder a small percentage of their
@@ -108,12 +116,12 @@ class SchemaCreditCard extends SchemaLoanOrCredit implements SchemaPaymentCard {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'CreditCard',
-        'cashBack': convertToJsonLd(cashBack, [bool, num]),
-        'contactlessPayment': convertToJsonLd(contactlessPayment, [bool]),
-        'floorLimit': convertToJsonLd(floorLimit, [SchemaMonetaryAmount]),
+        'cashBack': convertToJsonLd(cashBack, (v) => v is bool || v is num),
+        'contactlessPayment': convertToJsonLd(contactlessPayment),
+        'floorLimit': convertToJsonLd(floorLimit),
         'monthlyMinimumRepaymentAmount': convertToJsonLd(
-            monthlyMinimumRepaymentAmount, [SchemaMonetaryAmount, num]),
-        'paymentMethodType':
-            convertToJsonLd(paymentMethodType, [SchemaPaymentMethodType]),
+            monthlyMinimumRepaymentAmount,
+            (v) => v is SchemaMonetaryAmount || v is num),
+        'paymentMethodType': convertToJsonLd(paymentMethodType),
       });
 }

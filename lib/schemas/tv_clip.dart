@@ -168,6 +168,6 @@ class SchemaTVClip extends SchemaClip {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'TVClip',
-        'partOfTVSeries': convertToJsonLd(partOfTVSeries, [SchemaTVSeries]),
+        'partOfTVSeries': convertToJsonLd(partOfTVSeries),
       });
 }

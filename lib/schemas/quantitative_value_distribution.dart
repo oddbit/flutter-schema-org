@@ -15,7 +15,8 @@ import 'package:schema_org/schemas/quantitative_value.dart';
 /// A statistical distribution of values.
 /// See https://schema.org/QuantitativeValueDistribution
 class SchemaQuantitativeValueDistribution extends SchemaStructuredValue {
-  /// //en.wikipedia.org/wiki/ISO_8601).
+  /// The duration of the item (movie, audio recording, event, etc.) in [ISO
+  /// 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).
   ///
   /// Supported types: [SchemaDuration], [SchemaQuantitativeValue]
   dynamic duration;
@@ -63,12 +64,12 @@ class SchemaQuantitativeValueDistribution extends SchemaStructuredValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'QuantitativeValueDistribution',
-        'duration': convertToJsonLd(
-            duration, [SchemaDuration, SchemaQuantitativeValue]),
-        'median': convertToJsonLd(median, [num]),
-        'percentile10': convertToJsonLd(percentile10, [num]),
-        'percentile25': convertToJsonLd(percentile25, [num]),
-        'percentile75': convertToJsonLd(percentile75, [num]),
-        'percentile90': convertToJsonLd(percentile90, [num]),
+        'duration': convertToJsonLd(duration,
+            (v) => v is SchemaDuration || v is SchemaQuantitativeValue),
+        'median': convertToJsonLd(median),
+        'percentile10': convertToJsonLd(percentile10),
+        'percentile25': convertToJsonLd(percentile25),
+        'percentile75': convertToJsonLd(percentile75),
+        'percentile90': convertToJsonLd(percentile90),
       });
 }

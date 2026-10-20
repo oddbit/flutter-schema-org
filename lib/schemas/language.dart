@@ -10,7 +10,9 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/intangible.dart';
 
-/// //en.wikipedia.org/wiki/IETF_language_tag) can be used via the
+/// Natural languages such as Spanish, Tamil, Hindi, English, etc. Formal
+/// language code tags expressed in [BCP
+/// 47](https://en.wikipedia.org/wiki/IETF_language_tag) can be used via the
 /// [SchemaalternateName] property. The Language type previously also covered
 /// programming languages such as Scheme and Lisp, which are now best
 /// represented using [SchemaComputerLanguage].

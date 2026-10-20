@@ -91,7 +91,7 @@ class SchemaAirport extends SchemaCivicStructure {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Airport',
-        'iataCode': convertToJsonLd(iataCode, [String]),
-        'icaoCode': convertToJsonLd(icaoCode, [String]),
+        'iataCode': convertToJsonLd(iataCode),
+        'icaoCode': convertToJsonLd(icaoCode),
       });
 }

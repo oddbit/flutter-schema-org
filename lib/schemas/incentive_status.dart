@@ -13,23 +13,24 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// See https://schema.org/IncentiveStatus
 enum SchemaIncentiveStatus implements SchemaSerializable {
   /// This incentive is currently active.
-  incentiveStatusActive('https://schema.org/IncentiveStatus'),
+  incentiveStatusActive('https://schema.org/IncentiveStatusActive'),
 
   /// This incentive is currently being developed, and may become
   /// active/retired in the future.
-  incentiveStatusInDevelopment('https://schema.org/IncentiveStatus'),
+  incentiveStatusInDevelopment(
+      'https://schema.org/IncentiveStatusInDevelopment'),
 
   /// This incentive is currently active, but may not be accepting new
   /// applicants (e.g. max number of redemptions reached for a year)
-  incentiveStatusOnHold('https://schema.org/IncentiveStatus'),
+  incentiveStatusOnHold('https://schema.org/IncentiveStatusOnHold'),
 
   /// This incentive is not longer available.
-  incentiveStatusRetired('https://schema.org/IncentiveStatus');
+  incentiveStatusRetired('https://schema.org/IncentiveStatusRetired');
 
   /// Constructor for [SchemaIncentiveStatus]
   const SchemaIncentiveStatus(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaIncentiveStatus] to JSON-LD

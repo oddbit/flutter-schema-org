@@ -14,57 +14,47 @@ import 'package:schema_org/schemas/measurement_type_enumeration.dart';
 enum SchemaWearableMeasurementTypeEnumeration
     implements SchemaMeasurementTypeEnumeration {
   /// Measurement of the back section, for example of a jacket.
-  wearableMeasurementBack(
-      'https://schema.org/WearableMeasurementTypeEnumeration'),
+  wearableMeasurementBack('https://schema.org/WearableMeasurementBack'),
 
   /// Measurement of the chest/bust section, for example of a suit.
   wearableMeasurementChestOrBust(
-      'https://schema.org/WearableMeasurementTypeEnumeration'),
+      'https://schema.org/WearableMeasurementChestOrBust'),
 
   /// Measurement of the collar, for example of a shirt.
-  wearableMeasurementCollar(
-      'https://schema.org/WearableMeasurementTypeEnumeration'),
+  wearableMeasurementCollar('https://schema.org/WearableMeasurementCollar'),
 
   /// Measurement of the cup, for example of a bra.
-  wearableMeasurementCup(
-      'https://schema.org/WearableMeasurementTypeEnumeration'),
+  wearableMeasurementCup('https://schema.org/WearableMeasurementCup'),
 
   /// Measurement of the height, for example the heel height of a shoe.
-  wearableMeasurementHeight(
-      'https://schema.org/WearableMeasurementTypeEnumeration'),
+  wearableMeasurementHeight('https://schema.org/WearableMeasurementHeight'),
 
   /// Measurement of the hip section, for example of a skirt.
-  wearableMeasurementHips(
-      'https://schema.org/WearableMeasurementTypeEnumeration'),
+  wearableMeasurementHips('https://schema.org/WearableMeasurementHips'),
 
   /// Measurement of the inseam, for example of pants.
-  wearableMeasurementInseam(
-      'https://schema.org/WearableMeasurementTypeEnumeration'),
+  wearableMeasurementInseam('https://schema.org/WearableMeasurementInseam'),
 
   /// Represents the length, for example of a dress.
-  wearableMeasurementLength(
-      'https://schema.org/WearableMeasurementTypeEnumeration'),
+  wearableMeasurementLength('https://schema.org/WearableMeasurementLength'),
 
   /// Measurement of the outside leg, for example of pants.
   wearableMeasurementOutsideLeg(
-      'https://schema.org/WearableMeasurementTypeEnumeration'),
+      'https://schema.org/WearableMeasurementOutsideLeg'),
 
   /// Measurement of the sleeve length, for example of a shirt.
-  wearableMeasurementSleeve(
-      'https://schema.org/WearableMeasurementTypeEnumeration'),
+  wearableMeasurementSleeve('https://schema.org/WearableMeasurementSleeve'),
 
   /// Measurement of the waist section, for example of pants.
-  wearableMeasurementWaist(
-      'https://schema.org/WearableMeasurementTypeEnumeration'),
+  wearableMeasurementWaist('https://schema.org/WearableMeasurementWaist'),
 
   /// Measurement of the width, for example of shoes.
-  wearableMeasurementWidth(
-      'https://schema.org/WearableMeasurementTypeEnumeration');
+  wearableMeasurementWidth('https://schema.org/WearableMeasurementWidth');
 
   /// Constructor for [SchemaWearableMeasurementTypeEnumeration]
   const SchemaWearableMeasurementTypeEnumeration(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaWearableMeasurementTypeEnumeration] to JSON-LD

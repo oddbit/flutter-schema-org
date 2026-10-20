@@ -194,9 +194,11 @@ class SchemaImageObject extends SchemaMediaObject {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ImageObject',
-        'caption': convertToJsonLd(caption, [SchemaMediaObject, String]),
-        'embeddedTextCaption': convertToJsonLd(embeddedTextCaption, [String]),
-        'exifData': convertToJsonLd(exifData, [SchemaPropertyValue, String]),
-        'representativeOfPage': convertToJsonLd(representativeOfPage, [bool]),
+        'caption': convertToJsonLd(
+            caption, (v) => v is SchemaMediaObject || v is String),
+        'embeddedTextCaption': convertToJsonLd(embeddedTextCaption),
+        'exifData': convertToJsonLd(
+            exifData, (v) => v is SchemaPropertyValue || v is String),
+        'representativeOfPage': convertToJsonLd(representativeOfPage),
       });
 }

@@ -67,8 +67,9 @@ class SchemaMoneyTransfer extends SchemaTransferAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MoneyTransfer',
-        'amount': convertToJsonLd(amount, [SchemaMonetaryAmount, num]),
-        'beneficiaryBank':
-            convertToJsonLd(beneficiaryBank, [SchemaBankOrCreditUnion, String]),
+        'amount': convertToJsonLd(
+            amount, (v) => v is SchemaMonetaryAmount || v is num),
+        'beneficiaryBank': convertToJsonLd(beneficiaryBank,
+            (v) => v is SchemaBankOrCreditUnion || v is String),
       });
 }

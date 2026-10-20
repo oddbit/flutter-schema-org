@@ -67,9 +67,8 @@ class SchemaRentAction extends SchemaTradeAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'RentAction',
-        'landlord':
-            convertToJsonLd(landlord, [SchemaOrganization, SchemaPerson]),
-        'realEstateAgent':
-            convertToJsonLd(realEstateAgent, [SchemaRealEstateAgent]),
+        'landlord': convertToJsonLd(
+            landlord, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'realEstateAgent': convertToJsonLd(realEstateAgent),
       });
 }

@@ -55,6 +55,6 @@ class SchemaReviewAction extends SchemaAssessAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ReviewAction',
-        'resultReview': convertToJsonLd(resultReview, [SchemaReview]),
+        'resultReview': convertToJsonLd(resultReview),
       });
 }

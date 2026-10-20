@@ -54,6 +54,6 @@ class SchemaReservationPackage extends SchemaReservation {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ReservationPackage',
-        'subReservation': convertToJsonLd(subReservation, [SchemaReservation]),
+        'subReservation': convertToJsonLd(subReservation),
       });
 }

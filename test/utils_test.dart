@@ -5,7 +5,11 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:schema_org/schema_org.dart';
+import 'package:schema_org/schemas/corporation.dart';
+import 'package:schema_org/schemas/item_availability.dart';
+import 'package:schema_org/schemas/offer.dart';
 import 'package:schema_org/schemas/organization.dart';
+import 'package:schema_org/schemas/patient.dart';
 import 'package:schema_org/schemas/person.dart';
 import 'package:schema_org/src/utils.dart';
 
@@ -44,9 +48,47 @@ void main() {
 
         expect(json['@type'], 'Organization');
         expect(json['name'], 'Oddbit');
-        expect(json['founder'], isA<Map<String, dynamic>>());
-        expect(json['founder']['@type'], 'Person');
-        expect(json['founder']['name'], 'Dennis');
+        expect(json['founder'], {'@type': 'Person', 'name': 'Dennis'});
+      });
+
+      test('emits @context only on the root node', () {
+        final json = SchemaOrganization(
+          founder: SchemaPerson(name: 'Dennis'),
+        ).toJsonLd();
+
+        expect(json['@context'], 'https://schema.org');
+        expect((json['founder'] as Map).containsKey('@context'), isFalse);
+      });
+
+      test('drops nested objects that carry nothing but @type', () {
+        final json = SchemaOrganization(
+          name: 'Oddbit',
+          founder: SchemaPerson(),
+          employee: SchemaPerson(),
+        ).toJsonLd();
+
+        expect(json.containsKey('founder'), isFalse);
+        expect(json.containsKey('employee'), isFalse);
+      });
+
+      test('accepts subtypes wherever a Schema.org type is expected', () {
+        // Schema.org ranges admit instances of subtypes: a Corporation is
+        // an Organization and a Patient is a Person.
+        final json = SchemaOrganization(
+          founder: SchemaCorporation(name: 'Parent Co'),
+          alumni: SchemaPatient(name: 'Jane'),
+        ).toJsonLd();
+
+        expect(json['founder'], {'@type': 'Corporation', 'name': 'Parent Co'});
+        expect(json['alumni'], {'@type': 'Patient', 'name': 'Jane'});
+      });
+
+      test('serializes enum members to their own canonical URL', () {
+        final json = SchemaOffer(
+          availability: SchemaItemAvailability.inStock,
+        ).toJsonLd();
+
+        expect(json['availability'], 'https://schema.org/InStock');
       });
 
       test('falls back to toJson on non-schema objects', () {
@@ -57,10 +99,14 @@ void main() {
       });
 
       test(
-          'throws UnsupportedTypeException when the runtime type is not '
-          'in the allowed set', () {
+          'throws UnsupportedTypeException when a union-typed value is not '
+          'accepted', () {
         expect(
-          () => convertToJsonLd(_LegacyJsonClass('Test'), [String]),
+          () => convertToJsonLd(_LegacyJsonClass('Test'), (v) => v is String),
+          throwsA(isA<UnsupportedTypeException>()),
+        );
+        expect(
+          () => SchemaOrganization(founder: 'Dennis').toJsonLd(),
           throwsA(isA<UnsupportedTypeException>()),
         );
       });
@@ -72,6 +118,14 @@ void main() {
 
       test('returns null for an empty list so removeEmpty can drop it', () {
         expect(convertToJsonLd(<String>[]), isNull);
+        expect(convertToJsonLd([null, null]), isNull);
+      });
+
+      test('drops null entries from lists', () {
+        expect(
+          convertToJsonLd(['https://oddbit.id', null, 'https://github.com']),
+          ['https://oddbit.id', 'https://github.com'],
+        );
       });
     });
 
@@ -80,32 +134,8 @@ void main() {
         final input = <String, dynamic>{
           '@context': 'https://schema.org',
           '@type': 'Organization',
-          'actionableFeedbackPolicy': null,
           'address': null,
-          'logo': 'https://avatars.githubusercontent.com/u/1946799?s=200&v=4',
           'name': 'Oddbit',
-          'url': 'https://oddbit.com',
-        };
-
-        expect(removeEmpty(input), {
-          '@context': 'https://schema.org',
-          '@type': 'Organization',
-          'logo': 'https://avatars.githubusercontent.com/u/1946799?s=200&v=4',
-          'name': 'Oddbit',
-          'url': 'https://oddbit.com',
-        });
-      });
-
-      test('drops a nested object that only carries @context and @type', () {
-        final input = <String, dynamic>{
-          '@context': 'https://schema.org',
-          '@type': 'Organization',
-          'name': 'Oddbit',
-          'test': <String, dynamic>{
-            '@context': 'https://schema.org',
-            '@type': 'Thing',
-            'name': null,
-          },
         };
 
         expect(removeEmpty(input), {
@@ -113,32 +143,6 @@ void main() {
           '@type': 'Organization',
           'name': 'Oddbit',
         });
-      });
-
-      test('drops a list once all its entries are null', () {
-        final input = <String, dynamic>{
-          '@context': 'https://schema.org',
-          '@type': 'Organization',
-          'name': 'Oddbit',
-          'sameAs': [null, null],
-        };
-
-        expect(removeEmpty(input), {
-          '@context': 'https://schema.org',
-          '@type': 'Organization',
-          'name': 'Oddbit',
-        });
-      });
-
-      test('keeps a list that still has non-null entries', () {
-        final input = <String, dynamic>{
-          '@context': 'https://schema.org',
-          '@type': 'Organization',
-          'sameAs': ['https://oddbit.id', null, 'https://github.com/oddbit'],
-        };
-
-        expect(removeEmpty(input)['sameAs'],
-            ['https://oddbit.id', 'https://github.com/oddbit']);
       });
     });
 

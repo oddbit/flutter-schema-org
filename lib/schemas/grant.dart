@@ -81,16 +81,19 @@ class SchemaGrant extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Grant',
-        'fundedItem': convertToJsonLd(fundedItem, [
-          SchemaBioChemEntity,
-          SchemaCreativeWork,
-          SchemaEvent,
-          SchemaMedicalEntity,
-          SchemaOrganization,
-          SchemaPerson,
-          SchemaProduct
-        ]),
-        'funder': convertToJsonLd(funder, [SchemaOrganization, SchemaPerson]),
-        'sponsor': convertToJsonLd(sponsor, [SchemaOrganization, SchemaPerson]),
+        'fundedItem': convertToJsonLd(
+            fundedItem,
+            (v) =>
+                v is SchemaBioChemEntity ||
+                v is SchemaCreativeWork ||
+                v is SchemaEvent ||
+                v is SchemaMedicalEntity ||
+                v is SchemaOrganization ||
+                v is SchemaPerson ||
+                v is SchemaProduct),
+        'funder': convertToJsonLd(
+            funder, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'sponsor': convertToJsonLd(
+            sponsor, (v) => v is SchemaOrganization || v is SchemaPerson),
       });
 }

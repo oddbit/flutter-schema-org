@@ -72,15 +72,13 @@ class SchemaEntryPoint extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'EntryPoint',
-        'actionApplication':
-            convertToJsonLd(actionApplication, [SchemaSoftwareApplication]),
-        'actionPlatform': convertToJsonLd(
-            actionPlatform, [SchemaDigitalPlatformEnumeration, String]),
-        'application':
-            convertToJsonLd(application, [SchemaSoftwareApplication]),
-        'contentType': convertToJsonLd(contentType, [String]),
-        'encodingType': convertToJsonLd(encodingType, [String]),
-        'httpMethod': convertToJsonLd(httpMethod, [String]),
-        'urlTemplate': convertToJsonLd(urlTemplate, [String]),
+        'actionApplication': convertToJsonLd(actionApplication),
+        'actionPlatform': convertToJsonLd(actionPlatform,
+            (v) => v is SchemaDigitalPlatformEnumeration || v is String),
+        'application': convertToJsonLd(application),
+        'contentType': convertToJsonLd(contentType),
+        'encodingType': convertToJsonLd(encodingType),
+        'httpMethod': convertToJsonLd(httpMethod),
+        'urlTemplate': convertToJsonLd(urlTemplate),
       });
 }

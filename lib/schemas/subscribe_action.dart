@@ -10,6 +10,13 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/interact_action.dart';
 
+/// The act of forming a personal connection with someone/something (object)
+/// unidirectionally/asymmetrically to get updates pushed to.\n\nRelated
+/// actions:\n\n* [SchemaFollowAction]: Unlike FollowAction, SubscribeAction
+/// implies that the subscriber acts as a passive agent being
+/// constantly/actively pushed for updates.\n* [SchemaRegisterAction]: Unlike
+/// RegisterAction, SubscribeAction implies that the agent is interested in
+/// continuing receiving updates from the object.\n* [SchemaJoinAction]:
 /// Unlike JoinAction, SubscribeAction implies that the agent is interested
 /// in continuing receiving updates from the object.
 /// See https://schema.org/SubscribeAction

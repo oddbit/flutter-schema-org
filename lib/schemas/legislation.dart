@@ -80,13 +80,15 @@ class SchemaLegislation extends SchemaCreativeWork {
   /// it might not even be published or in force.
   String? legislationDate;
 
-  /// a text may come in force today, and state it will become applicable in 3
-  /// months.
+  /// The date at which the Legislation becomes applicable. This can sometimes
+  /// be distinct from the date of entry into force : a text may come in force
+  /// today, and state it will become applicable in 3 months.
   String? legislationDateOfApplicability;
 
-  /// when looking at the law on the 2016-04-07 (= dateVersion), I get the
-  /// consolidation of 2015-04-12 of the "National Insurance Contributions Act
-  /// 2015")
+  /// The point-in-time at which the provided description of the legislation is
+  /// valid (e.g.: when looking at the law on the 2016-04-07 (= dateVersion), I
+  /// get the consolidation of 2015-04-12 of the "National Insurance
+  /// Contributions Act 2015")
   String? legislationDateVersion;
 
   /// Indicates that this Legislation ensures the implementation of another
@@ -111,6 +113,7 @@ class SchemaLegislation extends SchemaCreativeWork {
   /// in force.
   SchemaLegalForceStatus? legislationLegalForce;
 
+  /// The person or organization that originally passed or made the law:
   /// typically parliament (for primary legislation) or government (for
   /// secondary legislation). This indicates the "legal author" of the law, as
   /// opposed to its physical author.
@@ -301,44 +304,34 @@ class SchemaLegislation extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Legislation',
-        'jurisdiction':
-            convertToJsonLd(jurisdiction, [SchemaAdministrativeArea, String]),
-        'legislationAmends':
-            convertToJsonLd(legislationAmends, [SchemaLegislation]),
-        'legislationApplies':
-            convertToJsonLd(legislationApplies, [SchemaLegislation]),
-        'legislationChanges':
-            convertToJsonLd(legislationChanges, [SchemaLegislation]),
-        'legislationCommences':
-            convertToJsonLd(legislationCommences, [SchemaLegislation]),
-        'legislationConsolidates':
-            convertToJsonLd(legislationConsolidates, [SchemaLegislation]),
-        'legislationCorrects':
-            convertToJsonLd(legislationCorrects, [SchemaLegislation]),
+        'jurisdiction': convertToJsonLd(
+            jurisdiction, (v) => v is SchemaAdministrativeArea || v is String),
+        'legislationAmends': convertToJsonLd(legislationAmends),
+        'legislationApplies': convertToJsonLd(legislationApplies),
+        'legislationChanges': convertToJsonLd(legislationChanges),
+        'legislationCommences': convertToJsonLd(legislationCommences),
+        'legislationConsolidates': convertToJsonLd(legislationConsolidates),
+        'legislationCorrects': convertToJsonLd(legislationCorrects),
         'legislationCountersignedBy': convertToJsonLd(
-            legislationCountersignedBy, [SchemaOrganization, SchemaPerson]),
-        'legislationDate': convertToJsonLd(legislationDate, [String]),
+            legislationCountersignedBy,
+            (v) => v is SchemaOrganization || v is SchemaPerson),
+        'legislationDate': convertToJsonLd(legislationDate),
         'legislationDateOfApplicability':
-            convertToJsonLd(legislationDateOfApplicability, [String]),
-        'legislationDateVersion':
-            convertToJsonLd(legislationDateVersion, [String]),
-        'legislationEnsuresImplementationOf': convertToJsonLd(
-            legislationEnsuresImplementationOf, [SchemaLegislation]),
-        'legislationIdentifier':
-            convertToJsonLd(legislationIdentifier, [String]),
-        'legislationJurisdiction': convertToJsonLd(
-            legislationJurisdiction, [SchemaAdministrativeArea, String]),
-        'legislationLegalForce':
-            convertToJsonLd(legislationLegalForce, [SchemaLegalForceStatus]),
-        'legislationPassedBy': convertToJsonLd(
-            legislationPassedBy, [SchemaOrganization, SchemaPerson]),
-        'legislationRepeals':
-            convertToJsonLd(legislationRepeals, [SchemaLegislation]),
-        'legislationResponsible': convertToJsonLd(
-            legislationResponsible, [SchemaOrganization, SchemaPerson]),
-        'legislationTransposes':
-            convertToJsonLd(legislationTransposes, [SchemaLegislation]),
-        'legislationType':
-            convertToJsonLd(legislationType, [SchemaCategoryCode, String]),
+            convertToJsonLd(legislationDateOfApplicability),
+        'legislationDateVersion': convertToJsonLd(legislationDateVersion),
+        'legislationEnsuresImplementationOf':
+            convertToJsonLd(legislationEnsuresImplementationOf),
+        'legislationIdentifier': convertToJsonLd(legislationIdentifier),
+        'legislationJurisdiction': convertToJsonLd(legislationJurisdiction,
+            (v) => v is SchemaAdministrativeArea || v is String),
+        'legislationLegalForce': convertToJsonLd(legislationLegalForce),
+        'legislationPassedBy': convertToJsonLd(legislationPassedBy,
+            (v) => v is SchemaOrganization || v is SchemaPerson),
+        'legislationRepeals': convertToJsonLd(legislationRepeals),
+        'legislationResponsible': convertToJsonLd(legislationResponsible,
+            (v) => v is SchemaOrganization || v is SchemaPerson),
+        'legislationTransposes': convertToJsonLd(legislationTransposes),
+        'legislationType': convertToJsonLd(
+            legislationType, (v) => v is SchemaCategoryCode || v is String),
       });
 }

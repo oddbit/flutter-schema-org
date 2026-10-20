@@ -28,10 +28,14 @@ class SchemaHowTo extends SchemaCreativeWork {
   /// Supported types: [SchemaMonetaryAmount], [String]
   dynamic estimatedCost;
 
-  /// //en.wikipedia.org/wiki/ISO_8601).
+  /// The length of time it takes to perform instructions or a direction (not
+  /// including time to prepare the supplies), in [ISO 8601 duration
+  /// format](http://en.wikipedia.org/wiki/ISO_8601).
   SchemaDuration? performTime;
 
-  /// //en.wikipedia.org/wiki/ISO_8601).
+  /// The length of time it takes to prepare the items to be used in
+  /// instructions or a direction, in [ISO 8601 duration
+  /// format](http://en.wikipedia.org/wiki/ISO_8601).
   SchemaDuration? prepTime;
 
   /// A single step item (as HowToStep, text, document, video, etc.) or a
@@ -60,7 +64,9 @@ class SchemaHowTo extends SchemaCreativeWork {
   /// Supported types: [SchemaHowToTool], [String]
   dynamic tool;
 
-  /// //en.wikipedia.org/wiki/ISO_8601).
+  /// The total time required to perform instructions or a direction (including
+  /// time to prepare the supplies), in [ISO 8601 duration
+  /// format](http://en.wikipedia.org/wiki/ISO_8601).
   SchemaDuration? totalTime;
 
   /// The quantity that results by performing instructions. For example, a
@@ -216,17 +222,27 @@ class SchemaHowTo extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'HowTo',
-        'estimatedCost':
-            convertToJsonLd(estimatedCost, [SchemaMonetaryAmount, String]),
-        'performTime': convertToJsonLd(performTime, [SchemaDuration]),
-        'prepTime': convertToJsonLd(prepTime, [SchemaDuration]),
-        'step': convertToJsonLd(step,
-            [SchemaCreativeWork, SchemaHowToSection, SchemaHowToStep, String]),
+        'estimatedCost': convertToJsonLd(
+            estimatedCost, (v) => v is SchemaMonetaryAmount || v is String),
+        'performTime': convertToJsonLd(performTime),
+        'prepTime': convertToJsonLd(prepTime),
+        'step': convertToJsonLd(
+            step,
+            (v) =>
+                v is SchemaCreativeWork ||
+                v is SchemaHowToSection ||
+                v is SchemaHowToStep ||
+                v is String),
         'steps': convertToJsonLd(
-            steps, [SchemaCreativeWork, SchemaItemList, String]),
-        'supply': convertToJsonLd(supply, [SchemaHowToSupply, String]),
-        'tool': convertToJsonLd(tool, [SchemaHowToTool, String]),
-        'totalTime': convertToJsonLd(totalTime, [SchemaDuration]),
-        'yield': convertToJsonLd(yield, [SchemaQuantitativeValue, String]),
+            steps,
+            (v) =>
+                v is SchemaCreativeWork || v is SchemaItemList || v is String),
+        'supply': convertToJsonLd(
+            supply, (v) => v is SchemaHowToSupply || v is String),
+        'tool':
+            convertToJsonLd(tool, (v) => v is SchemaHowToTool || v is String),
+        'totalTime': convertToJsonLd(totalTime),
+        'yield': convertToJsonLd(
+            yield, (v) => v is SchemaQuantitativeValue || v is String),
       });
 }

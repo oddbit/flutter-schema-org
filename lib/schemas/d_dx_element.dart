@@ -57,8 +57,7 @@ class SchemaDDxElement extends SchemaMedicalIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'DDxElement',
-        'diagnosis': convertToJsonLd(diagnosis, [SchemaMedicalCondition]),
-        'distinguishingSign':
-            convertToJsonLd(distinguishingSign, [SchemaMedicalSignOrSymptom]),
+        'diagnosis': convertToJsonLd(diagnosis),
+        'distinguishingSign': convertToJsonLd(distinguishingSign),
       });
 }

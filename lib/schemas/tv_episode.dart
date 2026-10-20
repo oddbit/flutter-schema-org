@@ -19,14 +19,15 @@ class SchemaTVEpisode extends SchemaEpisode {
   @Deprecated('Use [partOfSeries]. See https://schema.org/partOfTVSeries')
   SchemaTVSeries? partOfTVSeries;
 
-  /// //tools.ietf.org/html/bcp47).
+  /// Languages in which subtitles/captions are available, in [IETF BCP 47
+  /// standard format](http://tools.ietf.org/html/bcp47).
   ///
   /// Supported types: [SchemaLanguage], [String]
   dynamic subtitleLanguage;
 
-  /// //eidr.org/) (Entertainment Identifier Registry) [Schemaidentifier]
-  /// representing at the most general/abstract level, a work of film or
-  /// television.
+  /// An [EIDR](https://eidr.org/) (Entertainment Identifier Registry)
+  /// [Schemaidentifier] representing at the most general/abstract level, a
+  /// work of film or television.
   ///
   /// For example, the motion picture known as "Ghostbusters" has a titleEIDR
   /// of "10.5240/7EC7-228A-510A-053E-CBB8-J". This title (or work) may have
@@ -191,9 +192,9 @@ class SchemaTVEpisode extends SchemaEpisode {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'TVEpisode',
-        'partOfTVSeries': convertToJsonLd(partOfTVSeries, [SchemaTVSeries]),
-        'subtitleLanguage':
-            convertToJsonLd(subtitleLanguage, [SchemaLanguage, String]),
-        'titleEIDR': convertToJsonLd(titleEIDR, [String]),
+        'partOfTVSeries': convertToJsonLd(partOfTVSeries),
+        'subtitleLanguage': convertToJsonLd(
+            subtitleLanguage, (v) => v is SchemaLanguage || v is String),
+        'titleEIDR': convertToJsonLd(titleEIDR),
       });
 }

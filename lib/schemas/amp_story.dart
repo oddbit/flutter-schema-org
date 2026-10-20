@@ -40,7 +40,8 @@ class SchemaAmpStory extends SchemaCreativeWork implements SchemaMediaObject {
   @override
   String? contentUrl;
 
-  /// //en.wikipedia.org/wiki/ISO_8601).
+  /// The duration of the item (movie, audio recording, event, etc.) in [ISO
+  /// 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).
   ///
   /// Supported types: [SchemaDuration], [SchemaQuantitativeValue]
   @override
@@ -91,7 +92,9 @@ class SchemaAmpStory extends SchemaCreativeWork implements SchemaMediaObject {
   @override
   SchemaOrganization? productionCompany;
 
-  /// //en.wikipedia.org/wiki/ISO_3166).
+  /// The regions where the media is allowed. If not specified, then it's
+  /// assumed to be allowed everywhere. Specify the countries in [ISO 3166
+  /// format](http://en.wikipedia.org/wiki/ISO_3166).
   @override
   SchemaPlace? regionsAllowed;
 
@@ -103,8 +106,8 @@ class SchemaAmpStory extends SchemaCreativeWork implements SchemaMediaObject {
   @override
   dynamic requiresSubscription;
 
-  /// //en.wikipedia.org/wiki/SHA-2) SHA256 hash of the content of the item.
-  /// For example, a zero-length input has value
+  /// The [SHA-2](https://en.wikipedia.org/wiki/SHA-2) SHA256 hash of the
+  /// content of the item. For example, a zero-length input has value
   /// 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'.
   @override
   String? sha256;
@@ -287,31 +290,28 @@ class SchemaAmpStory extends SchemaCreativeWork implements SchemaMediaObject {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'AmpStory',
-        'associatedArticle':
-            convertToJsonLd(associatedArticle, [SchemaNewsArticle]),
-        'bitrate': convertToJsonLd(bitrate, [String]),
-        'contentSize': convertToJsonLd(contentSize, [String]),
-        'contentUrl': convertToJsonLd(contentUrl, [String]),
-        'duration': convertToJsonLd(
-            duration, [SchemaDuration, SchemaQuantitativeValue]),
-        'embedUrl': convertToJsonLd(embedUrl, [String]),
-        'encodesCreativeWork':
-            convertToJsonLd(encodesCreativeWork, [SchemaCreativeWork]),
-        'endTime': convertToJsonLd(endTime, [String]),
-        'height':
-            convertToJsonLd(height, [SchemaDistance, SchemaQuantitativeValue]),
-        'ineligibleRegion': convertToJsonLd(
-            ineligibleRegion, [SchemaGeoShape, SchemaPlace, String]),
-        'playerType': convertToJsonLd(playerType, [String]),
-        'productionCompany':
-            convertToJsonLd(productionCompany, [SchemaOrganization]),
-        'regionsAllowed': convertToJsonLd(regionsAllowed, [SchemaPlace]),
-        'requiresSubscription': convertToJsonLd(
-            requiresSubscription, [SchemaMediaSubscription, bool]),
-        'sha256': convertToJsonLd(sha256, [String]),
-        'startTime': convertToJsonLd(startTime, [String]),
-        'uploadDate': convertToJsonLd(uploadDate, [String]),
-        'width':
-            convertToJsonLd(width, [SchemaDistance, SchemaQuantitativeValue]),
+        'associatedArticle': convertToJsonLd(associatedArticle),
+        'bitrate': convertToJsonLd(bitrate),
+        'contentSize': convertToJsonLd(contentSize),
+        'contentUrl': convertToJsonLd(contentUrl),
+        'duration': convertToJsonLd(duration,
+            (v) => v is SchemaDuration || v is SchemaQuantitativeValue),
+        'embedUrl': convertToJsonLd(embedUrl),
+        'encodesCreativeWork': convertToJsonLd(encodesCreativeWork),
+        'endTime': convertToJsonLd(endTime),
+        'height': convertToJsonLd(
+            height, (v) => v is SchemaDistance || v is SchemaQuantitativeValue),
+        'ineligibleRegion': convertToJsonLd(ineligibleRegion,
+            (v) => v is SchemaGeoShape || v is SchemaPlace || v is String),
+        'playerType': convertToJsonLd(playerType),
+        'productionCompany': convertToJsonLd(productionCompany),
+        'regionsAllowed': convertToJsonLd(regionsAllowed),
+        'requiresSubscription': convertToJsonLd(requiresSubscription,
+            (v) => v is SchemaMediaSubscription || v is bool),
+        'sha256': convertToJsonLd(sha256),
+        'startTime': convertToJsonLd(startTime),
+        'uploadDate': convertToJsonLd(uploadDate),
+        'width': convertToJsonLd(
+            width, (v) => v is SchemaDistance || v is SchemaQuantitativeValue),
       });
 }

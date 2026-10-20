@@ -48,8 +48,7 @@ class SchemaWarrantyPromise extends SchemaStructuredValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'WarrantyPromise',
-        'durationOfWarranty':
-            convertToJsonLd(durationOfWarranty, [SchemaQuantitativeValue]),
-        'warrantyScope': convertToJsonLd(warrantyScope, [SchemaWarrantyScope]),
+        'durationOfWarranty': convertToJsonLd(durationOfWarranty),
+        'warrantyScope': convertToJsonLd(warrantyScope),
       });
 }

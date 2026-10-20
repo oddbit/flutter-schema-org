@@ -12,9 +12,18 @@ import 'package:schema_org/schemas/place.dart';
 import 'package:schema_org/schemas/tourist_attraction.dart';
 import 'package:schema_org/schemas/audience.dart';
 
-/// //www2.unwto.org/) defines Destination (main destination of a tourism
-/// trip) as the place visited that is central to the decision to take the
-/// trip. (See examples below.)
+/// A tourist destination. In principle any [SchemaPlace] can be a
+/// [SchemaTouristDestination] from a [SchemaCity], Region or [SchemaCountry]
+/// to an [SchemaAmusementPark] or [SchemaHotel]. This Type can be used on
+/// its own to describe a general [SchemaTouristDestination], or be used as
+/// an [SchemaadditionalType] to add tourist relevant properties to any other
+/// [SchemaPlace]. A [SchemaTouristDestination] is defined as a [SchemaPlace]
+/// that contains, or is colocated with, one or more
+/// [SchemaTouristAttraction]s, often linked by a similar theme or interest
+/// to a particular [SchematouristType]. The [UNWTO](http://www2.unwto.org/)
+/// defines Destination (main destination of a tourism trip) as the place
+/// visited that is central to the decision to take the trip. (See examples
+/// below.)
 /// See https://schema.org/TouristDestination
 class SchemaTouristDestination extends SchemaPlace {
   /// Attraction located at destination.
@@ -97,8 +106,8 @@ class SchemaTouristDestination extends SchemaPlace {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'TouristDestination',
-        'includesAttraction':
-            convertToJsonLd(includesAttraction, [SchemaTouristAttraction]),
-        'touristType': convertToJsonLd(touristType, [SchemaAudience, String]),
+        'includesAttraction': convertToJsonLd(includesAttraction),
+        'touristType': convertToJsonLd(
+            touristType, (v) => v is SchemaAudience || v is String),
       });
 }

@@ -209,12 +209,12 @@ class SchemaAudiobook extends SchemaAudioObject implements SchemaBook {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Audiobook',
-        'readBy': convertToJsonLd(readBy, [SchemaPerson]),
-        'abridged': convertToJsonLd(abridged, [bool]),
-        'bookEdition': convertToJsonLd(bookEdition, [String]),
-        'bookFormat': convertToJsonLd(bookFormat, [SchemaBookFormatType]),
-        'illustrator': convertToJsonLd(illustrator, [SchemaPerson]),
-        'isbn': convertToJsonLd(isbn, [String]),
-        'numberOfPages': convertToJsonLd(numberOfPages, [int]),
+        'readBy': convertToJsonLd(readBy),
+        'abridged': convertToJsonLd(abridged),
+        'bookEdition': convertToJsonLd(bookEdition),
+        'bookFormat': convertToJsonLd(bookFormat),
+        'illustrator': convertToJsonLd(illustrator),
+        'isbn': convertToJsonLd(isbn),
+        'numberOfPages': convertToJsonLd(numberOfPages),
       });
 }

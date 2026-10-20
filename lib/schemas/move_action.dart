@@ -11,8 +11,9 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/action.dart';
 import 'package:schema_org/schemas/place.dart';
 
-/// Unlike TransferAction, the subject of the move is a living Person or
-/// Organization rather than an inanimate object.
+/// The act of an agent relocating to a place.\n\nRelated actions:\n\n*
+/// [SchemaTransferAction]: Unlike TransferAction, the subject of the move is
+/// a living Person or Organization rather than an inanimate object.
 /// See https://schema.org/MoveAction
 class SchemaMoveAction extends SchemaAction {
   /// A sub property of location. The original location of the object or the
@@ -60,7 +61,7 @@ class SchemaMoveAction extends SchemaAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MoveAction',
-        'fromLocation': convertToJsonLd(fromLocation, [SchemaPlace]),
-        'toLocation': convertToJsonLd(toLocation, [SchemaPlace]),
+        'fromLocation': convertToJsonLd(fromLocation),
+        'toLocation': convertToJsonLd(toLocation),
       });
 }

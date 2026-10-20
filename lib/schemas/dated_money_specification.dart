@@ -11,8 +11,10 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/structured_value.dart';
 import 'package:schema_org/schemas/monetary_amount.dart';
 
-/// __ This type has been superseded by [SchemaMonetaryAmount], use of that
-/// type is recommended.
+/// A DatedMoneySpecification represents monetary values with optional start
+/// and end dates. For example, this could represent an employee's salary
+/// over a specific period of time. __Note:__ This type has been superseded
+/// by [SchemaMonetaryAmount], use of that type is recommended.
 /// See https://schema.org/DatedMoneySpecification
 @Deprecated(
     'Use [SchemaMonetaryAmount]. See https://schema.org/DatedMoneySpecification')
@@ -22,14 +24,22 @@ class SchemaDatedMoneySpecification extends SchemaStructuredValue {
   /// Supported types: [SchemaMonetaryAmount], [num]
   dynamic amount;
 
-  /// //en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other
-  /// currency types, e.g. "Ithaca HOUR".
+  /// The currency in which the monetary amount is expressed.\n\nUse standard
+  /// formats: [ISO 4217 currency
+  /// format](http://en.wikipedia.org/wiki/ISO_4217), e.g. "USD"; [Ticker
+  /// symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for
+  /// cryptocurrencies, e.g. "BTC"; well known names for [Local Exchange
+  /// Trading
+  /// Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system)
+  /// (LETS) and other currency types, e.g. "Ithaca HOUR".
   String? currency;
 
-  /// //en.wikipedia.org/wiki/ISO_8601)).
+  /// The end date and time of the item (in [ISO 8601 date
+  /// format](http://en.wikipedia.org/wiki/ISO_8601)).
   String? endDate;
 
-  /// //en.wikipedia.org/wiki/ISO_8601)).
+  /// The start date and time of the item (in [ISO 8601 date
+  /// format](http://en.wikipedia.org/wiki/ISO_8601)).
   String? startDate;
 
   /// Create a new instance of [SchemaDatedMoneySpecification]
@@ -58,9 +68,10 @@ class SchemaDatedMoneySpecification extends SchemaStructuredValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'DatedMoneySpecification',
-        'amount': convertToJsonLd(amount, [SchemaMonetaryAmount, num]),
-        'currency': convertToJsonLd(currency, [String]),
-        'endDate': convertToJsonLd(endDate, [String]),
-        'startDate': convertToJsonLd(startDate, [String]),
+        'amount': convertToJsonLd(
+            amount, (v) => v is SchemaMonetaryAmount || v is num),
+        'currency': convertToJsonLd(currency),
+        'endDate': convertToJsonLd(endDate),
+        'startDate': convertToJsonLd(startDate),
       });
 }

@@ -15,9 +15,12 @@ import 'package:schema_org/schemas/contact_point.dart';
 import 'package:schema_org/schemas/organization.dart';
 import 'package:schema_org/schemas/person.dart';
 
-/// Unlike GiveAction, SendAction does not imply the transfer of ownership
-/// (e.g. I can send you my laptop, but I'm not necessarily giving it to
-/// you).
+/// The act of physically/electronically dispatching an object for transfer
+/// from an origin to a destination. Related actions:\n\n*
+/// [SchemaReceiveAction]: The reciprocal of SendAction.\n*
+/// [SchemaGiveAction]: Unlike GiveAction, SendAction does not imply the
+/// transfer of ownership (e.g. I can send you my laptop, but I'm not
+/// necessarily giving it to you).
 /// See https://schema.org/SendAction
 class SchemaSendAction extends SchemaTransferAction {
   /// A sub property of instrument. The method of delivery.
@@ -69,13 +72,13 @@ class SchemaSendAction extends SchemaTransferAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'SendAction',
-        'deliveryMethod':
-            convertToJsonLd(deliveryMethod, [SchemaDeliveryMethod]),
-        'recipient': convertToJsonLd(recipient, [
-          SchemaAudience,
-          SchemaContactPoint,
-          SchemaOrganization,
-          SchemaPerson
-        ]),
+        'deliveryMethod': convertToJsonLd(deliveryMethod),
+        'recipient': convertToJsonLd(
+            recipient,
+            (v) =>
+                v is SchemaAudience ||
+                v is SchemaContactPoint ||
+                v is SchemaOrganization ||
+                v is SchemaPerson),
       });
 }

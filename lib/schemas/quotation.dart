@@ -164,7 +164,7 @@ class SchemaQuotation extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Quotation',
-        'spokenByCharacter': convertToJsonLd(
-            spokenByCharacter, [SchemaOrganization, SchemaPerson]),
+        'spokenByCharacter': convertToJsonLd(spokenByCharacter,
+            (v) => v is SchemaOrganization || v is SchemaPerson),
       });
 }

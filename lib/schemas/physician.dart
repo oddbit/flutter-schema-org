@@ -35,16 +35,23 @@ class SchemaPhysician extends SchemaMedicalBusiness
   @override
   SchemaMedicalSpecialty? medicalSpecialty;
 
-  /// for historical reasons, any textual label and formal code provided as a
-  /// literal may be assumed to be from O*NET-SOC.
+  /// A category describing the job, preferably using a term from a taxonomy
+  /// such as [BLS O*NET-SOC](http://www.onetcenter.org/taxonomy.html),
+  /// [ISCO-08](https://www.ilo.org/public/english/bureau/stat/isco/isco08/) or
+  /// similar, with the property repeated for each applicable value. Ideally
+  /// the taxonomy should be identified, and both the textual label and formal
+  /// code for the category should be provided.\n Note: for historical reasons,
+  /// any textual label and formal code provided as a literal may be assumed to
+  /// be from O*NET-SOC.
   ///
   /// Supported types: [SchemaCategoryCode], [String]
   dynamic occupationalCategory;
 
-  /// //en.wikipedia.org/wiki/National_Provider_Identifier">National Provider
-  /// Identifier</a> (NPI) is a unique 10-digit identification number issued to
-  /// health care providers in the United States by the Centers for Medicare
-  /// and Medicaid Services.
+  /// A <a
+  /// href="https://en.wikipedia.org/wiki/National_Provider_Identifier">National
+  /// Provider Identifier</a> (NPI) is a unique 10-digit identification number
+  /// issued to health care providers in the United States by the Centers for
+  /// Medicare and Medicaid Services.
   String? usNPI;
 
   /// Name or unique ID of network. (Networks are often reused across different
@@ -69,6 +76,7 @@ class SchemaPhysician extends SchemaMedicalBusiness
     super.alumni,
     super.amenityFeature,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.branchCode,
@@ -124,6 +132,7 @@ class SchemaPhysician extends SchemaMedicalBusiness
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,
@@ -199,17 +208,18 @@ class SchemaPhysician extends SchemaMedicalBusiness
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Physician',
-        'availableService': convertToJsonLd(availableService,
-            [SchemaMedicalProcedure, SchemaMedicalTest, SchemaMedicalTherapy]),
-        'hospitalAffiliation':
-            convertToJsonLd(hospitalAffiliation, [SchemaHospital]),
-        'medicalSpecialty':
-            convertToJsonLd(medicalSpecialty, [SchemaMedicalSpecialty]),
-        'occupationalCategory':
-            convertToJsonLd(occupationalCategory, [SchemaCategoryCode, String]),
-        'usNPI': convertToJsonLd(usNPI, [String]),
-        'healthPlanNetworkId': convertToJsonLd(healthPlanNetworkId, [String]),
-        'isAcceptingNewPatients':
-            convertToJsonLd(isAcceptingNewPatients, [bool]),
+        'availableService': convertToJsonLd(
+            availableService,
+            (v) =>
+                v is SchemaMedicalProcedure ||
+                v is SchemaMedicalTest ||
+                v is SchemaMedicalTherapy),
+        'hospitalAffiliation': convertToJsonLd(hospitalAffiliation),
+        'medicalSpecialty': convertToJsonLd(medicalSpecialty),
+        'occupationalCategory': convertToJsonLd(occupationalCategory,
+            (v) => v is SchemaCategoryCode || v is String),
+        'usNPI': convertToJsonLd(usNPI),
+        'healthPlanNetworkId': convertToJsonLd(healthPlanNetworkId),
+        'isAcceptingNewPatients': convertToJsonLd(isAcceptingNewPatients),
       });
 }

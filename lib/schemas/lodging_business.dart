@@ -20,7 +20,9 @@ class SchemaLodgingBusiness extends SchemaLocalBusiness {
   /// An intended audience, i.e. a group for whom something was created.
   SchemaAudience? audience;
 
-  /// //tools.ietf.org/html/bcp47). See also [SchemainLanguage].
+  /// A language someone may use with or at the item, service or place. Please
+  /// use one of the language codes from the [IETF BCP 47
+  /// standard](http://tools.ietf.org/html/bcp47). See also [SchemainLanguage].
   ///
   /// Supported types: [SchemaLanguage], [String]
   dynamic availableLanguage;
@@ -31,8 +33,10 @@ class SchemaLodgingBusiness extends SchemaLocalBusiness {
   /// The latest someone may check out of a lodging establishment.
   String? checkoutTime;
 
-  /// ROM for room or C62 for no unit. The type of room can be put in the
-  /// unitText property of the QuantitativeValue.
+  /// The number of rooms (excluding bathrooms and closets) of the
+  /// accommodation or lodging business. Typical unit code(s): ROM for room or
+  /// C62 for no unit. The type of room can be put in the unitText property of
+  /// the QuantitativeValue.
   ///
   /// Supported types: [SchemaQuantitativeValue], [num]
   dynamic numberOfRooms;
@@ -62,6 +66,7 @@ class SchemaLodgingBusiness extends SchemaLocalBusiness {
     super.alumni,
     super.amenityFeature,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.branchCode,
@@ -117,6 +122,7 @@ class SchemaLodgingBusiness extends SchemaLocalBusiness {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,
@@ -192,14 +198,15 @@ class SchemaLodgingBusiness extends SchemaLocalBusiness {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'LodgingBusiness',
-        'audience': convertToJsonLd(audience, [SchemaAudience]),
-        'availableLanguage':
-            convertToJsonLd(availableLanguage, [SchemaLanguage, String]),
-        'checkinTime': convertToJsonLd(checkinTime, [String]),
-        'checkoutTime': convertToJsonLd(checkoutTime, [String]),
-        'numberOfRooms':
-            convertToJsonLd(numberOfRooms, [SchemaQuantitativeValue, num]),
-        'petsAllowed': convertToJsonLd(petsAllowed, [String, bool]),
-        'starRating': convertToJsonLd(starRating, [SchemaRating]),
+        'audience': convertToJsonLd(audience),
+        'availableLanguage': convertToJsonLd(
+            availableLanguage, (v) => v is SchemaLanguage || v is String),
+        'checkinTime': convertToJsonLd(checkinTime),
+        'checkoutTime': convertToJsonLd(checkoutTime),
+        'numberOfRooms': convertToJsonLd(
+            numberOfRooms, (v) => v is SchemaQuantitativeValue || v is num),
+        'petsAllowed':
+            convertToJsonLd(petsAllowed, (v) => v is String || v is bool),
+        'starRating': convertToJsonLd(starRating),
       });
 }

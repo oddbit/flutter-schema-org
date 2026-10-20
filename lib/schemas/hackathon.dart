@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// //en.wikipedia.org/wiki/Hackathon) event.
+/// A [hackathon](https://en.wikipedia.org/wiki/Hackathon) event.
 /// See https://schema.org/Hackathon
 class SchemaHackathon extends SchemaEvent {
   /// Create a new instance of [SchemaHackathon]

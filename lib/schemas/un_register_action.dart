@@ -10,9 +10,11 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/interact_action.dart';
 
-/// Unlike LeaveAction, UnRegisterAction implies that you are unregistering
-/// from a service you were previously registered, rather than leaving a
-/// team/group of people.
+/// The act of un-registering from a service.\n\nRelated actions:\n\n*
+/// [SchemaRegisterAction]: antonym of UnRegisterAction.\n*
+/// [SchemaLeaveAction]: Unlike LeaveAction, UnRegisterAction implies that
+/// you are unregistering from a service you were previously registered,
+/// rather than leaving a team/group of people.
 /// See https://schema.org/UnRegisterAction
 class SchemaUnRegisterAction extends SchemaInteractAction {
   /// Create a new instance of [SchemaUnRegisterAction]

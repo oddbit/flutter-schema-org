@@ -9,28 +9,31 @@
 
 import 'package:schema_org/schemas/nonprofit_type.dart';
 
-/// Non-profit organization type originating from the United Kingdom.
+/// UKNonprofitType: Non-profit organization type originating from the United
+/// Kingdom.
 /// See https://schema.org/UKNonprofitType
 enum SchemaUKNonprofitType implements SchemaNonprofitType {
-  /// Non-profit type referring to a Charitable Incorporated Organization
-  /// (UK).
-  charitableIncorporatedOrganization('https://schema.org/UKNonprofitType'),
+  /// CharitableIncorporatedOrganization: Non-profit type referring to a
+  /// Charitable Incorporated Organization (UK).
+  charitableIncorporatedOrganization(
+      'https://schema.org/CharitableIncorporatedOrganization'),
 
-  /// Non-profit type referring to a charitable company that is limited by
-  /// guarantee (UK).
-  limitedByGuaranteeCharity('https://schema.org/UKNonprofitType'),
+  /// LimitedByGuaranteeCharity: Non-profit type referring to a charitable
+  /// company that is limited by guarantee (UK).
+  limitedByGuaranteeCharity('https://schema.org/LimitedByGuaranteeCharity'),
 
-  /// Non-profit type referring to a UK trust.
-  uKTrust('https://schema.org/UKNonprofitType'),
+  /// UKTrust: Non-profit type referring to a UK trust.
+  uKTrust('https://schema.org/UKTrust'),
 
-  /// Non-profit type referring to a charitable company that is not
-  /// incorporated (UK).
-  unincorporatedAssociationCharity('https://schema.org/UKNonprofitType');
+  /// UnincorporatedAssociationCharity: Non-profit type referring to a
+  /// charitable company that is not incorporated (UK).
+  unincorporatedAssociationCharity(
+      'https://schema.org/UnincorporatedAssociationCharity');
 
   /// Constructor for [SchemaUKNonprofitType]
   const SchemaUKNonprofitType(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaUKNonprofitType] to JSON-LD

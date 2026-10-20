@@ -10,9 +10,15 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// //schema.org/additionalType">additionalType</a> to differentiate between
-/// productions / shows (PerformanceWork, EventSeries), tours (EventSeries),
-/// and individual performances.
+/// Live performance <a class="localLink"
+/// href="http://schema.org/Event">Event of the performing arts (music,
+/// theatre, dance, acrobatics, spoken word), including performance art and
+/// performative sports (e.g. choreographed forms of martial arts, figure
+/// skating, competitive ballroom dancing).<br/><br/>Note: Use <a
+/// class="localLink"
+/// href="http://schema.org/additionalType">additionalType</a> to
+/// differentiate between productions / shows (PerformanceWork, EventSeries),
+/// tours (EventSeries), and individual performances.
 /// See https://schema.org/PerformingArtsEvent
 class SchemaPerformingArtsEvent extends SchemaEvent {
   /// Create a new instance of [SchemaPerformingArtsEvent]

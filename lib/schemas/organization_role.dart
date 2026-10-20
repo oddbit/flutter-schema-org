@@ -44,6 +44,6 @@ class SchemaOrganizationRole extends SchemaRole {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'OrganizationRole',
-        'numberedPosition': convertToJsonLd(numberedPosition, [num]),
+        'numberedPosition': convertToJsonLd(numberedPosition),
       });
 }

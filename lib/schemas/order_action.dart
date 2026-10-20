@@ -56,7 +56,6 @@ class SchemaOrderAction extends SchemaTradeAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'OrderAction',
-        'deliveryMethod':
-            convertToJsonLd(deliveryMethod, [SchemaDeliveryMethod]),
+        'deliveryMethod': convertToJsonLd(deliveryMethod),
       });
 }

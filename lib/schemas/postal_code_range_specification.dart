@@ -46,7 +46,7 @@ class SchemaPostalCodeRangeSpecification extends SchemaStructuredValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'PostalCodeRangeSpecification',
-        'postalCodeBegin': convertToJsonLd(postalCodeBegin, [String]),
-        'postalCodeEnd': convertToJsonLd(postalCodeEnd, [String]),
+        'postalCodeBegin': convertToJsonLd(postalCodeBegin),
+        'postalCodeEnd': convertToJsonLd(postalCodeEnd),
       });
 }

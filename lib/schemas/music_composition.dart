@@ -199,18 +199,16 @@ class SchemaMusicComposition extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MusicComposition',
-        'composer':
-            convertToJsonLd(composer, [SchemaOrganization, SchemaPerson]),
-        'firstPerformance': convertToJsonLd(firstPerformance, [SchemaEvent]),
-        'includedComposition':
-            convertToJsonLd(includedComposition, [SchemaMusicComposition]),
-        'iswcCode': convertToJsonLd(iswcCode, [String]),
-        'lyricist': convertToJsonLd(lyricist, [SchemaPerson]),
-        'lyrics': convertToJsonLd(lyrics, [SchemaCreativeWork]),
-        'musicArrangement':
-            convertToJsonLd(musicArrangement, [SchemaMusicComposition]),
-        'musicCompositionForm': convertToJsonLd(musicCompositionForm, [String]),
-        'musicalKey': convertToJsonLd(musicalKey, [String]),
-        'recordedAs': convertToJsonLd(recordedAs, [SchemaMusicRecording]),
+        'composer': convertToJsonLd(
+            composer, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'firstPerformance': convertToJsonLd(firstPerformance),
+        'includedComposition': convertToJsonLd(includedComposition),
+        'iswcCode': convertToJsonLd(iswcCode),
+        'lyricist': convertToJsonLd(lyricist),
+        'lyrics': convertToJsonLd(lyrics),
+        'musicArrangement': convertToJsonLd(musicArrangement),
+        'musicCompositionForm': convertToJsonLd(musicCompositionForm),
+        'musicalKey': convertToJsonLd(musicalKey),
+        'recordedAs': convertToJsonLd(recordedAs),
       });
 }

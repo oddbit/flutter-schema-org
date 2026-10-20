@@ -77,11 +77,15 @@ class SchemaSoftwareApplication extends SchemaCreativeWork {
   /// Description of what changed in this version.
   String? releaseNotes;
 
-  /// DirectX, Java or .NET runtime).
+  /// Component dependency requirements for application. This includes runtime
+  /// environments and shared libraries that are not included in the
+  /// application distribution package, but required to run the application
+  /// (examples: DirectX, Java or .NET runtime).
   @Deprecated('Use [softwareRequirements]. See https://schema.org/requirements')
   String? requirements;
 
-  /// Java v1, Python 2.3, .NET Framework 3.0).
+  /// Runtime platform or script interpreter dependencies (example: Java v1,
+  /// Python 2.3, .NET Framework 3.0).
   ///
   /// Supported types: [SchemaRuntimePlatform], [String]
   dynamic runtimePlatform;
@@ -97,7 +101,10 @@ class SchemaSoftwareApplication extends SchemaCreativeWork {
   /// Software application help.
   SchemaCreativeWork? softwareHelp;
 
-  /// DirectX, Java or .NET runtime).
+  /// Component dependency requirements for application. This includes runtime
+  /// environments and shared libraries that are not included in the
+  /// application distribution package, but required to run the application
+  /// (examples: DirectX, Java or .NET runtime).
   ///
   /// Supported types: [SchemaSoftwareApplication], [String]
   dynamic softwareRequirements;
@@ -274,37 +281,34 @@ class SchemaSoftwareApplication extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'SoftwareApplication',
-        'applicationCategory': convertToJsonLd(applicationCategory, [String]),
-        'applicationSubCategory':
-            convertToJsonLd(applicationSubCategory, [String]),
-        'applicationSuite': convertToJsonLd(applicationSuite, [String]),
-        'availableOnDevice': convertToJsonLd(availableOnDevice, [String]),
-        'countriesNotSupported':
-            convertToJsonLd(countriesNotSupported, [String]),
-        'countriesSupported': convertToJsonLd(countriesSupported, [String]),
-        'device': convertToJsonLd(device, [String]),
-        'downloadUrl': convertToJsonLd(downloadUrl, [String]),
-        'featureList': convertToJsonLd(featureList, [String]),
-        'fileSize': convertToJsonLd(fileSize, [String]),
-        'installUrl': convertToJsonLd(installUrl, [String]),
-        'memoryRequirements': convertToJsonLd(memoryRequirements, [String]),
-        'operatingSystem':
-            convertToJsonLd(operatingSystem, [SchemaOperatingSystem, String]),
-        'permissions': convertToJsonLd(permissions, [String]),
-        'processorRequirements':
-            convertToJsonLd(processorRequirements, [String]),
-        'releaseNotes': convertToJsonLd(releaseNotes, [String]),
-        'requirements': convertToJsonLd(requirements, [String]),
-        'runtimePlatform':
-            convertToJsonLd(runtimePlatform, [SchemaRuntimePlatform, String]),
-        'screenshot': convertToJsonLd(screenshot, [SchemaImageObject, String]),
-        'softwareAddOn':
-            convertToJsonLd(softwareAddOn, [SchemaSoftwareApplication]),
-        'softwareHelp': convertToJsonLd(softwareHelp, [SchemaCreativeWork]),
-        'softwareRequirements': convertToJsonLd(
-            softwareRequirements, [SchemaSoftwareApplication, String]),
-        'softwareVersion': convertToJsonLd(softwareVersion, [String]),
-        'storageRequirements': convertToJsonLd(storageRequirements, [String]),
-        'supportingData': convertToJsonLd(supportingData, [SchemaDataFeed]),
+        'applicationCategory': convertToJsonLd(applicationCategory),
+        'applicationSubCategory': convertToJsonLd(applicationSubCategory),
+        'applicationSuite': convertToJsonLd(applicationSuite),
+        'availableOnDevice': convertToJsonLd(availableOnDevice),
+        'countriesNotSupported': convertToJsonLd(countriesNotSupported),
+        'countriesSupported': convertToJsonLd(countriesSupported),
+        'device': convertToJsonLd(device),
+        'downloadUrl': convertToJsonLd(downloadUrl),
+        'featureList': convertToJsonLd(featureList),
+        'fileSize': convertToJsonLd(fileSize),
+        'installUrl': convertToJsonLd(installUrl),
+        'memoryRequirements': convertToJsonLd(memoryRequirements),
+        'operatingSystem': convertToJsonLd(
+            operatingSystem, (v) => v is SchemaOperatingSystem || v is String),
+        'permissions': convertToJsonLd(permissions),
+        'processorRequirements': convertToJsonLd(processorRequirements),
+        'releaseNotes': convertToJsonLd(releaseNotes),
+        'requirements': convertToJsonLd(requirements),
+        'runtimePlatform': convertToJsonLd(
+            runtimePlatform, (v) => v is SchemaRuntimePlatform || v is String),
+        'screenshot': convertToJsonLd(
+            screenshot, (v) => v is SchemaImageObject || v is String),
+        'softwareAddOn': convertToJsonLd(softwareAddOn),
+        'softwareHelp': convertToJsonLd(softwareHelp),
+        'softwareRequirements': convertToJsonLd(softwareRequirements,
+            (v) => v is SchemaSoftwareApplication || v is String),
+        'softwareVersion': convertToJsonLd(softwareVersion),
+        'storageRequirements': convertToJsonLd(storageRequirements),
+        'supportingData': convertToJsonLd(supportingData),
       });
 }

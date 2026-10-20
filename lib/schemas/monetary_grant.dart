@@ -45,6 +45,7 @@ class SchemaMonetaryGrant extends SchemaGrant {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MonetaryGrant',
-        'amount': convertToJsonLd(amount, [SchemaMonetaryAmount, num]),
+        'amount': convertToJsonLd(
+            amount, (v) => v is SchemaMonetaryAmount || v is num),
       });
 }

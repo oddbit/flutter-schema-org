@@ -49,8 +49,8 @@ class SchemaCategoryCode extends SchemaDefinedTerm {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'CategoryCode',
-        'codeValue': convertToJsonLd(codeValue, [String]),
-        'inCodeSet':
-            convertToJsonLd(inCodeSet, [SchemaCategoryCodeSet, String]),
+        'codeValue': convertToJsonLd(codeValue),
+        'inCodeSet': convertToJsonLd(
+            inCodeSet, (v) => v is SchemaCategoryCodeSet || v is String),
       });
 }

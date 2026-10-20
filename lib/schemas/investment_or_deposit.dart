@@ -72,6 +72,7 @@ class SchemaInvestmentOrDeposit extends SchemaFinancialProduct {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'InvestmentOrDeposit',
-        'amount': convertToJsonLd(amount, [SchemaMonetaryAmount, num]),
+        'amount': convertToJsonLd(
+            amount, (v) => v is SchemaMonetaryAmount || v is num),
       });
 }

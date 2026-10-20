@@ -166,7 +166,6 @@ class SchemaHealthTopicContent extends SchemaWebContent {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'HealthTopicContent',
-        'hasHealthAspect':
-            convertToJsonLd(hasHealthAspect, [SchemaHealthAspectEnumeration]),
+        'hasHealthAspect': convertToJsonLd(hasHealthAspect),
       });
 }

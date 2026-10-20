@@ -11,9 +11,12 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/publication_issue.dart';
 import 'package:schema_org/schemas/person.dart';
 
-/// the combination of the name and volume number of the series to which the
-/// issue belongs; the issue number; and the variant description of the issue
-/// (if any).
+/// Individual comic issues are serially published as part of a larger
+/// series. For the sake of consistency, even one-shot issues belong to a
+/// series comprised of a single issue. All comic issues can be uniquely
+/// identified by: the combination of the name and volume number of the
+/// series to which the issue belongs; the issue number; and the variant
+/// description of the issue (if any).
 /// See https://schema.org/ComicIssue
 class SchemaComicIssue extends SchemaPublicationIssue {
   /// The primary artist for a work in a medium other than pencils or digital
@@ -188,11 +191,11 @@ class SchemaComicIssue extends SchemaPublicationIssue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ComicIssue',
-        'artist': convertToJsonLd(artist, [SchemaPerson]),
-        'colorist': convertToJsonLd(colorist, [SchemaPerson]),
-        'inker': convertToJsonLd(inker, [SchemaPerson]),
-        'letterer': convertToJsonLd(letterer, [SchemaPerson]),
-        'penciler': convertToJsonLd(penciler, [SchemaPerson]),
-        'variantCover': convertToJsonLd(variantCover, [String]),
+        'artist': convertToJsonLd(artist),
+        'colorist': convertToJsonLd(colorist),
+        'inker': convertToJsonLd(inker),
+        'letterer': convertToJsonLd(letterer),
+        'penciler': convertToJsonLd(penciler),
+        'variantCover': convertToJsonLd(variantCover),
       });
 }

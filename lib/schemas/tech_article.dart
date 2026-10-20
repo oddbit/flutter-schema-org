@@ -10,14 +10,15 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/article.dart';
 
-/// How-to (task) topics, step-by-step, procedural troubleshooting,
-/// specifications, etc.
+/// A technical article - Example: How-to (task) topics, step-by-step,
+/// procedural troubleshooting, specifications, etc.
 /// See https://schema.org/TechArticle
 class SchemaTechArticle extends SchemaArticle {
   /// Prerequisites needed to fulfill steps in article.
   String? dependencies;
 
-  /// 'Beginner', 'Expert'.
+  /// Proficiency needed for this content; expected values: 'Beginner',
+  /// 'Expert'.
   String? proficiencyLevel;
 
   /// Create a new instance of [SchemaTechArticle]
@@ -167,7 +168,7 @@ class SchemaTechArticle extends SchemaArticle {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'TechArticle',
-        'dependencies': convertToJsonLd(dependencies, [String]),
-        'proficiencyLevel': convertToJsonLd(proficiencyLevel, [String]),
+        'dependencies': convertToJsonLd(dependencies),
+        'proficiencyLevel': convertToJsonLd(proficiencyLevel),
       });
 }

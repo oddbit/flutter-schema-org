@@ -68,8 +68,8 @@ class SchemaSellAction extends SchemaTradeAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'SellAction',
-        'buyer': convertToJsonLd(buyer, [SchemaOrganization, SchemaPerson]),
-        'warrantyPromise':
-            convertToJsonLd(warrantyPromise, [SchemaWarrantyPromise]),
+        'buyer': convertToJsonLd(
+            buyer, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'warrantyPromise': convertToJsonLd(warrantyPromise),
       });
 }

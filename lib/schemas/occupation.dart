@@ -48,8 +48,14 @@ class SchemaOccupation extends SchemaIntangible {
   /// vary between jurisdictions.
   SchemaAdministrativeArea? occupationLocation;
 
-  /// for historical reasons, any textual label and formal code provided as a
-  /// literal may be assumed to be from O*NET-SOC.
+  /// A category describing the job, preferably using a term from a taxonomy
+  /// such as [BLS O*NET-SOC](http://www.onetcenter.org/taxonomy.html),
+  /// [ISCO-08](https://www.ilo.org/public/english/bureau/stat/isco/isco08/) or
+  /// similar, with the property repeated for each applicable value. Ideally
+  /// the taxonomy should be identified, and both the textual label and formal
+  /// code for the category should be provided.\n Note: for historical reasons,
+  /// any textual label and formal code provided as a literal may be assumed to
+  /// be from O*NET-SOC.
   ///
   /// Supported types: [SchemaCategoryCode], [String]
   dynamic occupationalCategory;
@@ -101,18 +107,24 @@ class SchemaOccupation extends SchemaIntangible {
         ...super.toJsonLd(),
         '@type': 'Occupation',
         'educationRequirements': convertToJsonLd(educationRequirements,
-            [SchemaEducationalOccupationalCredential, String]),
-        'estimatedSalary': convertToJsonLd(estimatedSalary,
-            [SchemaMonetaryAmount, SchemaMonetaryAmountDistribution, num]),
-        'experienceRequirements': convertToJsonLd(experienceRequirements,
-            [SchemaOccupationalExperienceRequirements, String]),
-        'occupationLocation':
-            convertToJsonLd(occupationLocation, [SchemaAdministrativeArea]),
-        'occupationalCategory':
-            convertToJsonLd(occupationalCategory, [SchemaCategoryCode, String]),
-        'qualifications':
-            convertToJsonLd(qualifications, [SchemaCredential, String]),
-        'responsibilities': convertToJsonLd(responsibilities, [String]),
-        'skills': convertToJsonLd(skills, [SchemaDefinedTerm, String]),
+            (v) => v is SchemaEducationalOccupationalCredential || v is String),
+        'estimatedSalary': convertToJsonLd(
+            estimatedSalary,
+            (v) =>
+                v is SchemaMonetaryAmount ||
+                v is SchemaMonetaryAmountDistribution ||
+                v is num),
+        'experienceRequirements': convertToJsonLd(
+            experienceRequirements,
+            (v) =>
+                v is SchemaOccupationalExperienceRequirements || v is String),
+        'occupationLocation': convertToJsonLd(occupationLocation),
+        'occupationalCategory': convertToJsonLd(occupationalCategory,
+            (v) => v is SchemaCategoryCode || v is String),
+        'qualifications': convertToJsonLd(
+            qualifications, (v) => v is SchemaCredential || v is String),
+        'responsibilities': convertToJsonLd(responsibilities),
+        'skills': convertToJsonLd(
+            skills, (v) => v is SchemaDefinedTerm || v is String),
       });
 }

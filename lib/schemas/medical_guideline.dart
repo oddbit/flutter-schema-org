@@ -11,8 +11,14 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/medical_entity.dart';
 import 'package:schema_org/schemas/medical_evidence_level.dart';
 
-/// the organization making the recommendation should be captured in the
-/// recognizingAuthority base property of MedicalEntity.
+/// Any recommendation made by a standard society (e.g. ACC/AHA) or consensus
+/// statement that denotes how to diagnose and treat a particular condition.
+/// Note: this type should be used to tag the actual guideline
+/// recommendation; if the guideline recommendation occurs in a larger
+/// scholarly article, use MedicalScholarlyArticle to tag the overall
+/// article, not this type. Note also: the organization making the
+/// recommendation should be captured in the recognizingAuthority base
+/// property of MedicalEntity.
 /// See https://schema.org/MedicalGuideline
 class SchemaMedicalGuideline extends SchemaMedicalEntity {
   /// Strength of evidence of the data used to formulate the guideline
@@ -64,11 +70,9 @@ class SchemaMedicalGuideline extends SchemaMedicalEntity {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MedicalGuideline',
-        'evidenceLevel':
-            convertToJsonLd(evidenceLevel, [SchemaMedicalEvidenceLevel]),
-        'evidenceOrigin': convertToJsonLd(evidenceOrigin, [String]),
-        'guidelineDate': convertToJsonLd(guidelineDate, [String]),
-        'guidelineSubject':
-            convertToJsonLd(guidelineSubject, [SchemaMedicalEntity]),
+        'evidenceLevel': convertToJsonLd(evidenceLevel),
+        'evidenceOrigin': convertToJsonLd(evidenceOrigin),
+        'guidelineDate': convertToJsonLd(guidelineDate),
+        'guidelineSubject': convertToJsonLd(guidelineSubject),
       });
 }

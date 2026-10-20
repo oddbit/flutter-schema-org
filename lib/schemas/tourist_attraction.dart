@@ -20,7 +20,9 @@ import 'package:schema_org/schemas/audience.dart';
 /// tourist attraction properties to any other type. (See examples below)
 /// See https://schema.org/TouristAttraction
 class SchemaTouristAttraction extends SchemaPlace {
-  /// //tools.ietf.org/html/bcp47). See also [SchemainLanguage].
+  /// A language someone may use with or at the item, service or place. Please
+  /// use one of the language codes from the [IETF BCP 47
+  /// standard](http://tools.ietf.org/html/bcp47). See also [SchemainLanguage].
   ///
   /// Supported types: [SchemaLanguage], [String]
   dynamic availableLanguage;
@@ -102,8 +104,9 @@ class SchemaTouristAttraction extends SchemaPlace {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'TouristAttraction',
-        'availableLanguage':
-            convertToJsonLd(availableLanguage, [SchemaLanguage, String]),
-        'touristType': convertToJsonLd(touristType, [SchemaAudience, String]),
+        'availableLanguage': convertToJsonLd(
+            availableLanguage, (v) => v is SchemaLanguage || v is String),
+        'touristType': convertToJsonLd(
+            touristType, (v) => v is SchemaAudience || v is String),
       });
 }

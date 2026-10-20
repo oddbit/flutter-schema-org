@@ -165,6 +165,6 @@ class SchemaSocialMediaPosting extends SchemaArticle {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'SocialMediaPosting',
-        'sharedContent': convertToJsonLd(sharedContent, [SchemaCreativeWork]),
+        'sharedContent': convertToJsonLd(sharedContent),
       });
 }

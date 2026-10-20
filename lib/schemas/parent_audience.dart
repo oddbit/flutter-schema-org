@@ -55,7 +55,7 @@ class SchemaParentAudience extends SchemaPeopleAudience {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ParentAudience',
-        'childMaxAge': convertToJsonLd(childMaxAge, [num]),
-        'childMinAge': convertToJsonLd(childMinAge, [num]),
+        'childMaxAge': convertToJsonLd(childMaxAge),
+        'childMinAge': convertToJsonLd(childMinAge),
       });
 }

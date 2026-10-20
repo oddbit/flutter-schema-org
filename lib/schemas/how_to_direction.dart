@@ -39,10 +39,14 @@ class SchemaHowToDirection extends SchemaCreativeWork
   /// Supported types: [SchemaMediaObject], [String]
   dynamic duringMedia;
 
-  /// //en.wikipedia.org/wiki/ISO_8601).
+  /// The length of time it takes to perform instructions or a direction (not
+  /// including time to prepare the supplies), in [ISO 8601 duration
+  /// format](http://en.wikipedia.org/wiki/ISO_8601).
   SchemaDuration? performTime;
 
-  /// //en.wikipedia.org/wiki/ISO_8601).
+  /// The length of time it takes to prepare the items to be used in
+  /// instructions or a direction, in [ISO 8601 duration
+  /// format](http://en.wikipedia.org/wiki/ISO_8601).
   SchemaDuration? prepTime;
 
   /// A sub-property of instrument. A supply consumed when performing
@@ -57,7 +61,9 @@ class SchemaHowToDirection extends SchemaCreativeWork
   /// Supported types: [SchemaHowToTool], [String]
   dynamic tool;
 
-  /// //en.wikipedia.org/wiki/ISO_8601).
+  /// The total time required to perform instructions or a direction (including
+  /// time to prepare the supplies), in [ISO 8601 duration
+  /// format](http://en.wikipedia.org/wiki/ISO_8601).
   SchemaDuration? totalTime;
 
   /// An entity represented by an entry in a list or data feed (e.g. an
@@ -222,18 +228,21 @@ class SchemaHowToDirection extends SchemaCreativeWork
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'HowToDirection',
-        'afterMedia': convertToJsonLd(afterMedia, [SchemaMediaObject, String]),
-        'beforeMedia':
-            convertToJsonLd(beforeMedia, [SchemaMediaObject, String]),
-        'duringMedia':
-            convertToJsonLd(duringMedia, [SchemaMediaObject, String]),
-        'performTime': convertToJsonLd(performTime, [SchemaDuration]),
-        'prepTime': convertToJsonLd(prepTime, [SchemaDuration]),
-        'supply': convertToJsonLd(supply, [SchemaHowToSupply, String]),
-        'tool': convertToJsonLd(tool, [SchemaHowToTool, String]),
-        'totalTime': convertToJsonLd(totalTime, [SchemaDuration]),
-        'item': convertToJsonLd(item, [SchemaThing]),
-        'nextItem': convertToJsonLd(nextItem, [SchemaListItem]),
-        'previousItem': convertToJsonLd(previousItem, [SchemaListItem]),
+        'afterMedia': convertToJsonLd(
+            afterMedia, (v) => v is SchemaMediaObject || v is String),
+        'beforeMedia': convertToJsonLd(
+            beforeMedia, (v) => v is SchemaMediaObject || v is String),
+        'duringMedia': convertToJsonLd(
+            duringMedia, (v) => v is SchemaMediaObject || v is String),
+        'performTime': convertToJsonLd(performTime),
+        'prepTime': convertToJsonLd(prepTime),
+        'supply': convertToJsonLd(
+            supply, (v) => v is SchemaHowToSupply || v is String),
+        'tool':
+            convertToJsonLd(tool, (v) => v is SchemaHowToTool || v is String),
+        'totalTime': convertToJsonLd(totalTime),
+        'item': convertToJsonLd(item),
+        'nextItem': convertToJsonLd(nextItem),
+        'previousItem': convertToJsonLd(previousItem),
       });
 }

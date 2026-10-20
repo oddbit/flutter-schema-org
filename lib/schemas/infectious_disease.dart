@@ -79,9 +79,8 @@ class SchemaInfectiousDisease extends SchemaMedicalCondition {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'InfectiousDisease',
-        'infectiousAgent': convertToJsonLd(infectiousAgent, [String]),
-        'infectiousAgentClass':
-            convertToJsonLd(infectiousAgentClass, [SchemaInfectiousAgentClass]),
-        'transmissionMethod': convertToJsonLd(transmissionMethod, [String]),
+        'infectiousAgent': convertToJsonLd(infectiousAgent),
+        'infectiousAgentClass': convertToJsonLd(infectiousAgentClass),
+        'transmissionMethod': convertToJsonLd(transmissionMethod),
       });
 }

@@ -60,8 +60,8 @@ class SchemaConstraintNode extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ConstraintNode',
-        'constraintProperty':
-            convertToJsonLd(constraintProperty, [SchemaProperty, String]),
-        'numConstraints': convertToJsonLd(numConstraints, [int]),
+        'constraintProperty': convertToJsonLd(
+            constraintProperty, (v) => v is SchemaProperty || v is String),
+        'numConstraints': convertToJsonLd(numConstraints),
       });
 }

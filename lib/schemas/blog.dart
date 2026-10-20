@@ -11,9 +11,9 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 import 'package:schema_org/schemas/blog_posting.dart';
 
-/// //en.wikipedia.org/wiki/Blog), sometimes known as a "weblog". Note that
-/// the individual posts ([SchemaBlogPosting]s) in a [SchemaBlog] are often
-/// colloquially referred to by the same term.
+/// A [blog](https://en.wikipedia.org/wiki/Blog), sometimes known as a
+/// "weblog". Note that the individual posts ([SchemaBlogPosting]s) in a
+/// [SchemaBlog] are often colloquially referred to by the same term.
 /// See https://schema.org/Blog
 class SchemaBlog extends SchemaCreativeWork {
   /// A posting that is part of this blog.
@@ -171,8 +171,8 @@ class SchemaBlog extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Blog',
-        'blogPost': convertToJsonLd(blogPost, [SchemaBlogPosting]),
-        'blogPosts': convertToJsonLd(blogPosts, [SchemaBlogPosting]),
-        'issn': convertToJsonLd(issn, [String]),
+        'blogPost': convertToJsonLd(blogPost),
+        'blogPosts': convertToJsonLd(blogPosts),
+        'issn': convertToJsonLd(issn),
       });
 }

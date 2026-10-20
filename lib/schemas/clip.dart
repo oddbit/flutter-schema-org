@@ -222,18 +222,21 @@ class SchemaClip extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Clip',
-        'actor': convertToJsonLd(actor, [SchemaPerformingGroup, SchemaPerson]),
-        'actors': convertToJsonLd(actors, [SchemaPerson]),
-        'clipNumber': convertToJsonLd(clipNumber, [String, int]),
-        'director': convertToJsonLd(director, [SchemaPerson]),
-        'directors': convertToJsonLd(directors, [SchemaPerson]),
-        'endOffset': convertToJsonLd(endOffset, [SchemaHyperTocEntry, num]),
-        'musicBy': convertToJsonLd(musicBy, [SchemaMusicGroup, SchemaPerson]),
-        'partOfEpisode': convertToJsonLd(partOfEpisode, [SchemaEpisode]),
-        'partOfSeason':
-            convertToJsonLd(partOfSeason, [SchemaCreativeWorkSeason]),
-        'partOfSeries':
-            convertToJsonLd(partOfSeries, [SchemaCreativeWorkSeries]),
-        'startOffset': convertToJsonLd(startOffset, [SchemaHyperTocEntry, num]),
+        'actor': convertToJsonLd(
+            actor, (v) => v is SchemaPerformingGroup || v is SchemaPerson),
+        'actors': convertToJsonLd(actors),
+        'clipNumber':
+            convertToJsonLd(clipNumber, (v) => v is String || v is int),
+        'director': convertToJsonLd(director),
+        'directors': convertToJsonLd(directors),
+        'endOffset': convertToJsonLd(
+            endOffset, (v) => v is SchemaHyperTocEntry || v is num),
+        'musicBy': convertToJsonLd(
+            musicBy, (v) => v is SchemaMusicGroup || v is SchemaPerson),
+        'partOfEpisode': convertToJsonLd(partOfEpisode),
+        'partOfSeason': convertToJsonLd(partOfSeason),
+        'partOfSeries': convertToJsonLd(partOfSeries),
+        'startOffset': convertToJsonLd(
+            startOffset, (v) => v is SchemaHyperTocEntry || v is num),
       });
 }

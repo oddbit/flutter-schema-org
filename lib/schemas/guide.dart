@@ -175,13 +175,14 @@ class SchemaGuide extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Guide',
-        'category': convertToJsonLd(category, [
-          SchemaCategoryCode,
-          SchemaPhysicalActivityCategory,
-          String,
-          SchemaThing
-        ]),
-        'reviewAspect':
-            convertToJsonLd(reviewAspect, [String, SchemaStructuredValue]),
+        'category': convertToJsonLd(
+            category,
+            (v) =>
+                v is SchemaCategoryCode ||
+                v is SchemaPhysicalActivityCategory ||
+                v is String ||
+                v is SchemaThing),
+        'reviewAspect': convertToJsonLd(
+            reviewAspect, (v) => v is String || v is SchemaStructuredValue),
       });
 }

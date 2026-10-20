@@ -10,7 +10,9 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/action.dart';
 
-/// FindAction is generally lead by a SearchAction, but not necessarily.
+/// The act of finding an object.\n\nRelated actions:\n\n*
+/// [SchemaSearchAction]: FindAction is generally lead by a SearchAction, but
+/// not necessarily.
 /// See https://schema.org/FindAction
 class SchemaFindAction extends SchemaAction {
   /// Create a new instance of [SchemaFindAction]

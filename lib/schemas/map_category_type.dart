@@ -13,21 +13,21 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// See https://schema.org/MapCategoryType
 enum SchemaMapCategoryType implements SchemaSerializable {
   /// A parking map.
-  parkingMap('https://schema.org/MapCategoryType'),
+  parkingMap('https://schema.org/ParkingMap'),
 
   /// A seating map.
-  seatingMap('https://schema.org/MapCategoryType'),
+  seatingMap('https://schema.org/SeatingMap'),
 
   /// A transit map.
-  transitMap('https://schema.org/MapCategoryType'),
+  transitMap('https://schema.org/TransitMap'),
 
   /// A venue map (e.g. for malls, auditoriums, museums, etc.).
-  venueMap('https://schema.org/MapCategoryType');
+  venueMap('https://schema.org/VenueMap');
 
   /// Constructor for [SchemaMapCategoryType]
   const SchemaMapCategoryType(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaMapCategoryType] to JSON-LD

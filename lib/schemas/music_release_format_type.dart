@@ -14,30 +14,30 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// See https://schema.org/MusicReleaseFormatType
 enum SchemaMusicReleaseFormatType implements SchemaSerializable {
   /// CDFormat.
-  cDFormat('https://schema.org/MusicReleaseFormatType'),
+  cDFormat('https://schema.org/CDFormat'),
 
   /// CassetteFormat.
-  cassetteFormat('https://schema.org/MusicReleaseFormatType'),
+  cassetteFormat('https://schema.org/CassetteFormat'),
 
   /// DVDFormat.
-  dVDFormat('https://schema.org/MusicReleaseFormatType'),
+  dVDFormat('https://schema.org/DVDFormat'),
 
   /// DigitalAudioTapeFormat.
-  digitalAudioTapeFormat('https://schema.org/MusicReleaseFormatType'),
+  digitalAudioTapeFormat('https://schema.org/DigitalAudioTapeFormat'),
 
   /// DigitalFormat.
-  digitalFormat('https://schema.org/MusicReleaseFormatType'),
+  digitalFormat('https://schema.org/DigitalFormat'),
 
   /// LaserDiscFormat.
-  laserDiscFormat('https://schema.org/MusicReleaseFormatType'),
+  laserDiscFormat('https://schema.org/LaserDiscFormat'),
 
   /// VinylFormat.
-  vinylFormat('https://schema.org/MusicReleaseFormatType');
+  vinylFormat('https://schema.org/VinylFormat');
 
   /// Constructor for [SchemaMusicReleaseFormatType]
   const SchemaMusicReleaseFormatType(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaMusicReleaseFormatType] to JSON-LD

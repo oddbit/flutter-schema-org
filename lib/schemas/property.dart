@@ -12,7 +12,8 @@ import 'package:schema_org/schemas/intangible.dart';
 import 'package:schema_org/schemas/class.dart';
 import 'package:schema_org/schemas/enumeration.dart';
 
-/// Property.
+/// A property, used to indicate attributes and relationships of some Thing;
+/// equivalent to rdf:Property.
 /// See https://schema.org/Property
 class SchemaProperty extends SchemaIntangible {
   /// Relates a property to a class that is (one of) the type(s) the property
@@ -62,10 +63,14 @@ class SchemaProperty extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Property',
-        'domainIncludes': convertToJsonLd(domainIncludes, [SchemaClass]),
-        'inverseOf': convertToJsonLd(inverseOf, [SchemaProperty]),
-        'rangeIncludes': convertToJsonLd(rangeIncludes, [SchemaClass]),
+        'domainIncludes': convertToJsonLd(domainIncludes),
+        'inverseOf': convertToJsonLd(inverseOf),
+        'rangeIncludes': convertToJsonLd(rangeIncludes),
         'supersededBy': convertToJsonLd(
-            supersededBy, [SchemaClass, SchemaEnumeration, SchemaProperty]),
+            supersededBy,
+            (v) =>
+                v is SchemaClass ||
+                v is SchemaEnumeration ||
+                v is SchemaProperty),
       });
 }

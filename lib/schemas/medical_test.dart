@@ -70,12 +70,11 @@ class SchemaMedicalTest extends SchemaMedicalEntity {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MedicalTest',
-        'affectedBy': convertToJsonLd(affectedBy, [SchemaDrug]),
-        'normalRange':
-            convertToJsonLd(normalRange, [SchemaMedicalEnumeration, String]),
-        'signDetected': convertToJsonLd(signDetected, [SchemaMedicalSign]),
-        'usedToDiagnose':
-            convertToJsonLd(usedToDiagnose, [SchemaMedicalCondition]),
-        'usesDevice': convertToJsonLd(usesDevice, [SchemaMedicalDevice]),
+        'affectedBy': convertToJsonLd(affectedBy),
+        'normalRange': convertToJsonLd(
+            normalRange, (v) => v is SchemaMedicalEnumeration || v is String),
+        'signDetected': convertToJsonLd(signDetected),
+        'usedToDiagnose': convertToJsonLd(usedToDiagnose),
+        'usesDevice': convertToJsonLd(usesDevice),
       });
 }

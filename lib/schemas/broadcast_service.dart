@@ -37,21 +37,25 @@ class SchemaBroadcastService extends SchemaService {
   /// Supported types: [SchemaBroadcastFrequencySpecification], [String]
   dynamic broadcastFrequency;
 
-  /// //en.wikipedia.org/wiki/ISO_8601) for which the service bases its
-  /// broadcasts.
+  /// The timezone in [ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601)
+  /// for which the service bases its broadcasts.
   String? broadcastTimezone;
 
   /// The organization owning or operating the broadcast service.
   SchemaOrganization? broadcaster;
 
-  /// //en.wikipedia.org/wiki/Call_sign), as used in broadcasting and radio
-  /// communications to identify people, radio and TV stations, or vehicles.
+  /// A [callsign](https://en.wikipedia.org/wiki/Call_sign), as used in
+  /// broadcasting and radio communications to identify people, radio and TV
+  /// stations, or vehicles.
   String? callSign;
 
   /// A broadcast channel of a broadcast service.
   SchemaBroadcastChannel? hasBroadcastChannel;
 
-  /// //tools.ietf.org/html/bcp47). See also [SchemaavailableLanguage].
+  /// The language of the content or performance or used in an action. Please
+  /// use one of the language codes from the [IETF BCP 47
+  /// standard](http://tools.ietf.org/html/bcp47). See also
+  /// [SchemaavailableLanguage].
   ///
   /// Supported types: [SchemaLanguage], [String]
   dynamic inLanguage;
@@ -122,20 +126,18 @@ class SchemaBroadcastService extends SchemaService {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'BroadcastService',
-        'area': convertToJsonLd(area, [SchemaPlace]),
-        'broadcastAffiliateOf':
-            convertToJsonLd(broadcastAffiliateOf, [SchemaOrganization]),
-        'broadcastDisplayName': convertToJsonLd(broadcastDisplayName, [String]),
+        'area': convertToJsonLd(area),
+        'broadcastAffiliateOf': convertToJsonLd(broadcastAffiliateOf),
+        'broadcastDisplayName': convertToJsonLd(broadcastDisplayName),
         'broadcastFrequency': convertToJsonLd(broadcastFrequency,
-            [SchemaBroadcastFrequencySpecification, String]),
-        'broadcastTimezone': convertToJsonLd(broadcastTimezone, [String]),
-        'broadcaster': convertToJsonLd(broadcaster, [SchemaOrganization]),
-        'callSign': convertToJsonLd(callSign, [String]),
-        'hasBroadcastChannel':
-            convertToJsonLd(hasBroadcastChannel, [SchemaBroadcastChannel]),
-        'inLanguage': convertToJsonLd(inLanguage, [SchemaLanguage, String]),
-        'parentService':
-            convertToJsonLd(parentService, [SchemaBroadcastService]),
-        'videoFormat': convertToJsonLd(videoFormat, [String]),
+            (v) => v is SchemaBroadcastFrequencySpecification || v is String),
+        'broadcastTimezone': convertToJsonLd(broadcastTimezone),
+        'broadcaster': convertToJsonLd(broadcaster),
+        'callSign': convertToJsonLd(callSign),
+        'hasBroadcastChannel': convertToJsonLd(hasBroadcastChannel),
+        'inLanguage': convertToJsonLd(
+            inLanguage, (v) => v is SchemaLanguage || v is String),
+        'parentService': convertToJsonLd(parentService),
+        'videoFormat': convertToJsonLd(videoFormat),
       });
 }

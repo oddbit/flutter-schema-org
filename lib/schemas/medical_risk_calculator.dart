@@ -10,7 +10,9 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/medical_risk_estimator.dart';
 
-/// use the url property of Thing to record any URLs for online calculators.
+/// A complex mathematical calculation requiring an online calculator, used
+/// to assess prognosis. Note: use the url property of Thing to record any
+/// URLs for online calculators.
 /// See https://schema.org/MedicalRiskCalculator
 class SchemaMedicalRiskCalculator extends SchemaMedicalRiskEstimator {
   /// Create a new instance of [SchemaMedicalRiskCalculator]

@@ -15,28 +15,29 @@ import 'package:schema_org/src/schema_serializable.dart';
 enum SchemaIncentiveType implements SchemaSerializable {
   /// An incentive where the recipient can receive additional funding for
   /// the purchase/lease of the good/service, which must be paid back.
-  incentiveTypeLoan('https://schema.org/IncentiveType'),
+  incentiveTypeLoan('https://schema.org/IncentiveTypeLoan'),
 
   /// An incentive that reduces the purchase/lease cost of the good/service
   /// in question.
-  incentiveTypeRebateOrSubsidy('https://schema.org/IncentiveType'),
+  incentiveTypeRebateOrSubsidy(
+      'https://schema.org/IncentiveTypeRebateOrSubsidy'),
 
   /// An incentive that directly reduces the amount of tax owed by the
   /// recipient.
-  incentiveTypeTaxCredit('https://schema.org/IncentiveType'),
+  incentiveTypeTaxCredit('https://schema.org/IncentiveTypeTaxCredit'),
 
   /// An incentive that reduces the recipient's amount of taxable income.
-  incentiveTypeTaxDeduction('https://schema.org/IncentiveType'),
+  incentiveTypeTaxDeduction('https://schema.org/IncentiveTypeTaxDeduction'),
 
   /// An incentive that reduces/exempts the recipient from taxation
   /// applicable to the incentivized good/service (e.g. luxury taxes,
   /// registration taxes, circulation tax).
-  incentiveTypeTaxWaiver('https://schema.org/IncentiveType');
+  incentiveTypeTaxWaiver('https://schema.org/IncentiveTypeTaxWaiver');
 
   /// Constructor for [SchemaIncentiveType]
   const SchemaIncentiveType(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaIncentiveType] to JSON-LD

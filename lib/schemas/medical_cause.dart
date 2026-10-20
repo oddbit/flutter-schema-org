@@ -62,6 +62,6 @@ class SchemaMedicalCause extends SchemaMedicalEntity {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MedicalCause',
-        'causeOf': convertToJsonLd(causeOf, [SchemaMedicalEntity]),
+        'causeOf': convertToJsonLd(causeOf),
       });
 }

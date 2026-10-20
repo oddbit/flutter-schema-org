@@ -10,7 +10,8 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// Exhibition event, e.g. at a museum, library, archive, tradeshow, ...
+/// Event type: Exhibition event, e.g. at a museum, library, archive,
+/// tradeshow, ...
 /// See https://schema.org/ExhibitionEvent
 class SchemaExhibitionEvent extends SchemaEvent {
   /// Create a new instance of [SchemaExhibitionEvent]

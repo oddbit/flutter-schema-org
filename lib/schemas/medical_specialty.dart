@@ -17,105 +17,116 @@ import 'package:schema_org/schemas/medical_enumeration.dart';
 enum SchemaMedicalSpecialty implements SchemaMedicalEnumeration {
   /// A specific branch of medical science that pertains to study of
   /// anesthetics and their application.
-  anesthesia('https://schema.org/MedicalSpecialty'),
+  anesthesia('https://schema.org/Anesthesia'),
+
+  /// A specific branch of medical science concerned with the diagnosis,
+  /// management, and non-surgical treatment of hearing, balance, and
+  /// related auditory processing disorders, including conditions such as
+  /// tinnitus, hyperacusis, and misophonia.
+  audiology('https://schema.org/Audiology'),
 
   /// A specific branch of medical science that pertains to diagnosis and
   /// treatment of disorders of heart and vasculature.
-  cardiovascular('https://schema.org/MedicalSpecialty'),
+  cardiovascular('https://schema.org/Cardiovascular'),
 
   /// A field of public health focusing on improving health characteristics
   /// of a defined population in relation with their geographical or
   /// environment areas.
-  communityHealth('https://schema.org/MedicalSpecialty'),
+  communityHealth('https://schema.org/CommunityHealth'),
 
   /// A branch of medicine that is involved in the dental care.
-  dentistry('https://schema.org/MedicalSpecialty'),
+  dentistry('https://schema.org/Dentistry'),
 
   /// Something relating to or practicing dermatology.
-  @Deprecated('Use [Dermatology]. See https://schema.org/MedicalSpecialty')
-  dermatologic('https://schema.org/MedicalSpecialty'),
+  @Deprecated('Use [Dermatology]. See https://schema.org/Dermatologic')
+  dermatologic('https://schema.org/Dermatologic'),
 
   /// A specific branch of medical science that pertains to diagnosis and
   /// treatment of disorders of skin.
-  dermatology('https://schema.org/MedicalSpecialty'),
+  dermatology('https://schema.org/Dermatology'),
 
   /// Dietetics and nutrition as a medical specialty.
-  dietNutrition('https://schema.org/MedicalSpecialty'),
+  dietNutrition('https://schema.org/DietNutrition'),
 
   /// A specific branch of medical science that deals with the evaluation
   /// and initial treatment of medical conditions caused by trauma or
   /// sudden illness.
-  emergency('https://schema.org/MedicalSpecialty'),
+  emergency('https://schema.org/Emergency'),
 
   /// A specific branch of medical science that pertains to diagnosis and
   /// treatment of disorders of endocrine glands and their secretions.
-  endocrine('https://schema.org/MedicalSpecialty'),
+  endocrine('https://schema.org/Endocrine'),
 
   /// A specific branch of medical science that pertains to diagnosis and
   /// treatment of disorders of digestive system.
-  gastroenterologic('https://schema.org/MedicalSpecialty'),
+  gastroenterologic('https://schema.org/Gastroenterologic'),
 
   /// A specific branch of medical science that pertains to hereditary
   /// transmission and the variation of inherited characteristics and
   /// disorders.
-  genetic('https://schema.org/MedicalSpecialty'),
+  genetic('https://schema.org/Genetic'),
 
   /// A specific branch of medical science that is concerned with the
   /// diagnosis and treatment of diseases, debilities and provision of care
   /// to the aged.
-  geriatric('https://schema.org/MedicalSpecialty'),
+  geriatric('https://schema.org/Geriatric'),
 
   /// A specific branch of medical science that pertains to the health care
   /// of women, particularly in the diagnosis and treatment of disorders
   /// affecting the female reproductive system.
-  gynecologic('https://schema.org/MedicalSpecialty'),
+  gynecologic('https://schema.org/Gynecologic'),
 
   /// A specific branch of medical science that pertains to diagnosis and
   /// treatment of disorders of blood and blood producing organs.
-  hematologic('https://schema.org/MedicalSpecialty'),
+  hematologic('https://schema.org/Hematologic'),
 
   /// Something in medical science that pertains to infectious diseases,
   /// i.e. caused by bacterial, viral, fungal or parasitic infections.
-  infectious('https://schema.org/MedicalSpecialty'),
+  infectious('https://schema.org/Infectious'),
 
   /// A medical science pertaining to chemical, hematological, immunologic,
   /// microscopic, or bacteriological diagnostic analyses or research.
-  laboratoryScience('https://schema.org/MedicalSpecialty'),
+  laboratoryScience('https://schema.org/LaboratoryScience'),
 
   /// A nurse-like health profession that deals with pregnancy, childbirth,
   /// and the postpartum period (including care of the newborn), besides
   /// sexual and reproductive health of women throughout their lives.
-  midwifery('https://schema.org/MedicalSpecialty'),
+  midwifery('https://schema.org/Midwifery'),
 
   /// A specific branch of medical science that pertains to diagnosis and
   /// treatment of disorders of muscles, ligaments and skeletal system.
-  musculoskeletal('https://schema.org/MedicalSpecialty'),
+  musculoskeletal('https://schema.org/Musculoskeletal'),
 
   /// A specific branch of medical science that studies the nerves and
   /// nervous system and its respective disease states.
-  neurologic('https://schema.org/MedicalSpecialty'),
+  neurologic('https://schema.org/Neurologic'),
 
   /// A health profession of a person formally educated and trained in the
   /// care of the sick or infirm person.
-  nursing('https://schema.org/MedicalSpecialty'),
+  nursing('https://schema.org/Nursing'),
 
   /// A specific branch of medical science that specializes in the care of
   /// women during the prenatal and postnatal care and with the delivery of
   /// the child.
-  obstetric('https://schema.org/MedicalSpecialty'),
+  obstetric('https://schema.org/Obstetric'),
 
   /// A specific branch of medical science that deals with benign and
   /// malignant tumors, including the study of their development,
   /// diagnosis, treatment and prevention.
-  oncologic('https://schema.org/MedicalSpecialty'),
+  oncologic('https://schema.org/Oncologic'),
+
+  /// A specific branch of medical science that pertains to the diagnosis
+  /// and treatment of disorders of the eye and its associated visual
+  /// structures, including medical and surgical interventions.
+  ophthalmology('https://schema.org/Ophthalmology'),
 
   /// The science or practice of testing visual acuity and prescribing
   /// corrective lenses.
-  optometric('https://schema.org/MedicalSpecialty'),
+  optometric('https://schema.org/Optometric'),
 
   /// A specific branch of medical science that is concerned with the ear,
   /// nose and throat and their respective disease states.
-  otolaryngologic('https://schema.org/MedicalSpecialty'),
+  otolaryngologic('https://schema.org/Otolaryngologic'),
 
   /// A specific branch of medical science that is concerned with the study
   /// of the cause, origin and nature of a disease state, including its
@@ -123,85 +134,85 @@ enum SchemaMedicalSpecialty implements SchemaMedicalEnumeration {
   /// care, the term is used to designate a branch of medicine using
   /// laboratory tests to diagnose and determine the prognostic
   /// significance of illness.
-  pathology('https://schema.org/MedicalSpecialty'),
+  pathology('https://schema.org/Pathology'),
 
   /// A specific branch of medical science that specializes in the care of
   /// infants, children and adolescents.
-  pediatric('https://schema.org/MedicalSpecialty'),
+  pediatric('https://schema.org/Pediatric'),
 
   /// The practice or art and science of preparing and dispensing drugs and
   /// medicines.
-  pharmacySpecialty('https://schema.org/MedicalSpecialty'),
+  pharmacySpecialty('https://schema.org/PharmacySpecialty'),
 
   /// The practice of treatment of disease, injury, or deformity by
   /// physical methods such as massage, heat treatment, and exercise rather
   /// than by drugs or surgery.
-  physiotherapy('https://schema.org/MedicalSpecialty'),
+  physiotherapy('https://schema.org/Physiotherapy'),
 
   /// A specific branch of medical science that pertains to therapeutic or
   /// cosmetic repair or re-formation of missing, injured or malformed
   /// tissues or body parts by manual and instrumental means.
-  plasticSurgery('https://schema.org/MedicalSpecialty'),
+  plasticSurgery('https://schema.org/PlasticSurgery'),
 
   /// Podiatry is the care of the human foot, especially the diagnosis and
   /// treatment of foot disorders.
-  podiatric('https://schema.org/MedicalSpecialty'),
+  podiatric('https://schema.org/Podiatric'),
 
   /// The medical care by a physician, or other health-care professional,
   /// who is the patient's first contact with the health-care system and
   /// who may recommend a specialist if necessary.
-  primaryCare('https://schema.org/MedicalSpecialty'),
+  primaryCare('https://schema.org/PrimaryCare'),
 
   /// A specific branch of medical science that is concerned with the
   /// study, treatment, and prevention of mental illness, using both
   /// medical and psychological therapies.
-  psychiatric('https://schema.org/MedicalSpecialty'),
+  psychiatric('https://schema.org/Psychiatric'),
 
   /// Branch of medicine that pertains to the health services to improve
   /// and protect community health, especially epidemiology, sanitation,
   /// immunization, and preventive medicine.
-  publicHealth('https://schema.org/MedicalSpecialty'),
+  publicHealth('https://schema.org/PublicHealth'),
 
   /// A specific branch of medical science that pertains to the study of
   /// the respiratory system and its respective disease states.
-  pulmonary('https://schema.org/MedicalSpecialty'),
+  pulmonary('https://schema.org/Pulmonary'),
 
   /// A specific branch of medical science that pertains to the study of
   /// the kidneys and its respective disease states.
-  renal('https://schema.org/MedicalSpecialty'),
+  renal('https://schema.org/Renal'),
 
   /// The therapy that is concerned with the maintenance or improvement of
   /// respiratory function (as in patients with pulmonary disease).
-  respiratoryTherapy('https://schema.org/MedicalSpecialty'),
+  respiratoryTherapy('https://schema.org/RespiratoryTherapy'),
 
   /// A specific branch of medical science that deals with the study and
   /// treatment of rheumatic, autoimmune or joint diseases.
-  rheumatologic('https://schema.org/MedicalSpecialty'),
+  rheumatologic('https://schema.org/Rheumatologic'),
 
   /// The scientific study and treatment of defects, disorders, and
   /// malfunctions of speech and voice, as stuttering, lisping, or lalling,
   /// and of language disturbances, as aphasia or delayed language
   /// acquisition.
-  speechPathology('https://schema.org/MedicalSpecialty'),
+  speechPathology('https://schema.org/SpeechPathology'),
 
   /// A specific branch of medical science that pertains to treating
   /// diseases, injuries and deformities by manual and instrumental means.
-  surgical('https://schema.org/MedicalSpecialty'),
+  surgical('https://schema.org/Surgical'),
 
   /// A specific branch of medical science that is concerned with poisons,
   /// their nature, effects and detection and involved in the treatment of
   /// poisoning.
-  toxicologic('https://schema.org/MedicalSpecialty'),
+  toxicologic('https://schema.org/Toxicologic'),
 
   /// A specific branch of medical science that is concerned with the
   /// diagnosis and treatment of diseases pertaining to the urinary tract
   /// and the urogenital system.
-  urologic('https://schema.org/MedicalSpecialty');
+  urologic('https://schema.org/Urologic');
 
   /// Constructor for [SchemaMedicalSpecialty]
   const SchemaMedicalSpecialty(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaMedicalSpecialty] to JSON-LD

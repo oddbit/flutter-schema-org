@@ -71,9 +71,7 @@ class SchemaMedicalSign extends SchemaMedicalSignOrSymptom {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MedicalSign',
-        'identifyingExam':
-            convertToJsonLd(identifyingExam, [SchemaPhysicalExam]),
-        'identifyingTest':
-            convertToJsonLd(identifyingTest, [SchemaMedicalTest]),
+        'identifyingExam': convertToJsonLd(identifyingExam),
+        'identifyingTest': convertToJsonLd(identifyingTest),
       });
 }

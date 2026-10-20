@@ -13,15 +13,16 @@ import 'package:schema_org/schemas/computer_language.dart';
 import 'package:schema_org/schemas/runtime_platform.dart';
 import 'package:schema_org/schemas/software_application.dart';
 
-/// Full (compile ready) solutions, code snippet samples, scripts, templates.
+/// Computer programming source code. Example: Full (compile ready)
+/// solutions, code snippet samples, scripts, templates.
 /// See https://schema.org/SoftwareSourceCode
 class SchemaSoftwareSourceCode extends SchemaCreativeWork {
   /// Link to the repository where the un-compiled, human readable code and
   /// related code is located (SVN, GitHub, CodePlex).
   String? codeRepository;
 
-  /// full (compile ready) solution, code snippet, inline code, scripts,
-  /// template.
+  /// What type of code sample: full (compile ready) solution, code snippet,
+  /// inline code, scripts, template.
   String? codeSampleType;
 
   /// The computer programming language.
@@ -29,17 +30,19 @@ class SchemaSoftwareSourceCode extends SchemaCreativeWork {
   /// Supported types: [SchemaComputerLanguage], [String]
   dynamic programmingLanguage;
 
-  /// Java v1, Python 2.3, .NET Framework 3.0).
+  /// Runtime platform or script interpreter dependencies (example: Java v1,
+  /// Python 2.3, .NET Framework 3.0).
   @Deprecated('Use [runtimePlatform]. See https://schema.org/runtime')
   String? runtime;
 
-  /// Java v1, Python 2.3, .NET Framework 3.0).
+  /// Runtime platform or script interpreter dependencies (example: Java v1,
+  /// Python 2.3, .NET Framework 3.0).
   ///
   /// Supported types: [SchemaRuntimePlatform], [String]
   dynamic runtimePlatform;
 
-  /// full (compile ready) solution, code snippet, inline code, scripts,
-  /// template.
+  /// What type of code sample: full (compile ready) solution, code snippet,
+  /// inline code, scripts, template.
   @Deprecated('Use [codeSampleType]. See https://schema.org/sampleType')
   String? sampleType;
 
@@ -192,15 +195,14 @@ class SchemaSoftwareSourceCode extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'SoftwareSourceCode',
-        'codeRepository': convertToJsonLd(codeRepository, [String]),
-        'codeSampleType': convertToJsonLd(codeSampleType, [String]),
-        'programmingLanguage': convertToJsonLd(
-            programmingLanguage, [SchemaComputerLanguage, String]),
-        'runtime': convertToJsonLd(runtime, [String]),
-        'runtimePlatform':
-            convertToJsonLd(runtimePlatform, [SchemaRuntimePlatform, String]),
-        'sampleType': convertToJsonLd(sampleType, [String]),
-        'targetProduct':
-            convertToJsonLd(targetProduct, [SchemaSoftwareApplication]),
+        'codeRepository': convertToJsonLd(codeRepository),
+        'codeSampleType': convertToJsonLd(codeSampleType),
+        'programmingLanguage': convertToJsonLd(programmingLanguage,
+            (v) => v is SchemaComputerLanguage || v is String),
+        'runtime': convertToJsonLd(runtime),
+        'runtimePlatform': convertToJsonLd(
+            runtimePlatform, (v) => v is SchemaRuntimePlatform || v is String),
+        'sampleType': convertToJsonLd(sampleType),
+        'targetProduct': convertToJsonLd(targetProduct),
       });
 }

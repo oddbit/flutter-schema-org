@@ -52,6 +52,6 @@ class SchemaMedicalTestPanel extends SchemaMedicalTest {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MedicalTestPanel',
-        'subTest': convertToJsonLd(subTest, [SchemaMedicalTest]),
+        'subTest': convertToJsonLd(subTest),
       });
 }

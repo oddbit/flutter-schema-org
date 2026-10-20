@@ -14,18 +14,18 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// See https://schema.org/RsvpResponseType
 enum SchemaRsvpResponseType implements SchemaSerializable {
   /// The invitee may or may not attend.
-  rsvpResponseMaybe('https://schema.org/RsvpResponseType'),
+  rsvpResponseMaybe('https://schema.org/RsvpResponseMaybe'),
 
   /// The invitee will not attend.
-  rsvpResponseNo('https://schema.org/RsvpResponseType'),
+  rsvpResponseNo('https://schema.org/RsvpResponseNo'),
 
   /// The invitee will attend.
-  rsvpResponseYes('https://schema.org/RsvpResponseType');
+  rsvpResponseYes('https://schema.org/RsvpResponseYes');
 
   /// Constructor for [SchemaRsvpResponseType]
   const SchemaRsvpResponseType(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaRsvpResponseType] to JSON-LD

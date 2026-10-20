@@ -26,6 +26,7 @@ import 'package:schema_org/schemas/thing.dart';
 import 'package:schema_org/schemas/business_entity_type.dart';
 import 'package:schema_org/schemas/price_specification.dart';
 import 'package:schema_org/schemas/adult_oriented_enumeration.dart';
+import 'package:schema_org/schemas/digital_product_passport.dart';
 import 'package:schema_org/schemas/merchant_return_policy.dart';
 import 'package:schema_org/schemas/type_and_quantity_node.dart';
 import 'package:schema_org/schemas/offer_item_condition.dart';
@@ -44,7 +45,20 @@ import 'package:schema_org/schemas/offer_shipping_details.dart';
 import 'package:schema_org/schemas/member_program_tier.dart';
 import 'package:schema_org/schemas/warranty_promise.dart';
 
-/// //www.gs1.org/).
+/// An offer to transfer some rights to an item or to provide a service — for
+/// example, an offer to sell tickets to an event, to rent the DVD of a
+/// movie, to stream a TV show over the internet, to repair a motorcycle, or
+/// to loan a book.\n\nNote: As the [SchemabusinessFunction] property, which
+/// identifies the form of offer (e.g. sell, lease, repair, dispose),
+/// defaults to http://purl.org/goodrelations/v1#Sell; an Offer without a
+/// defined businessFunction value can be assumed to be an offer to
+/// sell.\n\nFor
+/// [GTIN](http://www.gs1.org/barcodes/technical/idkeys/gtin)-related fields,
+/// see [Check Digit
+/// calculator](http://www.gs1.org/barcodes/support/check_digit_calculator)
+/// and [validation
+/// guide](http://www.gs1us.org/resources/standards/gtin-validation-guide)
+/// from [GS1](http://www.gs1.org/).
 /// See https://schema.org/Offer
 class SchemaOffer extends SchemaIntangible {
   /// The payment method(s) that are accepted in general by an organization, or
@@ -58,9 +72,14 @@ class SchemaOffer extends SchemaIntangible {
   /// a surcharge).
   SchemaOffer? addOn;
 
-  /// //schema.org/gtin13, ...) will typically expect such data to be provided
-  /// using those properties, rather than using the generic property/value
-  /// mechanism.
+  /// A property-value pair representing an additional characteristic of the
+  /// entity, e.g. a product feature or another characteristic for which there
+  /// is no matching property in schema.org.\n\nNote: Publishers should be
+  /// aware that applications designed to use specific schema.org properties
+  /// (e.g. https://schema.org/width, https://schema.org/color,
+  /// https://schema.org/gtin13, ...) will typically expect such data to be
+  /// provided using those properties, rather than using the generic
+  /// property/value mechanism.
   SchemaPropertyValue? additionalProperty;
 
   /// The amount of time that is required between accepting the offer and the
@@ -77,7 +96,10 @@ class SchemaOffer extends SchemaIntangible {
   /// [SchemaPlace], [String]
   dynamic areaServed;
 
-  /// //en.wikipedia.org/wiki/Amazon_Standard_Identification_Number)'s
+  /// An Amazon Standard Identification Number (ASIN) is a 10-character
+  /// alphanumeric unique identifier assigned by Amazon.com and its partners
+  /// for product identification within the Amazon organization (summary from
+  /// [Wikipedia](https://en.wikipedia.org/wiki/Amazon_Standard_Identification_Number)'s
   /// article).
   ///
   /// Note also that this is a definition for how to include ASINs in
@@ -105,7 +127,9 @@ class SchemaOffer extends SchemaIntangible {
   /// The delivery method(s) available for this offer.
   SchemaDeliveryMethod? availableDeliveryMethod;
 
-  /// //purl.org/goodrelations/v1#Sell.
+  /// The business function (e.g. sell, lease, repair, dispose) of the offer or
+  /// component of a bundle (TypeAndQuantityNode). The default is
+  /// http://purl.org/goodrelations/v1#Sell.
   SchemaBusinessFunction? businessFunction;
 
   /// A category for the item. Greater signs or slashes can be used to
@@ -151,40 +175,90 @@ class SchemaOffer extends SchemaIntangible {
   /// acceptance of credit cards to purchases to a certain minimal amount.
   SchemaPriceSpecification? eligibleTransactionVolume;
 
-  /// //www.gs1.org/standards/Digital-Link/) expresses GTINs as URLs (URIs,
-  /// IRIs, etc.). Digital Links should be populated into the
-  /// [SchemahasGS1DigitalLink] attribute.
+  /// A Global Trade Item Number
+  /// ([GTIN](https://www.gs1.org/standards/id-keys/gtin)). GTINs identify
+  /// trade items, including products and services, using numeric
+  /// identification codes.
+  ///
+  /// A correct [Schemagtin] value should be a valid GTIN, which means that it
+  /// should be an all-numeric string of either 8, 12, 13 or 14 digits, or a
+  /// "GS1 Digital Link" URL based on such a string. The numeric component
+  /// should also have a [valid GS1 check
+  /// digit](https://www.gs1.org/services/check-digit-calculator) and meet the
+  /// other rules for valid GTINs. See also [GS1's GTIN
+  /// Summary](http://www.gs1.org/barcodes/technical/idkeys/gtin) and
+  /// [Wikipedia](https://en.wikipedia.org/wiki/Global_Trade_Item_Number) for
+  /// more details. Left-padding of the gtin values is not required or
+  /// encouraged. The [Schemagtin] property generalizes the earlier
+  /// [Schemagtin8], [Schemagtin12], [Schemagtin13], and [Schemagtin14]
+  /// properties.
+  ///
+  /// The GS1 [digital link
+  /// specifications](https://www.gs1.org/standards/Digital-Link/) expresses
+  /// GTINs as URLs (URIs, IRIs, etc.). Digital Links should be populated into
+  /// the [SchemahasGS1DigitalLink] attribute.
   ///
   /// Note also that this is a definition for how to include GTINs in
   /// Schema.org data, and not a definition of GTINs in general - see the GS1
   /// documentation for authoritative details.
   String? gtin;
 
-  /// //www.gs1.org/barcodes/technical/idkeys/gtin) for more details.
+  /// The GTIN-12 code of the product, or the product to which the offer
+  /// refers. The GTIN-12 is the 12-digit GS1 Identification Key composed of a
+  /// U.P.C. Company Prefix, Item Reference, and Check Digit used to identify
+  /// trade items. See [GS1 GTIN
+  /// Summary](http://www.gs1.org/barcodes/technical/idkeys/gtin) for more
+  /// details.
   String? gtin12;
 
-  /// //www.gs1.org/barcodes/technical/idkeys/gtin) for more details.
+  /// The GTIN-13 code of the product, or the product to which the offer
+  /// refers. This is equivalent to 13-digit ISBN codes and EAN UCC-13. Former
+  /// 12-digit UPC codes can be converted into a GTIN-13 code by simply adding
+  /// a preceding zero. See [GS1 GTIN
+  /// Summary](http://www.gs1.org/barcodes/technical/idkeys/gtin) for more
+  /// details.
   String? gtin13;
 
-  /// //www.gs1.org/barcodes/technical/idkeys/gtin) for more details.
+  /// The GTIN-14 code of the product, or the product to which the offer
+  /// refers. See [GS1 GTIN
+  /// Summary](http://www.gs1.org/barcodes/technical/idkeys/gtin) for more
+  /// details.
   String? gtin14;
 
-  /// //www.gs1.org/barcodes/technical/idkeys/gtin) for more details.
+  /// The GTIN-8 code of the product, or the product to which the offer refers.
+  /// This code is also known as EAN/UCC-8 or 8-digit EAN. See [GS1 GTIN
+  /// Summary](http://www.gs1.org/barcodes/technical/idkeys/gtin) for more
+  /// details.
   String? gtin8;
 
   /// Used to tag an item to be intended or suitable for consumption or use by
   /// adults only.
   SchemaAdultOrientedEnumeration? hasAdultConsideration;
 
-  /// <ul><li>A Digital Link that contains a serial number (AI <code>21</code>)
-  /// should only be present on instances of
-  /// [SchemaIndividualProduct]</li><li>A Digital Link that contains a lot
-  /// number (AI <code>10</code>) should be annotated as [SchemaSomeProducts]
-  /// if only products from that lot are sold, or [SchemaIndividualProduct] if
-  /// there is only a specific product.</li><li>A Digital Link that contains a
-  /// global model number (AI <code>8013</code>) should be attached to a
-  /// [SchemaProduct] or a [SchemaProductModel].</li></ul> Other item types
-  /// should be adapted similarly.
+  /// A link to a Digital Product Passport (DPP) or a digital record detailing
+  /// the lifecycle, sustainability, and compliance data for this product or
+  /// offer. This may be a direct URL, a GS1 Digital Link URI, or a nested
+  /// DigitalProductPassport object. Note: This property is aligned with the
+  /// IANA 'dpp' link relation and the GS1 Web Vocabulary 'dpp' link type.
+  ///
+  /// Supported types: [SchemaDigitalProductPassport], [String]
+  dynamic hasDigitalProductPassport;
+
+  /// The <a href="https://www.gs1.org/standards/gs1-digital-link">GS1 digital
+  /// link</a> associated with the object. This URL should conform to the
+  /// particular requirements of digital links. The link should only contain
+  /// the Application Identifiers (AIs) that are relevant for the entity being
+  /// annotated, for instance a [SchemaProduct] or an [SchemaOrganization], and
+  /// for the correct granularity. In particular, for products:<ul><li>A
+  /// Digital Link that contains a serial number (AI <code>21</code>) should
+  /// only be present on instances of [SchemaIndividualProduct]</li><li>A
+  /// Digital Link that contains a lot number (AI <code>10</code>) should be
+  /// annotated as [SchemaSomeProducts] if only products from that lot are
+  /// sold, or [SchemaIndividualProduct] if there is only a specific
+  /// product.</li><li>A Digital Link that contains a global model number (AI
+  /// <code>8013</code>) should be attached to a [SchemaProduct] or a
+  /// [SchemaProductModel].</li></ul> Other item types should be adapted
+  /// similarly.
   String? hasGS1DigitalLink;
 
   /// A measurement of an item, For example, the inseam of pants, the wheel
@@ -232,22 +306,39 @@ class SchemaOffer extends SchemaIntangible {
   /// [SchemaTrip]
   dynamic itemOffered;
 
+  /// A measure of the relative popularity or sales rank of the offer within a
+  /// marketplace, catalog, or platform (e.g. a platform-specific bestseller
+  /// ranking or sales rank). This property is intended for platform-level or
+  /// catalog-wide comparative rankings rather than self-asserted promotional
+  /// claims.
+  ///
+  /// Supported types: [SchemaQuantitativeValue], [num]
+  dynamic itemPopularity;
+
   /// Length of the lease for some [SchemaAccommodation], either particular to
   /// some [SchemaOffer] or in some cases intrinsic to the property.
   ///
   /// Supported types: [SchemaDuration], [SchemaQuantitativeValue]
   dynamic leaseLength;
 
-  /// //en.wikipedia.org/wiki/Responsive_web_design) in which content can be
-  /// flexibly adapted to a wide range of browsing environments. Pages and
-  /// sites referenced with the long-established [Schemaurl] property should
-  /// ideally also be usable on a wide variety of devices, including mobile
-  /// phones. In most cases, it would be pointless and counter productive to
-  /// attempt to update all [Schemaurl] markup to use [SchemamobileUrl] for
-  /// more mobile-oriented pages. The property is intended for the case when
-  /// items (primarily [SchemaProduct] and [SchemaOffer]) have extra URLs
-  /// hosted on an additional "mobile site" alongside the main one. It should
-  /// not be taken as an endorsement of this publication style.
+  /// The [SchemamobileUrl] property is provided for specific situations in
+  /// which data consumers need to determine whether one of several provided
+  /// URLs is a dedicated 'mobile site'.
+  ///
+  /// To discourage over-use, and reflecting intial usecases, the property is
+  /// expected only on [SchemaProduct] and [SchemaOffer], rather than
+  /// [SchemaThing]. The general trend in web technology is towards [responsive
+  /// design](https://en.wikipedia.org/wiki/Responsive_web_design) in which
+  /// content can be flexibly adapted to a wide range of browsing environments.
+  /// Pages and sites referenced with the long-established [Schemaurl] property
+  /// should ideally also be usable on a wide variety of devices, including
+  /// mobile phones. In most cases, it would be pointless and counter
+  /// productive to attempt to update all [Schemaurl] markup to use
+  /// [SchemamobileUrl] for more mobile-oriented pages. The property is
+  /// intended for the case when items (primarily [SchemaProduct] and
+  /// [SchemaOffer]) have extra URLs hosted on an additional "mobile site"
+  /// alongside the main one. It should not be taken as an endorsement of this
+  /// publication style.
   String? mobileUrl;
 
   /// The Manufacturer Part Number (MPN) of the product, or the product to
@@ -259,9 +350,23 @@ class SchemaOffer extends SchemaIntangible {
   /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic offeredBy;
 
-  /// //www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and
-  /// Microdata syntax allow the use of a "content=" attribute for publishing
-  /// simple machine-readable values alongside more human-friendly
+  /// The offer price of a product, or of a price component when attached to
+  /// PriceSpecification and its subtypes.\n\nUsage guidelines:\n\n* Use the
+  /// [SchemapriceCurrency] property (with standard formats: [ISO 4217 currency
+  /// format](http://en.wikipedia.org/wiki/ISO_4217), e.g. "USD"; [Ticker
+  /// symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for
+  /// cryptocurrencies, e.g. "BTC"; well known names for [Local Exchange
+  /// Trading
+  /// Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system)
+  /// (LETS) and other currency types, e.g. "Ithaca HOUR") instead of including
+  /// [ambiguous
+  /// symbols](http://en.wikipedia.org/wiki/Dollar_sign#Currencies_that_use_the_dollar_or_peso_sign)
+  /// such as '$' in the value.\n* Use '.' (Unicode 'FULL STOP' (U+002E))
+  /// rather than ',' to indicate a decimal point. Avoid using these symbols as
+  /// a readability separator.\n* Note that both
+  /// [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute)
+  /// and Microdata syntax allow the use of a "content=" attribute for
+  /// publishing simple machine-readable values alongside more human-friendly
   /// formatting.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030)
   /// to 'DIGIT NINE' (U+0039)) rather than superficially similar Unicode
   /// symbols.
@@ -269,8 +374,15 @@ class SchemaOffer extends SchemaIntangible {
   /// Supported types: [String], [num]
   dynamic price;
 
-  /// //en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other
-  /// currency types, e.g. "Ithaca HOUR".
+  /// The currency of the price, or a price component when attached to
+  /// [SchemaPriceSpecification] and its subtypes.\n\nUse standard formats:
+  /// [ISO 4217 currency format](http://en.wikipedia.org/wiki/ISO_4217), e.g.
+  /// "USD"; [Ticker
+  /// symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for
+  /// cryptocurrencies, e.g. "BTC"; well known names for [Local Exchange
+  /// Trading
+  /// Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system)
+  /// (LETS) and other currency types, e.g. "Ithaca HOUR".
   String? priceCurrency;
 
   /// One or more detailed price specifications, indicating the unit price and
@@ -363,6 +475,7 @@ class SchemaOffer extends SchemaIntangible {
     this.gtin14,
     this.gtin8,
     this.hasAdultConsideration,
+    this.hasDigitalProductPassport,
     this.hasGS1DigitalLink,
     this.hasMeasurement,
     this.hasMerchantReturnPolicy,
@@ -372,6 +485,7 @@ class SchemaOffer extends SchemaIntangible {
     this.isFamilyFriendly,
     this.itemCondition,
     this.itemOffered,
+    this.itemPopularity,
     this.leaseLength,
     this.mobileUrl,
     this.mpn,
@@ -397,98 +511,94 @@ class SchemaOffer extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Offer',
-        'acceptedPaymentMethod': convertToJsonLd(acceptedPaymentMethod,
-            [SchemaLoanOrCredit, SchemaPaymentMethod, String]),
-        'addOn': convertToJsonLd(addOn, [SchemaOffer]),
-        'additionalProperty':
-            convertToJsonLd(additionalProperty, [SchemaPropertyValue]),
-        'advanceBookingRequirement': convertToJsonLd(
-            advanceBookingRequirement, [SchemaQuantitativeValue]),
-        'aggregateRating':
-            convertToJsonLd(aggregateRating, [SchemaAggregateRating]),
-        'areaServed': convertToJsonLd(areaServed,
-            [SchemaAdministrativeArea, SchemaGeoShape, SchemaPlace, String]),
-        'asin': convertToJsonLd(asin, [String]),
-        'availability': convertToJsonLd(availability, [SchemaItemAvailability]),
-        'availabilityEnds': convertToJsonLd(availabilityEnds, [String]),
-        'availabilityStarts': convertToJsonLd(availabilityStarts, [String]),
-        'availableAtOrFrom': convertToJsonLd(availableAtOrFrom, [SchemaPlace]),
-        'availableDeliveryMethod':
-            convertToJsonLd(availableDeliveryMethod, [SchemaDeliveryMethod]),
-        'businessFunction':
-            convertToJsonLd(businessFunction, [SchemaBusinessFunction]),
-        'category': convertToJsonLd(category, [
-          SchemaCategoryCode,
-          SchemaPhysicalActivityCategory,
-          String,
-          SchemaThing
-        ]),
-        'checkoutPageURLTemplate':
-            convertToJsonLd(checkoutPageURLTemplate, [String]),
-        'deliveryLeadTime':
-            convertToJsonLd(deliveryLeadTime, [SchemaQuantitativeValue]),
-        'eligibleCustomerType':
-            convertToJsonLd(eligibleCustomerType, [SchemaBusinessEntityType]),
-        'eligibleDuration':
-            convertToJsonLd(eligibleDuration, [SchemaQuantitativeValue]),
-        'eligibleQuantity':
-            convertToJsonLd(eligibleQuantity, [SchemaQuantitativeValue]),
-        'eligibleRegion': convertToJsonLd(
-            eligibleRegion, [SchemaGeoShape, SchemaPlace, String]),
-        'eligibleTransactionVolume': convertToJsonLd(
-            eligibleTransactionVolume, [SchemaPriceSpecification]),
-        'gtin': convertToJsonLd(gtin, [String]),
-        'gtin12': convertToJsonLd(gtin12, [String]),
-        'gtin13': convertToJsonLd(gtin13, [String]),
-        'gtin14': convertToJsonLd(gtin14, [String]),
-        'gtin8': convertToJsonLd(gtin8, [String]),
-        'hasAdultConsideration': convertToJsonLd(
-            hasAdultConsideration, [SchemaAdultOrientedEnumeration]),
-        'hasGS1DigitalLink': convertToJsonLd(hasGS1DigitalLink, [String]),
-        'hasMeasurement':
-            convertToJsonLd(hasMeasurement, [SchemaQuantitativeValue]),
-        'hasMerchantReturnPolicy': convertToJsonLd(
-            hasMerchantReturnPolicy, [SchemaMerchantReturnPolicy]),
-        'includesObject':
-            convertToJsonLd(includesObject, [SchemaTypeAndQuantityNode]),
-        'ineligibleRegion': convertToJsonLd(
-            ineligibleRegion, [SchemaGeoShape, SchemaPlace, String]),
-        'inventoryLevel':
-            convertToJsonLd(inventoryLevel, [SchemaQuantitativeValue]),
-        'isFamilyFriendly': convertToJsonLd(isFamilyFriendly, [bool]),
-        'itemCondition':
-            convertToJsonLd(itemCondition, [SchemaOfferItemCondition]),
-        'itemOffered': convertToJsonLd(itemOffered, [
-          SchemaAggregateOffer,
-          SchemaCreativeWork,
-          SchemaEvent,
-          SchemaMenuItem,
-          SchemaProduct,
-          SchemaService,
-          SchemaTrip
-        ]),
-        'leaseLength': convertToJsonLd(
-            leaseLength, [SchemaDuration, SchemaQuantitativeValue]),
-        'mobileUrl': convertToJsonLd(mobileUrl, [String]),
-        'mpn': convertToJsonLd(mpn, [String]),
-        'offeredBy':
-            convertToJsonLd(offeredBy, [SchemaOrganization, SchemaPerson]),
-        'price': convertToJsonLd(price, [String, num]),
-        'priceCurrency': convertToJsonLd(priceCurrency, [String]),
-        'priceSpecification':
-            convertToJsonLd(priceSpecification, [SchemaPriceSpecification]),
-        'priceValidUntil': convertToJsonLd(priceValidUntil, [String]),
-        'review': convertToJsonLd(review, [SchemaReview]),
-        'reviews': convertToJsonLd(reviews, [SchemaReview]),
-        'seller': convertToJsonLd(seller, [SchemaOrganization, SchemaPerson]),
-        'serialNumber': convertToJsonLd(serialNumber, [String]),
-        'shippingDetails':
-            convertToJsonLd(shippingDetails, [SchemaOfferShippingDetails]),
-        'sku': convertToJsonLd(sku, [String]),
-        'validForMemberTier':
-            convertToJsonLd(validForMemberTier, [SchemaMemberProgramTier]),
-        'validFrom': convertToJsonLd(validFrom, [String]),
-        'validThrough': convertToJsonLd(validThrough, [String]),
-        'warranty': convertToJsonLd(warranty, [SchemaWarrantyPromise]),
+        'acceptedPaymentMethod': convertToJsonLd(
+            acceptedPaymentMethod,
+            (v) =>
+                v is SchemaLoanOrCredit ||
+                v is SchemaPaymentMethod ||
+                v is String),
+        'addOn': convertToJsonLd(addOn),
+        'additionalProperty': convertToJsonLd(additionalProperty),
+        'advanceBookingRequirement': convertToJsonLd(advanceBookingRequirement),
+        'aggregateRating': convertToJsonLd(aggregateRating),
+        'areaServed': convertToJsonLd(
+            areaServed,
+            (v) =>
+                v is SchemaAdministrativeArea ||
+                v is SchemaGeoShape ||
+                v is SchemaPlace ||
+                v is String),
+        'asin': convertToJsonLd(asin),
+        'availability': convertToJsonLd(availability),
+        'availabilityEnds': convertToJsonLd(availabilityEnds),
+        'availabilityStarts': convertToJsonLd(availabilityStarts),
+        'availableAtOrFrom': convertToJsonLd(availableAtOrFrom),
+        'availableDeliveryMethod': convertToJsonLd(availableDeliveryMethod),
+        'businessFunction': convertToJsonLd(businessFunction),
+        'category': convertToJsonLd(
+            category,
+            (v) =>
+                v is SchemaCategoryCode ||
+                v is SchemaPhysicalActivityCategory ||
+                v is String ||
+                v is SchemaThing),
+        'checkoutPageURLTemplate': convertToJsonLd(checkoutPageURLTemplate),
+        'deliveryLeadTime': convertToJsonLd(deliveryLeadTime),
+        'eligibleCustomerType': convertToJsonLd(eligibleCustomerType),
+        'eligibleDuration': convertToJsonLd(eligibleDuration),
+        'eligibleQuantity': convertToJsonLd(eligibleQuantity),
+        'eligibleRegion': convertToJsonLd(eligibleRegion,
+            (v) => v is SchemaGeoShape || v is SchemaPlace || v is String),
+        'eligibleTransactionVolume': convertToJsonLd(eligibleTransactionVolume),
+        'gtin': convertToJsonLd(gtin),
+        'gtin12': convertToJsonLd(gtin12),
+        'gtin13': convertToJsonLd(gtin13),
+        'gtin14': convertToJsonLd(gtin14),
+        'gtin8': convertToJsonLd(gtin8),
+        'hasAdultConsideration': convertToJsonLd(hasAdultConsideration),
+        'hasDigitalProductPassport': convertToJsonLd(hasDigitalProductPassport,
+            (v) => v is SchemaDigitalProductPassport || v is String),
+        'hasGS1DigitalLink': convertToJsonLd(hasGS1DigitalLink),
+        'hasMeasurement': convertToJsonLd(hasMeasurement),
+        'hasMerchantReturnPolicy': convertToJsonLd(hasMerchantReturnPolicy),
+        'includesObject': convertToJsonLd(includesObject),
+        'ineligibleRegion': convertToJsonLd(ineligibleRegion,
+            (v) => v is SchemaGeoShape || v is SchemaPlace || v is String),
+        'inventoryLevel': convertToJsonLd(inventoryLevel),
+        'isFamilyFriendly': convertToJsonLd(isFamilyFriendly),
+        'itemCondition': convertToJsonLd(itemCondition),
+        'itemOffered': convertToJsonLd(
+            itemOffered,
+            (v) =>
+                v is SchemaAggregateOffer ||
+                v is SchemaCreativeWork ||
+                v is SchemaEvent ||
+                v is SchemaMenuItem ||
+                v is SchemaProduct ||
+                v is SchemaService ||
+                v is SchemaTrip),
+        'itemPopularity': convertToJsonLd(
+            itemPopularity, (v) => v is SchemaQuantitativeValue || v is num),
+        'leaseLength': convertToJsonLd(leaseLength,
+            (v) => v is SchemaDuration || v is SchemaQuantitativeValue),
+        'mobileUrl': convertToJsonLd(mobileUrl),
+        'mpn': convertToJsonLd(mpn),
+        'offeredBy': convertToJsonLd(
+            offeredBy, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'price': convertToJsonLd(price, (v) => v is String || v is num),
+        'priceCurrency': convertToJsonLd(priceCurrency),
+        'priceSpecification': convertToJsonLd(priceSpecification),
+        'priceValidUntil': convertToJsonLd(priceValidUntil),
+        'review': convertToJsonLd(review),
+        'reviews': convertToJsonLd(reviews),
+        'seller': convertToJsonLd(
+            seller, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'serialNumber': convertToJsonLd(serialNumber),
+        'shippingDetails': convertToJsonLd(shippingDetails),
+        'sku': convertToJsonLd(sku),
+        'validForMemberTier': convertToJsonLd(validForMemberTier),
+        'validFrom': convertToJsonLd(validFrom),
+        'validThrough': convertToJsonLd(validThrough),
+        'warranty': convertToJsonLd(warranty),
       });
 }

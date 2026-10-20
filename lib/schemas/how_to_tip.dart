@@ -172,8 +172,8 @@ class SchemaHowToTip extends SchemaCreativeWork implements SchemaListItem {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'HowToTip',
-        'item': convertToJsonLd(item, [SchemaThing]),
-        'nextItem': convertToJsonLd(nextItem, [SchemaListItem]),
-        'previousItem': convertToJsonLd(previousItem, [SchemaListItem]),
+        'item': convertToJsonLd(item),
+        'nextItem': convertToJsonLd(nextItem),
+        'previousItem': convertToJsonLd(previousItem),
       });
 }

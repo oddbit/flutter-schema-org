@@ -14,6 +14,8 @@ import 'package:schema_org/schemas/action.dart';
 /// potentially capable of solving/simplifying that expression.
 /// See https://schema.org/SolveMathAction
 class SchemaSolveMathAction extends SchemaAction {
+  /// For questions that are part of learning resources (e.g. Quiz),
+  /// eduQuestionType indicates the format of question being given. Example:
   /// "Multiple choice", "Open ended", "Flashcard".
   String? eduQuestionType;
 
@@ -53,6 +55,6 @@ class SchemaSolveMathAction extends SchemaAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'SolveMathAction',
-        'eduQuestionType': convertToJsonLd(eduQuestionType, [String]),
+        'eduQuestionType': convertToJsonLd(eduQuestionType),
       });
 }

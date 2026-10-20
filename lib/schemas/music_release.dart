@@ -29,7 +29,8 @@ class SchemaMusicRelease extends SchemaMusicPlaylist {
   /// Supported types: [SchemaOrganization], [SchemaPerson]
   dynamic creditedTo;
 
-  /// //en.wikipedia.org/wiki/ISO_8601).
+  /// The duration of the item (movie, audio recording, event, etc.) in [ISO
+  /// 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).
   ///
   /// Supported types: [SchemaDuration], [SchemaQuantitativeValue]
   dynamic duration;
@@ -191,14 +192,13 @@ class SchemaMusicRelease extends SchemaMusicPlaylist {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MusicRelease',
-        'catalogNumber': convertToJsonLd(catalogNumber, [String]),
-        'creditedTo':
-            convertToJsonLd(creditedTo, [SchemaOrganization, SchemaPerson]),
-        'duration': convertToJsonLd(
-            duration, [SchemaDuration, SchemaQuantitativeValue]),
-        'musicReleaseFormat':
-            convertToJsonLd(musicReleaseFormat, [SchemaMusicReleaseFormatType]),
-        'recordLabel': convertToJsonLd(recordLabel, [SchemaOrganization]),
-        'releaseOf': convertToJsonLd(releaseOf, [SchemaMusicAlbum]),
+        'catalogNumber': convertToJsonLd(catalogNumber),
+        'creditedTo': convertToJsonLd(
+            creditedTo, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'duration': convertToJsonLd(duration,
+            (v) => v is SchemaDuration || v is SchemaQuantitativeValue),
+        'musicReleaseFormat': convertToJsonLd(musicReleaseFormat),
+        'recordLabel': convertToJsonLd(recordLabel),
+        'releaseOf': convertToJsonLd(releaseOf),
       });
 }

@@ -10,7 +10,8 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/allocate_action.dart';
 
-/// The antonym of RejectAction.
+/// The act of rejecting to/adopting an object.\n\nRelated actions:\n\n*
+/// [SchemaAcceptAction]: The antonym of RejectAction.
 /// See https://schema.org/RejectAction
 class SchemaRejectAction extends SchemaAllocateAction {
   /// Create a new instance of [SchemaRejectAction]

@@ -106,16 +106,17 @@ class SchemaMolecularEntity extends SchemaBioChemEntity {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MolecularEntity',
-        'chemicalRole': convertToJsonLd(chemicalRole, [SchemaDefinedTerm]),
-        'inChI': convertToJsonLd(inChI, [String]),
-        'inChIKey': convertToJsonLd(inChIKey, [String]),
-        'iupacName': convertToJsonLd(iupacName, [String]),
-        'molecularFormula': convertToJsonLd(molecularFormula, [String]),
-        'molecularWeight':
-            convertToJsonLd(molecularWeight, [SchemaQuantitativeValue, String]),
+        'chemicalRole': convertToJsonLd(chemicalRole),
+        'inChI': convertToJsonLd(inChI),
+        'inChIKey': convertToJsonLd(inChIKey),
+        'iupacName': convertToJsonLd(iupacName),
+        'molecularFormula': convertToJsonLd(molecularFormula),
+        'molecularWeight': convertToJsonLd(molecularWeight,
+            (v) => v is SchemaQuantitativeValue || v is String),
         'monoisotopicMolecularWeight': convertToJsonLd(
-            monoisotopicMolecularWeight, [SchemaQuantitativeValue, String]),
-        'potentialUse': convertToJsonLd(potentialUse, [SchemaDefinedTerm]),
-        'smiles': convertToJsonLd(smiles, [String]),
+            monoisotopicMolecularWeight,
+            (v) => v is SchemaQuantitativeValue || v is String),
+        'potentialUse': convertToJsonLd(potentialUse),
+        'smiles': convertToJsonLd(smiles),
       });
 }

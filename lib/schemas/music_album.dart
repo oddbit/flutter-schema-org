@@ -18,13 +18,14 @@ import 'package:schema_org/schemas/person.dart';
 /// A collection of music tracks.
 /// See https://schema.org/MusicAlbum
 class SchemaMusicAlbum extends SchemaMusicPlaylist {
-  /// soundtrack, live album, studio album, etc.
+  /// Classification of the album by its type of content: soundtrack, live
+  /// album, studio album, etc.
   SchemaMusicAlbumProductionType? albumProductionType;
 
   /// A release of this album.
   SchemaMusicRelease? albumRelease;
 
-  /// single, EP or album.
+  /// The kind of release which this album is: single, EP or album.
   SchemaMusicAlbumReleaseType? albumReleaseType;
 
   /// The artist that performed this album or recording.
@@ -177,11 +178,10 @@ class SchemaMusicAlbum extends SchemaMusicPlaylist {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MusicAlbum',
-        'albumProductionType': convertToJsonLd(
-            albumProductionType, [SchemaMusicAlbumProductionType]),
-        'albumRelease': convertToJsonLd(albumRelease, [SchemaMusicRelease]),
-        'albumReleaseType':
-            convertToJsonLd(albumReleaseType, [SchemaMusicAlbumReleaseType]),
-        'byArtist': convertToJsonLd(byArtist, [SchemaMusicGroup, SchemaPerson]),
+        'albumProductionType': convertToJsonLd(albumProductionType),
+        'albumRelease': convertToJsonLd(albumRelease),
+        'albumReleaseType': convertToJsonLd(albumReleaseType),
+        'byArtist': convertToJsonLd(
+            byArtist, (v) => v is SchemaMusicGroup || v is SchemaPerson),
       });
 }

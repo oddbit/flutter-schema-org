@@ -10,7 +10,9 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/web_page.dart';
 
-/// //en.wikipedia.org/wiki/FAQ)" (see also [SchemaQAPage]).
+/// A [SchemaFAQPage] is a [SchemaWebPage] presenting one or more
+/// "[Frequently asked questions](https://en.wikipedia.org/wiki/FAQ)" (see
+/// also [SchemaQAPage]).
 /// See https://schema.org/FAQPage
 class SchemaFAQPage extends SchemaWebPage {
   /// Create a new instance of [SchemaFAQPage]

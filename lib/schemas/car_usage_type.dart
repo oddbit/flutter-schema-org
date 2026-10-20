@@ -14,18 +14,18 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// See https://schema.org/CarUsageType
 enum SchemaCarUsageType implements SchemaSerializable {
   /// Indicates the usage of the vehicle for driving school.
-  drivingSchoolVehicleUsage('https://schema.org/CarUsageType'),
+  drivingSchoolVehicleUsage('https://schema.org/DrivingSchoolVehicleUsage'),
 
   /// Indicates the usage of the vehicle as a rental car.
-  rentalVehicleUsage('https://schema.org/CarUsageType'),
+  rentalVehicleUsage('https://schema.org/RentalVehicleUsage'),
 
   /// Indicates the usage of the car as a taxi.
-  taxiVehicleUsage('https://schema.org/CarUsageType');
+  taxiVehicleUsage('https://schema.org/TaxiVehicleUsage');
 
   /// Constructor for [SchemaCarUsageType]
   const SchemaCarUsageType(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaCarUsageType] to JSON-LD

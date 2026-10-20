@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/web_page.dart';
 
-/// Collection page.
+/// Web page type: Collection page.
 /// See https://schema.org/CollectionPage
 class SchemaCollectionPage extends SchemaWebPage {
   /// Create a new instance of [SchemaCollectionPage]

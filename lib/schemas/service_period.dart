@@ -25,11 +25,18 @@ class SchemaServicePeriod extends SchemaStructuredValue {
   /// Supported types: [SchemaDayOfWeek], [SchemaOpeningHoursSpecification]
   dynamic businessDays;
 
-  /// 30 pm Eastern Standard Time (EST) which is 5 hours behind Coordinated
+  /// Order cutoff time allows merchants to describe the time after which they
+  /// will no longer process orders received on that day. For orders processed
+  /// after cutoff time, one day gets added to the delivery time estimate. This
+  /// property is expected to be most typically used via the
+  /// [SchemaShippingRateSettings] publication pattern. The time is indicated
+  /// using the ISO-8601 Time format, e.g. "23:30:00-05:00" would represent
+  /// 6:30 pm Eastern Standard Time (EST) which is 5 hours behind Coordinated
   /// Universal Time (UTC).
   String? cutoffTime;
 
-  /// //en.wikipedia.org/wiki/ISO_8601).
+  /// The duration of the item (movie, audio recording, event, etc.) in [ISO
+  /// 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).
   ///
   /// Supported types: [SchemaDuration], [SchemaQuantitativeValue]
   dynamic duration;
@@ -60,9 +67,11 @@ class SchemaServicePeriod extends SchemaStructuredValue {
         ...super.toJsonLd(),
         '@type': 'ServicePeriod',
         'businessDays': convertToJsonLd(
-            businessDays, [SchemaDayOfWeek, SchemaOpeningHoursSpecification]),
-        'cutoffTime': convertToJsonLd(cutoffTime, [String]),
-        'duration': convertToJsonLd(
-            duration, [SchemaDuration, SchemaQuantitativeValue]),
+            businessDays,
+            (v) =>
+                v is SchemaDayOfWeek || v is SchemaOpeningHoursSpecification),
+        'cutoffTime': convertToJsonLd(cutoffTime),
+        'duration': convertToJsonLd(duration,
+            (v) => v is SchemaDuration || v is SchemaQuantitativeValue),
       });
 }

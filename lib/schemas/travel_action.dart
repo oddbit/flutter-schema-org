@@ -56,6 +56,6 @@ class SchemaTravelAction extends SchemaMoveAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'TravelAction',
-        'distance': convertToJsonLd(distance, [SchemaDistance]),
+        'distance': convertToJsonLd(distance),
       });
 }

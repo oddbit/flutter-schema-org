@@ -21,7 +21,7 @@ enum SchemaMedicalObservationalStudyDesign implements SchemaMedicalEnumeration {
   /// be consecutive or non-consecutive, depending on whether all cases
   /// presenting to the reporting authors over a period of time were
   /// included, or only a selection.
-  caseSeries('https://schema.org/MedicalObservationalStudyDesign'),
+  caseSeries('https://schema.org/CaseSeries'),
 
   /// Also known as a panel study. A cohort study is a form of longitudinal
   /// study used in medicine and social science. It is one type of study
@@ -34,30 +34,30 @@ enum SchemaMedicalObservationalStudyDesign implements SchemaMedicalEnumeration {
   /// exposure to the substance under investigation, but otherwise similar.
   /// Alternatively, subgroups within the cohort may be compared with each
   /// other.
-  cohortStudy('https://schema.org/MedicalObservationalStudyDesign'),
+  cohortStudy('https://schema.org/CohortStudy'),
 
   /// Studies carried out on pre-existing data (usually from 'snapshot'
   /// surveys), such as that collected by the Census Bureau. Sometimes
   /// called Prevalence Studies.
-  crossSectional('https://schema.org/MedicalObservationalStudyDesign'),
+  crossSectional('https://schema.org/CrossSectional'),
 
   /// Unlike cross-sectional studies, longitudinal studies track the same
   /// people, and therefore the differences observed in those people are
   /// less likely to be the result of cultural differences across
   /// generations. Longitudinal studies are also used in medicine to
   /// uncover predictors of certain diseases.
-  longitudinal('https://schema.org/MedicalObservationalStudyDesign'),
+  longitudinal('https://schema.org/Longitudinal'),
 
   /// An observational study design.
-  observational('https://schema.org/MedicalObservationalStudyDesign'),
+  observational('https://schema.org/Observational'),
 
   /// A registry-based study design.
-  registry('https://schema.org/MedicalObservationalStudyDesign');
+  registry('https://schema.org/Registry');
 
   /// Constructor for [SchemaMedicalObservationalStudyDesign]
   const SchemaMedicalObservationalStudyDesign(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaMedicalObservationalStudyDesign] to JSON-LD

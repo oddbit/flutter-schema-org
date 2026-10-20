@@ -171,7 +171,7 @@ class SchemaLearningResource extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'LearningResource',
-        'competencyRequired':
-            convertToJsonLd(competencyRequired, [SchemaDefinedTerm, String]),
+        'competencyRequired': convertToJsonLd(
+            competencyRequired, (v) => v is SchemaDefinedTerm || v is String),
       });
 }

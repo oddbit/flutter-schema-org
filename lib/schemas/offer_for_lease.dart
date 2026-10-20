@@ -10,8 +10,11 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/offer.dart';
 
-/// //en.wikipedia.org/wiki/GoodRelations) for background on the underlying
-/// concepts.
+/// An [SchemaOfferForLease] in Schema.org represents an [SchemaOffer] to
+/// lease out something, i.e. an [SchemaOffer] whose [SchemabusinessFunction]
+/// is [lease out](http://purl.org/goodrelations/v1#LeaseOut.). See [Good
+/// Relations](https://en.wikipedia.org/wiki/GoodRelations) for background on
+/// the underlying concepts.
 /// See https://schema.org/OfferForLease
 class SchemaOfferForLease extends SchemaOffer {
   /// Create a new instance of [SchemaOfferForLease]
@@ -47,6 +50,7 @@ class SchemaOfferForLease extends SchemaOffer {
     super.gtin14,
     super.gtin8,
     super.hasAdultConsideration,
+    super.hasDigitalProductPassport,
     super.hasGS1DigitalLink,
     super.hasMeasurement,
     super.hasMerchantReturnPolicy,
@@ -58,6 +62,7 @@ class SchemaOfferForLease extends SchemaOffer {
     super.isFamilyFriendly,
     super.itemCondition,
     super.itemOffered,
+    super.itemPopularity,
     super.leaseLength,
     super.mainEntityOfPage,
     super.mobileUrl,

@@ -25,7 +25,8 @@ class SchemaMusicRecording extends SchemaCreativeWork {
   /// Supported types: [SchemaMusicGroup], [SchemaPerson]
   dynamic byArtist;
 
-  /// //en.wikipedia.org/wiki/ISO_8601).
+  /// The duration of the item (movie, audio recording, event, etc.) in [ISO
+  /// 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).
   ///
   /// Supported types: [SchemaDuration], [SchemaQuantitativeValue]
   dynamic duration;
@@ -186,12 +187,13 @@ class SchemaMusicRecording extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MusicRecording',
-        'byArtist': convertToJsonLd(byArtist, [SchemaMusicGroup, SchemaPerson]),
-        'duration': convertToJsonLd(
-            duration, [SchemaDuration, SchemaQuantitativeValue]),
-        'inAlbum': convertToJsonLd(inAlbum, [SchemaMusicAlbum]),
-        'inPlaylist': convertToJsonLd(inPlaylist, [SchemaMusicPlaylist]),
-        'isrcCode': convertToJsonLd(isrcCode, [String]),
-        'recordingOf': convertToJsonLd(recordingOf, [SchemaMusicComposition]),
+        'byArtist': convertToJsonLd(
+            byArtist, (v) => v is SchemaMusicGroup || v is SchemaPerson),
+        'duration': convertToJsonLd(duration,
+            (v) => v is SchemaDuration || v is SchemaQuantitativeValue),
+        'inAlbum': convertToJsonLd(inAlbum),
+        'inPlaylist': convertToJsonLd(inPlaylist),
+        'isrcCode': convertToJsonLd(isrcCode),
+        'recordingOf': convertToJsonLd(recordingOf),
       });
 }

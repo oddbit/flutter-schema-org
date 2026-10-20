@@ -60,11 +60,12 @@ class SchemaAuthorizeAction extends SchemaAllocateAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'AuthorizeAction',
-        'recipient': convertToJsonLd(recipient, [
-          SchemaAudience,
-          SchemaContactPoint,
-          SchemaOrganization,
-          SchemaPerson
-        ]),
+        'recipient': convertToJsonLd(
+            recipient,
+            (v) =>
+                v is SchemaAudience ||
+                v is SchemaContactPoint ||
+                v is SchemaOrganization ||
+                v is SchemaPerson),
       });
 }

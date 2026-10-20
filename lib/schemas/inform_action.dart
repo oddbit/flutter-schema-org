@@ -59,6 +59,6 @@ class SchemaInformAction extends SchemaCommunicateAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'InformAction',
-        'event': convertToJsonLd(event, [SchemaEvent]),
+        'event': convertToJsonLd(event),
       });
 }

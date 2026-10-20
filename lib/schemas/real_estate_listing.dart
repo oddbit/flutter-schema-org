@@ -177,8 +177,8 @@ class SchemaRealEstateListing extends SchemaWebPage {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'RealEstateListing',
-        'datePosted': convertToJsonLd(datePosted, [String]),
-        'leaseLength': convertToJsonLd(
-            leaseLength, [SchemaDuration, SchemaQuantitativeValue]),
+        'datePosted': convertToJsonLd(datePosted),
+        'leaseLength': convertToJsonLd(leaseLength,
+            (v) => v is SchemaDuration || v is SchemaQuantitativeValue),
       });
 }

@@ -24,8 +24,12 @@ import 'package:schema_org/schemas/duration.dart';
 /// schema.org for marking up hotels and other forms of accommodations</a>.
 /// See https://schema.org/Accommodation
 class SchemaAccommodation extends SchemaPlace {
-  /// //ddwiki.reso.org/display/DDW17/PropertyType+Field) fields for suggested
-  /// values).
+  /// Category of an [SchemaAccommodation], following real estate conventions,
+  /// e.g. RESO (see
+  /// [PropertySubType](https://ddwiki.reso.org/display/DDW17/PropertySubType+Field),
+  /// and
+  /// [PropertyType](https://ddwiki.reso.org/display/DDW17/PropertyType+Field)
+  /// fields for suggested values).
   String? accommodationCategory;
 
   /// A floorplan of some [SchemaAccommodation].
@@ -40,11 +44,15 @@ class SchemaAccommodation extends SchemaPlace {
   /// Supported types: [SchemaBedDetails], [SchemaBedType], [String]
   dynamic bed;
 
-  /// //en.wikipedia.org/wiki/Storey#Consecutive_number_floor_designations),
+  /// The floor level for an [SchemaAccommodation] in a multi-storey building.
+  /// Since counting systems [vary
+  /// internationally](https://en.wikipedia.org/wiki/Storey#Consecutive_number_floor_designations),
   /// the local system should be used where possible.
   String? floorLevel;
 
-  /// MTK for square meter, FTK for square foot, or YDK for square yard.
+  /// The size of the accommodation, e.g. in square meter or squarefoot.
+  /// Typical unit code(s): MTK for square meter, FTK for square foot, or YDK
+  /// for square yard.
   SchemaQuantitativeValue? floorSize;
 
   /// Length of the lease for some [SchemaAccommodation], either particular to
@@ -53,6 +61,9 @@ class SchemaAccommodation extends SchemaPlace {
   /// Supported types: [SchemaDuration], [SchemaQuantitativeValue]
   dynamic leaseLength;
 
+  /// The total integer number of bathrooms in some [SchemaAccommodation],
+  /// following real estate conventions as [documented in
+  /// RESO](https://ddwiki.reso.org/display/DDW17/BathroomsTotalInteger+Field):
   /// "The simple sum of the number of bathrooms. For example for a property
   /// with two Full Bathrooms and one Half Bathroom, the Bathrooms Total
   /// Integer will be 3.". See also [SchemanumberOfRooms].
@@ -64,19 +75,29 @@ class SchemaAccommodation extends SchemaPlace {
   /// Supported types: [SchemaQuantitativeValue], [num]
   dynamic numberOfBedrooms;
 
-  /// //ddwiki.reso.org/display/DDW17/BathroomsFull+Field).
+  /// Number of full bathrooms - The total number of full and ¾ bathrooms in an
+  /// [SchemaAccommodation]. This corresponds to the [BathroomsFull field in
+  /// RESO](https://ddwiki.reso.org/display/DDW17/BathroomsFull+Field).
   num? numberOfFullBathrooms;
 
-  /// //ddwiki.reso.org/display/DDW17/BathroomsPartial+Field).
+  /// Number of partial bathrooms - The total number of half and ¼ bathrooms in
+  /// an [SchemaAccommodation]. This corresponds to the [BathroomsPartial field
+  /// in RESO](https://ddwiki.reso.org/display/DDW17/BathroomsPartial+Field).
   num? numberOfPartialBathrooms;
 
-  /// ROM for room or C62 for no unit. The type of room can be put in the
-  /// unitText property of the QuantitativeValue.
+  /// The number of rooms (excluding bathrooms and closets) of the
+  /// accommodation or lodging business. Typical unit code(s): ROM for room or
+  /// C62 for no unit. The type of room can be put in the unitText property of
+  /// the QuantitativeValue.
   ///
   /// Supported types: [SchemaQuantitativeValue], [num]
   dynamic numberOfRooms;
 
-  /// C62 for person.
+  /// The allowed total occupancy for the accommodation in persons (including
+  /// infants etc). For individual accommodations, this is not necessarily the
+  /// legal maximum but defines the permitted usage as per the contractual
+  /// agreement (e.g. a double room used by a single person). Typical unit
+  /// code(s): C62 for person.
   SchemaQuantitativeValue? occupancy;
 
   /// Indications regarding the permitted usage of the accommodation.
@@ -88,7 +109,9 @@ class SchemaAccommodation extends SchemaPlace {
   /// Supported types: [String], [bool]
   dynamic petsAllowed;
 
-  /// //ddwiki.reso.org/display/DDW17/YearBuilt+Field).
+  /// The year an [SchemaAccommodation] was constructed. This corresponds to
+  /// the [YearBuilt field in
+  /// RESO](https://ddwiki.reso.org/display/DDW17/YearBuilt+Field).
   num? yearBuilt;
 
   /// Create a new instance of [SchemaAccommodation]
@@ -175,27 +198,25 @@ class SchemaAccommodation extends SchemaPlace {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Accommodation',
-        'accommodationCategory':
-            convertToJsonLd(accommodationCategory, [String]),
-        'accommodationFloorPlan':
-            convertToJsonLd(accommodationFloorPlan, [SchemaFloorPlan]),
-        'bed': convertToJsonLd(bed, [SchemaBedDetails, SchemaBedType, String]),
-        'floorLevel': convertToJsonLd(floorLevel, [String]),
-        'floorSize': convertToJsonLd(floorSize, [SchemaQuantitativeValue]),
-        'leaseLength': convertToJsonLd(
-            leaseLength, [SchemaDuration, SchemaQuantitativeValue]),
-        'numberOfBathroomsTotal':
-            convertToJsonLd(numberOfBathroomsTotal, [int]),
-        'numberOfBedrooms':
-            convertToJsonLd(numberOfBedrooms, [SchemaQuantitativeValue, num]),
-        'numberOfFullBathrooms': convertToJsonLd(numberOfFullBathrooms, [num]),
-        'numberOfPartialBathrooms':
-            convertToJsonLd(numberOfPartialBathrooms, [num]),
-        'numberOfRooms':
-            convertToJsonLd(numberOfRooms, [SchemaQuantitativeValue, num]),
-        'occupancy': convertToJsonLd(occupancy, [SchemaQuantitativeValue]),
-        'permittedUsage': convertToJsonLd(permittedUsage, [String]),
-        'petsAllowed': convertToJsonLd(petsAllowed, [String, bool]),
-        'yearBuilt': convertToJsonLd(yearBuilt, [num]),
+        'accommodationCategory': convertToJsonLd(accommodationCategory),
+        'accommodationFloorPlan': convertToJsonLd(accommodationFloorPlan),
+        'bed': convertToJsonLd(bed,
+            (v) => v is SchemaBedDetails || v is SchemaBedType || v is String),
+        'floorLevel': convertToJsonLd(floorLevel),
+        'floorSize': convertToJsonLd(floorSize),
+        'leaseLength': convertToJsonLd(leaseLength,
+            (v) => v is SchemaDuration || v is SchemaQuantitativeValue),
+        'numberOfBathroomsTotal': convertToJsonLd(numberOfBathroomsTotal),
+        'numberOfBedrooms': convertToJsonLd(
+            numberOfBedrooms, (v) => v is SchemaQuantitativeValue || v is num),
+        'numberOfFullBathrooms': convertToJsonLd(numberOfFullBathrooms),
+        'numberOfPartialBathrooms': convertToJsonLd(numberOfPartialBathrooms),
+        'numberOfRooms': convertToJsonLd(
+            numberOfRooms, (v) => v is SchemaQuantitativeValue || v is num),
+        'occupancy': convertToJsonLd(occupancy),
+        'permittedUsage': convertToJsonLd(permittedUsage),
+        'petsAllowed':
+            convertToJsonLd(petsAllowed, (v) => v is String || v is bool),
+        'yearBuilt': convertToJsonLd(yearBuilt),
       });
 }

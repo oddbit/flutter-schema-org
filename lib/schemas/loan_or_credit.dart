@@ -24,8 +24,14 @@ class SchemaLoanOrCredit extends SchemaFinancialProduct {
   /// Supported types: [SchemaMonetaryAmount], [num]
   dynamic amount;
 
-  /// //en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other
-  /// currency types, e.g. "Ithaca HOUR".
+  /// The currency in which the monetary amount is expressed.\n\nUse standard
+  /// formats: [ISO 4217 currency
+  /// format](http://en.wikipedia.org/wiki/ISO_4217), e.g. "USD"; [Ticker
+  /// symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for
+  /// cryptocurrencies, e.g. "BTC"; well known names for [Local Exchange
+  /// Trading
+  /// Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system)
+  /// (LETS) and other currency types, e.g. "Ithaca HOUR".
   String? currency;
 
   /// The period of time after any due date that the borrower has to fulfil its
@@ -117,16 +123,16 @@ class SchemaLoanOrCredit extends SchemaFinancialProduct {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'LoanOrCredit',
-        'amount': convertToJsonLd(amount, [SchemaMonetaryAmount, num]),
-        'currency': convertToJsonLd(currency, [String]),
-        'gracePeriod': convertToJsonLd(gracePeriod, [SchemaDuration]),
-        'loanRepaymentForm':
-            convertToJsonLd(loanRepaymentForm, [SchemaRepaymentSpecification]),
-        'loanTerm': convertToJsonLd(loanTerm, [SchemaQuantitativeValue]),
-        'loanType': convertToJsonLd(loanType, [String]),
-        'recourseLoan': convertToJsonLd(recourseLoan, [bool]),
-        'renegotiableLoan': convertToJsonLd(renegotiableLoan, [bool]),
-        'requiredCollateral':
-            convertToJsonLd(requiredCollateral, [String, SchemaThing]),
+        'amount': convertToJsonLd(
+            amount, (v) => v is SchemaMonetaryAmount || v is num),
+        'currency': convertToJsonLd(currency),
+        'gracePeriod': convertToJsonLd(gracePeriod),
+        'loanRepaymentForm': convertToJsonLd(loanRepaymentForm),
+        'loanTerm': convertToJsonLd(loanTerm),
+        'loanType': convertToJsonLd(loanType),
+        'recourseLoan': convertToJsonLd(recourseLoan),
+        'renegotiableLoan': convertToJsonLd(renegotiableLoan),
+        'requiredCollateral': convertToJsonLd(
+            requiredCollateral, (v) => v is String || v is SchemaThing),
       });
 }

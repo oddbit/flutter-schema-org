@@ -12,8 +12,12 @@ import 'package:schema_org/schemas/intangible.dart';
 import 'package:schema_org/schemas/eu_energy_efficiency_enumeration.dart';
 import 'package:schema_org/schemas/energy_efficiency_enumeration.dart';
 
-///
-/// //www.ftc.gov/enforcement/rules/rulemaking-regulatory-reform-proceedings/energy-water-use-labeling-consumer)
+/// EnergyConsumptionDetails represents information related to the energy
+/// efficiency of a product that consumes energy. The information that can be
+/// provided is based on international regulations such as for example [EU
+/// directive 2017/1369](https://eur-lex.europa.eu/eli/reg/2017/1369/oj) for
+/// energy labeling and the [Energy labeling
+/// rule](https://www.ftc.gov/enforcement/rules/rulemaking-regulatory-reform-proceedings/energy-water-use-labeling-consumer)
 /// under the Energy Policy and Conservation Act (EPCA) in the US.
 /// See https://schema.org/EnergyConsumptionDetails
 class SchemaEnergyConsumptionDetails extends SchemaIntangible {
@@ -59,11 +63,9 @@ class SchemaEnergyConsumptionDetails extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'EnergyConsumptionDetails',
-        'energyEfficiencyScaleMax': convertToJsonLd(
-            energyEfficiencyScaleMax, [SchemaEUEnergyEfficiencyEnumeration]),
-        'energyEfficiencyScaleMin': convertToJsonLd(
-            energyEfficiencyScaleMin, [SchemaEUEnergyEfficiencyEnumeration]),
-        'hasEnergyEfficiencyCategory': convertToJsonLd(
-            hasEnergyEfficiencyCategory, [SchemaEnergyEfficiencyEnumeration]),
+        'energyEfficiencyScaleMax': convertToJsonLd(energyEfficiencyScaleMax),
+        'energyEfficiencyScaleMin': convertToJsonLd(energyEfficiencyScaleMin),
+        'hasEnergyEfficiencyCategory':
+            convertToJsonLd(hasEnergyEfficiencyCategory),
       });
 }

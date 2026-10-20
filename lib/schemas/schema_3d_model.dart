@@ -10,8 +10,12 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/media_object.dart';
 
-/// 3D_graphics_file_formats)); specific encoding formats can be represented
-/// using the [SchemaencodingFormat] property applied to the relevant
+/// A 3D model represents some kind of 3D content, which may have
+/// [Schemaencoding]s in one or more [SchemaMediaObject]s. Many 3D formats
+/// are available (e.g. see
+/// [Wikipedia](https://en.wikipedia.org/wiki/Category:3D_graphics_file_formats));
+/// specific encoding formats can be represented using the
+/// [SchemaencodingFormat] property applied to the relevant
 /// [SchemaMediaObject]. For the case of a single file published after Zip
 /// compression, the convention of appending '+zip' to the
 /// [SchemaencodingFormat] can be used. Geospatial, AR/VR,
@@ -181,6 +185,6 @@ class Schema3DModel extends SchemaMediaObject {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': '3DModel',
-        'isResizable': convertToJsonLd(isResizable, [bool]),
+        'isResizable': convertToJsonLd(isResizable),
       });
 }

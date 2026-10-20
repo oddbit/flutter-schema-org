@@ -17,7 +17,9 @@ class SchemaResidence extends SchemaPlace {
   /// A floorplan of some [SchemaAccommodation].
   SchemaFloorPlan? accommodationFloorPlan;
 
-  /// //en.wikipedia.org/wiki/Storey#Consecutive_number_floor_designations),
+  /// The floor level for an [SchemaAccommodation] in a multi-storey building.
+  /// Since counting systems [vary
+  /// internationally](https://en.wikipedia.org/wiki/Storey#Consecutive_number_floor_designations),
   /// the local system should be used where possible.
   String? floorLevel;
 
@@ -92,8 +94,7 @@ class SchemaResidence extends SchemaPlace {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Residence',
-        'accommodationFloorPlan':
-            convertToJsonLd(accommodationFloorPlan, [SchemaFloorPlan]),
-        'floorLevel': convertToJsonLd(floorLevel, [String]),
+        'accommodationFloorPlan': convertToJsonLd(accommodationFloorPlan),
+        'floorLevel': convertToJsonLd(floorLevel),
       });
 }

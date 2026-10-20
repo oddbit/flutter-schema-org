@@ -160,7 +160,6 @@ class SchemaMediaReviewItem extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MediaReviewItem',
-        'mediaItemAppearance':
-            convertToJsonLd(mediaItemAppearance, [SchemaMediaObject]),
+        'mediaItemAppearance': convertToJsonLd(mediaItemAppearance),
       });
 }

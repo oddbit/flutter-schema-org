@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/media_gallery.dart';
 
-/// Image gallery page.
+/// Web page type: Image gallery page.
 /// See https://schema.org/ImageGallery
 class SchemaImageGallery extends SchemaMediaGallery {
   /// Create a new instance of [SchemaImageGallery]

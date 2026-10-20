@@ -48,7 +48,6 @@ class SchemaDrugLegalStatus extends SchemaMedicalIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'DrugLegalStatus',
-        'applicableLocation':
-            convertToJsonLd(applicableLocation, [SchemaAdministrativeArea]),
+        'applicableLocation': convertToJsonLd(applicableLocation),
       });
 }

@@ -58,6 +58,15 @@ class SchemaWebPage extends SchemaCreativeWork {
   @Deprecated('Use [significantLink]. See https://schema.org/significantLinks')
   String? significantLinks;
 
+  /// Indicates sections of a Web page that are particularly 'speakable' in the
+  /// sense of being highlighted as being especially appropriate for
+  /// text-to-speech conversion. Other sections of a page may also be usefully
+  /// spoken in particular circumstances; the 'speakable' property serves to
+  /// indicate the parts most likely to be generally useful for speech.
+  ///
+  /// The *speakable* property can be repeated an arbitrary number of times,
+  /// with three kinds of possible 'content-locator' values:
+  ///
   /// 1.) *id-value* URL references - uses *id-value* of an element in the page
   /// being annotated. The simplest use of *speakable* has (potentially
   /// relative) URL values, referencing identified sections of the document
@@ -229,20 +238,18 @@ class SchemaWebPage extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'WebPage',
-        'breadcrumb':
-            convertToJsonLd(breadcrumb, [SchemaBreadcrumbList, String]),
-        'lastReviewed': convertToJsonLd(lastReviewed, [String]),
-        'mainContentOfPage':
-            convertToJsonLd(mainContentOfPage, [SchemaWebPageElement]),
-        'primaryImageOfPage':
-            convertToJsonLd(primaryImageOfPage, [SchemaImageObject]),
-        'relatedLink': convertToJsonLd(relatedLink, [String]),
-        'reviewedBy':
-            convertToJsonLd(reviewedBy, [SchemaOrganization, SchemaPerson]),
-        'significantLink': convertToJsonLd(significantLink, [String]),
-        'significantLinks': convertToJsonLd(significantLinks, [String]),
-        'speakable':
-            convertToJsonLd(speakable, [SchemaSpeakableSpecification, String]),
-        'specialty': convertToJsonLd(specialty, [SchemaSpecialty]),
+        'breadcrumb': convertToJsonLd(
+            breadcrumb, (v) => v is SchemaBreadcrumbList || v is String),
+        'lastReviewed': convertToJsonLd(lastReviewed),
+        'mainContentOfPage': convertToJsonLd(mainContentOfPage),
+        'primaryImageOfPage': convertToJsonLd(primaryImageOfPage),
+        'relatedLink': convertToJsonLd(relatedLink),
+        'reviewedBy': convertToJsonLd(
+            reviewedBy, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'significantLink': convertToJsonLd(significantLink),
+        'significantLinks': convertToJsonLd(significantLinks),
+        'speakable': convertToJsonLd(
+            speakable, (v) => v is SchemaSpeakableSpecification || v is String),
+        'specialty': convertToJsonLd(specialty),
       });
 }

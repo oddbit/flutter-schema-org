@@ -15,15 +15,15 @@ import 'package:schema_org/schemas/medical_enumeration.dart';
 enum SchemaDrugPrescriptionStatus implements SchemaMedicalEnumeration {
   /// The character of a medical substance, typically a medicine, of being
   /// available over the counter or not.
-  oTC('https://schema.org/DrugPrescriptionStatus'),
+  oTC('https://schema.org/OTC'),
 
   /// Available by prescription only.
-  prescriptionOnly('https://schema.org/DrugPrescriptionStatus');
+  prescriptionOnly('https://schema.org/PrescriptionOnly');
 
   /// Constructor for [SchemaDrugPrescriptionStatus]
   const SchemaDrugPrescriptionStatus(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaDrugPrescriptionStatus] to JSON-LD

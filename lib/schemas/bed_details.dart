@@ -51,7 +51,8 @@ class SchemaBedDetails extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'BedDetails',
-        'numberOfBeds': convertToJsonLd(numberOfBeds, [num]),
-        'typeOfBed': convertToJsonLd(typeOfBed, [SchemaBedType, String]),
+        'numberOfBeds': convertToJsonLd(numberOfBeds),
+        'typeOfBed': convertToJsonLd(
+            typeOfBed, (v) => v is SchemaBedType || v is String),
       });
 }

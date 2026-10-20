@@ -192,11 +192,10 @@ class SchemaMediaReview extends SchemaReview {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MediaReview',
-        'mediaAuthenticityCategory': convertToJsonLd(mediaAuthenticityCategory,
-            [SchemaMediaManipulationRatingEnumeration]),
+        'mediaAuthenticityCategory': convertToJsonLd(mediaAuthenticityCategory),
         'originalMediaContextDescription':
-            convertToJsonLd(originalMediaContextDescription, [String]),
-        'originalMediaLink': convertToJsonLd(
-            originalMediaLink, [SchemaMediaObject, String, SchemaWebPage]),
+            convertToJsonLd(originalMediaContextDescription),
+        'originalMediaLink': convertToJsonLd(originalMediaLink,
+            (v) => v is SchemaMediaObject || v is String || v is SchemaWebPage),
       });
 }

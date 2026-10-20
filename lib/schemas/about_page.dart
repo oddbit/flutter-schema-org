@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/web_page.dart';
 
-/// About page.
+/// Web page type: About page.
 /// See https://schema.org/AboutPage
 class SchemaAboutPage extends SchemaWebPage {
   /// Create a new instance of [SchemaAboutPage]

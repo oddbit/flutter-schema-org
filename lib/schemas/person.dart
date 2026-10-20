@@ -82,8 +82,9 @@ class SchemaPerson extends SchemaThing {
   /// Supported types: [SchemaBrand], [SchemaOrganization]
   dynamic brand;
 
-  /// //en.wikipedia.org/wiki/Call_sign), as used in broadcasting and radio
-  /// communications to identify people, radio and TV stations, or vehicles.
+  /// A [callsign](https://en.wikipedia.org/wiki/Call_sign), as used in
+  /// broadcasting and radio communications to identify people, radio and TV
+  /// stations, or vehicles.
   String? callSign;
 
   /// A child of the person.
@@ -137,10 +138,12 @@ class SchemaPerson extends SchemaThing {
   /// sponsorship for this item. See also [SchemaownershipFundingInfo].
   SchemaGrant? funding;
 
-  /// //schema.org/Female may be used, text strings are also acceptable for
-  /// people who are not a binary gender. The [Schemagender] property can also
-  /// be used in an extended sense to cover e.g. the gender of sports teams. As
-  /// with the gender of individuals, we do not try to enumerate all
+  /// Gender of something, typically a [SchemaPerson], but possibly also
+  /// fictional characters, animals, etc. While https://schema.org/Male and
+  /// https://schema.org/Female may be used, text strings are also acceptable
+  /// for people who are not a binary gender. The [Schemagender] property can
+  /// also be used in an extended sense to cover e.g. the gender of sports
+  /// teams. As with the gender of individuals, we do not try to enumerate all
   /// possibilities. A mixed-gender [SchemaSportsTeam] can be indicated with a
   /// text value of "Mixed".
   ///
@@ -150,10 +153,10 @@ class SchemaPerson extends SchemaThing {
   /// Given name. In the U.S., the first name of a Person.
   String? givenName;
 
-  /// //www.gs1.org/gln) (GLN, sometimes also referred to as International
-  /// Location Number or ILN) of the respective organization, person, or place.
-  /// The GLN is a 13-digit number used to identify parties and physical
-  /// locations.
+  /// The [Global Location Number](http://www.gs1.org/gln) (GLN, sometimes also
+  /// referred to as International Location Number or ILN) of the respective
+  /// organization, person, or place. The GLN is a 13-digit number used to
+  /// identify parties and physical locations.
   String? globalLocationNumber;
 
   /// Certification information about a product, organization, service, place,
@@ -217,7 +220,10 @@ class SchemaPerson extends SchemaThing {
   /// Supported types: [String], [SchemaThing]
   dynamic knowsAbout;
 
-  /// //tools.ietf.org/html/bcp47).
+  /// Of a [SchemaPerson], and less typically of an [SchemaOrganization], to
+  /// indicate a known language. We do not distinguish skill levels or
+  /// reading/writing/speaking/signing here. Use language codes from the [IETF
+  /// BCP 47 standard](http://tools.ietf.org/html/bcp47).
   ///
   /// Supported types: [SchemaLanguage], [String]
   dynamic knowsLanguage;
@@ -441,90 +447,102 @@ class SchemaPerson extends SchemaThing {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Person',
-        'additionalName': convertToJsonLd(additionalName, [String]),
-        'address': convertToJsonLd(address, [SchemaPostalAddress, String]),
-        'affiliation': convertToJsonLd(affiliation, [SchemaOrganization]),
-        'agentInteractionStatistic': convertToJsonLd(
-            agentInteractionStatistic, [SchemaInteractionCounter]),
+        'additionalName': convertToJsonLd(additionalName),
+        'address': convertToJsonLd(
+            address, (v) => v is SchemaPostalAddress || v is String),
+        'affiliation': convertToJsonLd(affiliation),
+        'agentInteractionStatistic': convertToJsonLd(agentInteractionStatistic),
         'alumniOf': convertToJsonLd(
-            alumniOf, [SchemaEducationalOrganization, SchemaOrganization]),
-        'award': convertToJsonLd(award, [String]),
-        'awards': convertToJsonLd(awards, [String]),
-        'birthDate': convertToJsonLd(birthDate, [String]),
-        'birthPlace': convertToJsonLd(birthPlace, [SchemaPlace]),
-        'brand': convertToJsonLd(brand, [SchemaBrand, SchemaOrganization]),
-        'callSign': convertToJsonLd(callSign, [String]),
-        'children': convertToJsonLd(children, [SchemaPerson]),
-        'colleague': convertToJsonLd(colleague, [SchemaPerson, String]),
-        'colleagues': convertToJsonLd(colleagues, [SchemaPerson]),
-        'contactPoint': convertToJsonLd(contactPoint, [SchemaContactPoint]),
-        'contactPoints': convertToJsonLd(contactPoints, [SchemaContactPoint]),
-        'deathDate': convertToJsonLd(deathDate, [String]),
-        'deathPlace': convertToJsonLd(deathPlace, [SchemaPlace]),
-        'duns': convertToJsonLd(duns, [String]),
-        'email': convertToJsonLd(email, [String]),
-        'familyName': convertToJsonLd(familyName, [String]),
-        'faxNumber': convertToJsonLd(faxNumber, [String]),
-        'follows': convertToJsonLd(follows, [SchemaPerson]),
-        'funder': convertToJsonLd(funder, [SchemaOrganization, SchemaPerson]),
-        'funding': convertToJsonLd(funding, [SchemaGrant]),
-        'gender': convertToJsonLd(gender, [SchemaGenderType, String]),
-        'givenName': convertToJsonLd(givenName, [String]),
-        'globalLocationNumber': convertToJsonLd(globalLocationNumber, [String]),
-        'hasCertification':
-            convertToJsonLd(hasCertification, [SchemaCertification]),
-        'hasCredential': convertToJsonLd(hasCredential, [SchemaCredential]),
-        'hasOccupation': convertToJsonLd(hasOccupation, [SchemaOccupation]),
-        'hasOfferCatalog':
-            convertToJsonLd(hasOfferCatalog, [SchemaOfferCatalog]),
-        'hasPOS': convertToJsonLd(hasPOS, [SchemaPlace]),
-        'height':
-            convertToJsonLd(height, [SchemaDistance, SchemaQuantitativeValue]),
-        'homeLocation':
-            convertToJsonLd(homeLocation, [SchemaContactPoint, SchemaPlace]),
-        'honorificPrefix': convertToJsonLd(honorificPrefix, [String]),
-        'honorificSuffix': convertToJsonLd(honorificSuffix, [String]),
-        'interactionStatistic':
-            convertToJsonLd(interactionStatistic, [SchemaInteractionCounter]),
-        'isicV4': convertToJsonLd(isicV4, [String]),
-        'jobTitle': convertToJsonLd(jobTitle, [SchemaDefinedTerm, String]),
-        'knows': convertToJsonLd(knows, [SchemaPerson]),
-        'knowsAbout': convertToJsonLd(knowsAbout, [String, SchemaThing]),
-        'knowsLanguage':
-            convertToJsonLd(knowsLanguage, [SchemaLanguage, String]),
-        'lifeEvent': convertToJsonLd(lifeEvent, [SchemaEvent]),
-        'makesOffer': convertToJsonLd(makesOffer, [SchemaOffer]),
-        'memberOf': convertToJsonLd(memberOf, [
-          SchemaMemberProgramTier,
-          SchemaOrganization,
-          SchemaProgramMembership
-        ]),
-        'naics': convertToJsonLd(naics, [String]),
-        'nationality': convertToJsonLd(nationality, [SchemaCountry]),
-        'netWorth': convertToJsonLd(
-            netWorth, [SchemaMonetaryAmount, SchemaPriceSpecification]),
-        'owns': convertToJsonLd(owns, [SchemaThing]),
-        'parent': convertToJsonLd(parent, [SchemaPerson]),
-        'parents': convertToJsonLd(parents, [SchemaPerson]),
-        'performerIn': convertToJsonLd(performerIn, [SchemaEvent]),
+            alumniOf,
+            (v) =>
+                v is SchemaEducationalOrganization || v is SchemaOrganization),
+        'award': convertToJsonLd(award),
+        'awards': convertToJsonLd(awards),
+        'birthDate': convertToJsonLd(birthDate),
+        'birthPlace': convertToJsonLd(birthPlace),
+        'brand': convertToJsonLd(
+            brand, (v) => v is SchemaBrand || v is SchemaOrganization),
+        'callSign': convertToJsonLd(callSign),
+        'children': convertToJsonLd(children),
+        'colleague':
+            convertToJsonLd(colleague, (v) => v is SchemaPerson || v is String),
+        'colleagues': convertToJsonLd(colleagues),
+        'contactPoint': convertToJsonLd(contactPoint),
+        'contactPoints': convertToJsonLd(contactPoints),
+        'deathDate': convertToJsonLd(deathDate),
+        'deathPlace': convertToJsonLd(deathPlace),
+        'duns': convertToJsonLd(duns),
+        'email': convertToJsonLd(email),
+        'familyName': convertToJsonLd(familyName),
+        'faxNumber': convertToJsonLd(faxNumber),
+        'follows': convertToJsonLd(follows),
+        'funder': convertToJsonLd(
+            funder, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'funding': convertToJsonLd(funding),
+        'gender': convertToJsonLd(
+            gender, (v) => v is SchemaGenderType || v is String),
+        'givenName': convertToJsonLd(givenName),
+        'globalLocationNumber': convertToJsonLd(globalLocationNumber),
+        'hasCertification': convertToJsonLd(hasCertification),
+        'hasCredential': convertToJsonLd(hasCredential),
+        'hasOccupation': convertToJsonLd(hasOccupation),
+        'hasOfferCatalog': convertToJsonLd(hasOfferCatalog),
+        'hasPOS': convertToJsonLd(hasPOS),
+        'height': convertToJsonLd(
+            height, (v) => v is SchemaDistance || v is SchemaQuantitativeValue),
+        'homeLocation': convertToJsonLd(
+            homeLocation, (v) => v is SchemaContactPoint || v is SchemaPlace),
+        'honorificPrefix': convertToJsonLd(honorificPrefix),
+        'honorificSuffix': convertToJsonLd(honorificSuffix),
+        'interactionStatistic': convertToJsonLd(interactionStatistic),
+        'isicV4': convertToJsonLd(isicV4),
+        'jobTitle': convertToJsonLd(
+            jobTitle, (v) => v is SchemaDefinedTerm || v is String),
+        'knows': convertToJsonLd(knows),
+        'knowsAbout':
+            convertToJsonLd(knowsAbout, (v) => v is String || v is SchemaThing),
+        'knowsLanguage': convertToJsonLd(
+            knowsLanguage, (v) => v is SchemaLanguage || v is String),
+        'lifeEvent': convertToJsonLd(lifeEvent),
+        'makesOffer': convertToJsonLd(makesOffer),
+        'memberOf': convertToJsonLd(
+            memberOf,
+            (v) =>
+                v is SchemaMemberProgramTier ||
+                v is SchemaOrganization ||
+                v is SchemaProgramMembership),
+        'naics': convertToJsonLd(naics),
+        'nationality': convertToJsonLd(nationality),
+        'netWorth': convertToJsonLd(netWorth,
+            (v) => v is SchemaMonetaryAmount || v is SchemaPriceSpecification),
+        'owns': convertToJsonLd(owns),
+        'parent': convertToJsonLd(parent),
+        'parents': convertToJsonLd(parents),
+        'performerIn': convertToJsonLd(performerIn),
         'pronouns': convertToJsonLd(
-            pronouns, [SchemaDefinedTerm, String, SchemaStructuredValue]),
-        'publishingPrinciples':
-            convertToJsonLd(publishingPrinciples, [SchemaCreativeWork, String]),
-        'relatedTo': convertToJsonLd(relatedTo, [SchemaPerson]),
-        'seeks': convertToJsonLd(seeks, [SchemaDemand]),
-        'sibling': convertToJsonLd(sibling, [SchemaPerson]),
-        'siblings': convertToJsonLd(siblings, [SchemaPerson]),
-        'skills': convertToJsonLd(skills, [SchemaDefinedTerm, String]),
-        'sponsor': convertToJsonLd(sponsor, [SchemaOrganization, SchemaPerson]),
-        'spouse': convertToJsonLd(spouse, [SchemaPerson]),
-        'taxID': convertToJsonLd(taxID, [String]),
-        'telephone': convertToJsonLd(telephone, [String]),
-        'vatID': convertToJsonLd(vatID, [String]),
-        'weight':
-            convertToJsonLd(weight, [SchemaMass, SchemaQuantitativeValue]),
-        'workLocation':
-            convertToJsonLd(workLocation, [SchemaContactPoint, SchemaPlace]),
-        'worksFor': convertToJsonLd(worksFor, [SchemaOrganization]),
+            pronouns,
+            (v) =>
+                v is SchemaDefinedTerm ||
+                v is String ||
+                v is SchemaStructuredValue),
+        'publishingPrinciples': convertToJsonLd(publishingPrinciples,
+            (v) => v is SchemaCreativeWork || v is String),
+        'relatedTo': convertToJsonLd(relatedTo),
+        'seeks': convertToJsonLd(seeks),
+        'sibling': convertToJsonLd(sibling),
+        'siblings': convertToJsonLd(siblings),
+        'skills': convertToJsonLd(
+            skills, (v) => v is SchemaDefinedTerm || v is String),
+        'sponsor': convertToJsonLd(
+            sponsor, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'spouse': convertToJsonLd(spouse),
+        'taxID': convertToJsonLd(taxID),
+        'telephone': convertToJsonLd(telephone),
+        'vatID': convertToJsonLd(vatID),
+        'weight': convertToJsonLd(
+            weight, (v) => v is SchemaMass || v is SchemaQuantitativeValue),
+        'workLocation': convertToJsonLd(
+            workLocation, (v) => v is SchemaContactPoint || v is SchemaPlace),
+        'worksFor': convertToJsonLd(worksFor),
       });
 }

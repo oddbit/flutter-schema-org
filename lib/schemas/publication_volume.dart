@@ -10,8 +10,10 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 
-///
-/// //blog-schema.org/2014/09/02/schema-org-support-for-bibliographic-relationships-and-periodicals/).
+/// A part of a successively published publication such as a periodical or
+/// multi-volume work, often numbered. It may represent a time span, such as
+/// a year.\n\nSee also [blog
+/// post](https://blog-schema.org/2014/09/02/schema-org-support-for-bibliographic-relationships-and-periodicals/).
 /// See https://schema.org/PublicationVolume
 class SchemaPublicationVolume extends SchemaCreativeWork {
   /// The page on which the work ends; for example "138" or "xvi".
@@ -176,9 +178,10 @@ class SchemaPublicationVolume extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'PublicationVolume',
-        'pageEnd': convertToJsonLd(pageEnd, [String, int]),
-        'pageStart': convertToJsonLd(pageStart, [String, int]),
-        'pagination': convertToJsonLd(pagination, [String]),
-        'volumeNumber': convertToJsonLd(volumeNumber, [String, int]),
+        'pageEnd': convertToJsonLd(pageEnd, (v) => v is String || v is int),
+        'pageStart': convertToJsonLd(pageStart, (v) => v is String || v is int),
+        'pagination': convertToJsonLd(pagination),
+        'volumeNumber':
+            convertToJsonLd(volumeNumber, (v) => v is String || v is int),
       });
 }

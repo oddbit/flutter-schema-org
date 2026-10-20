@@ -60,11 +60,11 @@ class SchemaOwnershipInfo extends SchemaStructuredValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'OwnershipInfo',
-        'acquiredFrom':
-            convertToJsonLd(acquiredFrom, [SchemaOrganization, SchemaPerson]),
-        'ownedFrom': convertToJsonLd(ownedFrom, [String]),
-        'ownedThrough': convertToJsonLd(ownedThrough, [String]),
-        'typeOfGood':
-            convertToJsonLd(typeOfGood, [SchemaProduct, SchemaService]),
+        'acquiredFrom': convertToJsonLd(
+            acquiredFrom, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'ownedFrom': convertToJsonLd(ownedFrom),
+        'ownedThrough': convertToJsonLd(ownedThrough),
+        'typeOfGood': convertToJsonLd(
+            typeOfGood, (v) => v is SchemaProduct || v is SchemaService),
       });
 }

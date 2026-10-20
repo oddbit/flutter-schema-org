@@ -207,46 +207,55 @@ class SchemaService extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Service',
-        'aggregateRating':
-            convertToJsonLd(aggregateRating, [SchemaAggregateRating]),
-        'areaServed': convertToJsonLd(areaServed,
-            [SchemaAdministrativeArea, SchemaGeoShape, SchemaPlace, String]),
-        'audience': convertToJsonLd(audience, [SchemaAudience]),
-        'availableChannel':
-            convertToJsonLd(availableChannel, [SchemaServiceChannel]),
-        'award': convertToJsonLd(award, [String]),
-        'brand': convertToJsonLd(brand, [SchemaBrand, SchemaOrganization]),
-        'broker': convertToJsonLd(broker, [SchemaOrganization, SchemaPerson]),
-        'category': convertToJsonLd(category, [
-          SchemaCategoryCode,
-          SchemaPhysicalActivityCategory,
-          String,
-          SchemaThing
-        ]),
-        'hasCertification':
-            convertToJsonLd(hasCertification, [SchemaCertification]),
-        'hasOfferCatalog':
-            convertToJsonLd(hasOfferCatalog, [SchemaOfferCatalog]),
-        'hoursAvailable':
-            convertToJsonLd(hoursAvailable, [SchemaOpeningHoursSpecification]),
-        'isRelatedTo':
-            convertToJsonLd(isRelatedTo, [SchemaProduct, SchemaService]),
-        'isSimilarTo':
-            convertToJsonLd(isSimilarTo, [SchemaProduct, SchemaService]),
-        'logo': convertToJsonLd(logo, [SchemaImageObject, String]),
-        'offers': convertToJsonLd(offers, [SchemaDemand, SchemaOffer]),
-        'produces': convertToJsonLd(produces, [SchemaThing]),
-        'provider':
-            convertToJsonLd(provider, [SchemaOrganization, SchemaPerson]),
-        'providerMobility': convertToJsonLd(providerMobility, [String]),
-        'review': convertToJsonLd(review, [SchemaReview]),
-        'serviceArea': convertToJsonLd(serviceArea,
-            [SchemaAdministrativeArea, SchemaGeoShape, SchemaPlace]),
-        'serviceAudience': convertToJsonLd(serviceAudience, [SchemaAudience]),
-        'serviceOutput': convertToJsonLd(serviceOutput, [SchemaThing]),
-        'serviceType': convertToJsonLd(
-            serviceType, [SchemaGovernmentBenefitsType, String]),
-        'slogan': convertToJsonLd(slogan, [String]),
-        'termsOfService': convertToJsonLd(termsOfService, [String]),
+        'aggregateRating': convertToJsonLd(aggregateRating),
+        'areaServed': convertToJsonLd(
+            areaServed,
+            (v) =>
+                v is SchemaAdministrativeArea ||
+                v is SchemaGeoShape ||
+                v is SchemaPlace ||
+                v is String),
+        'audience': convertToJsonLd(audience),
+        'availableChannel': convertToJsonLd(availableChannel),
+        'award': convertToJsonLd(award),
+        'brand': convertToJsonLd(
+            brand, (v) => v is SchemaBrand || v is SchemaOrganization),
+        'broker': convertToJsonLd(
+            broker, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'category': convertToJsonLd(
+            category,
+            (v) =>
+                v is SchemaCategoryCode ||
+                v is SchemaPhysicalActivityCategory ||
+                v is String ||
+                v is SchemaThing),
+        'hasCertification': convertToJsonLd(hasCertification),
+        'hasOfferCatalog': convertToJsonLd(hasOfferCatalog),
+        'hoursAvailable': convertToJsonLd(hoursAvailable),
+        'isRelatedTo': convertToJsonLd(
+            isRelatedTo, (v) => v is SchemaProduct || v is SchemaService),
+        'isSimilarTo': convertToJsonLd(
+            isSimilarTo, (v) => v is SchemaProduct || v is SchemaService),
+        'logo':
+            convertToJsonLd(logo, (v) => v is SchemaImageObject || v is String),
+        'offers': convertToJsonLd(
+            offers, (v) => v is SchemaDemand || v is SchemaOffer),
+        'produces': convertToJsonLd(produces),
+        'provider': convertToJsonLd(
+            provider, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'providerMobility': convertToJsonLd(providerMobility),
+        'review': convertToJsonLd(review),
+        'serviceArea': convertToJsonLd(
+            serviceArea,
+            (v) =>
+                v is SchemaAdministrativeArea ||
+                v is SchemaGeoShape ||
+                v is SchemaPlace),
+        'serviceAudience': convertToJsonLd(serviceAudience),
+        'serviceOutput': convertToJsonLd(serviceOutput),
+        'serviceType': convertToJsonLd(serviceType,
+            (v) => v is SchemaGovernmentBenefitsType || v is String),
+        'slogan': convertToJsonLd(slogan),
+        'termsOfService': convertToJsonLd(termsOfService),
       });
 }

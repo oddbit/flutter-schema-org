@@ -17,7 +17,9 @@ import 'package:schema_org/schemas/intangible.dart';
 /// competency.
 /// See https://schema.org/AlignmentObject
 class SchemaAlignmentObject extends SchemaIntangible {
-  /// 'requires', 'textComplexity', 'readingLevel', and 'educationalSubject'.
+  /// A category of alignment between the learning resource and the framework
+  /// node. Recommended values include: 'requires', 'textComplexity',
+  /// 'readingLevel', and 'educationalSubject'.
   String? alignmentType;
 
   /// The framework to which the resource being described is aligned.
@@ -59,10 +61,10 @@ class SchemaAlignmentObject extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'AlignmentObject',
-        'alignmentType': convertToJsonLd(alignmentType, [String]),
-        'educationalFramework': convertToJsonLd(educationalFramework, [String]),
-        'targetDescription': convertToJsonLd(targetDescription, [String]),
-        'targetName': convertToJsonLd(targetName, [String]),
-        'targetUrl': convertToJsonLd(targetUrl, [String]),
+        'alignmentType': convertToJsonLd(alignmentType),
+        'educationalFramework': convertToJsonLd(educationalFramework),
+        'targetDescription': convertToJsonLd(targetDescription),
+        'targetName': convertToJsonLd(targetName),
+        'targetUrl': convertToJsonLd(targetUrl),
       });
 }

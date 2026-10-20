@@ -14,15 +14,15 @@ import 'package:schema_org/src/schema_serializable.dart';
 /// See https://schema.org/SizeSystemEnumeration
 enum SchemaSizeSystemEnumeration implements SchemaSerializable {
   /// Imperial size system.
-  sizeSystemImperial('https://schema.org/SizeSystemEnumeration'),
+  sizeSystemImperial('https://schema.org/SizeSystemImperial'),
 
   /// Metric size system.
-  sizeSystemMetric('https://schema.org/SizeSystemEnumeration');
+  sizeSystemMetric('https://schema.org/SizeSystemMetric');
 
   /// Constructor for [SchemaSizeSystemEnumeration]
   const SchemaSizeSystemEnumeration(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaSizeSystemEnumeration] to JSON-LD

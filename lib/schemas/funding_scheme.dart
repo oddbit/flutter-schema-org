@@ -10,7 +10,11 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/organization.dart';
 
-/// Swiss Priority Programmes (SPPs); EU Framework 7 (FP7); Horizon 2020; the
+/// A FundingScheme combines organizational, project and policy aspects of
+/// grant-based funding that sets guidelines, principles and mechanisms to
+/// support other kinds of projects and activities. Funding is typically
+/// organized via [SchemaGrant] funding. Examples of funding schemes: Swiss
+/// Priority Programmes (SPPs); EU Framework 7 (FP7); Horizon 2020; the
 /// NIH-R01 Grant Program; Wellcome institutional strategic support fund. For
 /// large scale public sector funding, the management and administration of
 /// grant awards is often handled by other, dedicated, organizations -
@@ -28,6 +32,7 @@ class SchemaFundingScheme extends SchemaOrganization {
     super.alternateName,
     super.alumni,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.brand,
@@ -63,6 +68,7 @@ class SchemaFundingScheme extends SchemaOrganization {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,

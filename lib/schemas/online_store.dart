@@ -28,6 +28,7 @@ class SchemaOnlineStore extends SchemaOnlineBusiness {
     super.alternateName,
     super.alumni,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.brand,
@@ -63,6 +64,7 @@ class SchemaOnlineStore extends SchemaOnlineBusiness {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,
@@ -116,6 +118,6 @@ class SchemaOnlineStore extends SchemaOnlineBusiness {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'OnlineStore',
-        'isStoreOn': convertToJsonLd(isStoreOn, [SchemaOnlineMarketplace]),
+        'isStoreOn': convertToJsonLd(isStoreOn),
       });
 }

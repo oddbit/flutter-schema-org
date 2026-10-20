@@ -11,21 +11,28 @@ import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/offer.dart';
 import 'package:schema_org/schemas/demand.dart';
 
-/// //purl.org/goodrelations/v1#Sell if businessFunction is not explicitly
-/// defined.
+/// When a single product is associated with multiple offers (for example,
+/// the same pair of shoes is offered by different merchants), then
+/// AggregateOffer can be used.\n\nNote: AggregateOffers are normally
+/// expected to associate multiple offers that all share the same defined
+/// [SchemabusinessFunction] value, or default to
+/// http://purl.org/goodrelations/v1#Sell if businessFunction is not
+/// explicitly defined.
 /// See https://schema.org/AggregateOffer
 class SchemaAggregateOffer extends SchemaOffer {
-  /// \n\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT
-  /// NINE' (U+0039)) rather than superficially similar Unicode symbols.\n* Use
-  /// '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal
+  /// The highest price of all offers available.\n\nUsage guidelines:\n\n* Use
+  /// values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE'
+  /// (U+0039)) rather than superficially similar Unicode symbols.\n* Use '.'
+  /// (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal
   /// point. Avoid using these symbols as a readability separator.
   ///
   /// Supported types: [String], [num]
   dynamic highPrice;
 
-  /// \n\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT
-  /// NINE' (U+0039)) rather than superficially similar Unicode symbols.\n* Use
-  /// '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal
+  /// The lowest price of all offers available.\n\nUsage guidelines:\n\n* Use
+  /// values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE'
+  /// (U+0039)) rather than superficially similar Unicode symbols.\n* Use '.'
+  /// (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal
   /// point. Avoid using these symbols as a readability separator.
   ///
   /// Supported types: [String], [num]
@@ -79,6 +86,7 @@ class SchemaAggregateOffer extends SchemaOffer {
     super.gtin14,
     super.gtin8,
     super.hasAdultConsideration,
+    super.hasDigitalProductPassport,
     super.hasGS1DigitalLink,
     super.hasMeasurement,
     super.hasMerchantReturnPolicy,
@@ -90,6 +98,7 @@ class SchemaAggregateOffer extends SchemaOffer {
     super.isFamilyFriendly,
     super.itemCondition,
     super.itemOffered,
+    super.itemPopularity,
     super.leaseLength,
     super.mainEntityOfPage,
     super.mobileUrl,
@@ -126,9 +135,10 @@ class SchemaAggregateOffer extends SchemaOffer {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'AggregateOffer',
-        'highPrice': convertToJsonLd(highPrice, [String, num]),
-        'lowPrice': convertToJsonLd(lowPrice, [String, num]),
-        'offerCount': convertToJsonLd(offerCount, [int]),
-        'offers': convertToJsonLd(offers, [SchemaDemand, SchemaOffer]),
+        'highPrice': convertToJsonLd(highPrice, (v) => v is String || v is num),
+        'lowPrice': convertToJsonLd(lowPrice, (v) => v is String || v is num),
+        'offerCount': convertToJsonLd(offerCount),
+        'offers': convertToJsonLd(
+            offers, (v) => v is SchemaDemand || v is SchemaOffer),
       });
 }

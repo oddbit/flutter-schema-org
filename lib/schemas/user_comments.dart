@@ -108,10 +108,11 @@ class SchemaUserComments extends SchemaUserInteraction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'UserComments',
-        'commentText': convertToJsonLd(commentText, [String]),
-        'commentTime': convertToJsonLd(commentTime, [String]),
-        'creator': convertToJsonLd(creator, [SchemaOrganization, SchemaPerson]),
-        'discusses': convertToJsonLd(discusses, [SchemaCreativeWork]),
-        'replyToUrl': convertToJsonLd(replyToUrl, [String]),
+        'commentText': convertToJsonLd(commentText),
+        'commentTime': convertToJsonLd(commentTime),
+        'creator': convertToJsonLd(
+            creator, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'discusses': convertToJsonLd(discusses),
+        'replyToUrl': convertToJsonLd(replyToUrl),
       });
 }

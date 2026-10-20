@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// Food event.
+/// Event type: Food event.
 /// See https://schema.org/FoodEvent
 class SchemaFoodEvent extends SchemaEvent {
   /// Create a new instance of [SchemaFoodEvent]

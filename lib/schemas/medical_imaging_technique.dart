@@ -14,24 +14,24 @@ import 'package:schema_org/schemas/medical_enumeration.dart';
 /// See https://schema.org/MedicalImagingTechnique
 enum SchemaMedicalImagingTechnique implements SchemaMedicalEnumeration {
   /// X-ray computed tomography imaging.
-  cT('https://schema.org/MedicalImagingTechnique'),
+  cT('https://schema.org/CT'),
 
   /// Magnetic resonance imaging.
-  mRI('https://schema.org/MedicalImagingTechnique'),
+  mRI('https://schema.org/MRI'),
 
   /// Positron emission tomography imaging.
-  pET('https://schema.org/MedicalImagingTechnique'),
+  pET('https://schema.org/PET'),
 
   /// Ultrasound imaging.
-  ultrasound('https://schema.org/MedicalImagingTechnique'),
+  ultrasound('https://schema.org/Ultrasound'),
 
   /// X-ray imaging.
-  xRay('https://schema.org/MedicalImagingTechnique');
+  xRay('https://schema.org/XRay');
 
   /// Constructor for [SchemaMedicalImagingTechnique]
   const SchemaMedicalImagingTechnique(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaMedicalImagingTechnique] to JSON-LD

@@ -162,7 +162,7 @@ class SchemaMenu extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Menu',
-        'hasMenuItem': convertToJsonLd(hasMenuItem, [SchemaMenuItem]),
-        'hasMenuSection': convertToJsonLd(hasMenuSection, [SchemaMenuSection]),
+        'hasMenuItem': convertToJsonLd(hasMenuItem),
+        'hasMenuSection': convertToJsonLd(hasMenuSection),
       });
 }

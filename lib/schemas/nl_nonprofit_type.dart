@@ -9,20 +9,22 @@
 
 import 'package:schema_org/schemas/nonprofit_type.dart';
 
-/// Non-profit organization type originating from the Netherlands.
+/// NLNonprofitType: Non-profit organization type originating from the
+/// Netherlands.
 /// See https://schema.org/NLNonprofitType
 enum SchemaNLNonprofitType implements SchemaNonprofitType {
-  /// Non-profit type referring to a Public Benefit Organization (NL).
-  nonprofitANBI('https://schema.org/NLNonprofitType'),
+  /// NonprofitANBI: Non-profit type referring to a Public Benefit
+  /// Organization (NL).
+  nonprofitANBI('https://schema.org/NonprofitANBI'),
 
-  /// Non-profit type referring to a Social Interest Promoting Institution
-  /// (NL).
-  nonprofitSBBI('https://schema.org/NLNonprofitType');
+  /// NonprofitSBBI: Non-profit type referring to a Social Interest
+  /// Promoting Institution (NL).
+  nonprofitSBBI('https://schema.org/NonprofitSBBI');
 
   /// Constructor for [SchemaNLNonprofitType]
   const SchemaNLNonprofitType(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaNLNonprofitType] to JSON-LD

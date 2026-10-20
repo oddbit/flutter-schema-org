@@ -18,7 +18,13 @@ import 'package:schema_org/schemas/postal_address.dart';
 import 'package:schema_org/schemas/virtual_location.dart';
 import 'package:schema_org/schemas/entry_point.dart';
 
-/// //schema.org/docs/actions.html).
+/// An action performed by a direct agent and indirect participants upon a
+/// direct object. Optionally happens at a location with the help of an
+/// inanimate instrument. The execution of the action may produce a result.
+/// Specific action sub-type documentation specifies the exact expectation of
+/// each argument/role.\n\nSee also [blog
+/// post](https://blog.schema.org/2014/04/16/announcing-schema-org-actions/)
+/// and [Actions overview document](https://schema.org/docs/actions.html).
 /// See https://schema.org/Action
 class SchemaAction extends SchemaThing {
   /// Description of the process by which the action was performed.
@@ -130,21 +136,28 @@ class SchemaAction extends SchemaThing {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Action',
-        'actionProcess': convertToJsonLd(actionProcess, [SchemaHowTo]),
-        'actionStatus': convertToJsonLd(actionStatus, [SchemaActionStatusType]),
-        'agent': convertToJsonLd(agent, [SchemaOrganization, SchemaPerson]),
-        'endTime': convertToJsonLd(endTime, [String]),
-        'error': convertToJsonLd(error, [SchemaThing]),
-        'instrument': convertToJsonLd(instrument, [SchemaThing]),
-        'location': convertToJsonLd(location,
-            [SchemaPlace, SchemaPostalAddress, String, SchemaVirtualLocation]),
-        'object': convertToJsonLd(object, [SchemaThing]),
-        'participant':
-            convertToJsonLd(participant, [SchemaOrganization, SchemaPerson]),
-        'provider':
-            convertToJsonLd(provider, [SchemaOrganization, SchemaPerson]),
-        'result': convertToJsonLd(result, [SchemaThing]),
-        'startTime': convertToJsonLd(startTime, [String]),
-        'target': convertToJsonLd(target, [SchemaEntryPoint, String]),
+        'actionProcess': convertToJsonLd(actionProcess),
+        'actionStatus': convertToJsonLd(actionStatus),
+        'agent': convertToJsonLd(
+            agent, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'endTime': convertToJsonLd(endTime),
+        'error': convertToJsonLd(error),
+        'instrument': convertToJsonLd(instrument),
+        'location': convertToJsonLd(
+            location,
+            (v) =>
+                v is SchemaPlace ||
+                v is SchemaPostalAddress ||
+                v is String ||
+                v is SchemaVirtualLocation),
+        'object': convertToJsonLd(object),
+        'participant': convertToJsonLd(
+            participant, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'provider': convertToJsonLd(
+            provider, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'result': convertToJsonLd(result),
+        'startTime': convertToJsonLd(startTime),
+        'target': convertToJsonLd(
+            target, (v) => v is SchemaEntryPoint || v is String),
       });
 }

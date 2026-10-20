@@ -54,8 +54,8 @@ class SchemaAggregateRating extends SchemaRating {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'AggregateRating',
-        'itemReviewed': convertToJsonLd(itemReviewed, [SchemaThing]),
-        'ratingCount': convertToJsonLd(ratingCount, [int]),
-        'reviewCount': convertToJsonLd(reviewCount, [int]),
+        'itemReviewed': convertToJsonLd(itemReviewed),
+        'ratingCount': convertToJsonLd(ratingCount),
+        'reviewCount': convertToJsonLd(reviewCount),
       });
 }

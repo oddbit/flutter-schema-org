@@ -8,8 +8,8 @@
 // ignore_for_file: deprecated_member_use_from_same_package
 
 import 'package:schema_org/src/utils.dart';
-import 'package:schema_org/schemas/medical_procedure.dart';
 import 'package:schema_org/schemas/medical_enumeration.dart';
+import 'package:schema_org/schemas/medical_procedure.dart';
 
 /// A type of physical examination of a patient performed by a physician.
 /// See https://schema.org/PhysicalExam

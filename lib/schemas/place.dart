@@ -28,9 +28,14 @@ import 'package:schema_org/schemas/review.dart';
 /// Entities that have a somewhat fixed, physical extension.
 /// See https://schema.org/Place
 class SchemaPlace extends SchemaThing {
-  /// //schema.org/gtin13, ...) will typically expect such data to be provided
-  /// using those properties, rather than using the generic property/value
-  /// mechanism.
+  /// A property-value pair representing an additional characteristic of the
+  /// entity, e.g. a product feature or another characteristic for which there
+  /// is no matching property in schema.org.\n\nNote: Publishers should be
+  /// aware that applications designed to use specific schema.org properties
+  /// (e.g. https://schema.org/width, https://schema.org/color,
+  /// https://schema.org/gtin13, ...) will typically expect such data to be
+  /// provided using those properties, rather than using the generic
+  /// property/value mechanism.
   SchemaPropertyValue? additionalProperty;
 
   /// Physical address of the item.
@@ -48,8 +53,11 @@ class SchemaPlace extends SchemaThing {
   /// available at extra costs.
   SchemaLocationFeatureSpecification? amenityFeature;
 
-  /// //www.starbucks.co.uk/store-locator/etc/detail/3047 the code "3047" is a
-  /// branchCode for a particular branch.
+  /// A short textual code (also called "store code") that uniquely identifies
+  /// a place of business. The code is typically assigned by the
+  /// parentOrganization and used in structured URLs.\n\nFor example, in the
+  /// URL http://www.starbucks.co.uk/store-locator/etc/detail/3047 the code
+  /// "3047" is a branchCode for a particular branch.
   String? branchCode;
 
   /// The basic containment relation between a place and one that contains it.
@@ -79,63 +87,92 @@ class SchemaPlace extends SchemaThing {
   /// Supported types: [SchemaGeoCoordinates], [SchemaGeoShape]
   dynamic geo;
 
-  /// //en.wikipedia.org/wiki/DE-9IM).
+  /// Represents a relationship between two geometries (or the places they
+  /// represent), relating a containing geometry to a contained geometry. "a
+  /// contains b iff no points of b lie in the exterior of a, and at least one
+  /// point of the interior of b lies in the interior of a". As defined in
+  /// [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   dynamic geoContains;
 
-  /// //en.wikipedia.org/wiki/DE-9IM).
+  /// Represents a relationship between two geometries (or the places they
+  /// represent), relating a geometry to another that covers it. As defined in
+  /// [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   dynamic geoCoveredBy;
 
-  /// //en.wikipedia.org/wiki/DE-9IM).
+  /// Represents a relationship between two geometries (or the places they
+  /// represent), relating a covering geometry to a covered geometry. "Every
+  /// point of b is a point of (the interior or boundary of) a". As defined in
+  /// [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   dynamic geoCovers;
 
-  /// //en.wikipedia.org/wiki/DE-9IM).
+  /// Represents a relationship between two geometries (or the places they
+  /// represent), relating a geometry to another that crosses it: "a crosses b:
+  /// they have some but not all interior points in common, and the dimension
+  /// of the intersection is less than that of at least one of them". As
+  /// defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   dynamic geoCrosses;
 
-  /// //en.wikipedia.org/wiki/DE-9IM).)
+  /// Represents spatial relations in which two geometries (or the places they
+  /// represent) are topologically disjoint: "they have no point in common.
+  /// They form a set of disconnected geometries." (A symmetric relationship,
+  /// as defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).)
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   dynamic geoDisjoint;
 
-  /// //en.wikipedia.org/wiki/DE-9IM). "Two geometries are topologically equal
-  /// if their interiors intersect and no part of the interior or boundary of
-  /// one geometry intersects the exterior of the other" (a symmetric
-  /// relationship).
+  /// Represents spatial relations in which two geometries (or the places they
+  /// represent) are topologically equal, as defined in
+  /// [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM). "Two geometries are
+  /// topologically equal if their interiors intersect and no part of the
+  /// interior or boundary of one geometry intersects the exterior of the
+  /// other" (a symmetric relationship).
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   dynamic geoEquals;
 
-  /// //en.wikipedia.org/wiki/DE-9IM).
+  /// Represents spatial relations in which two geometries (or the places they
+  /// represent) have at least one point in common. As defined in
+  /// [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   dynamic geoIntersects;
 
-  /// //en.wikipedia.org/wiki/DE-9IM).
+  /// Represents a relationship between two geometries (or the places they
+  /// represent), relating a geometry to another that geospatially overlaps it,
+  /// i.e. they have some but not all points in common. As defined in
+  /// [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   dynamic geoOverlaps;
 
-  /// //en.wikipedia.org/wiki/DE-9IM).)
+  /// Represents spatial relations in which two geometries (or the places they
+  /// represent) touch: "they have at least one boundary point in common, but
+  /// no interior points." (A symmetric relationship, as defined in
+  /// [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).)
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   dynamic geoTouches;
 
-  /// //en.wikipedia.org/wiki/DE-9IM).
+  /// Represents a relationship between two geometries (or the places they
+  /// represent), relating a geometry to one that contains it, i.e. it is
+  /// inside (i.e. within) its interior. As defined in
+  /// [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   dynamic geoWithin;
 
-  /// //www.gs1.org/gln) (GLN, sometimes also referred to as International
-  /// Location Number or ILN) of the respective organization, person, or place.
-  /// The GLN is a 13-digit number used to identify parties and physical
-  /// locations.
+  /// The [Global Location Number](http://www.gs1.org/gln) (GLN, sometimes also
+  /// referred to as International Location Number or ILN) of the respective
+  /// organization, person, or place. The GLN is a 13-digit number used to
+  /// identify parties and physical locations.
   String? globalLocationNumber;
 
   /// Certification information about a product, organization, service, place,
@@ -149,15 +186,21 @@ class SchemaPlace extends SchemaThing {
   /// potentially-infected users.
   bool? hasDriveThroughService;
 
-  /// <ul><li>A Digital Link that contains a serial number (AI <code>21</code>)
-  /// should only be present on instances of
-  /// [SchemaIndividualProduct]</li><li>A Digital Link that contains a lot
-  /// number (AI <code>10</code>) should be annotated as [SchemaSomeProducts]
-  /// if only products from that lot are sold, or [SchemaIndividualProduct] if
-  /// there is only a specific product.</li><li>A Digital Link that contains a
-  /// global model number (AI <code>8013</code>) should be attached to a
-  /// [SchemaProduct] or a [SchemaProductModel].</li></ul> Other item types
-  /// should be adapted similarly.
+  /// The <a href="https://www.gs1.org/standards/gs1-digital-link">GS1 digital
+  /// link</a> associated with the object. This URL should conform to the
+  /// particular requirements of digital links. The link should only contain
+  /// the Application Identifiers (AIs) that are relevant for the entity being
+  /// annotated, for instance a [SchemaProduct] or an [SchemaOrganization], and
+  /// for the correct granularity. In particular, for products:<ul><li>A
+  /// Digital Link that contains a serial number (AI <code>21</code>) should
+  /// only be present on instances of [SchemaIndividualProduct]</li><li>A
+  /// Digital Link that contains a lot number (AI <code>10</code>) should be
+  /// annotated as [SchemaSomeProducts] if only products from that lot are
+  /// sold, or [SchemaIndividualProduct] if there is only a specific
+  /// product.</li><li>A Digital Link that contains a global model number (AI
+  /// <code>8013</code>) should be attached to a [SchemaProduct] or a
+  /// [SchemaProductModel].</li></ul> Other item types should be adapted
+  /// similarly.
   String? hasGS1DigitalLink;
 
   /// A URL to a map of the place.
@@ -180,7 +223,8 @@ class SchemaPlace extends SchemaThing {
   /// Supported types: [SchemaDefinedTerm], [String]
   dynamic keywords;
 
-  /// //en.wikipedia.org/wiki/World_Geodetic_System)).
+  /// The latitude of a location. For example ```37.42242``` ([WGS
+  /// 84](https://en.wikipedia.org/wiki/World_Geodetic_System)).
   ///
   /// Supported types: [String], [num]
   dynamic latitude;
@@ -190,7 +234,8 @@ class SchemaPlace extends SchemaThing {
   /// Supported types: [SchemaImageObject], [String]
   dynamic logo;
 
-  /// //en.wikipedia.org/wiki/World_Geodetic_System)).
+  /// The longitude of a location. For example ```-122.08585``` ([WGS
+  /// 84](https://en.wikipedia.org/wiki/World_Geodetic_System)).
   ///
   /// Supported types: [String], [num]
   dynamic longitude;
@@ -320,72 +365,69 @@ class SchemaPlace extends SchemaThing {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Place',
-        'additionalProperty':
-            convertToJsonLd(additionalProperty, [SchemaPropertyValue]),
-        'address': convertToJsonLd(address, [SchemaPostalAddress, String]),
-        'aggregateRating':
-            convertToJsonLd(aggregateRating, [SchemaAggregateRating]),
-        'amenityFeature': convertToJsonLd(
-            amenityFeature, [SchemaLocationFeatureSpecification]),
-        'branchCode': convertToJsonLd(branchCode, [String]),
-        'containedIn': convertToJsonLd(containedIn, [SchemaPlace]),
-        'containedInPlace': convertToJsonLd(containedInPlace, [SchemaPlace]),
-        'containsPlace': convertToJsonLd(containsPlace, [SchemaPlace]),
-        'event': convertToJsonLd(event, [SchemaEvent]),
-        'events': convertToJsonLd(events, [SchemaEvent]),
-        'faxNumber': convertToJsonLd(faxNumber, [String]),
-        'geo': convertToJsonLd(geo, [SchemaGeoCoordinates, SchemaGeoShape]),
-        'geoContains': convertToJsonLd(
-            geoContains, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoCoveredBy': convertToJsonLd(
-            geoCoveredBy, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoCovers':
-            convertToJsonLd(geoCovers, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoCrosses': convertToJsonLd(
-            geoCrosses, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoDisjoint': convertToJsonLd(
-            geoDisjoint, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoEquals':
-            convertToJsonLd(geoEquals, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoIntersects': convertToJsonLd(
-            geoIntersects, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoOverlaps': convertToJsonLd(
-            geoOverlaps, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoTouches': convertToJsonLd(
-            geoTouches, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoWithin':
-            convertToJsonLd(geoWithin, [SchemaGeospatialGeometry, SchemaPlace]),
-        'globalLocationNumber': convertToJsonLd(globalLocationNumber, [String]),
-        'hasCertification':
-            convertToJsonLd(hasCertification, [SchemaCertification]),
-        'hasDriveThroughService':
-            convertToJsonLd(hasDriveThroughService, [bool]),
-        'hasGS1DigitalLink': convertToJsonLd(hasGS1DigitalLink, [String]),
-        'hasMap': convertToJsonLd(hasMap, [SchemaMap, String]),
-        'isAccessibleForFree': convertToJsonLd(isAccessibleForFree, [bool]),
-        'isicV4': convertToJsonLd(isicV4, [String]),
-        'keywords': convertToJsonLd(keywords, [SchemaDefinedTerm, String]),
-        'latitude': convertToJsonLd(latitude, [String, num]),
-        'logo': convertToJsonLd(logo, [SchemaImageObject, String]),
-        'longitude': convertToJsonLd(longitude, [String, num]),
-        'map': convertToJsonLd(map, [String]),
-        'maps': convertToJsonLd(maps, [String]),
-        'maximumAttendeeCapacity':
-            convertToJsonLd(maximumAttendeeCapacity, [int]),
-        'openingHoursSpecification': convertToJsonLd(
-            openingHoursSpecification, [SchemaOpeningHoursSpecification]),
-        'photo': convertToJsonLd(photo, [SchemaImageObject, SchemaPhotograph]),
-        'photos':
-            convertToJsonLd(photos, [SchemaImageObject, SchemaPhotograph]),
-        'publicAccess': convertToJsonLd(publicAccess, [bool]),
-        'review': convertToJsonLd(review, [SchemaReview]),
-        'reviews': convertToJsonLd(reviews, [SchemaReview]),
-        'slogan': convertToJsonLd(slogan, [String]),
-        'smokingAllowed': convertToJsonLd(smokingAllowed, [bool]),
-        'specialOpeningHoursSpecification': convertToJsonLd(
-            specialOpeningHoursSpecification,
-            [SchemaOpeningHoursSpecification]),
-        'telephone': convertToJsonLd(telephone, [String]),
-        'tourBookingPage': convertToJsonLd(tourBookingPage, [String]),
+        'additionalProperty': convertToJsonLd(additionalProperty),
+        'address': convertToJsonLd(
+            address, (v) => v is SchemaPostalAddress || v is String),
+        'aggregateRating': convertToJsonLd(aggregateRating),
+        'amenityFeature': convertToJsonLd(amenityFeature),
+        'branchCode': convertToJsonLd(branchCode),
+        'containedIn': convertToJsonLd(containedIn),
+        'containedInPlace': convertToJsonLd(containedInPlace),
+        'containsPlace': convertToJsonLd(containsPlace),
+        'event': convertToJsonLd(event),
+        'events': convertToJsonLd(events),
+        'faxNumber': convertToJsonLd(faxNumber),
+        'geo': convertToJsonLd(
+            geo, (v) => v is SchemaGeoCoordinates || v is SchemaGeoShape),
+        'geoContains': convertToJsonLd(geoContains,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'geoCoveredBy': convertToJsonLd(geoCoveredBy,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'geoCovers': convertToJsonLd(geoCovers,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'geoCrosses': convertToJsonLd(geoCrosses,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'geoDisjoint': convertToJsonLd(geoDisjoint,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'geoEquals': convertToJsonLd(geoEquals,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'geoIntersects': convertToJsonLd(geoIntersects,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'geoOverlaps': convertToJsonLd(geoOverlaps,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'geoTouches': convertToJsonLd(geoTouches,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'geoWithin': convertToJsonLd(geoWithin,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'globalLocationNumber': convertToJsonLd(globalLocationNumber),
+        'hasCertification': convertToJsonLd(hasCertification),
+        'hasDriveThroughService': convertToJsonLd(hasDriveThroughService),
+        'hasGS1DigitalLink': convertToJsonLd(hasGS1DigitalLink),
+        'hasMap': convertToJsonLd(hasMap, (v) => v is SchemaMap || v is String),
+        'isAccessibleForFree': convertToJsonLd(isAccessibleForFree),
+        'isicV4': convertToJsonLd(isicV4),
+        'keywords': convertToJsonLd(
+            keywords, (v) => v is SchemaDefinedTerm || v is String),
+        'latitude': convertToJsonLd(latitude, (v) => v is String || v is num),
+        'logo':
+            convertToJsonLd(logo, (v) => v is SchemaImageObject || v is String),
+        'longitude': convertToJsonLd(longitude, (v) => v is String || v is num),
+        'map': convertToJsonLd(map),
+        'maps': convertToJsonLd(maps),
+        'maximumAttendeeCapacity': convertToJsonLd(maximumAttendeeCapacity),
+        'openingHoursSpecification': convertToJsonLd(openingHoursSpecification),
+        'photo': convertToJsonLd(
+            photo, (v) => v is SchemaImageObject || v is SchemaPhotograph),
+        'photos': convertToJsonLd(
+            photos, (v) => v is SchemaImageObject || v is SchemaPhotograph),
+        'publicAccess': convertToJsonLd(publicAccess),
+        'review': convertToJsonLd(review),
+        'reviews': convertToJsonLd(reviews),
+        'slogan': convertToJsonLd(slogan),
+        'smokingAllowed': convertToJsonLd(smokingAllowed),
+        'specialOpeningHoursSpecification':
+            convertToJsonLd(specialOpeningHoursSpecification),
+        'telephone': convertToJsonLd(telephone),
+        'tourBookingPage': convertToJsonLd(tourBookingPage),
       });
 }

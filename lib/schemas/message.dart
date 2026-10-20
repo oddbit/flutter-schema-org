@@ -209,28 +209,41 @@ class SchemaMessage extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Message',
-        'bccRecipient': convertToJsonLd(bccRecipient,
-            [SchemaContactPoint, SchemaOrganization, SchemaPerson]),
-        'ccRecipient': convertToJsonLd(ccRecipient,
-            [SchemaContactPoint, SchemaOrganization, SchemaPerson]),
-        'dateRead': convertToJsonLd(dateRead, [String]),
-        'dateReceived': convertToJsonLd(dateReceived, [String]),
-        'dateSent': convertToJsonLd(dateSent, [String]),
-        'messageAttachment':
-            convertToJsonLd(messageAttachment, [SchemaCreativeWork]),
-        'recipient': convertToJsonLd(recipient, [
-          SchemaAudience,
-          SchemaContactPoint,
-          SchemaOrganization,
-          SchemaPerson
-        ]),
+        'bccRecipient': convertToJsonLd(
+            bccRecipient,
+            (v) =>
+                v is SchemaContactPoint ||
+                v is SchemaOrganization ||
+                v is SchemaPerson),
+        'ccRecipient': convertToJsonLd(
+            ccRecipient,
+            (v) =>
+                v is SchemaContactPoint ||
+                v is SchemaOrganization ||
+                v is SchemaPerson),
+        'dateRead': convertToJsonLd(dateRead),
+        'dateReceived': convertToJsonLd(dateReceived),
+        'dateSent': convertToJsonLd(dateSent),
+        'messageAttachment': convertToJsonLd(messageAttachment),
+        'recipient': convertToJsonLd(
+            recipient,
+            (v) =>
+                v is SchemaAudience ||
+                v is SchemaContactPoint ||
+                v is SchemaOrganization ||
+                v is SchemaPerson),
         'sender': convertToJsonLd(
-            sender, [SchemaAudience, SchemaOrganization, SchemaPerson]),
-        'toRecipient': convertToJsonLd(toRecipient, [
-          SchemaAudience,
-          SchemaContactPoint,
-          SchemaOrganization,
-          SchemaPerson
-        ]),
+            sender,
+            (v) =>
+                v is SchemaAudience ||
+                v is SchemaOrganization ||
+                v is SchemaPerson),
+        'toRecipient': convertToJsonLd(
+            toRecipient,
+            (v) =>
+                v is SchemaAudience ||
+                v is SchemaContactPoint ||
+                v is SchemaOrganization ||
+                v is SchemaPerson),
       });
 }

@@ -98,21 +98,18 @@ class SchemaParcelDelivery extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ParcelDelivery',
-        'carrier': convertToJsonLd(carrier, [SchemaOrganization]),
-        'deliveryAddress':
-            convertToJsonLd(deliveryAddress, [SchemaPostalAddress]),
-        'deliveryStatus':
-            convertToJsonLd(deliveryStatus, [SchemaDeliveryEvent]),
-        'expectedArrivalFrom': convertToJsonLd(expectedArrivalFrom, [String]),
-        'expectedArrivalUntil': convertToJsonLd(expectedArrivalUntil, [String]),
-        'hasDeliveryMethod':
-            convertToJsonLd(hasDeliveryMethod, [SchemaDeliveryMethod]),
-        'itemShipped': convertToJsonLd(itemShipped, [SchemaProduct]),
-        'originAddress': convertToJsonLd(originAddress, [SchemaPostalAddress]),
-        'partOfOrder': convertToJsonLd(partOfOrder, [SchemaOrder]),
-        'provider':
-            convertToJsonLd(provider, [SchemaOrganization, SchemaPerson]),
-        'trackingNumber': convertToJsonLd(trackingNumber, [String]),
-        'trackingUrl': convertToJsonLd(trackingUrl, [String]),
+        'carrier': convertToJsonLd(carrier),
+        'deliveryAddress': convertToJsonLd(deliveryAddress),
+        'deliveryStatus': convertToJsonLd(deliveryStatus),
+        'expectedArrivalFrom': convertToJsonLd(expectedArrivalFrom),
+        'expectedArrivalUntil': convertToJsonLd(expectedArrivalUntil),
+        'hasDeliveryMethod': convertToJsonLd(hasDeliveryMethod),
+        'itemShipped': convertToJsonLd(itemShipped),
+        'originAddress': convertToJsonLd(originAddress),
+        'partOfOrder': convertToJsonLd(partOfOrder),
+        'provider': convertToJsonLd(
+            provider, (v) => v is SchemaOrganization || v is SchemaPerson),
+        'trackingNumber': convertToJsonLd(trackingNumber),
+        'trackingUrl': convertToJsonLd(trackingUrl),
       });
 }

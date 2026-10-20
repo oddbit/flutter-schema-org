@@ -91,14 +91,13 @@ class SchemaSuperficialAnatomy extends SchemaMedicalEntity {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'SuperficialAnatomy',
-        'associatedPathophysiology':
-            convertToJsonLd(associatedPathophysiology, [String]),
-        'relatedAnatomy': convertToJsonLd(relatedAnatomy,
-            [SchemaAnatomicalStructure, SchemaAnatomicalSystem]),
-        'relatedCondition':
-            convertToJsonLd(relatedCondition, [SchemaMedicalCondition]),
-        'relatedTherapy':
-            convertToJsonLd(relatedTherapy, [SchemaMedicalTherapy]),
-        'significance': convertToJsonLd(significance, [String]),
+        'associatedPathophysiology': convertToJsonLd(associatedPathophysiology),
+        'relatedAnatomy': convertToJsonLd(
+            relatedAnatomy,
+            (v) =>
+                v is SchemaAnatomicalStructure || v is SchemaAnatomicalSystem),
+        'relatedCondition': convertToJsonLd(relatedCondition),
+        'relatedTherapy': convertToJsonLd(relatedTherapy),
+        'significance': convertToJsonLd(significance),
       });
 }

@@ -22,6 +22,11 @@ class SchemaShippingService extends SchemaStructuredValue {
   /// Type of fulfillment applicable to the [SchemaShippingService].
   SchemaFulfillmentTypeEnumeration? fulfillmentType;
 
+  /// The typical delay between the receipt of the order and the goods either
+  /// leaving the warehouse or being prepared for pickup, in case the delivery
+  /// method is on site pickup.
+  ///
+  /// In the context of [SchemaShippingDeliveryTime], Typical properties:
   /// minValue, maxValue, unitCode (d for DAY). This is by common convention
   /// assumed to mean business days (if a unitCode is used, coded as "d"), i.e.
   /// only counting days when the business normally operates.
@@ -68,13 +73,10 @@ class SchemaShippingService extends SchemaStructuredValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ShippingService',
-        'fulfillmentType': convertToJsonLd(
-            fulfillmentType, [SchemaFulfillmentTypeEnumeration]),
-        'handlingTime': convertToJsonLd(
-            handlingTime, [SchemaQuantitativeValue, SchemaServicePeriod]),
-        'shippingConditions':
-            convertToJsonLd(shippingConditions, [SchemaShippingConditions]),
-        'validForMemberTier':
-            convertToJsonLd(validForMemberTier, [SchemaMemberProgramTier]),
+        'fulfillmentType': convertToJsonLd(fulfillmentType),
+        'handlingTime': convertToJsonLd(handlingTime,
+            (v) => v is SchemaQuantitativeValue || v is SchemaServicePeriod),
+        'shippingConditions': convertToJsonLd(shippingConditions),
+        'validForMemberTier': convertToJsonLd(validForMemberTier),
       });
 }

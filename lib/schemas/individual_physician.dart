@@ -35,6 +35,7 @@ class SchemaIndividualPhysician extends SchemaPhysician {
     super.alumni,
     super.amenityFeature,
     super.areaServed,
+    super.authorizedRepresentative,
     super.availableService,
     super.award,
     super.awards,
@@ -91,6 +92,7 @@ class SchemaIndividualPhysician extends SchemaPhysician {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.healthPlanNetworkId,
     super.hospitalAffiliation,
@@ -166,7 +168,6 @@ class SchemaIndividualPhysician extends SchemaPhysician {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'IndividualPhysician',
-        'practicesAt':
-            convertToJsonLd(practicesAt, [SchemaMedicalOrganization]),
+        'practicesAt': convertToJsonLd(practicesAt),
       });
 }

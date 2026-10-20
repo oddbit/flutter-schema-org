@@ -66,13 +66,16 @@ class SchemaOrderItem extends SchemaStructuredValue {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'OrderItem',
-        'orderDelivery': convertToJsonLd(orderDelivery, [SchemaParcelDelivery]),
-        'orderItemNumber': convertToJsonLd(orderItemNumber, [String]),
-        'orderItemStatus':
-            convertToJsonLd(orderItemStatus, [SchemaOrderStatus]),
-        'orderQuantity':
-            convertToJsonLd(orderQuantity, [SchemaQuantitativeValue, num]),
+        'orderDelivery': convertToJsonLd(orderDelivery),
+        'orderItemNumber': convertToJsonLd(orderItemNumber),
+        'orderItemStatus': convertToJsonLd(orderItemStatus),
+        'orderQuantity': convertToJsonLd(
+            orderQuantity, (v) => v is SchemaQuantitativeValue || v is num),
         'orderedItem': convertToJsonLd(
-            orderedItem, [SchemaOrderItem, SchemaProduct, SchemaService]),
+            orderedItem,
+            (v) =>
+                v is SchemaOrderItem ||
+                v is SchemaProduct ||
+                v is SchemaService),
       });
 }

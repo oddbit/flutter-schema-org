@@ -10,10 +10,18 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/intangible.dart';
 
-/// //blog.schema.org/2014/06/16/introducing-role/).
+/// Represents additional information about a relationship or property. For
+/// example a Role can be used to say that a 'member' role linking some
+/// SportsTeam to a player occurred during a particular time period. Or that
+/// a Person's 'actor' role in a Movie was for some particular characterName.
+/// Such properties can be attached to a Role entity, which is then
+/// associated with the main entities using ordinary properties like 'member'
+/// or 'actor'.\n\nSee also [blog
+/// post](https://blog.schema.org/2014/06/16/introducing-role/).
 /// See https://schema.org/Role
 class SchemaRole extends SchemaIntangible {
-  /// //en.wikipedia.org/wiki/ISO_8601)).
+  /// The end date and time of the item (in [ISO 8601 date
+  /// format](http://en.wikipedia.org/wiki/ISO_8601)).
   String? endDate;
 
   /// A position played, performed or filled by a person or organization, as
@@ -28,7 +36,8 @@ class SchemaRole extends SchemaIntangible {
   /// play in the position named 'Quarterback'.
   String? roleName;
 
-  /// //en.wikipedia.org/wiki/ISO_8601)).
+  /// The start date and time of the item (in [ISO 8601 date
+  /// format](http://en.wikipedia.org/wiki/ISO_8601)).
   String? startDate;
 
   /// Create a new instance of [SchemaRole]
@@ -57,9 +66,9 @@ class SchemaRole extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Role',
-        'endDate': convertToJsonLd(endDate, [String]),
-        'namedPosition': convertToJsonLd(namedPosition, [String]),
-        'roleName': convertToJsonLd(roleName, [String]),
-        'startDate': convertToJsonLd(startDate, [String]),
+        'endDate': convertToJsonLd(endDate),
+        'namedPosition': convertToJsonLd(namedPosition),
+        'roleName': convertToJsonLd(roleName),
+        'startDate': convertToJsonLd(startDate),
       });
 }

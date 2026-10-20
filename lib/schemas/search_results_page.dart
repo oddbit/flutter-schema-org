@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/web_page.dart';
 
-/// Search results page.
+/// Web page type: Search results page.
 /// See https://schema.org/SearchResultsPage
 class SchemaSearchResultsPage extends SchemaWebPage {
   /// Create a new instance of [SchemaSearchResultsPage]

@@ -74,10 +74,10 @@ class SchemaMuscle extends SchemaAnatomicalStructure {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Muscle',
-        'antagonist': convertToJsonLd(antagonist, [SchemaMuscle]),
-        'bloodSupply': convertToJsonLd(bloodSupply, [SchemaVessel]),
-        'insertion': convertToJsonLd(insertion, [SchemaAnatomicalStructure]),
-        'muscleAction': convertToJsonLd(muscleAction, [String]),
-        'nerve': convertToJsonLd(nerve, [SchemaNerve]),
+        'antagonist': convertToJsonLd(antagonist),
+        'bloodSupply': convertToJsonLd(bloodSupply),
+        'insertion': convertToJsonLd(insertion),
+        'muscleAction': convertToJsonLd(muscleAction),
+        'nerve': convertToJsonLd(nerve),
       });
 }

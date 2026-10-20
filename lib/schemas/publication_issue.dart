@@ -10,8 +10,10 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/creative_work.dart';
 
-///
-/// //blog-schema.org/2014/09/02/schema-org-support-for-bibliographic-relationships-and-periodicals/).
+/// A part of a successively published publication such as a periodical or
+/// publication volume, often numbered, usually containing a grouping of
+/// works such as articles.\n\nSee also [blog
+/// post](https://blog-schema.org/2014/09/02/schema-org-support-for-bibliographic-relationships-and-periodicals/).
 /// See https://schema.org/PublicationIssue
 class SchemaPublicationIssue extends SchemaCreativeWork {
   /// Identifies the issue of publication; for example, "iii" or "2".
@@ -175,9 +177,10 @@ class SchemaPublicationIssue extends SchemaCreativeWork {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'PublicationIssue',
-        'issueNumber': convertToJsonLd(issueNumber, [String, int]),
-        'pageEnd': convertToJsonLd(pageEnd, [String, int]),
-        'pageStart': convertToJsonLd(pageStart, [String, int]),
-        'pagination': convertToJsonLd(pagination, [String]),
+        'issueNumber':
+            convertToJsonLd(issueNumber, (v) => v is String || v is int),
+        'pageEnd': convertToJsonLd(pageEnd, (v) => v is String || v is int),
+        'pageStart': convertToJsonLd(pageStart, (v) => v is String || v is int),
+        'pagination': convertToJsonLd(pagination),
       });
 }

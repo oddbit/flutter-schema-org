@@ -14,16 +14,16 @@ import 'package:schema_org/schemas/qualitative_value.dart';
 enum SchemaSteeringPositionValue implements SchemaQualitativeValue {
   /// The steering position is on the left side of the vehicle (viewed from
   /// the main direction of driving).
-  leftHandDriving('https://schema.org/SteeringPositionValue'),
+  leftHandDriving('https://schema.org/LeftHandDriving'),
 
   /// The steering position is on the right side of the vehicle (viewed
   /// from the main direction of driving).
-  rightHandDriving('https://schema.org/SteeringPositionValue');
+  rightHandDriving('https://schema.org/RightHandDriving');
 
   /// Constructor for [SchemaSteeringPositionValue]
   const SchemaSteeringPositionValue(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaSteeringPositionValue] to JSON-LD

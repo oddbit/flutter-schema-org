@@ -73,11 +73,12 @@ class SchemaMenuItem extends SchemaIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MenuItem',
-        'menuAddOn':
-            convertToJsonLd(menuAddOn, [SchemaMenuItem, SchemaMenuSection]),
-        'nutrition': convertToJsonLd(nutrition, [SchemaNutritionInformation]),
-        'offers': convertToJsonLd(offers, [SchemaDemand, SchemaOffer]),
-        'suitableForDiet': convertToJsonLd(
-            suitableForDiet, [SchemaDiet, SchemaRestrictedDiet]),
+        'menuAddOn': convertToJsonLd(
+            menuAddOn, (v) => v is SchemaMenuItem || v is SchemaMenuSection),
+        'nutrition': convertToJsonLd(nutrition),
+        'offers': convertToJsonLd(
+            offers, (v) => v is SchemaDemand || v is SchemaOffer),
+        'suitableForDiet': convertToJsonLd(suitableForDiet,
+            (v) => v is SchemaDiet || v is SchemaRestrictedDiet),
       });
 }

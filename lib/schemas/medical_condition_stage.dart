@@ -51,7 +51,7 @@ class SchemaMedicalConditionStage extends SchemaMedicalIntangible {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'MedicalConditionStage',
-        'stageAsNumber': convertToJsonLd(stageAsNumber, [num]),
-        'subStageSuffix': convertToJsonLd(subStageSuffix, [String]),
+        'stageAsNumber': convertToJsonLd(stageAsNumber),
+        'subStageSuffix': convertToJsonLd(subStageSuffix),
       });
 }

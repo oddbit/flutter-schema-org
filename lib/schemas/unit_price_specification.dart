@@ -111,16 +111,18 @@ class SchemaUnitPriceSpecification extends SchemaPriceSpecification {
         ...super.toJsonLd(),
         '@type': 'UnitPriceSpecification',
         'billingDuration': convertToJsonLd(
-            billingDuration, [SchemaDuration, SchemaQuantitativeValue, num]),
-        'billingIncrement': convertToJsonLd(billingIncrement, [num]),
-        'billingStart': convertToJsonLd(billingStart, [num]),
-        'priceComponentType': convertToJsonLd(
-            priceComponentType, [SchemaPriceComponentTypeEnumeration]),
-        'priceType':
-            convertToJsonLd(priceType, [SchemaPriceTypeEnumeration, String]),
-        'referenceQuantity':
-            convertToJsonLd(referenceQuantity, [SchemaQuantitativeValue]),
-        'unitCode': convertToJsonLd(unitCode, [String]),
-        'unitText': convertToJsonLd(unitText, [String]),
+            billingDuration,
+            (v) =>
+                v is SchemaDuration ||
+                v is SchemaQuantitativeValue ||
+                v is num),
+        'billingIncrement': convertToJsonLd(billingIncrement),
+        'billingStart': convertToJsonLd(billingStart),
+        'priceComponentType': convertToJsonLd(priceComponentType),
+        'priceType': convertToJsonLd(
+            priceType, (v) => v is SchemaPriceTypeEnumeration || v is String),
+        'referenceQuantity': convertToJsonLd(referenceQuantity),
+        'unitCode': convertToJsonLd(unitCode),
+        'unitText': convertToJsonLd(unitText),
       });
 }

@@ -42,7 +42,9 @@ The parser makes the following trade-offs:
 - **Union types → `dynamic`.** Properties with multiple Dart-compatible
   ranges (e.g. `PostalAddress | String`) are declared as `dynamic`. The
   full set of accepted types is preserved in the property doc comment and
-  passed to `convertToJsonLd` so values are validated at runtime.
+  emitted as an `is` predicate passed to `convertToJsonLd`, so values
+  (including subtypes) are validated at runtime. Single-typed fields rely
+  on the Dart type system and carry no runtime check.
 - **Single-parent `extends`, multi-parent `implements`.** Classes with one
   Schema.org parent use real Dart inheritance (`SchemaPerson extends
   SchemaThing`). Classes with multiple parents extend the first concrete

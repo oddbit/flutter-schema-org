@@ -60,7 +60,7 @@ class SchemaReplaceAction extends SchemaUpdateAction {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ReplaceAction',
-        'replacee': convertToJsonLd(replacee, [SchemaThing]),
-        'replacer': convertToJsonLd(replacer, [SchemaThing]),
+        'replacee': convertToJsonLd(replacee),
+        'replacer': convertToJsonLd(replacer),
       });
 }

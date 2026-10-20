@@ -14,20 +14,20 @@ import 'package:schema_org/src/schema_serializable.dart';
 enum SchemaRefundTypeEnumeration implements SchemaSerializable {
   /// Specifies that a refund can be done as an exchange for the same
   /// product.
-  exchangeRefund('https://schema.org/RefundTypeEnumeration'),
+  exchangeRefund('https://schema.org/ExchangeRefund'),
 
   /// Specifies that a refund can be done in the full amount the customer
   /// paid for the product.
-  fullRefund('https://schema.org/RefundTypeEnumeration'),
+  fullRefund('https://schema.org/FullRefund'),
 
   /// Specifies that the customer receives a store credit as refund when
   /// returning a product.
-  storeCreditRefund('https://schema.org/RefundTypeEnumeration');
+  storeCreditRefund('https://schema.org/StoreCreditRefund');
 
   /// Constructor for [SchemaRefundTypeEnumeration]
   const SchemaRefundTypeEnumeration(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaRefundTypeEnumeration] to JSON-LD

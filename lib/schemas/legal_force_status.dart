@@ -13,19 +13,19 @@ import 'package:schema_org/schemas/status_enumeration.dart';
 /// See https://schema.org/LegalForceStatus
 enum SchemaLegalForceStatus implements SchemaStatusEnumeration {
   /// Indicates that a legislation is in force.
-  inForce('https://schema.org/LegalForceStatus'),
+  inForce('https://schema.org/InForce'),
 
   /// Indicates that a legislation is currently not in force.
-  notInForce('https://schema.org/LegalForceStatus'),
+  notInForce('https://schema.org/NotInForce'),
 
   /// Indicates that parts of the legislation are in force, and parts are
   /// not.
-  partiallyInForce('https://schema.org/LegalForceStatus');
+  partiallyInForce('https://schema.org/PartiallyInForce');
 
   /// Constructor for [SchemaLegalForceStatus]
   const SchemaLegalForceStatus(this.value);
 
-  /// Enum value as a string
+  /// Canonical Schema.org URL of this member
   final String value;
 
   /// Serialize [SchemaLegalForceStatus] to JSON-LD

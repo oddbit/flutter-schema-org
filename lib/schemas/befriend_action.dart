@@ -10,8 +10,10 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/interact_action.dart';
 
-/// Unlike FollowAction, BefriendAction implies that the connection is
-/// reciprocal.
+/// The act of forming a personal connection with someone (object)
+/// mutually/bidirectionally/symmetrically.\n\nRelated actions:\n\n*
+/// [SchemaFollowAction]: Unlike FollowAction, BefriendAction implies that
+/// the connection is reciprocal.
 /// See https://schema.org/BefriendAction
 class SchemaBefriendAction extends SchemaInteractAction {
   /// Create a new instance of [SchemaBefriendAction]

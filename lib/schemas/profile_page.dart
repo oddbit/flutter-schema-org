@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/web_page.dart';
 
-/// Profile page.
+/// Web page type: Profile page.
 /// See https://schema.org/ProfilePage
 class SchemaProfilePage extends SchemaWebPage {
   /// Create a new instance of [SchemaProfilePage]

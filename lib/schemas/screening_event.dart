@@ -15,7 +15,8 @@ import 'package:schema_org/schemas/movie.dart';
 /// A screening of a movie or other video.
 /// See https://schema.org/ScreeningEvent
 class SchemaScreeningEvent extends SchemaEvent {
-  /// //tools.ietf.org/html/bcp47).
+  /// Languages in which subtitles/captions are available, in [IETF BCP 47
+  /// standard format](http://tools.ietf.org/html/bcp47).
   ///
   /// Supported types: [SchemaLanguage], [String]
   dynamic subtitleLanguage;
@@ -95,9 +96,9 @@ class SchemaScreeningEvent extends SchemaEvent {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'ScreeningEvent',
-        'subtitleLanguage':
-            convertToJsonLd(subtitleLanguage, [SchemaLanguage, String]),
-        'videoFormat': convertToJsonLd(videoFormat, [String]),
-        'workPresented': convertToJsonLd(workPresented, [SchemaMovie]),
+        'subtitleLanguage': convertToJsonLd(
+            subtitleLanguage, (v) => v is SchemaLanguage || v is String),
+        'videoFormat': convertToJsonLd(videoFormat),
+        'workPresented': convertToJsonLd(workPresented),
       });
 }

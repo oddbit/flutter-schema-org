@@ -23,7 +23,8 @@ import 'package:schema_org/schemas/restricted_diet.dart';
 /// [Schemakeywords] property can also be used to add more detail.
 /// See https://schema.org/Recipe
 class SchemaRecipe extends SchemaHowTo {
-  /// //en.wikipedia.org/wiki/ISO_8601).
+  /// The time it takes to actually cook the dish, in [ISO 8601 duration
+  /// format](http://en.wikipedia.org/wiki/ISO_8601).
   SchemaDuration? cookTime;
 
   /// The method of cooking, such as Frying, Steaming, ...
@@ -224,19 +225,23 @@ class SchemaRecipe extends SchemaHowTo {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'Recipe',
-        'cookTime': convertToJsonLd(cookTime, [SchemaDuration]),
-        'cookingMethod': convertToJsonLd(cookingMethod, [String]),
-        'ingredients': convertToJsonLd(ingredients, [String]),
-        'nutrition': convertToJsonLd(nutrition, [SchemaNutritionInformation]),
-        'recipeCategory': convertToJsonLd(recipeCategory, [String]),
-        'recipeCuisine': convertToJsonLd(recipeCuisine, [String]),
+        'cookTime': convertToJsonLd(cookTime),
+        'cookingMethod': convertToJsonLd(cookingMethod),
+        'ingredients': convertToJsonLd(ingredients),
+        'nutrition': convertToJsonLd(nutrition),
+        'recipeCategory': convertToJsonLd(recipeCategory),
+        'recipeCuisine': convertToJsonLd(recipeCuisine),
         'recipeIngredient': convertToJsonLd(
-            recipeIngredient, [SchemaItemList, SchemaPropertyValue, String]),
+            recipeIngredient,
+            (v) =>
+                v is SchemaItemList || v is SchemaPropertyValue || v is String),
         'recipeInstructions': convertToJsonLd(
-            recipeInstructions, [SchemaCreativeWork, SchemaItemList, String]),
-        'recipeYield':
-            convertToJsonLd(recipeYield, [SchemaQuantitativeValue, String]),
-        'suitableForDiet': convertToJsonLd(
-            suitableForDiet, [SchemaDiet, SchemaRestrictedDiet]),
+            recipeInstructions,
+            (v) =>
+                v is SchemaCreativeWork || v is SchemaItemList || v is String),
+        'recipeYield': convertToJsonLd(
+            recipeYield, (v) => v is SchemaQuantitativeValue || v is String),
+        'suitableForDiet': convertToJsonLd(suitableForDiet,
+            (v) => v is SchemaDiet || v is SchemaRestrictedDiet),
       });
 }

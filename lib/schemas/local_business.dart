@@ -31,16 +31,32 @@ class SchemaLocalBusiness extends SchemaOrganization implements SchemaPlace {
   @Deprecated('Use [parentOrganization]. See https://schema.org/branchOf')
   SchemaOrganization? branchOf;
 
-  /// //en.wikipedia.org/wiki/Local_exchange_trading_system) (LETS) and other
-  /// currency types, e.g. "Ithaca HOUR".
+  /// The currency accepted.\n\nUse standard formats: [ISO 4217 currency
+  /// format](http://en.wikipedia.org/wiki/ISO_4217), e.g. "USD"; [Ticker
+  /// symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for
+  /// cryptocurrencies, e.g. "BTC"; well known names for [Local Exchange
+  /// Trading
+  /// Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system)
+  /// (LETS) and other currency types, e.g. "Ithaca HOUR".
   String? currenciesAccepted;
 
-  /// //en.wikipedia.org/wiki/Storey#Consecutive_number_floor_designations),
+  /// The floor level for an [SchemaAccommodation] in a multi-storey building.
+  /// Since counting systems [vary
+  /// internationally](https://en.wikipedia.org/wiki/Storey#Consecutive_number_floor_designations),
   /// the local system should be used where possible.
   String? floorLevel;
 
-  /// 00&quot;&gt;Tuesdays and Thursdays 4-8pm&lt;/time&gt;</code>.\n* If a
-  /// business is open 7 days a week, then it can be specified as
+  /// The general opening hours for a business. Opening hours can be specified
+  /// as a weekly time range, starting with days, then times per day. Multiple
+  /// days can be listed with commas ',' separating each day. Day or time
+  /// ranges are specified using a hyphen '-'.\n\n* Days are specified using
+  /// the following two-letter combinations: ```Mo```, ```Tu```, ```We```,
+  /// ```Th```, ```Fr```, ```Sa```, ```Su```.\n* Times are specified using
+  /// 24:00 format. For example, 3pm is specified as ```15:00```, 10am as
+  /// ```10:00```. \n* Here is an example: <code>&lt;time
+  /// itemprop="openingHours" datetime=&quot;Tu,Th
+  /// 16:00-20:00&quot;&gt;Tuesdays and Thursdays 4-8pm&lt;/time&gt;</code>.\n*
+  /// If a business is open 7 days a week, then it can be specified as
   /// <code>&lt;time itemprop=&quot;openingHours&quot;
   /// datetime=&quot;Mo-Su&quot;&gt;Monday through Sunday, all
   /// day&lt;/time&gt;</code>.
@@ -52,9 +68,14 @@ class SchemaLocalBusiness extends SchemaOrganization implements SchemaPlace {
   /// The price range of the business, for example ```$$$```.
   String? priceRange;
 
-  /// //schema.org/gtin13, ...) will typically expect such data to be provided
-  /// using those properties, rather than using the generic property/value
-  /// mechanism.
+  /// A property-value pair representing an additional characteristic of the
+  /// entity, e.g. a product feature or another characteristic for which there
+  /// is no matching property in schema.org.\n\nNote: Publishers should be
+  /// aware that applications designed to use specific schema.org properties
+  /// (e.g. https://schema.org/width, https://schema.org/color,
+  /// https://schema.org/gtin13, ...) will typically expect such data to be
+  /// provided using those properties, rather than using the generic
+  /// property/value mechanism.
   @override
   SchemaPropertyValue? additionalProperty;
 
@@ -65,8 +86,11 @@ class SchemaLocalBusiness extends SchemaOrganization implements SchemaPlace {
   @override
   SchemaLocationFeatureSpecification? amenityFeature;
 
-  /// //www.starbucks.co.uk/store-locator/etc/detail/3047 the code "3047" is a
-  /// branchCode for a particular branch.
+  /// A short textual code (also called "store code") that uniquely identifies
+  /// a place of business. The code is typically assigned by the
+  /// parentOrganization and used in structured URLs.\n\nFor example, in the
+  /// URL http://www.starbucks.co.uk/store-locator/etc/detail/3047 the code
+  /// "3047" is a branchCode for a particular branch.
   @override
   String? branchCode;
 
@@ -90,64 +114,93 @@ class SchemaLocalBusiness extends SchemaOrganization implements SchemaPlace {
   @override
   dynamic geo;
 
-  /// //en.wikipedia.org/wiki/DE-9IM).
+  /// Represents a relationship between two geometries (or the places they
+  /// represent), relating a containing geometry to a contained geometry. "a
+  /// contains b iff no points of b lie in the exterior of a, and at least one
+  /// point of the interior of b lies in the interior of a". As defined in
+  /// [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   @override
   dynamic geoContains;
 
-  /// //en.wikipedia.org/wiki/DE-9IM).
+  /// Represents a relationship between two geometries (or the places they
+  /// represent), relating a geometry to another that covers it. As defined in
+  /// [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   @override
   dynamic geoCoveredBy;
 
-  /// //en.wikipedia.org/wiki/DE-9IM).
+  /// Represents a relationship between two geometries (or the places they
+  /// represent), relating a covering geometry to a covered geometry. "Every
+  /// point of b is a point of (the interior or boundary of) a". As defined in
+  /// [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   @override
   dynamic geoCovers;
 
-  /// //en.wikipedia.org/wiki/DE-9IM).
+  /// Represents a relationship between two geometries (or the places they
+  /// represent), relating a geometry to another that crosses it: "a crosses b:
+  /// they have some but not all interior points in common, and the dimension
+  /// of the intersection is less than that of at least one of them". As
+  /// defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   @override
   dynamic geoCrosses;
 
-  /// //en.wikipedia.org/wiki/DE-9IM).)
+  /// Represents spatial relations in which two geometries (or the places they
+  /// represent) are topologically disjoint: "they have no point in common.
+  /// They form a set of disconnected geometries." (A symmetric relationship,
+  /// as defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).)
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   @override
   dynamic geoDisjoint;
 
-  /// //en.wikipedia.org/wiki/DE-9IM). "Two geometries are topologically equal
-  /// if their interiors intersect and no part of the interior or boundary of
-  /// one geometry intersects the exterior of the other" (a symmetric
-  /// relationship).
+  /// Represents spatial relations in which two geometries (or the places they
+  /// represent) are topologically equal, as defined in
+  /// [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM). "Two geometries are
+  /// topologically equal if their interiors intersect and no part of the
+  /// interior or boundary of one geometry intersects the exterior of the
+  /// other" (a symmetric relationship).
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   @override
   dynamic geoEquals;
 
-  /// //en.wikipedia.org/wiki/DE-9IM).
+  /// Represents spatial relations in which two geometries (or the places they
+  /// represent) have at least one point in common. As defined in
+  /// [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   @override
   dynamic geoIntersects;
 
-  /// //en.wikipedia.org/wiki/DE-9IM).
+  /// Represents a relationship between two geometries (or the places they
+  /// represent), relating a geometry to another that geospatially overlaps it,
+  /// i.e. they have some but not all points in common. As defined in
+  /// [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   @override
   dynamic geoOverlaps;
 
-  /// //en.wikipedia.org/wiki/DE-9IM).)
+  /// Represents spatial relations in which two geometries (or the places they
+  /// represent) touch: "they have at least one boundary point in common, but
+  /// no interior points." (A symmetric relationship, as defined in
+  /// [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).)
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   @override
   dynamic geoTouches;
 
-  /// //en.wikipedia.org/wiki/DE-9IM).
+  /// Represents a relationship between two geometries (or the places they
+  /// represent), relating a geometry to one that contains it, i.e. it is
+  /// inside (i.e. within) its interior. As defined in
+  /// [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
   ///
   /// Supported types: [SchemaGeospatialGeometry], [SchemaPlace]
   @override
@@ -171,13 +224,15 @@ class SchemaLocalBusiness extends SchemaOrganization implements SchemaPlace {
   @override
   bool? isAccessibleForFree;
 
-  /// //en.wikipedia.org/wiki/World_Geodetic_System)).
+  /// The latitude of a location. For example ```37.42242``` ([WGS
+  /// 84](https://en.wikipedia.org/wiki/World_Geodetic_System)).
   ///
   /// Supported types: [String], [num]
   @override
   dynamic latitude;
 
-  /// //en.wikipedia.org/wiki/World_Geodetic_System)).
+  /// The longitude of a location. For example ```-122.08585``` ([WGS
+  /// 84](https://en.wikipedia.org/wiki/World_Geodetic_System)).
   ///
   /// Supported types: [String], [num]
   @override
@@ -247,6 +302,7 @@ class SchemaLocalBusiness extends SchemaOrganization implements SchemaPlace {
     super.alternateName,
     super.alumni,
     super.areaServed,
+    super.authorizedRepresentative,
     super.award,
     super.awards,
     super.brand,
@@ -282,6 +338,7 @@ class SchemaLocalBusiness extends SchemaOrganization implements SchemaPlace {
     super.hasMerchantReturnPolicy,
     super.hasOfferCatalog,
     super.hasPOS,
+    super.hasProductReturnPolicy,
     super.hasShippingService,
     super.identifier,
     super.image,
@@ -372,61 +429,57 @@ class SchemaLocalBusiness extends SchemaOrganization implements SchemaPlace {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'LocalBusiness',
-        'branchOf': convertToJsonLd(branchOf, [SchemaOrganization]),
-        'currenciesAccepted': convertToJsonLd(currenciesAccepted, [String]),
-        'floorLevel': convertToJsonLd(floorLevel, [String]),
-        'openingHours': convertToJsonLd(openingHours, [String]),
-        'paymentAccepted': convertToJsonLd(paymentAccepted, [String]),
-        'priceRange': convertToJsonLd(priceRange, [String]),
-        'additionalProperty':
-            convertToJsonLd(additionalProperty, [SchemaPropertyValue]),
-        'amenityFeature': convertToJsonLd(
-            amenityFeature, [SchemaLocationFeatureSpecification]),
-        'branchCode': convertToJsonLd(branchCode, [String]),
-        'containedIn': convertToJsonLd(containedIn, [SchemaPlace]),
-        'containedInPlace': convertToJsonLd(containedInPlace, [SchemaPlace]),
-        'containsPlace': convertToJsonLd(containsPlace, [SchemaPlace]),
-        'geo': convertToJsonLd(geo, [SchemaGeoCoordinates, SchemaGeoShape]),
-        'geoContains': convertToJsonLd(
-            geoContains, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoCoveredBy': convertToJsonLd(
-            geoCoveredBy, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoCovers':
-            convertToJsonLd(geoCovers, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoCrosses': convertToJsonLd(
-            geoCrosses, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoDisjoint': convertToJsonLd(
-            geoDisjoint, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoEquals':
-            convertToJsonLd(geoEquals, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoIntersects': convertToJsonLd(
-            geoIntersects, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoOverlaps': convertToJsonLd(
-            geoOverlaps, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoTouches': convertToJsonLd(
-            geoTouches, [SchemaGeospatialGeometry, SchemaPlace]),
-        'geoWithin':
-            convertToJsonLd(geoWithin, [SchemaGeospatialGeometry, SchemaPlace]),
-        'hasDriveThroughService':
-            convertToJsonLd(hasDriveThroughService, [bool]),
-        'hasMap': convertToJsonLd(hasMap, [SchemaMap, String]),
-        'isAccessibleForFree': convertToJsonLd(isAccessibleForFree, [bool]),
-        'latitude': convertToJsonLd(latitude, [String, num]),
-        'longitude': convertToJsonLd(longitude, [String, num]),
-        'map': convertToJsonLd(map, [String]),
-        'maps': convertToJsonLd(maps, [String]),
-        'maximumAttendeeCapacity':
-            convertToJsonLd(maximumAttendeeCapacity, [int]),
-        'openingHoursSpecification': convertToJsonLd(
-            openingHoursSpecification, [SchemaOpeningHoursSpecification]),
-        'photo': convertToJsonLd(photo, [SchemaImageObject, SchemaPhotograph]),
-        'photos':
-            convertToJsonLd(photos, [SchemaImageObject, SchemaPhotograph]),
-        'publicAccess': convertToJsonLd(publicAccess, [bool]),
-        'smokingAllowed': convertToJsonLd(smokingAllowed, [bool]),
-        'specialOpeningHoursSpecification': convertToJsonLd(
-            specialOpeningHoursSpecification,
-            [SchemaOpeningHoursSpecification]),
-        'tourBookingPage': convertToJsonLd(tourBookingPage, [String]),
+        'branchOf': convertToJsonLd(branchOf),
+        'currenciesAccepted': convertToJsonLd(currenciesAccepted),
+        'floorLevel': convertToJsonLd(floorLevel),
+        'openingHours': convertToJsonLd(openingHours),
+        'paymentAccepted': convertToJsonLd(paymentAccepted),
+        'priceRange': convertToJsonLd(priceRange),
+        'additionalProperty': convertToJsonLd(additionalProperty),
+        'amenityFeature': convertToJsonLd(amenityFeature),
+        'branchCode': convertToJsonLd(branchCode),
+        'containedIn': convertToJsonLd(containedIn),
+        'containedInPlace': convertToJsonLd(containedInPlace),
+        'containsPlace': convertToJsonLd(containsPlace),
+        'geo': convertToJsonLd(
+            geo, (v) => v is SchemaGeoCoordinates || v is SchemaGeoShape),
+        'geoContains': convertToJsonLd(geoContains,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'geoCoveredBy': convertToJsonLd(geoCoveredBy,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'geoCovers': convertToJsonLd(geoCovers,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'geoCrosses': convertToJsonLd(geoCrosses,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'geoDisjoint': convertToJsonLd(geoDisjoint,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'geoEquals': convertToJsonLd(geoEquals,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'geoIntersects': convertToJsonLd(geoIntersects,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'geoOverlaps': convertToJsonLd(geoOverlaps,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'geoTouches': convertToJsonLd(geoTouches,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'geoWithin': convertToJsonLd(geoWithin,
+            (v) => v is SchemaGeospatialGeometry || v is SchemaPlace),
+        'hasDriveThroughService': convertToJsonLd(hasDriveThroughService),
+        'hasMap': convertToJsonLd(hasMap, (v) => v is SchemaMap || v is String),
+        'isAccessibleForFree': convertToJsonLd(isAccessibleForFree),
+        'latitude': convertToJsonLd(latitude, (v) => v is String || v is num),
+        'longitude': convertToJsonLd(longitude, (v) => v is String || v is num),
+        'map': convertToJsonLd(map),
+        'maps': convertToJsonLd(maps),
+        'maximumAttendeeCapacity': convertToJsonLd(maximumAttendeeCapacity),
+        'openingHoursSpecification': convertToJsonLd(openingHoursSpecification),
+        'photo': convertToJsonLd(
+            photo, (v) => v is SchemaImageObject || v is SchemaPhotograph),
+        'photos': convertToJsonLd(
+            photos, (v) => v is SchemaImageObject || v is SchemaPhotograph),
+        'publicAccess': convertToJsonLd(publicAccess),
+        'smokingAllowed': convertToJsonLd(smokingAllowed),
+        'specialOpeningHoursSpecification':
+            convertToJsonLd(specialOpeningHoursSpecification),
+        'tourBookingPage': convertToJsonLd(tourBookingPage),
       });
 }

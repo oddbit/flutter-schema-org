@@ -65,11 +65,11 @@ class SchemaBusTrip extends SchemaTrip {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'BusTrip',
-        'arrivalBusStop':
-            convertToJsonLd(arrivalBusStop, [SchemaBusStation, SchemaBusStop]),
-        'busName': convertToJsonLd(busName, [String]),
-        'busNumber': convertToJsonLd(busNumber, [String]),
-        'departureBusStop': convertToJsonLd(
-            departureBusStop, [SchemaBusStation, SchemaBusStop]),
+        'arrivalBusStop': convertToJsonLd(
+            arrivalBusStop, (v) => v is SchemaBusStation || v is SchemaBusStop),
+        'busName': convertToJsonLd(busName),
+        'busNumber': convertToJsonLd(busNumber),
+        'departureBusStop': convertToJsonLd(departureBusStop,
+            (v) => v is SchemaBusStation || v is SchemaBusStop),
       });
 }

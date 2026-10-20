@@ -10,7 +10,7 @@
 import 'package:schema_org/src/utils.dart';
 import 'package:schema_org/schemas/event.dart';
 
-/// Business event.
+/// Event type: Business event.
 /// See https://schema.org/BusinessEvent
 class SchemaBusinessEvent extends SchemaEvent {
   /// Create a new instance of [SchemaBusinessEvent]

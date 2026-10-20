@@ -15,20 +15,36 @@ import 'package:schema_org/schemas/measurement_method_enum.dart';
 import 'package:schema_org/schemas/enumeration.dart';
 import 'package:schema_org/schemas/class.dart';
 
-/// the population type is [SchemaPerson]; the measuredProperty
-/// [Schemaheight]; the [SchemastatType] [Schemamedian]; the [Schemagender]
-/// [SchemaFemale]. It is important to note that there are many kinds of
-/// scientific quantitative observation which are not fully, perfectly or
-/// unambiguously described following this pattern, or with solely Schema.org
-/// terminology. The approach taken here is designed to allow partial,
-/// incremental or minimal description of [SchemaStatisticalVariable]s, and
-/// the use of detailed sets of entity and property IDs from external
-/// repositories. The [SchemameasurementMethod], [SchemaunitCode] and
-/// [SchemaunitText] properties can also be used to clarify the specific
-/// nature and notation of an observed measurement.
+/// [SchemaStatisticalVariable] represents any type of statistical metric
+/// that can be measured at a place and time. The usage pattern for
+/// [SchemaStatisticalVariable] is typically expressed using
+/// [SchemaObservation] with an explicit [SchemapopulationType], which is a
+/// type, typically drawn from Schema.org. Each [SchemaStatisticalVariable]
+/// is marked as a [SchemaConstraintNode], meaning that some properties
+/// (those listed using [SchemaconstraintProperty]) serve in this setting
+/// solely to define the statistical variable rather than literally describe
+/// a specific person, place or thing. For example, a
+/// [SchemaStatisticalVariable] Median_Height_Person_Female representing the
+/// median height of women, could be written as follows: the population type
+/// is [SchemaPerson]; the measuredProperty [Schemaheight]; the
+/// [SchemastatType] [Schemamedian]; the [Schemagender] [SchemaFemale]. It is
+/// important to note that there are many kinds of scientific quantitative
+/// observation which are not fully, perfectly or unambiguously described
+/// following this pattern, or with solely Schema.org terminology. The
+/// approach taken here is designed to allow partial, incremental or minimal
+/// description of [SchemaStatisticalVariable]s, and the use of detailed sets
+/// of entity and property IDs from external repositories. The
+/// [SchemameasurementMethod], [SchemaunitCode] and [SchemaunitText]
+/// properties can also be used to clarify the specific nature and notation
+/// of an observed measurement.
 /// See https://schema.org/StatisticalVariable
 class SchemaStatisticalVariable extends SchemaConstraintNode {
-  /// //www.gs1.org/voc/?show=properties).
+  /// The measuredProperty of an [SchemaObservation], typically via its
+  /// [SchemaStatisticalVariable]. There are various kinds of applicable
+  /// [SchemaProperty]: a schema.org property, a property from other
+  /// RDF-compatible systems, e.g. W3C RDF Data Cube, Data Commons, Wikidata,
+  /// or schema.org extensions such as
+  /// [GS1's](https://www.gs1.org/voc/?show=properties).
   SchemaProperty? measuredProperty;
 
   /// Identifies the denominator variable when an observation represents a
@@ -47,10 +63,29 @@ class SchemaStatisticalVariable extends SchemaConstraintNode {
   /// observation measures the Nominal value.
   SchemaEnumeration? measurementQualifier;
 
-  /// "mass spectrometry" or "nmr spectroscopy" or "colorimetry" or
-  /// "immunofluorescence". If the [SchemavariableMeasured] is "depression
-  /// rating", the [SchemameasurementTechnique] could be "Zung Scale" or
-  /// "HAM-D" or "Beck Depression Inventory".
+  /// A technique, method or technology used in an [SchemaObservation],
+  /// [SchemaStatisticalVariable] or [SchemaDataset] (or [SchemaDataDownload],
+  /// [SchemaDataCatalog]), corresponding to the method used for measuring the
+  /// corresponding variable(s) (for datasets, described using
+  /// [SchemavariableMeasured]; for [SchemaObservation], a
+  /// [SchemaStatisticalVariable]). Often but not necessarily each
+  /// [SchemavariableMeasured] will have an explicit representation as (or
+  /// mapping to) an property such as those defined in Schema.org, or other RDF
+  /// vocabularies and "knowledge graphs". In that case the subproperty of
+  /// [SchemavariableMeasured] called [SchemameasuredProperty] is applicable.
+  /// The [SchemameasurementTechnique] property helps when extra clarification
+  /// is needed about how a [SchemameasuredProperty] was measured. This is
+  /// oriented towards scientific and scholarly dataset publication but may
+  /// have broader applicability; it is not intended as a full representation
+  /// of measurement, but can often serve as a high level summary for dataset
+  /// discovery.
+  ///
+  /// For example, if [SchemavariableMeasured] is: molecule concentration,
+  /// [SchemameasurementTechnique] could be: "mass spectrometry" or "nmr
+  /// spectroscopy" or "colorimetry" or "immunofluorescence". If the
+  /// [SchemavariableMeasured] is "depression rating", the
+  /// [SchemameasurementTechnique] could be "Zung Scale" or "HAM-D" or "Beck
+  /// Depression Inventory".
   ///
   /// If there are several [SchemavariableMeasured] properties recorded for
   /// some given data object, use a [SchemaPropertyValue] for each
@@ -107,16 +142,23 @@ class SchemaStatisticalVariable extends SchemaConstraintNode {
   Map<String, dynamic> toJsonLd() => removeEmpty({
         ...super.toJsonLd(),
         '@type': 'StatisticalVariable',
-        'measuredProperty': convertToJsonLd(measuredProperty, [SchemaProperty]),
-        'measurementDenominator': convertToJsonLd(
-            measurementDenominator, [SchemaStatisticalVariable]),
-        'measurementMethod': convertToJsonLd(measurementMethod,
-            [SchemaDefinedTerm, SchemaMeasurementMethodEnum, String]),
-        'measurementQualifier':
-            convertToJsonLd(measurementQualifier, [SchemaEnumeration]),
-        'measurementTechnique': convertToJsonLd(measurementTechnique,
-            [SchemaDefinedTerm, SchemaMeasurementMethodEnum, String]),
-        'populationType': convertToJsonLd(populationType, [SchemaClass]),
-        'statType': convertToJsonLd(statType, [SchemaProperty, String]),
+        'measuredProperty': convertToJsonLd(measuredProperty),
+        'measurementDenominator': convertToJsonLd(measurementDenominator),
+        'measurementMethod': convertToJsonLd(
+            measurementMethod,
+            (v) =>
+                v is SchemaDefinedTerm ||
+                v is SchemaMeasurementMethodEnum ||
+                v is String),
+        'measurementQualifier': convertToJsonLd(measurementQualifier),
+        'measurementTechnique': convertToJsonLd(
+            measurementTechnique,
+            (v) =>
+                v is SchemaDefinedTerm ||
+                v is SchemaMeasurementMethodEnum ||
+                v is String),
+        'populationType': convertToJsonLd(populationType),
+        'statType': convertToJsonLd(
+            statType, (v) => v is SchemaProperty || v is String),
       });
 }
